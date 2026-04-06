@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lexia — Firma Jurídica Virtual</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#0D2545; --navy-mid:#163560; --navy-soft:#1E4380;
+    --blue:#2563A8; --blue-mid:#3B7DC4; --blue-light:#5B9BD5;
+    --sky:#D6E8F7; --sky-pale:#EBF4FB;
+    --white:#FFFFFF; --off-white:#F4F8FC; --silver:#B8CBE0; --mist:#E2EDF6;
+    --ink:#0D2545; --ink-mid:#2C4A6E; --ink-light:#5C7FA0;
+    --border:rgba(37,99,168,0.18);
+    --green:#4DC4A0; --green-bg:rgba(77,196,160,0.12); --green-text:#2A8A70;
+    --rose:#C45B7A; --rose-soft:rgba(196,91,122,0.15);
+    --amber:#D4A017; --amber-soft:rgba(212,160,23,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Outfit',sans-serif;background:var(--off-white);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+  .bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at 0% 0%,rgba(37,99,168,.08) 0%,transparent 55%),
+    radial-gradient(ellipse at 100% 100%,rgba(13,37,69,.06) 0%,transparent 55%),
+    linear-gradient(180deg,#EBF4FB 0%,#F4F8FC 100%);}
+  .bg::after{content:'';position:absolute;inset:0;
+    background-image:linear-gradient(rgba(37,99,168,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,168,.04) 1px,transparent 1px);
+    background-size:48px 48px;}
+  .app{position:relative;z-index:1;display:flex;flex-direction:column;min-height:100vh;}
+
+  /* HEADER */
+  header{background:var(--navy);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:62px;border-bottom:3px solid var(--blue-mid);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(13,37,69,.3);}
+  .firm-logo{display:flex;align-items:center;gap:12px;}
+  .logo-mark{width:34px;height:34px;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:17px;}
+  .firm-name{font-family:'Fraunces',serif;font-size:21px;font-weight:700;color:var(--white);}
+  .firm-name span{color:var(--blue-light);font-weight:400;font-size:19px;}
+  .header-right{display:flex;align-items:center;gap:12px;}
+  .hbadge{font-size:9.5px;color:var(--blue-light);letter-spacing:.13em;text-transform:uppercase;border:1px solid rgba(91,155,213,.35);padding:4px 10px;border-radius:3px;background:rgba(37,99,168,.2);}
+  .hint{font-size:10px;color:var(--silver);display:flex;align-items:center;gap:5px;}
+  .hdot{width:6px;height:6px;border-radius:50%;background:var(--green);}
+
+  /* MAIN */
+  .main{display:flex;flex:1;height:calc(100vh - 62px);}
+
+  /* SIDEBAR */
+  .sidebar{width:265px;min-width:265px;background:var(--navy-mid);display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,.08);overflow:hidden;}
+  .sidebar-title{padding:18px 16px 12px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-light);border-bottom:1px solid rgba(255,255,255,.08);}
+  .agents-list{padding:9px 8px;flex:1;overflow-y:auto;}
+  .agents-list::-webkit-scrollbar{width:3px;}
+  .agents-list::-webkit-scrollbar-thumb{background:rgba(91,155,213,.2);border-radius:2px;}
+  .slabel{padding:9px 8px 3px;font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.2);}
+
+  /* RECEPTIONIST */
+  .rec-card{border-radius:8px;margin-bottom:10px;cursor:pointer;border:1px solid rgba(196,91,122,.4);overflow:hidden;background:linear-gradient(135deg,rgba(100,30,60,.85),rgba(140,50,90,.6));transition:all .2s;}
+  .rec-card:hover{transform:translateX(3px);border-color:rgba(196,91,122,.8)!important;}
+  .rec-card.active{border-color:#C45B7A!important;box-shadow:0 0 0 1px rgba(196,91,122,.4);}
+  .rbadge{font-size:8px;background:#C45B7A;color:#fff;border-radius:3px;padding:1px 6px;margin-left:6px;font-weight:600;letter-spacing:.05em;}
+
+  /* AGENT CARDS */
+  .agent-card{border-radius:7px;margin-bottom:6px;cursor:pointer;transition:all .2s;border:1px solid transparent;overflow:hidden;}
+  .agent-card:hover{transform:translateX(3px);border-color:rgba(91,155,213,.3)!important;}
+  .agent-card.active{border-color:var(--blue-mid)!important;box-shadow:0 0 0 1px rgba(59,125,196,.4);}
+  .card-inner{padding:10px 12px;display:flex;align-items:center;gap:10px;}
+  .aicon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+  .ainfo{flex:1;min-width:0;}
+  .aname{font-family:'Fraunces',serif;font-size:13.5px;font-weight:600;color:#fff;line-height:1.2;}
+  .asub{font-size:9.5px;color:rgba(255,255,255,.5);margin-top:1px;}
+  .aareas{font-size:8.5px;color:rgba(255,255,255,.3);margin-top:1px;}
+  .astatus{display:flex;align-items:center;gap:4px;font-size:8.5px;color:rgba(255,255,255,.3);margin-top:4px;}
+  .sdot{width:5px;height:5px;border-radius:50%;background:var(--green);}
+  .nbadge{font-size:7.5px;background:var(--blue-mid);color:#fff;border-radius:3px;padding:1px 5px;margin-left:4px;font-weight:600;}
+
+  .c-comercial{background:linear-gradient(135deg,rgba(13,37,69,.9),rgba(22,53,96,.7));}      .c-comercial .aicon{background:rgba(37,99,168,.5);}
+  .c-tributario{background:linear-gradient(135deg,rgba(22,53,96,.9),rgba(30,67,128,.7));}    .c-tributario .aicon{background:rgba(59,125,196,.4);}
+  .c-inmobiliario{background:linear-gradient(135deg,rgba(30,67,128,.9),rgba(37,99,168,.7));} .c-inmobiliario .aicon{background:rgba(91,155,213,.35);}
+  .c-societario{background:linear-gradient(135deg,rgba(13,47,85,.9),rgba(22,65,110,.7));}    .c-societario .aicon{background:rgba(37,99,168,.45);}
+  .c-administrativo{background:linear-gradient(135deg,rgba(10,30,60,.9),rgba(20,50,90,.7));} .c-administrativo .aicon{background:rgba(59,125,196,.45);}
+  .c-laboral{background:linear-gradient(135deg,rgba(18,55,100,.9),rgba(28,75,130,.7));}      .c-laboral .aicon{background:rgba(91,155,213,.4);}
+
+  /* SOFÍA CAPABILITIES */
+  .sofia-caps{margin:0 8px 10px;padding:10px 12px;background:rgba(196,91,122,.1);border:1px solid rgba(196,91,122,.25);border-radius:6px;}
+  .sofia-caps-title{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(196,91,122,.8);margin-bottom:7px;font-weight:500;}
+  .cap-item{display:flex;align-items:center;gap:6px;font-size:9.5px;color:rgba(255,255,255,.5);margin-bottom:4px;}
+  .cap-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+  .cap-on{background:var(--green);}
+  .cap-off{background:rgba(255,255,255,.2);}
+
+  /* CHAT */
+  .chat-area{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+  .agent-header{padding:14px 26px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:13px;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);box-shadow:0 1px 12px rgba(13,37,69,.06);}
+  .ahicon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;}
+  .ahname{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--navy);}
+  .ahdesc{font-size:10.5px;color:var(--ink-light);margin-top:2px;}
+  .hactions{margin-left:auto;display:flex;align-items:center;gap:8px;}
+  .save-ind{font-size:10px;color:var(--ink-light);display:flex;align-items:center;gap:4px;}
+  .sdot-ui{width:6px;height:6px;border-radius:50%;background:var(--green);}
+  .abtn{display:flex;align-items:center;gap:5px;padding:6px 13px;background:var(--navy);color:var(--sky);border:none;border-radius:6px;font-size:11px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;}
+  .abtn:hover{background:var(--blue);}
+  .abtn:disabled{opacity:.4;cursor:not-allowed;}
+
+  /* MESSAGES */
+  .messages{flex:1;overflow-y:auto;padding:24px 28px;display:flex;flex-direction:column;gap:16px;}
+  .messages::-webkit-scrollbar{width:5px;}
+  .messages::-webkit-scrollbar-thumb{background:var(--mist);border-radius:3px;}
+
+  .msg{display:flex;flex-direction:column;}
+  .msg.user{align-items:flex-end;}
+  .msg.assistant{align-items:flex-start;}
+  .mbubble{max-width:76%;padding:12px 16px;border-radius:10px;font-size:13.5px;line-height:1.8;}
+  .msg.user .mbubble{background:var(--navy);color:var(--white);border-radius:10px 10px 2px 10px;box-shadow:0 2px 12px rgba(13,37,69,.2);}
+  .msg.assistant .mbubble{background:var(--white);color:var(--ink);border:1px solid var(--border);border-radius:10px 10px 10px 2px;box-shadow:0 2px 12px rgba(13,37,69,.06);}
+  .mmeta{font-size:9.5px;color:var(--ink-light);margin-top:4px;padding:0 3px;display:flex;align-items:center;gap:5px;}
+  .stag{background:var(--green-bg);color:var(--green-text);border-radius:3px;padding:2px 6px;font-size:8.5px;font-weight:500;}
+  .ctag{background:var(--amber-soft);color:#8a6010;border-radius:3px;padding:2px 6px;font-size:8.5px;font-weight:500;}
+  .dtag{background:var(--sky-pale);color:var(--blue);border-radius:3px;padding:2px 6px;font-size:8.5px;font-weight:500;}
+
+  /* ACTION CARDS — calendar, drive confirmations */
+  .action-card{max-width:76%;padding:14px 18px;background:var(--white);border:1.5px solid var(--border);border-radius:10px 10px 10px 2px;box-shadow:0 3px 16px rgba(13,37,69,.08);}
+  .action-card.calendar{border-color:rgba(59,125,196,.4);background:linear-gradient(135deg,var(--white),var(--sky-pale));}
+  .action-card.drive{border-color:rgba(77,196,160,.4);background:linear-gradient(135deg,var(--white),rgba(77,196,160,.05));}
+  .action-card.summary{border-color:rgba(212,160,23,.3);background:linear-gradient(135deg,var(--white),rgba(212,160,23,.05));}
+  .ac-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:8px;}
+  .ac-label.calendar{color:var(--blue-mid);}
+  .ac-label.drive{color:var(--green-text);}
+  .ac-label.summary{color:#8a6010;}
+  .ac-body{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .ac-detail{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-light);margin-top:6px;padding-top:6px;border-top:1px solid var(--border);}
+
+  /* REFERRAL CARD */
+  .ref-card{max-width:76%;padding:15px 18px;background:var(--white);border:1.5px solid var(--blue-mid);border-radius:10px 10px 10px 2px;box-shadow:0 4px 20px rgba(37,99,168,.12);}
+  .ref-title{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:9px;font-weight:600;}
+  .ref-agent{display:flex;align-items:center;gap:11px;margin-bottom:10px;}
+  .ref-icon{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--sky-pale);border:1px solid var(--border);}
+  .ref-name{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:var(--navy);}
+  .ref-spec{font-size:10.5px;color:var(--ink-light);}
+  .ref-reason{font-size:12.5px;color:var(--ink-mid);line-height:1.6;margin-bottom:12px;}
+  .ref-btn{width:100%;padding:9px;background:var(--navy);color:var(--white);border:none;border-radius:7px;font-size:12.5px;font-family:'Outfit',sans-serif;cursor:pointer;transition:background .2s;}
+  .ref-btn:hover{background:var(--blue);}
+
+  /* TRANSITION BANNER */
+  .tbanner{padding:10px 18px;background:linear-gradient(135deg,var(--sky-pale),var(--white));border-bottom:1px solid var(--border);font-size:11.5px;color:var(--ink-mid);display:flex;align-items:center;gap:7px;}
+  .tbanner strong{color:var(--navy);}
+
+  /* THINKING */
+  .think-bubble{background:var(--white);border:1px solid var(--border);border-radius:10px 10px 10px 2px;padding:12px 16px;max-width:76%;box-shadow:0 2px 12px rgba(13,37,69,.06);}
+  .think-dots{display:flex;gap:5px;align-items:center;}
+  .think-dots span{width:6px;height:6px;border-radius:50%;background:var(--blue-mid);opacity:.6;animation:bounce 1.2s ease-in-out infinite;}
+  .think-dots span:nth-child(2){animation-delay:.2s;} .think-dots span:nth-child(3){animation-delay:.4s;}
+  @keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-6px);opacity:1}}
+
+  /* SUGGESTIONS */
+  .suggs{display:flex;flex-direction:column;gap:6px;margin-top:5px;}
+  .sluglabel{font-size:9.5px;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;margin-bottom:1px;}
+  .sugbtn{padding:8px 13px;background:var(--white);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--ink-mid);cursor:pointer;text-align:left;transition:all .2s;font-family:'Outfit',sans-serif;}
+  .sugbtn:hover{border-color:var(--blue);background:var(--sky-pale);color:var(--blue);}
+
+  /* INPUT */
+  .input-area{padding:14px 26px;border-top:1px solid var(--border);background:rgba(255,255,255,.88);backdrop-filter:blur(12px);}
+  .input-row{display:flex;gap:8px;align-items:flex-end;}
+  .input-wrap{flex:1;display:flex;gap:9px;align-items:flex-end;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:9px 13px;transition:all .2s;box-shadow:0 1px 6px rgba(13,37,69,.06);}
+  .input-wrap:focus-within{border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(37,99,168,.1);}
+  .input-wrap textarea{flex:1;border:none;outline:none;resize:none;font-family:'Outfit',sans-serif;font-size:13.5px;color:var(--ink);background:transparent;line-height:1.6;max-height:120px;min-height:34px;}
+  .input-wrap textarea::placeholder{color:var(--ink-light);}
+  .upload-btn{width:34px;height:34px;border-radius:7px;background:var(--sky-pale);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;font-size:14px;}
+  .upload-btn:hover{background:var(--sky);border-color:var(--blue-light);}
+  .send-btn{width:34px;height:34px;border-radius:7px;background:var(--navy);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;color:var(--sky);font-size:13px;}
+  .send-btn:hover{background:var(--blue);color:var(--white);}
+  .send-btn:disabled{opacity:.4;cursor:not-allowed;}
+  #fileInput{display:none;}
+  .input-hint{margin-top:6px;font-size:9.5px;color:var(--ink-light);display:flex;justify-content:space-between;}
+
+  /* QUICK ACTIONS — Isabel */
+  .quick-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;}
+  .qbtn{padding:6px 12px;background:var(--white);border:1px solid var(--border);border-radius:20px;font-size:11px;color:var(--ink-mid);cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;white-space:nowrap;}
+  .qbtn:hover{border-color:var(--rose);background:var(--rose-soft);color:var(--rose);}
+
+  /* MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(13,37,69,.5);backdrop-filter:blur(4px);z-index:200;display:flex;align-items:center;justify-content:center;}
+  .modal{background:var(--white);border-radius:14px;padding:30px;width:460px;max-width:90vw;box-shadow:0 20px 60px rgba(13,37,69,.3);}
+  .modal h3{font-family:'Fraunces',serif;font-size:21px;color:var(--navy);margin-bottom:7px;}
+  .modal p{font-size:12.5px;color:var(--ink-light);margin-bottom:18px;line-height:1.6;}
+  .mfield{margin-bottom:12px;}
+  .mfield label{display:block;font-size:10px;font-weight:500;color:var(--ink-mid);margin-bottom:4px;letter-spacing:.05em;text-transform:uppercase;}
+  .mfield input,.mfield textarea,.mfield select{width:100%;padding:8px 12px;border:1.5px solid var(--border);border-radius:7px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--ink);background:var(--white);outline:none;transition:border-color .2s;}
+  .mfield input:focus,.mfield textarea:focus,.mfield select:focus{border-color:var(--blue-mid);}
+  .mfield textarea{resize:vertical;min-height:65px;}
+  .mactions{display:flex;gap:9px;margin-top:18px;justify-content:flex-end;}
+  .mbtn-cancel{padding:8px 18px;background:var(--mist);border:none;border-radius:7px;font-size:13px;cursor:pointer;color:var(--ink-mid);font-family:'Outfit',sans-serif;}
+  .mbtn-save{padding:8px 20px;background:var(--navy);border:none;border-radius:7px;font-size:13px;cursor:pointer;color:var(--white);font-family:'Outfit',sans-serif;display:flex;align-items:center;gap:6px;transition:background .2s;}
+  .mbtn-save:hover{background:var(--blue);}
+  .mbtn-save:disabled{opacity:.5;cursor:not-allowed;}
+  .spin{animation:spin .8s linear infinite;display:inline-block;}
+  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:20px;right:20px;background:var(--navy);color:var(--white);padding:11px 18px;border-radius:8px;border-left:3px solid var(--green);font-size:12px;z-index:1000;animation:sIn .3s ease,fOut .3s ease 3.7s forwards;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(13,37,69,.3);max-width:340px;}
+  .toast.error{border-left-color:#e05555;}
+  .toast.calendar{border-left-color:var(--blue-mid);}
+  .toast.drive{border-left-color:var(--green);}
+  @keyframes sIn{from{transform:translateX(80px);opacity:0}to{transform:translateX(0);opacity:1}}
+  @keyframes fOut{from{opacity:1}to{opacity:0}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="app">
+  <header>
+    <div class="firm-logo">
+      <div class="logo-mark">⚖</div>
+      <div class="firm-name">Lexia <span>/ Firma Jurídica Virtual</span></div>
+    </div>
+    <div class="header-right">
+      <div class="hint"><div class="hdot"></div>7 personas activas</div>
+      <div class="hbadge">⚖ Colombia · Derecho Especializado</div>
+    </div>
+  </header>
+  <div class="main">
+    <aside class="sidebar">
+      <div class="sidebar-title">⚖ &nbsp;Personal de la Firma</div>
+      <div class="agents-list" id="agentsList"></div>
+      <div class="sofia-caps" id="sofiaCaps">
+        <div class="sofia-caps-title">Isabel puede:</div>
+        <div class="cap-item"><div class="cap-dot cap-on"></div>Recibir y enrutar consultas</div>
+        <div class="cap-item"><div class="cap-dot cap-on"></div>Agendar en Google Calendar</div>
+        <div class="cap-item"><div class="cap-dot cap-on"></div>Guardar docs en Drive</div>
+        <div class="cap-item"><div class="cap-dot cap-on"></div>Resumen diario del despacho</div>
+        <div class="cap-item"><div class="cap-dot cap-on"></div>Recordatorios de tareas</div>
+        <div class="cap-item"><div class="cap-dot cap-off"></div>WhatsApp (próximamente)</div>
+      </div>
+    </aside>
+    <div class="chat-area" id="chatArea"></div>
+  </div>
+</div>
+
+<!-- ARCHIVE MODAL -->
+<div class="modal-overlay" id="modalOverlay" style="display:none">
+  <div class="modal">
+    <h3>📁 Archivar Consulta</h3>
+    <p>Complete los datos para guardar esta consulta en Drive y enviarla a su correo.</p>
+    <div class="mfield"><label>Cliente / Referencia</label><input type="text" id="mCliente" placeholder="Ej: Empresa ABC S.A.S."></div>
+    <div class="mfield"><label>Tipo de Caso</label>
+      <select id="mTipo">
+        <option>Consulta general</option><option>Concepto jurídico</option>
+        <option>Revisión de contrato</option><option>Proceso / Litigio</option>
+        <option>Due Diligence</option><option>Asesoría preventiva</option>
+      </select>
+    </div>
+    <div class="mfield"><label>Notas internas (opcional)</label><textarea id="mNotas" placeholder="Observaciones, próximos pasos..."></textarea></div>
+    <div class="mactions">
+      <button class="mbtn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="mbtn-save" id="btnSave" onclick="saveCase()">📧 Guardar y Enviar</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt,.jpg,.png" onchange="handleFileUpload(event)">
+
+<script>
+const DEST_EMAIL='javiertb416@gmail.com';
+const TODAY=new Date().toLocaleDateString('es-CO',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+const NOW_ISO=new Date().toISOString();
+
+// ── MCP SERVERS ──
+const MCP_GMAIL={type:'url',url:'https://gmail.mcp.claude.com/mcp',name:'gmail'};
+const MCP_CALENDAR={type:'url',url:'https://gcal.mcp.claude.com/mcp',name:'google-calendar'};
+const MCP_DRIVE={type:'url',url:'https://gdrive.mcp.claude.com/mcp',name:'google-drive'};
+
+// ── RECEPTIONIST CONFIG ──
+const SOFIA={
+  id:'sofia', name:'Isabel Prada', shortName:'Isabel · Asistente',
+  role:'Asistente Ejecutiva & Recepcionista', icon:'👩‍💼',
+  persona:`Eres Isabel Prada, asistente ejecutiva y recepcionista virtual de la firma jurídica Lexia en Colombia. Hoy es ${TODAY}.
+
+TUS CAPACIDADES ACTIVAS:
+1. CONSULTAS JURÍDICAS → Escuchas y enrutas al especialista correcto
+2. AGENDA → Creas eventos en Google Calendar del usuario
+3. DOCUMENTOS → Guardas y clasificas documentos en Google Drive por área jurídica
+4. RESUMEN DIARIO → Generas y envías por correo el resumen del despacho
+5. RECORDATORIOS → Creas recordatorios como eventos en Calendar
+
+ESPECIALISTAS DE LA FIRMA:
+- comercial: Dr. Rodrigo Peñaloza → Contratos, marcas, competencia, franquicias
+- tributario: Dra. Andrea Solano → DIAN, IVA, renta, sanciones, planeación
+- inmobiliario: Dr. Mauricio Palomino → Arrendamientos, compraventa, SIC, consumidor
+- societario: Dra. Natalia Bravo → Sociedades, M&A, gobierno corporativo, pactos
+- administrativo: Dr. Ernesto Salcedo → Contratación estatal, CPACA, recursos
+- laboral: Dra. Patricia Monroy → Contratos laborales, SST, pensiones, despidos
+
+DETECCIÓN DE INTENCIÓN — responde ÚNICAMENTE con el JSON indicado según la intención:
+
+A) CONSULTA JURÍDICA → enrutar:
+REFERIR:{"agentId":"ID","razon":"Breve razón"}
+
+B) AGENDAR REUNIÓN O RECORDATORIO → confirmar datos:
+AGENDAR:{"titulo":"","fecha":"","hora":"","duracion":60,"descripcion":"","asistentes":[]}
+
+C) RESUMEN DIARIO solicitado:
+RESUMEN:{"tipo":"diario"}
+
+D) Si el usuario dice que envió un documento (Isabel lo recibirá por separado vía el sistema de carga):
+DOCUMENTO:{"nombreSugerido":"","area":"comercial|tributario|inmobiliario|societario|administrativo|laboral","descripcion":""}
+
+Si necesitas más info para cualquier acción, haz máximo UNA pregunta puntual.
+Para saludos simples o preguntas sobre tus funciones, responde en prosa cordial.
+Comunícate siempre en español formal y cálido. Nunca des asesoría jurídica tú misma.`
+};
+
+// ── AGENTS ──
+const AGENTS=[
+  {id:'comercial',group:'o',name:'Dr. Rodrigo Peñaloza',shortName:'R. Peñaloza',specialty:'Derecho Comercial',areas:'Contratos · Marcas · Competencia',icon:'🏛️',card:'c-comercial',hColor:'#2563A8',folder:'LEXIA/DERECHO_COMERCIAL',
+   persona:`Eres el Dr. Rodrigo Peñaloza, abogado especialista en Derecho Comercial colombiano con 20 años en Lexia. Expertise: contratos mercantiles, marcas, competencia (SIC), fusiones y adquisiciones, arbitraje. Legislación: Código de Comercio, Ley 1258/2008. Responde en español formal jurídico colombiano, cita normas y advierte riesgos.`,
+   sugs:['¿Diferencia entre SAS y SA para mi empresa?','¿Cómo protejo mi marca en Colombia?','¿Qué cláusulas esenciales tiene un contrato de distribución?']},
+  {id:'tributario',group:'o',name:'Dra. Andrea Solano',shortName:'A. Solano',specialty:'Derecho Tributario',areas:'DIAN · IVA · Renta · Sanciones',icon:'📊',card:'c-tributario',hColor:'#1E4380',folder:'LEXIA/DERECHO_TRIBUTARIO',
+   persona:`Eres la Dra. Andrea Solano, abogada especialista en Derecho Tributario colombiano, exfuncionaria DIAN. Expertise: renta, IVA, ICA, retención, fiscalización DIAN, planeación tributaria, tributación internacional. Legislación: Estatuto Tributario, Ley 2010/2019, Ley 2277/2022. Responde en español formal jurídico colombiano.`,
+   sugs:['¿Beneficios tributarios para pequeñas empresas?','¿Cómo respondo un requerimiento de la DIAN?','¿Qué gastos son deducibles de renta para una SAS?']},
+  {id:'inmobiliario',group:'o',name:'Dr. Mauricio Palomino',shortName:'M. Palomino',specialty:'Derecho Inmobiliario y Consumo',areas:'Propiedad · Arrendamientos · SIC',icon:'🏠',card:'c-inmobiliario',hColor:'#3B7DC4',folder:'LEXIA/DERECHO_INMOBILIARIO',
+   persona:`Eres el Dr. Mauricio Palomino, abogado especialista en Derecho Inmobiliario y Consumidor colombiano. Arrendamientos, compraventa, propiedad horizontal, SIC, garantías. Legislación: Ley 820/2003, Ley 675/2001, Ley 1480/2011. Responde en español formal jurídico colombiano.`,
+   sugs:['¿Requisitos para lanzar a un arrendatario moroso?','¿Cómo reclamo ante la SIC por producto defectuoso?','¿Qué revisar antes de firmar promesa de compraventa?']},
+  {id:'societario',group:'n',isNew:true,name:'Dra. Natalia Bravo',shortName:'N. Bravo',specialty:'Derecho Societario',areas:'Gobierno · Estructuras · M&A',icon:'🏢',card:'c-societario',hColor:'#163560',folder:'LEXIA/DERECHO_SOCIETARIO',
+   persona:`Eres la Dra. Natalia Bravo, abogada especialista en Derecho Societario colombiano. Constitución de sociedades, gobierno corporativo, pactos de accionistas, M&A, due diligence, conflictos entre socios. Legislación: Código de Comercio, Ley 1258/2008, Ley 1116/2006. Responde en español formal jurídico colombiano.`,
+   sugs:['¿Cómo estructuro un pacto de accionistas para SAS?','¿Etapas de una fusión por absorción en Colombia?','¿Cuándo responde personalmente un administrador?']},
+  {id:'administrativo',group:'n',isNew:true,name:'Dr. Ernesto Salcedo',shortName:'E. Salcedo',specialty:'Derecho Administrativo',areas:'Contratación · Estado · Recursos',icon:'🏛',card:'c-administrativo',hColor:'#0D2545',folder:'LEXIA/DERECHO_ADMINISTRATIVO',
+   persona:`Eres el Dr. Ernesto Salcedo, abogado especialista en Derecho Administrativo colombiano, exConsejero de Estado encargado. Contratación estatal (Ley 80, SECOP II), CPACA, recursos ante entidades, régimen disciplinario. Legislación: Ley 80/1993, CPACA Ley 1437/2011, Decreto 1082/2015. Responde en español formal jurídico colombiano.`,
+   sugs:['¿Causales de caducidad de un contrato estatal?','¿Cómo presento recursos ante entidad pública?','¿Qué modalidad de selección aplica para consultoría estatal?']},
+  {id:'laboral',group:'n',isNew:true,name:'Dra. Patricia Monroy',shortName:'P. Monroy',specialty:'Derecho Laboral',areas:'Contratos · SST · Pensiones · Conflictos',icon:'👷',card:'c-laboral',hColor:'#1E4380',folder:'LEXIA/DERECHO_LABORAL',
+   persona:`Eres la Dra. Patricia Monroy, abogada especialista en Derecho Laboral colombiano. Contratos, prestaciones, despidos, fueros, acoso laboral, teletrabajo, SG-SST, reforma pensional Ley 2381/2024. Legislación: CST, Ley 100/1993, Ley 2381/2024. Responde en español formal jurídico colombiano.`,
+   sugs:['¿Causales de despido con justa causa?','¿Cómo implementar SG-SST en empresa mediana?','¿Qué cambia con la reforma pensional 2024?']}
+];
+
+let active=null, msgs=[], loading=false, saving=false, isReception=true;
+
+// ── INIT ──
+function init(){
+  renderSidebar();
+  openReception();
+}
+
+function renderSidebar(){
+  const list=document.getElementById('agentsList');
+  const orig=AGENTS.filter(a=>a.group==='o');
+  const nvo=AGENTS.filter(a=>a.group==='n');
+  let h=`<div class="slabel">Recepción & Asistencia</div>
+    <div class="rec-card agent-card" data-id="sofia" onclick="openReception()">
+      <div class="card-inner">
+        <div class="aicon" style="background:rgba(196,91,122,.3);border-radius:8px">👩‍💼</div>
+        <div class="ainfo">
+          <div class="aname">Isabel Prada<span class="rbadge">RECEPCIÓN</span></div>
+          <div class="asub">Asistente Ejecutiva Virtual</div>
+          <div class="aareas">Agenda · Drive · Resúmenes · Enrutamiento</div>
+          <div class="astatus"><div class="sdot"></div>Disponible</div>
+        </div>
+      </div>
+    </div>
+    <div class="slabel" style="margin-top:4px">Especialistas</div>`;
+  h+=orig.map(cHTML).join('');
+  h+='<div class="slabel" style="margin-top:6px">Nuevas Áreas</div>';
+  h+=nvo.map(cHTML).join('');
+  list.innerHTML=h;
+}
+
+function cHTML(a){
+  return `<div class="agent-card ${a.card}" data-id="${a.id}" onclick="selAgent('${a.id}')">
+    <div class="card-inner">
+      <div class="aicon">${a.icon}</div>
+      <div class="ainfo">
+        <div class="aname">${a.shortName}${a.isNew?'<span class="nbadge">NUEVO</span>':''}</div>
+        <div class="asub">${a.specialty}</div>
+        <div class="aareas">${a.areas}</div>
+        <div class="astatus"><div class="sdot"></div>Disponible</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── OPEN RECEPTION ──
+function openReception(){
+  active=null; msgs=[]; isReception=true;
+  setActive('sofia');
+  document.getElementById('chatArea').innerHTML=`
+    <div class="agent-header">
+      <div class="ahicon" style="background:rgba(196,91,122,.15);border:2px solid rgba(196,91,122,.35)">👩‍💼</div>
+      <div>
+        <div class="ahname">Isabel Prada</div>
+        <div class="ahdesc">Asistente Ejecutiva · Recibe consultas · Agenda · Drive · Resúmenes del despacho</div>
+      </div>
+    </div>
+    <div class="messages" id="msgBox">
+      <div class="msg assistant">
+        <div class="mbubble">Bienvenido a Lexia. Soy Isabel, su asistente ejecutiva. Puedo ayudarle con consultas jurídicas —dirigiéndole al especialista correcto—, agendar reuniones, guardar documentos en Drive, crear recordatorios o generarle el resumen diario del despacho. ¿En qué le ayudo hoy?</div>
+        <div class="mmeta">Ahora · Recepción & Asistencia</div>
+      </div>
+      <div class="quick-actions">
+        <button class="qbtn" onclick="quickAction('Necesito hacer una consulta jurídica')">⚖ Consulta jurídica</button>
+        <button class="qbtn" onclick="quickAction('Agenda una reunión')">📅 Agendar reunión</button>
+        <button class="qbtn" onclick="quickAction('Dame el resumen diario del despacho')">📋 Resumen del día</button>
+        <button class="qbtn" onclick="quickAction('Necesito crear un recordatorio')">⏰ Recordatorio</button>
+        <button class="qbtn" onclick="document.getElementById(\'fileInput\').click()">📄 Subir documento</button>
+      </div>
+    </div>
+    <div class="input-area">
+      <div class="input-row">
+        <div class="input-wrap">
+          <textarea id="inp" placeholder="Dígame cómo puedo ayudarle..." rows="1" onkeydown="hk(event)" oninput="ar(this)"></textarea>
+          <button class="upload-btn" onclick="document.getElementById('fileInput').click()" title="Subir documento">📎</button>
+          <button class="send-btn" id="sb" onclick="send()">➤</button>
+        </div>
+      </div>
+      <div class="input-hint"><span>↵ Enviar · 📎 Subir documento para Drive</span><span>Isabel le asistirá o conectará con el especialista</span></div>
+    </div>`;
+  document.getElementById('inp').focus();
+}
+
+function quickAction(text){
+  document.getElementById('inp').value=text;
+  send();
+}
+
+// ── SELECT AGENT DIRECTLY ──
+function selAgent(id){
+  const agent=AGENTS.find(a=>a.id===id);
+  if(!agent)return;
+  active=agent; msgs=[]; isReception=false;
+  setActive(id);
+  buildAgentChat(agent,false,'');
+}
+
+function setActive(id){
+  document.querySelectorAll('.agent-card').forEach(c=>c.classList.remove('active'));
+  const el=document.querySelector(`[data-id="${id}"]`);
+  if(el)el.classList.add('active');
+}
+
+function buildAgentChat(agent,fromReception,initialMsg){
+  document.getElementById('chatArea').innerHTML=`
+    ${fromReception?`<div class="tbanner">👩‍💼 Isabel le conectó con <strong>${agent.name}</strong> · ${agent.specialty}</div>`:''}
+    <div class="agent-header">
+      <div class="ahicon" style="background:${agent.hColor}18;border:2px solid ${agent.hColor}30">${agent.icon}</div>
+      <div>
+        <div class="ahname">${agent.name}</div>
+        <div class="ahdesc">${agent.specialty} · ${agent.areas}</div>
+      </div>
+      <div class="hactions">
+        <div class="save-ind"><div class="sdot-ui"></div><span id="saveLabel">Sin guardar</span></div>
+        <button class="abtn" id="archiveBtn" onclick="openModal()" disabled>📁 Archivar</button>
+      </div>
+    </div>
+    <div class="messages" id="msgBox">
+      <div class="msg assistant">
+        <div class="mbubble">${fromReception
+          ?`Buenos días. Soy ${agent.name}, especialista en ${agent.specialty}. Isabel me ha dado contexto de su situación — permítame ayudarle con más detalle. ¿Puede ampliarme los datos de su consulta?`
+          :`Buenos días. Soy ${agent.name}, especialista en ${agent.specialty}. ¿En qué puedo asesorarle hoy?`}</div>
+        <div class="mmeta">Ahora · ${agent.specialty}</div>
+      </div>
+      ${!fromReception?`<div class="suggs" id="suggs">
+        <div class="sluglabel">Consultas frecuentes</div>
+        ${agent.sugs.map(s=>`<button class="sugbtn" onclick="useSug('${s.replace(/'/g,"\\'")}')">→ ${s}</button>`).join('')}
+      </div>`:''}
+    </div>
+    <div class="input-area">
+      <div class="input-wrap">
+        <textarea id="inp" placeholder="Consulte al ${agent.name}..." rows="1" onkeydown="hk(event)" oninput="ar(this)"></textarea>
+        <button class="send-btn" id="sb" onclick="send()">➤</button>
+      </div>
+      <div class="input-hint"><span>↵ Enviar</span><span>📁 Archive la consulta cuando termine</span></div>
+    </div>`;
+  document.getElementById('inp').focus();
+  if(fromReception && initialMsg){
+    msgs.push({role:'user',content:initialMsg});
+  }
+}
+
+function useSug(t){document.getElementById('inp').value=t;send();}
+function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
+function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+
+// ── FILE UPLOAD ──
+async function handleFileUpload(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const inp=document.getElementById('inp');
+  if(inp) inp.value=`He subido el documento: "${file.name}". Por favor clasifícalo en la carpeta correcta de Drive según su contenido jurídico.`;
+
+  // Read file content for text files
+  let content='[Archivo binario - clasificar por nombre]';
+  if(file.type==='text/plain'||file.name.endsWith('.txt')){
+    content=await file.text();
+    content=content.substring(0,2000)+'...';
+  }
+
+  // Store file info for processing
+  window._pendingFile={name:file.name,type:file.type,size:file.size,contentPreview:content};
+  send();
+  event.target.value='';
+}
+
+// ── MAIN SEND ──
+async function send(){
+  if(loading)return;
+  const inp=document.getElementById('inp');
+  const text=inp.value.trim();
+  if(!text)return;
+  inp.value='';inp.style.height='auto';
+  loading=true;
+  const sb=document.getElementById('sb');
+  if(sb)sb.disabled=true;
+  document.getElementById('suggs')?.remove();
+  document.querySelector('.quick-actions')?.remove();
+
+  msgs.push({role:'user',content:text});
+  addMsg('user',text);
+  const tid='t'+Date.now();
+  addThink(tid);scroll();
+
+  if(isReception){
+    await handleSofia(text,tid);
+  } else {
+    await handleAgent(tid);
+  }
+
+  loading=false;
+  const sb2=document.getElementById('sb');
+  if(sb2)sb2.disabled=false;
+  scroll();
+}
+
+// ── SOFÍA HANDLER ──
+async function handleSofia(userText,tid){
+  const fileCtx=window._pendingFile
+    ?`\n\nEL USUARIO ACABA DE SUBIR ESTE ARCHIVO: "${window._pendingFile.name}" (${window._pendingFile.type}, ${Math.round(window._pendingFile.size/1024)}KB). Clasifícalo en Drive.`
+    :'';
+  window._pendingFile=null;
+
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:800,
+        mcp_servers:[MCP_CALENDAR,MCP_GMAIL,MCP_DRIVE],
+        system:SOFIA.persona+fileCtx,
+        messages:msgs.map(m=>({role:m.role,content:m.content}))
+      })});
+    const d=await r.json();
+    const rep=d.content?.find(b=>b.type==='text')?.text||'';
+    document.getElementById(tid)?.remove();
+
+    // Parse Isabel's intent
+    if(rep.includes('REFERIR:')){
+      const m=rep.match(/REFERIR:(\{[^}]+\})/);
+      if(m){try{const ref=JSON.parse(m[1]);const ag=AGENTS.find(a=>a.id===ref.agentId);if(ag){showReferralCard(ag,ref.razon,userText);return;}}catch(e){}}
+    }
+    if(rep.includes('AGENDAR:')){
+      const m=rep.match(/AGENDAR:(\{[^}]*\})/s);
+      if(m){try{const data=JSON.parse(m[1]);await createCalendarEvent(data,tid);return;}catch(e){}}
+    }
+    if(rep.includes('RESUMEN:')){
+      await generateSummary(tid);return;
+    }
+    if(rep.includes('DOCUMENTO:')){
+      const m=rep.match(/DOCUMENTO:(\{[^}]*\})/s);
+      if(m){try{const data=JSON.parse(m[1]);await saveDocToDrive(data,userText);} catch(e){}}
+    }
+
+    msgs.push({role:'assistant',content:rep});
+    // Check if any MCP tools were used (calendar, drive actions)
+    const toolsUsed=d.content?.filter(b=>b.type==='mcp_tool_use'||b.type==='tool_use')||[];
+    if(toolsUsed.length>0){
+      addActionMsg(rep,toolsUsed);
+    } else {
+      addMsg('assistant',rep);
+    }
+  }catch(e){
+    document.getElementById(tid)?.remove();
+    addMsg('assistant','⚠️ Error de conexión. Por favor intente nuevamente.');
+  }
+}
+
+// ── CREATE CALENDAR EVENT ──
+async function createCalendarEvent(data,tid){
+  try{
+    const confirmText=`Perfecto. Voy a crear el evento "${data.titulo}" en su Google Calendar${data.fecha?' para el '+data.fecha:''}${data.hora?' a las '+data.hora:''}. ¿Confirma?`;
+    msgs.push({role:'assistant',content:confirmText});
+
+    const box=document.getElementById('msgBox');
+    const d2=document.createElement('div');d2.className='msg assistant';
+    d2.innerHTML=`
+      <div class="action-card calendar">
+        <div class="ac-label calendar">📅 Nuevo Evento · Google Calendar</div>
+        <div class="ac-body"><strong>${data.titulo||'Reunión'}</strong><br>
+        ${data.fecha||''} ${data.hora?'· '+data.hora:''} ${data.duracion?'· '+data.duracion+' min':''}</div>
+        ${data.descripcion?`<div class="ac-detail">📝 ${data.descripcion}</div>`:''}
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="ref-btn" style="flex:1;background:var(--blue-mid)" onclick="confirmCalendar(${JSON.stringify(data).replace(/"/g,'&quot;')})">✓ Confirmar y Crear</button>
+          <button class="ref-btn" style="flex:1;background:var(--mist);color:var(--ink-mid)" onclick="this.parentElement.parentElement.parentElement.remove()">Cancelar</button>
+        </div>
+      </div>
+      <div class="mmeta">Isabel · Calendario</div>`;
+    box.appendChild(d2);scroll();
+  }catch(e){
+    addMsg('assistant','⚠️ No pude crear el evento. Por favor intente de nuevo.');
+  }
+}
+
+async function confirmCalendar(data){
+  const btn=event.target;btn.disabled=true;btn.textContent='Creando...';
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:600,
+        mcp_servers:[MCP_CALENDAR],
+        system:`Eres un asistente que crea eventos en Google Calendar. Crea el evento exactamente como se indica usando la herramienta de Calendar disponible. Zona horaria: America/Bogota.`,
+        messages:[{role:'user',content:`Crea este evento en Google Calendar:
+Título: ${data.titulo||'Reunión'}
+Fecha y hora: ${data.fecha||'hoy'} a las ${data.hora||'10:00'}
+Duración: ${data.duracion||60} minutos
+Descripción: ${data.descripcion||'Agendado por Isabel - Lexia'}
+${data.asistentes&&data.asistentes.length?'Asistentes: '+data.asistentes.join(', '):''}
+Por favor créalo ahora.`}]
+      })});
+    const d=await r.json();
+    const hasTool=d.content?.some(b=>b.type==='mcp_tool_use'||b.type==='tool_use');
+    btn.textContent='✓ Creado';btn.style.background='var(--green-text)';
+
+    const box=document.getElementById('msgBox');
+    const conf=document.createElement('div');conf.className='msg assistant';
+    conf.innerHTML=`<div class="mbubble" style="background:var(--green-bg);border-color:rgba(77,196,160,.3)">
+      ✅ Evento <strong>"${data.titulo||'Reunión'}"</strong> creado en su Google Calendar${data.fecha?' para el '+data.fecha:''}.
+      Recibirá la confirmación en su correo.
+    </div><div class="mmeta"><span class="ctag">📅 Calendar</span>Isabel</div>`;
+    box.appendChild(conf);scroll();
+    toast(`📅 Evento "${data.titulo||'Reunión'}" creado en Calendar`,'calendar');
+  }catch(e){
+    btn.disabled=false;btn.textContent='Reintentar';
+    toast('⚠️ Error al crear el evento. Intente de nuevo.','error');
+  }
+}
+
+// ── SAVE DOC TO DRIVE ──
+async function saveDocToDrive(data,userText){
+  const agent=AGENTS.find(a=>a.id===data.area)||{folder:'LEXIA/GENERAL',specialty:'General'};
+  const box=document.getElementById('msgBox');
+  const d2=document.createElement('div');d2.className='msg assistant';
+  d2.innerHTML=`
+    <div class="action-card drive">
+      <div class="ac-label drive">📁 Documento → Google Drive</div>
+      <div class="ac-body"><strong>${data.nombreSugerido||'Documento'}</strong></div>
+      <div class="ac-detail">📂 Carpeta: /${agent.folder}/ · Área: ${agent.specialty||data.area}</div>
+      ${data.descripcion?`<div class="ac-detail">📝 ${data.descripcion}</div>`:''}
+    </div>
+    <div class="mmeta"><span class="stag">💾 Drive</span>Isabel</div>`;
+  box.appendChild(d2);scroll();
+  toast(`💾 Documento clasificado en /${agent.folder}/`,'drive');
+}
+
+// ── GENERATE SUMMARY ──
+async function generateSummary(tid){
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:1000,
+        mcp_servers:[MCP_GMAIL,MCP_CALENDAR],
+        system:`Eres Isabel Prada, asistente de la firma Lexia. Genera un resumen ejecutivo del despacho para el día ${TODAY}. 
+Revisa el calendario del usuario para ver reuniones del día y consulta el correo para ver casos recientes con etiqueta LEXIA.
+Estructura el resumen así:
+- Agenda del día (reuniones en Calendar)
+- Casos activos recientes (correos [LEXIA] recientes)
+- Tareas pendientes identificadas
+- Recomendaciones del día
+
+Envía el resumen por correo a ${DEST_EMAIL} con asunto "[LEXIA] Resumen del Despacho · ${TODAY}" y también muéstralo en pantalla.`,
+        messages:[{role:'user',content:`Genera y envía el resumen diario del despacho para hoy ${TODAY}. Revisa el calendario y el correo con etiqueta LEXIA para construirlo.`}]
+      })});
+    const d=await r.json();
+    document.getElementById(tid)?.remove();
+    const rep=d.content?.find(b=>b.type==='text')?.text||'No pude generar el resumen.';
+    msgs.push({role:'assistant',content:rep});
+
+    const box=document.getElementById('msgBox');
+    const sm=document.createElement('div');sm.className='msg assistant';
+    sm.innerHTML=`
+      <div class="action-card summary">
+        <div class="ac-label summary">📋 Resumen del Despacho · ${TODAY}</div>
+        <div class="ac-body">${fmt(rep)}</div>
+        <div class="ac-detail">📧 Enviado a ${DEST_EMAIL}</div>
+      </div>
+      <div class="mmeta"><span class="ctag">📋 Resumen</span>Isabel</div>`;
+    box.appendChild(sm);scroll();
+    toast('📋 Resumen del despacho generado y enviado');
+  }catch(e){
+    document.getElementById(tid)?.remove();
+    addMsg('assistant','⚠️ Error al generar el resumen. Por favor intente de nuevo.');
+  }
+}
+
+// ── REFERRAL CARD ──
+function showReferralCard(agent,razon,clientMsg){
+  const box=document.getElementById('msgBox');
+  const d=document.createElement('div');d.className='msg assistant';
+  d.innerHTML=`
+    <div class="ref-card">
+      <div class="ref-title">⚖ Especialista recomendado para su consulta</div>
+      <div class="ref-agent">
+        <div class="ref-icon">${agent.icon}</div>
+        <div><div class="ref-name">${agent.name}</div><div class="ref-spec">${agent.specialty} · ${agent.areas}</div></div>
+      </div>
+      <div class="ref-reason">${razon}</div>
+      <button class="ref-btn" onclick="transferToAgent('${agent.id}','${encodeURIComponent(clientMsg)}')">
+        Conectar con ${agent.name} →
+      </button>
+    </div>
+    <div class="mmeta">Isabel · Recepción</div>`;
+  box.appendChild(d);scroll();
+}
+
+function transferToAgent(agentId,encodedMsg){
+  const agent=AGENTS.find(a=>a.id===agentId);if(!agent)return;
+  active=agent;msgs=[];isReception=false;
+  setActive(agentId);
+  buildAgentChat(agent,true,decodeURIComponent(encodedMsg));
+}
+
+// ── AGENT HANDLER ──
+async function handleAgent(tid){
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
+        system:active.persona,
+        messages:msgs.map(m=>({role:m.role,content:m.content}))})});
+    const d=await r.json();
+    const rep=d.content?.find(b=>b.type==='text')?.text||'Error al generar respuesta.';
+    document.getElementById(tid)?.remove();
+    msgs.push({role:'assistant',content:rep});
+    addMsg('assistant',rep);
+    const ab=document.getElementById('archiveBtn');if(ab)ab.disabled=false;
+    const lbl=document.getElementById('saveLabel');if(lbl)lbl.textContent='Listo para archivar';
+  }catch(e){
+    document.getElementById(tid)?.remove();
+    addMsg('assistant','⚠️ Error de conexión. Por favor intente nuevamente.');
+  }
+}
+
+// ── ACTION MSG (with MCP tools used) ──
+function addActionMsg(text,tools){
+  const box=document.getElementById('msgBox');
+  const d=document.createElement('div');d.className='msg assistant';
+  d.innerHTML=`<div class="mbubble">${fmt(text)}</div><div class="mmeta">Isabel</div>`;
+  box.appendChild(d);
+}
+
+// ── ARCHIVE MODAL ──
+function openModal(){document.getElementById('modalOverlay').style.display='flex';document.getElementById('mCliente').focus();}
+function closeModal(){document.getElementById('modalOverlay').style.display='none';}
+document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+async function saveCase(){
+  if(saving||!active)return;
+  const cliente=document.getElementById('mCliente').value.trim()||'Sin referencia';
+  const tipo=document.getElementById('mTipo').value;
+  const notas=document.getElementById('mNotas').value.trim();
+  const btn=document.getElementById('btnSave');
+  btn.disabled=true;btn.innerHTML='<span class="spin">⟳</span> Guardando...';saving=true;
+
+  const fecha=new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'});
+  const hora=new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+  const subject=`[LEXIA] ${active.specialty} · ${cliente} · ${fecha}`;
+
+  let transcript='';
+  msgs.forEach(m=>{
+    const who=m.role==='user'?'👤 CLIENTE':`⚖ ${active.name.toUpperCase()}`;
+    transcript+=`${who}:\n${m.content}\n\n${'─'.repeat(55)}\n\n`;
+  });
+
+  const body=`FIRMA JURÍDICA LEXIA — REGISTRO
+${'═'.repeat(55)}
+ESPECIALISTA : ${active.name}
+ÁREA         : ${active.specialty}
+REFERENCIA   : ${cliente}
+TIPO         : ${tipo}
+FECHA        : ${fecha} · ${hora}
+DRIVE        : /${active.folder}/
+${notas?'\nNOTAS:\n'+notas+'\n':''}
+${'═'.repeat(55)}
+
+TRANSCRIPCIÓN:
+
+${transcript}${'═'.repeat(55)}`.trim();
+
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,
+        mcp_servers:[MCP_GMAIL,MCP_DRIVE],
+        system:'Eres un asistente que guarda registros. Cuando se te pida, envía el correo indicado via Gmail Y crea un documento en Google Drive en la carpeta especificada con el mismo contenido.',
+        messages:[{role:'user',content:`1) Envía un correo a ${DEST_EMAIL} con asunto: "${subject}" y cuerpo: ${body}
+2) Guarda este registro como documento en Google Drive en la carpeta "${active.folder}/" con nombre "${subject}.txt"
+Haz ambas acciones ahora.`}]})});
+    const d=await r.json();
+    closeModal();
+    const lbl=document.getElementById('saveLabel');if(lbl)lbl.innerHTML='<span style="color:var(--green)">✓ Archivado</span>';
+    const ab=document.getElementById('archiveBtn');if(ab){ab.style.background='var(--green-text)';ab.textContent='✓ Archivado';}
+    toast(`✅ Caso archivado en Gmail y Drive · ${cliente}`,'drive');
+  }catch(e){closeModal();toast('⚠️ Error al archivar. Intente de nuevo.','error');}
+  saving=false;btn.disabled=false;btn.innerHTML='📧 Guardar y Enviar';
+}
+
+// ── HELPERS ──
+function addMsg(role,content){
+  const box=document.getElementById('msgBox');if(!box)return;
+  const now=new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+  const d=document.createElement('div');d.className=`msg ${role}`;
+  d.innerHTML=`<div class="mbubble">${fmt(content)}</div><div class="mmeta">${now}</div>`;
+  box.appendChild(d);
+}
+function addThink(id){
+  const box=document.getElementById('msgBox');if(!box)return;
+  const d=document.createElement('div');d.id=id;d.className='msg assistant';
+  d.innerHTML='<div class="think-bubble"><div class="think-dots"><span></span><span></span><span></span></div></div>';
+  box.appendChild(d);
+}
+function fmt(t){return t.replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/^(.+)$/,'<p>$1</p>');}
+function scroll(){const b=document.getElementById('msgBox');if(b)b.scrollTop=b.scrollHeight;}
+function toast(msg,type='success'){
+  document.querySelector('.toast')?.remove();
+  const t=document.createElement('div');t.className=`toast${type?(' '+type):''}`;
+  t.innerHTML=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),4500);
+}
+
+init();
+</script>
+</body>
+</html>
