@@ -537,7 +537,7 @@ async function handleSofia(userText,tid){
 
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':getApiKey(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      headers:(function(){var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';return{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};})(),
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',max_tokens:800,
         system:SOFIA.persona+fileCtx,
@@ -608,7 +608,7 @@ async function confirmCalendar(data){
   const btn=event.target;btn.disabled=true;btn.textContent='Creando...';
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':getApiKey(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      headers:(function(){var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';return{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};})(),
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',max_tokens:600,
         system:`Eres un asistente que crea eventos en Google Calendar. Crea el evento exactamente como se indica usando la herramienta de Calendar disponible. Zona horaria: America/Bogota.`,
@@ -659,7 +659,7 @@ async function saveDocToDrive(data,userText){
 async function generateSummary(tid){
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':getApiKey(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      headers:(function(){var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';return{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};})(),
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',max_tokens:1000,
         system:`Eres Isabel Prada, asistente de la firma Lexia. Genera un resumen ejecutivo del despacho para el día ${TODAY}. 
@@ -726,7 +726,7 @@ function transferToAgent(agentId,encodedMsg){
 async function handleAgent(tid){
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':getApiKey(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      headers:(function(){var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';return{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};})(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
         system:active.persona,
         messages:msgs.map(m=>({role:m.role,content:m.content}))})});
@@ -791,7 +791,7 @@ ${transcript}${'═'.repeat(55)}`.trim();
 
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':getApiKey(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      headers:(function(){var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';return{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};})(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,
         system:'Eres un asistente que guarda registros. Cuando se te pida, envía el correo indicado via Gmail Y crea un documento en Google Drive en la carpeta especificada con el mismo contenido.',
         messages:[{role:'user',content:`1) Envía un correo a ${DEST_EMAIL} con asunto: "${subject}" y cuerpo: ${body}
