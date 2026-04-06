@@ -199,6 +199,21 @@
   .toast.drive{border-left-color:var(--green);}
   @keyframes sIn{from{transform:translateX(80px);opacity:0}to{transform:translateX(0);opacity:1}}
   @keyframes fOut{from{opacity:1}to{opacity:0}}
+
+  /* API KEY MODAL */
+  .apikey-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:center;justify-content:center;}
+  .apikey-box{background:#111827;border:1px solid rgba(37,99,168,.35);border-radius:14px;padding:36px 32px;max-width:420px;width:90%;}
+  .apikey-logo{font-family:'Fraunces',Georgia,serif;font-size:22px;color:#E8E4DC;margin-bottom:6px;letter-spacing:.02em;}
+  .apikey-logo span{color:#C9A84C;}
+  .apikey-sub{font-size:12px;color:#5A7FA8;margin-bottom:24px;line-height:1.5;}
+  .apikey-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#5A7FA8;margin-bottom:8px;}
+  .apikey-input{width:100%;background:#0D1B2E;border:1px solid rgba(37,99,168,.4);border-radius:7px;padding:11px 14px;color:#E8E4DC;font-size:13px;font-family:monospace;box-sizing:border-box;outline:none;}
+  .apikey-input:focus{border-color:rgba(201,168,76,.5);}
+  .apikey-btn{width:100%;margin-top:14px;padding:12px;background:#C9A84C;border:none;border-radius:7px;color:#0A0E1A;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.03em;}
+  .apikey-btn:hover{background:#E8C96A;}
+  .apikey-note{font-size:11px;color:#3D5A78;margin-top:12px;text-align:center;}
+  .apikey-note a{color:#5A7FA8;}
+
 </style>
 </head>
 <body>
@@ -532,10 +547,9 @@ async function handleSofia(userText,tid){
 
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:{'Content-Type':'application/json','anthropic-beta':'mcp-client-2025-04-04'},
+      headers:{'Content-Type':'application/json','x-api-key':getApiKey(),'anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',max_tokens:800,
-        mcp_servers:[MCP_CALENDAR,MCP_GMAIL,MCP_DRIVE],
         system:SOFIA.persona+fileCtx,
         messages:msgs.map(m=>({role:m.role,content:m.content}))
       })});
@@ -604,10 +618,9 @@ async function confirmCalendar(data){
   const btn=event.target;btn.disabled=true;btn.textContent='Creando...';
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:{'Content-Type':'application/json','anthropic-beta':'mcp-client-2025-04-04'},
+      headers:{'Content-Type':'application/json','x-api-key':getApiKey(),'anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',max_tokens:600,
-        mcp_servers:[MCP_CALENDAR],
         system:`Eres un asistente que crea eventos en Google Calendar. Crea el evento exactamente como se indica usando la herramienta de Calendar disponible. Zona horaria: America/Bogota.`,
         messages:[{role:'user',content:`Crea este evento en Google Calendar:
 Título: ${data.titulo||'Reunión'}
@@ -656,10 +669,9 @@ async function saveDocToDrive(data,userText){
 async function generateSummary(tid){
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:{'Content-Type':'application/json','anthropic-beta':'mcp-client-2025-04-04'},
+      headers:{'Content-Type':'application/json','x-api-key':getApiKey(),'anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',max_tokens:1000,
-        mcp_servers:[MCP_GMAIL,MCP_CALENDAR],
         system:`Eres Isabel Prada, asistente de la firma Lexia. Genera un resumen ejecutivo del despacho para el día ${TODAY}. 
 Revisa el calendario del usuario para ver reuniones del día y consulta el correo para ver casos recientes con etiqueta LEXIA.
 Estructura el resumen así:
@@ -724,7 +736,7 @@ function transferToAgent(agentId,encodedMsg){
 async function handleAgent(tid){
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:{'Content-Type':'application/json','anthropic-beta':'mcp-client-2025-04-04'},
+      headers:{'Content-Type':'application/json','x-api-key':getApiKey(),'anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
         system:active.persona,
         messages:msgs.map(m=>({role:m.role,content:m.content}))})});
@@ -789,9 +801,8 @@ ${transcript}${'═'.repeat(55)}`.trim();
 
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:{'Content-Type':'application/json','anthropic-beta':'mcp-client-2025-04-04'},
+      headers:{'Content-Type':'application/json','x-api-key':getApiKey(),'anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,
-        mcp_servers:[MCP_GMAIL,MCP_DRIVE],
         system:'Eres un asistente que guarda registros. Cuando se te pida, envía el correo indicado via Gmail Y crea un documento en Google Drive en la carpeta especificada con el mismo contenido.',
         messages:[{role:'user',content:`1) Envía un correo a ${DEST_EMAIL} con asunto: "${subject}" y cuerpo: ${body}
 2) Guarda este registro como documento en Google Drive en la carpeta "${active.folder}/" con nombre "${subject}.txt"
@@ -829,5 +840,31 @@ function toast(msg,type='success'){
 
 init();
 </script>
+
+<div class="apikey-overlay" id="apikeyOverlay" style="display:none;">
+  <div class="apikey-box">
+    <div class="apikey-logo">⚖ <span>Lexia</span></div>
+    <div class="apikey-sub">Para usar Lexia necesita su clave de API de Anthropic. Se guarda solo en su navegador.</div>
+    <div class="apikey-label">Anthropic API Key</div>
+    <input class="apikey-input" id="apikeyInput" type="password" placeholder="sk-ant-api03-..." />
+    <button class="apikey-btn" onclick="saveApiKey()">Ingresar a Lexia →</button>
+    <div class="apikey-note">Obtenga su key en <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div>
+  </div>
+</div>
+
+<script>
+function getApiKey(){return localStorage.getItem('lexia_api_key');}
+function saveApiKey(){
+  const k=document.getElementById('apikeyInput').value.trim();
+  if(!k.startsWith('sk-ant')){alert('La key debe comenzar con sk-ant-...');return;}
+  localStorage.setItem('lexia_api_key',k);
+  document.getElementById('apikeyOverlay').style.display='none';
+}
+function checkApiKey(){
+  if(!getApiKey()) document.getElementById('apikeyOverlay').style.display='flex';
+}
+window.addEventListener('DOMContentLoaded', checkApiKey);
+</script>
+
 </body>
 </html>
