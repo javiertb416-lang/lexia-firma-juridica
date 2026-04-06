@@ -204,6 +204,20 @@
   .reset-key-btn{position:fixed;bottom:16px;right:16px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);color:#C9A84C;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:6px;cursor:pointer;z-index:999;}
   .reset-key-btn:hover{background:rgba(201,168,76,.22);}
 
+
+  .key-btn{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);color:#C9A84C;font-size:11px;font-weight:600;padding:6px 14px;border-radius:6px;cursor:pointer;margin-right:8px;}
+  .key-btn:hover{background:rgba(201,168,76,.28);}
+  .km-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:9999;display:none;align-items:center;justify-content:center;}
+  .km-box{background:#111827;border:1px solid rgba(201,168,76,.3);border-radius:14px;padding:36px 32px;width:400px;max-width:92vw;}
+  .km-title{font-family:'Fraunces',serif;font-size:20px;color:#E8E4DC;margin-bottom:6px;}
+  .km-sub{font-size:12px;color:#5A7FA8;margin-bottom:20px;line-height:1.6;}
+  .km-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5A7FA8;margin-bottom:8px;}
+  .km-inp{width:100%;background:#0D1B2E;border:1px solid rgba(37,99,168,.4);border-radius:7px;padding:11px 14px;color:#E8E4DC;font-size:13px;font-family:monospace;box-sizing:border-box;outline:none;margin-bottom:14px;}
+  .km-inp:focus{border-color:rgba(201,168,76,.5);}
+  .km-save{width:100%;padding:12px;background:#C9A84C;border:none;border-radius:7px;color:#0A0E1A;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px;}
+  .km-cancel{width:100%;padding:10px;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:7px;color:#5A7FA8;font-size:13px;cursor:pointer;}
+  .km-hint{font-size:11px;color:#3D5A78;margin-top:12px;text-align:center;}
+  .km-hint a{color:#5A7FA8;}
 </style>
 </head>
 <body>
@@ -216,7 +230,7 @@
     </div>
     <div class="header-right">
       <div class="hint"><div class="hdot"></div>7 personas activas</div>
-      <div class="hbadge">⚖ Colombia · Derecho Especializado</div>
+      <button class="key-btn" onclick="openKM()">🔑 API Key</button><div class="hbadge">⚖ Colombia · Derecho Especializado</div>
     </div>
   </header>
   <div class="main">
@@ -831,7 +845,39 @@ function toast(msg,type='success'){
 init();
 </script>
 <div class="apikey-overlay" id="apikeyOverlay" style="display:none"><div class="apikey-box"><div class="apikey-logo">⚖ <span>Lexia</span></div><div class="apikey-sub">Para usar Lexia necesita su clave de API de Anthropic. Se guarda únicamente en su navegador y nunca se comparte.</div><div class="apikey-lbl">Anthropic API Key</div><input class="apikey-inp" id="apikeyInp" type="password" placeholder="sk-ant-api03-..."/><button class="apikey-btn" onclick="saveKey()">Entrar a Lexia →</button><div class="apikey-hint">Obtenga su key en <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div></div></div><script>function resetKey(){localStorage.removeItem('lexia_api_key');localStorage.removeItem('lexia_k');location.reload();}
-function getApiKey(){return localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||''}function saveKey(){const k=document.getElementById('apikeyInp').value.trim();if(!k.startsWith('sk-ant')){alert('La key debe empezar con sk-ant-...');return}localStorage.setItem('lexia_api_key',k);localStorage.setItem('lexia_k',k);document.getElementById('apikeyOverlay').style.display='none'}window.addEventListener('DOMContentLoaded',()=>{if(!getApiKey())document.getElementById('apikeyOverlay').style.display='flex'})<\/script>
-<button class="reset-key-btn" onclick="resetKey()">🔑 Cambiar API Key</button>
+function getApiKey(){return localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||''}function saveKey(){const k=document.getElementById('apikeyInp').value.trim();if(!k.startsWith('sk-ant')){alert('La key debe empezar con sk-ant-...');return}localStorage.setItem('lexia_api_key',k);localStorage.setItem('lexia_k',k);document.getElementById('apikeyOverlay').style.display='none'}window.addEventListener('DOMContentLoaded',()=>{if(!getApiKey())document.getElementById('apikeyOverlay').style.display='flex'})</script>
+
+<div class="km-overlay" id="kmOverlay">
+  <div class="km-box">
+    <div class="km-title">Lexia - API Key</div>
+    <div class="km-sub">Ingrese su clave de Anthropic. Se guarda en su navegador y nunca se comparte.</div>
+    <div class="km-lbl">Anthropic API Key</div>
+    <input class="km-inp" id="kmInp" type="password" placeholder="sk-ant-api03-...">
+    <button class="km-save" onclick="saveKM()">Guardar y continuar</button>
+    <button class="km-cancel" onclick="closeKM()">Cancelar</button>
+    <div class="km-hint">Obtenga su key en <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div>
+  </div>
+</div>
+<script>
+function openKM(){
+  var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';
+  if(k)document.getElementById('kmInp').value=k;
+  document.getElementById('kmOverlay').style.display='flex';
+  setTimeout(function(){document.getElementById('kmInp').focus();},100);
+}
+function closeKM(){document.getElementById('kmOverlay').style.display='none';}
+function saveKM(){
+  var k=document.getElementById('kmInp').value.trim();
+  if(!k){alert('Ingrese su API key.');return;}
+  if(!k.startsWith('sk-ant')){alert('La key debe comenzar con sk-ant-...');return;}
+  localStorage.setItem('lexia_api_key',k);
+  localStorage.setItem('lexia_k',k);
+  closeKM();
+}
+window.addEventListener('DOMContentLoaded',function(){
+  var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';
+  if(!k)openKM();
+});
+</script>
 </body>
 </html>
