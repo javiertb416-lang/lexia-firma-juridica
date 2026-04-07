@@ -621,6 +621,36 @@ async function createCalendarEvent(data,tid){
 async function confirmCalendar(data){
   const btn=event.target;btn.disabled=true;btn.textContent='Creando...';
   try{
+    const res=await fetch('https://hook.us2.make.com/a1apeq0uvhc04m6xupu49emq1llhglcw',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        titulo:data.titulo||'Reunion',
+        fecha:data.fecha||'',
+        hora:data.hora||'',
+        duracion:data.duracion||60,
+        descripcion:data.descripcion||'Agendado por Isabel - Lexia',
+        asistentes:(data.asistentes||[]).join(', ')
+      })
+    });
+    btn.textContent='✓ Creado';btn.style.background='var(--green-text)';
+    const box=document.getElementById('msgBox');
+    const conf=document.createElement('div');conf.className='msg assistant';
+    conf.innerHTML='<div class="mbubble" style="background:var(--green-bg);border-color:rgba(77,196,160,.3)">'+
+      '✅ Evento <strong>"'+(data.titulo||'Reunion')+'"</strong> creado en su Google Calendar'+(data.fecha?' para el '+data.fecha:'')+'. Verifique su Calendar para confirmarlo.</div>'+
+      '<div class="mmeta"><span class="ctag">📅 Calendar</span>Isabel</div>';
+    box.appendChild(conf);scroll();
+    toast('📅 Evento "'+(data.titulo||'Reunion')+'" enviado a Google Calendar','calendar');
+    return;
+  }catch(e){
+    btn.disabled=false;btn.textContent='Reintentar';
+    toast('⚠️ Error al crear el evento.','error');
+    return;
+  }
+}
+async function confirmCalendar_unused(data){
+  const btn=event.target;btn.disabled=true;btn.textContent='Creando...';
+  try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
       headers:(function(){var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';return{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};})(),
       body:JSON.stringify({
