@@ -980,12 +980,12 @@ function renderGrupos(){
       </div>`).join('');
     return `<div class="grupo-card">
       <div class="grupo-head">
-        <div class="grupo-n-badge">${gi+1}</div>
+        <div class="grupo-badge">${gi+1}</div>
         <div class="grupo-info"><div class="grupo-nombre">${g.n}</div><div class="grupo-coord">${g.c}</div></div>
       </div>
       <div class="grupo-temas">${g.t}</div>
-      <div class="grupo-members-area">
-        <div class="grupo-members-label">Integrantes del grupo</div>
+      <div class="grupo-members">
+        <div class="gm-label">Integrantes del grupo</div>
         <div class="members-list" id="mlist_${gi}">${mh}</div>
         <button class="btn-add" onclick="addMember(${gi})"><span class="btn-add-icon">+</span> Agregar integrante</button>
       </div>
@@ -1000,8 +1000,8 @@ function delMember(gi,mi){const d=getGD();if(!d[gi]||d[gi].length<=1)return;d[gi
 function renderAlertas(){
   document.getElementById('alertas-lista').innerHTML=ALERTAS_DATA.map(a=>`
     <div class="alerta a-${a.lv}">
-      <div class="a-icon">${a.ico}</div>
-      <div class="a-body"><div class="a-title">${a.t}</div><div class="a-text">${a.b}</div></div>
+      <div class="a-side"></div>
+      <div class="a-body"><div class="a-head"><span class="a-ico">${a.ico}</span><span class="a-title">${a.t}</span></div><div class="a-text">${a.b}</div></div>
     </div>`).join('');
 }
 
@@ -1014,14 +1014,14 @@ function renderDia(dia){
   const items=[...(dia.soli||[]).map((_,i)=>'s'+i),...(dia.lecturas||[]).map((_,i)=>'l'+i)];
   const done=items.filter(k=>sv[k]).length;
   const pct=items.length?Math.round(done/items.length*100):0;
-  let h=`<div class="dia-band" style="background:${dia.color}">
-    <div class="dia-eyebrow"><span class="dia-num-badge">DÍA ${dia.num}</span><span class="dia-date-badge">${dia.fecha}</span></div>
+  let h=`<div class="dia-hero" style="background:${dia.color}">
+    <div class="dia-eyebrow"><span class="dia-num">DÍA ${dia.num}</span><span class="dia-date">${dia.fecha}</span></div>
     <h2>${dia.titulo}</h2><div class="dia-sub">${dia.sub}</div>
-    ${items.length?`<div class="dia-prog-area"><div class="dia-prog-row"><span>PROGRESO</span><span id="pct_${dia.id}">${done}/${items.length} · ${pct}%</span></div><div class="dia-prog-track"><div class="dia-prog-fill" id="bar_${dia.id}" style="width:${pct}%"></div></div></div>`:''}
+    ${items.length?`<div class="dia-prog"><div class="dia-prog-row"><span>PROGRESO</span><span id="pct_${dia.id}">${done}/${items.length} · ${pct}%</span></div><div class="dia-track"><div class="dia-fill" id="bar_${dia.id}" style="width:${pct}%"></div></div></div>`:''}
   </div>`;
   if(dia.reuniones?.length){
-    h+=`<div class="sec-label">Agenda de reuniones</div><div class="reunion-grid">`;
-    h+=dia.reuniones.map(r=>`<div class="reunion"><div class="r-time">${r.h}</div><div class="r-content"><div class="r-name">${r.n}</div><div class="r-obj">${r.o}</div></div><div class="r-tag">${r.e}</div></div>`).join('');
+    h+=`<div class="sec-label">Agenda de reuniones</div><div class="reunion-list">`;
+    h+=dia.reuniones.map(r=>`<div class="reunion"><div class="r-time">${r.h}</div><div class="r-body"><div class="r-name">${r.n}</div><div class="r-obj">${r.o}</div></div><div class="r-tag">${r.e}</div></div>`).join('');
     h+=`</div>`;
   }
   if(dia.lecturas?.length){
@@ -1029,7 +1029,7 @@ function renderDia(dia){
     h+=dia.lecturas.map((l,i)=>{const k='l'+i,dn=sv[k]||false,txt=typeof l==='string'?l:(l.t||'');return`<div class="ci${dn?' done':''}" onclick="tc('${dia.id}','${k}',this)"><div class="ci-box">${dn?'✓':''}</div><div class="ci-main"><div class="ci-text">${txt}</div></div></div>`;}).join('');
     h+=`</div>`;
   }
-  if(dia.num===5||dia.num===7)h+=`<div class="festivo-banner"><h3>${dia.num===5?'☽ Festivo':'◎ Sábado'}</h3><p>Sin reuniones formales. Trabajo autónomo de análisis con la documentación recibida.</p></div>`;
+  if(dia.num===5||dia.num===7)h+=`<div class="festivo"><h3>${dia.num===5?'☽ Festivo':'◎ Sábado'}</h3><p>Sin reuniones formales. Trabajo autónomo de análisis con la documentación recibida.</p></div>`;
   if(dia.soli?.length){
     h+=`<div class="sec-label" style="margin-top:14px">Solicitudes documentales</div><div class="check-list">`;
     h+=dia.soli.map((s,i)=>{const k='s'+i,dn=sv[k]||false;return`<div class="ci${dn?' done':''}" onclick="tc('${dia.id}','${k}',this)"><div class="ci-box">${dn?'✓':''}</div><div class="ci-main"><div class="ci-text">${s.d}</div><div class="ci-meta"><span class="ci-dep">${s.dep}</span><span class="badge b-${s.p}">${tl(s.p)}</span></div></div></div>`}).join('');
