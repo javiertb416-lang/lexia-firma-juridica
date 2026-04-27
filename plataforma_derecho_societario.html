@@ -4,489 +4,491 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Cátedra de Derecho Societario — Maestría Externado</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Crimson+Pro:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
 <style>
 :root{
-  --bg:#04090f;
-  --bg2:#0a1220;
-  --bg3:#0f1c2e;
-  --bg4:#162338;
-  --gold:#c9a227;
-  --gold2:#e8c547;
-  --gold-dim:rgba(201,162,39,0.15);
-  --gold-border:rgba(201,162,39,0.25);
-  --cream:#f5f0e8;
-  --muted:#8a8070;
-  --muted2:#6a6050;
-  --green:#2d7a4f;
-  --green-bg:rgba(45,122,79,0.12);
-  --green-border:rgba(45,122,79,0.35);
-  --red:#9b3535;
-  --red-bg:rgba(155,53,53,0.12);
-  --red-border:rgba(155,53,53,0.35);
-  --amber:#a07020;
-  --amber-bg:rgba(160,112,32,0.12);
-  --amber-border:rgba(160,112,32,0.35);
-  --blue-dim:rgba(30,80,160,0.15);
-  --blue-border:rgba(30,80,160,0.3);
-  --radius:10px;
-  --radius-sm:6px;
-  --transition:0.2s ease;
+  --bg:#f5f5f7;
+  --surface:#ffffff;
+  --surface2:#f5f5f7;
+  --surface3:#e8e8ed;
+  --text1:#1d1d1f;
+  --text2:#6e6e73;
+  --text3:#86868b;
+  --blue:#0071e3;
+  --blue-bg:rgba(0,113,227,0.08);
+  --blue-border:rgba(0,113,227,0.18);
+  --green:#34c759;
+  --green-bg:rgba(52,199,89,0.10);
+  --green-border:rgba(52,199,89,0.25);
+  --red:#ff3b30;
+  --red-bg:rgba(255,59,48,0.08);
+  --red-border:rgba(255,59,48,0.22);
+  --orange:#ff9f0a;
+  --orange-bg:rgba(255,159,10,0.10);
+  --orange-border:rgba(255,159,10,0.25);
+  --purple:#8e44e4;
+  --purple-bg:rgba(142,68,228,0.08);
+  --teal:#00b386;
+  --teal-bg:rgba(0,179,134,0.08);
+  --sep:rgba(0,0,0,0.09);
+  --shadow-xs:0 1px 3px rgba(0,0,0,0.07);
+  --shadow:0 4px 16px rgba(0,0,0,0.08),0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg:0 8px 32px rgba(0,0,0,0.1),0 2px 8px rgba(0,0,0,0.05);
+  --r:18px;--r-sm:12px;--r-xs:8px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  background:var(--bg);
-  color:var(--cream);
-  font-family:'Crimson Pro',Georgia,serif;
-  font-size:17px;
-  line-height:1.7;
-  min-height:100vh;
+  background:var(--bg);color:var(--text1);
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
 }
+.app{max-width:740px;margin:0 auto;padding:0 20px 80px}
 
-/* Subtle grain texture */
-body::before{
-  content:'';position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:0;opacity:0.6;
-}
-
-.app{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 20px 60px}
-
-/* Header */
+/* ── Header ────────────────────────────────── */
 .site-header{
-  border-bottom:1px solid var(--gold-border);
-  padding:20px 0;
-  margin-bottom:0;
+  padding:18px 0;margin-bottom:0;
   display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--sep);
 }
-.site-logo{
-  font-family:'Playfair Display',serif;
-  font-size:15px;font-weight:600;
-  color:var(--gold);
-  letter-spacing:0.04em;
-  text-transform:uppercase;
-}
-.site-logo span{color:var(--muted);font-weight:400;font-size:13px;display:block;text-transform:none;letter-spacing:0;}
-
-/* API Key settings */
-.apikey-area{
-  display:flex;align-items:center;gap:8px;
-}
+.site-logo{font-size:14px;font-weight:600;color:var(--text1);letter-spacing:-.01em;}
+.site-logo span{color:var(--text2);font-weight:400;font-size:12px;display:block;margin-top:1px;}
+.apikey-area{display:flex;align-items:center;gap:8px;}
+.key-label{font-size:12px;color:var(--text2);white-space:nowrap;}
 .apikey-input{
-  background:var(--bg3);border:1px solid var(--gold-border);
-  border-radius:var(--radius-sm);
-  padding:6px 12px;font-size:13px;color:var(--cream);
-  font-family:'Crimson Pro',serif;width:240px;
-  transition:border-color var(--transition);
+  background:var(--surface);border:1px solid var(--sep);border-radius:var(--r-xs);
+  padding:7px 12px;font-size:13px;color:var(--text1);
+  font-family:inherit;width:200px;transition:border-color .2s,box-shadow .2s;
 }
-.apikey-input:focus{outline:none;border-color:var(--gold);}
-.apikey-input::placeholder{color:var(--muted2);}
-.key-label{font-size:12px;color:var(--muted);white-space:nowrap;}
+.apikey-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-bg);}
+.apikey-input::placeholder{color:var(--text3);}
+.btn-verify{
+  background:var(--blue-bg);border:none;color:var(--blue);
+  font-family:inherit;font-size:13px;font-weight:500;
+  padding:7px 14px;border-radius:var(--r-xs);cursor:pointer;
+  transition:background .18s;white-space:nowrap;
+}
+.btn-verify:hover{background:rgba(0,113,227,0.14);}
 
-/* Screen management */
-.screen{display:none;animation:fadeIn 0.3s ease}
+/* ── Screens ───────────────────────────────── */
+.screen{display:none;animation:fadeUp .28s ease}
 .screen.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-/* === HOME SCREEN === */
-.hero{padding:60px 0 40px;text-align:center;}
+/* ── Hero ──────────────────────────────────── */
+.hero{padding:52px 0 36px;text-align:center;}
 .hero-eyebrow{
-  font-size:12px;font-weight:500;letter-spacing:0.12em;
-  text-transform:uppercase;color:var(--gold);
-  margin-bottom:16px;
-  display:flex;align-items:center;justify-content:center;gap:12px;
+  font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:14px;
 }
-.hero-eyebrow::before,.hero-eyebrow::after{content:'';flex:1;max-width:60px;height:1px;background:var(--gold-border);}
 .hero-title{
-  font-family:'Playfair Display',serif;
-  font-size:42px;font-weight:700;
-  color:var(--cream);line-height:1.15;
-  margin-bottom:20px;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;
+  font-size:40px;font-weight:700;letter-spacing:-.03em;
+  color:var(--text1);line-height:1.1;margin-bottom:16px;
 }
-.hero-title em{font-style:italic;color:var(--gold);}
-.hero-desc{
-  font-size:17px;color:var(--muted);
-  max-width:520px;margin:0 auto 48px;line-height:1.7;
-}
+.hero-title em{font-style:normal;color:var(--blue);}
+.hero-desc{font-size:17px;color:var(--text2);max-width:480px;margin:0 auto 44px;line-height:1.6;}
 
-/* Rubric card */
+/* ── Rubric card ───────────────────────────── */
 .rubric-card{
-  background:var(--bg2);
-  border:1px solid var(--gold-border);
-  border-radius:var(--radius);
-  padding:24px 28px;
-  margin-bottom:48px;
+  background:var(--surface);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px 28px;margin-bottom:40px;
 }
 .rubric-card h3{
-  font-family:'Playfair Display',serif;
-  font-size:14px;font-weight:500;
-  color:var(--gold);text-transform:uppercase;
-  letter-spacing:0.08em;margin-bottom:16px;
+  font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--text2);margin-bottom:16px;
 }
 .rubric-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .rubric-item{
-  background:var(--bg3);border:1px solid rgba(201,162,39,0.1);
-  border-radius:var(--radius-sm);padding:12px 14px;
+  background:var(--surface2);border-radius:var(--r-sm);
+  padding:12px 14px;
 }
-.rubric-item .ri-name{font-size:13px;color:var(--muted);margin-bottom:4px;}
-.rubric-item .ri-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--cream);}
-.rubric-item .ri-pct{font-size:12px;color:var(--gold);margin-left:4px;}
+.rubric-item .ri-name{font-size:12px;color:var(--text2);margin-bottom:4px;}
+.rubric-item .ri-val{font-size:19px;font-weight:700;color:var(--text1);letter-spacing:-.02em;}
+.rubric-item .ri-pct{font-size:12px;color:var(--blue);font-weight:500;margin-left:3px;}
 
-/* Module section */
+/* ── Mode toggle ───────────────────────────── */
+.mode-toggle{
+  display:flex;background:var(--surface3);border-radius:var(--r-sm);
+  padding:3px;margin:24px 0 0;
+}
+.mode-btn{
+  flex:1;padding:9px 0;text-align:center;font-family:inherit;font-size:14px;
+  font-weight:500;cursor:pointer;background:none;border:none;
+  color:var(--text2);border-radius:calc(var(--r-sm) - 3px);
+  transition:all .2s;
+}
+.mode-btn.active{background:var(--surface);color:var(--text1);box-shadow:var(--shadow-xs);}
+.mode-btn:not(.active):hover{color:var(--text1);}
+
+/* ── Section title ─────────────────────────── */
 .section-title{
-  font-family:'Playfair Display',serif;
-  font-size:14px;font-weight:500;color:var(--gold);
-  text-transform:uppercase;letter-spacing:0.1em;
-  margin-bottom:20px;
-  display:flex;align-items:center;gap:12px;
+  font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--text2);margin:28px 0 16px;
 }
-.section-title::after{content:'';flex:1;height:1px;background:var(--gold-border);}
-.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px;}
-.mod-card{
-  background:var(--bg2);
-  border:1px solid rgba(201,162,39,0.15);
-  border-radius:var(--radius);
-  padding:22px;cursor:pointer;
-  transition:border-color var(--transition),background var(--transition),transform 0.15s;
-  position:relative;overflow:hidden;
-}
-.mod-card::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at top left,rgba(201,162,39,0.04) 0%,transparent 60%);
-  pointer-events:none;
-}
-.mod-card:hover{
-  border-color:var(--gold-border);background:var(--bg3);
-  transform:translateY(-2px);
-}
-.mod-num{font-size:11px;font-weight:600;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
-.mod-title{
-  font-family:'Playfair Display',serif;
-  font-size:17px;font-weight:600;color:var(--cream);
-  line-height:1.3;margin-bottom:6px;
-}
-.mod-sub{font-size:13px;color:var(--muted);line-height:1.4;margin-bottom:14px;}
-.mod-tags{display:flex;gap:6px;flex-wrap:wrap;}
-.tag{
-  font-size:11px;font-weight:500;padding:2px 9px;
-  border-radius:20px;letter-spacing:0.04em;
-}
-.tag-c{background:var(--blue-dim);color:#7aadff;border:1px solid var(--blue-border);}
-.tag-o{background:rgba(100,60,160,0.15);color:#b09ae0;border:1px solid rgba(100,60,160,0.3);}
-.tag-k{background:rgba(180,80,40,0.12);color:#e09870;border:1px solid rgba(180,80,40,0.3);}
 
-/* === QUIZ SCREEN === */
+/* ── Module cards ──────────────────────────── */
+.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:40px;}
+.mod-card{
+  background:var(--surface);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:22px;cursor:pointer;
+  transition:transform .18s,box-shadow .18s;
+  border-top:3px solid transparent;
+}
+.mod-card:nth-child(1){border-top-color:var(--blue);}
+.mod-card:nth-child(2){border-top-color:var(--purple);}
+.mod-card:nth-child(3){border-top-color:var(--teal);}
+.mod-card:nth-child(4){border-top-color:var(--orange);}
+.mod-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.mod-num{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
+.mod-title{font-size:16px;font-weight:600;color:var(--text1);line-height:1.3;letter-spacing:-.01em;margin-bottom:5px;}
+.mod-sub{font-size:12px;color:var(--text2);line-height:1.4;margin-bottom:14px;}
+.mod-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;}
+.tag-c{background:var(--blue-bg);color:var(--blue);}
+.tag-o{background:var(--purple-bg);color:var(--purple);}
+.tag-k{background:var(--orange-bg);color:var(--orange);}
+
+/* ── Progress bar ──────────────────────────── */
 .quiz-nav{
-  padding:20px 0 0;
-  display:flex;align-items:center;gap:12px;
-  margin-bottom:24px;
+  padding:18px 0 0;display:flex;align-items:center;gap:12px;margin-bottom:20px;
 }
 .btn-back{
-  background:none;border:1px solid var(--gold-border);color:var(--gold);
-  font-family:'Crimson Pro',serif;font-size:14px;
-  padding:6px 14px;border-radius:var(--radius-sm);cursor:pointer;
-  transition:all var(--transition);
+  background:var(--blue-bg);border:none;color:var(--blue);
+  font-family:inherit;font-size:14px;font-weight:500;
+  padding:7px 14px;border-radius:var(--r-xs);cursor:pointer;
+  transition:background .18s;
 }
-.btn-back:hover{background:var(--gold-dim);}
-.quiz-mod-name{
-  font-size:13px;color:var(--muted);
-  border-left:2px solid var(--gold);padding-left:10px;
-}
-
-/* Progress */
+.btn-back:hover{background:rgba(0,113,227,0.14);}
+.quiz-mod-name{font-size:13px;color:var(--text2);}
 .progress-wrap{margin-bottom:8px;}
-.progress-track{height:3px;background:var(--bg4);border-radius:2px;}
-.progress-fill{height:100%;border-radius:2px;background:var(--gold);transition:width 0.4s ease;}
+.progress-track{height:4px;background:var(--surface3);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:2px;background:var(--blue);transition:width .4s ease;}
 .progress-info{display:flex;justify-content:space-between;margin-top:8px;}
-.progress-info span{font-size:12px;color:var(--muted);}
+.progress-info span{font-size:12px;color:var(--text2);}
 
-/* Question card */
-.q-wrap{margin-top:24px;}
+/* ── Question card ─────────────────────────── */
+.q-wrap{margin-top:20px;}
 .q-type-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:11px;font-weight:600;letter-spacing:0.08em;
-  text-transform:uppercase;padding:4px 12px;
-  border-radius:20px;margin-bottom:18px;
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:4px 12px;border-radius:20px;margin-bottom:16px;
 }
-.qt-cerrada{background:var(--blue-dim);color:#7aadff;border:1px solid var(--blue-border);}
-.qt-abierta{background:rgba(100,60,160,0.15);color:#b09ae0;border:1px solid rgba(100,60,160,0.3);}
-.qt-caso{background:rgba(180,80,40,0.12);color:#e09870;border:1px solid rgba(180,80,40,0.3);}
-
+.qt-cerrada{background:var(--blue-bg);color:var(--blue);}
+.qt-abierta{background:var(--purple-bg);color:var(--purple);}
+.qt-caso{background:var(--orange-bg);color:var(--orange);}
 .q-text{
-  font-family:'Playfair Display',serif;
-  font-size:19px;font-weight:500;color:var(--cream);
-  line-height:1.5;margin-bottom:24px;
-  padding:24px 28px;
-  background:var(--bg2);border:1px solid var(--gold-border);
-  border-radius:var(--radius);
-  white-space:pre-line;
+  background:var(--surface);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px 26px;
+  font-size:16px;color:var(--text1);line-height:1.65;
+  margin-bottom:18px;white-space:pre-line;font-weight:400;
 }
 
-/* Options */
-.opts-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+/* ── Options ───────────────────────────────── */
+.opts-wrap{display:flex;flex-direction:column;gap:9px;margin-bottom:18px;}
 .opt{
-  display:flex;align-items:flex-start;gap:14px;
-  padding:14px 18px;
-  background:var(--bg2);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:var(--radius);cursor:pointer;
-  transition:all var(--transition);
-  font-size:16px;color:var(--cream);line-height:1.5;
+  display:flex;align-items:flex-start;gap:13px;padding:14px 16px;
+  background:var(--surface);border-radius:var(--r-sm);
+  box-shadow:var(--shadow-xs);cursor:pointer;
+  border:2px solid transparent;
+  transition:all .16s;font-size:15px;color:var(--text1);line-height:1.5;
 }
-.opt:hover{border-color:rgba(201,162,39,0.3);background:var(--bg3);}
-.opt.sel{border-color:var(--gold);background:var(--gold-dim);}
-.opt.ok{border-color:var(--green);background:var(--green-bg);cursor:default;}
-.opt.err{border-color:var(--red);background:var(--red-bg);cursor:default;}
+.opt:hover{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-bg);}
+.opt.sel{border-color:var(--blue);background:var(--blue-bg);}
+.opt.ok{border-color:var(--green);background:var(--green-bg);}
+.opt.err{border-color:var(--red);background:var(--red-bg);}
 .opt-letter{
   min-width:28px;height:28px;border-radius:50%;
-  background:var(--bg4);
+  background:var(--surface2);
   display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:600;letter-spacing:0;
-  color:var(--muted);flex-shrink:0;margin-top:1px;
-  transition:all var(--transition);
+  font-size:12px;font-weight:600;color:var(--text2);flex-shrink:0;margin-top:1px;
+  transition:all .16s;
 }
-.opt.sel .opt-letter{background:var(--gold);color:var(--bg);}
-.opt.ok .opt-letter{background:var(--green);color:white;}
-.opt.err .opt-letter{background:var(--red);color:white;}
+.opt.sel .opt-letter{background:var(--blue);color:#fff;}
+.opt.ok .opt-letter{background:var(--green);color:#fff;}
+.opt.err .opt-letter{background:var(--red);color:#fff;}
 
-/* Feedback */
-.feedback{
-  border-radius:var(--radius);padding:18px 22px;
-  margin-top:16px;font-size:15px;line-height:1.65;
-  display:none;
-}
-.feedback.ok{
-  background:var(--green-bg);border:1px solid var(--green-border);
-  color:#90e0b0;
-}
-.feedback.err{
-  background:var(--red-bg);border:1px solid var(--red-border);
-  color:#e09090;
-}
-.feedback.loading{
-  background:var(--bg3);border:1px solid var(--gold-border);
-  color:var(--muted);
-}
-.feedback.result{
-  background:var(--bg2);border:1px solid var(--gold-border);
-  color:var(--cream);padding:0;overflow:hidden;
-}
-.feedback strong{font-weight:600;}
+/* ── Feedback ──────────────────────────────── */
+.feedback{border-radius:var(--r-sm);padding:16px 20px;margin-top:14px;font-size:14px;line-height:1.65;display:none;}
+.feedback.ok{background:var(--green-bg);border:1px solid var(--green-border);color:#1a6b30;}
+.feedback.err{background:var(--red-bg);border:1px solid var(--red-border);color:#c0211a;}
+.feedback.loading{background:var(--surface2);color:var(--text2);}
+.feedback.result{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:0;overflow:hidden;}
 
-/* Open textarea */
-.open-wrap{margin-bottom:16px;}
+/* ── Open textarea ─────────────────────────── */
+.open-wrap{margin-bottom:14px;}
 .open-textarea{
-  width:100%;min-height:160px;
-  padding:16px 18px;
-  background:var(--bg2);border:1px solid rgba(255,255,255,0.1);
-  border-radius:var(--radius);
-  font-family:'Crimson Pro',serif;font-size:16px;
-  color:var(--cream);line-height:1.65;resize:vertical;
-  transition:border-color var(--transition);
+  width:100%;min-height:150px;padding:15px 16px;
+  background:var(--surface);border:1.5px solid var(--sep);border-radius:var(--r-sm);
+  font-family:inherit;font-size:15px;color:var(--text1);line-height:1.65;resize:vertical;
+  transition:border-color .2s,box-shadow .2s;
 }
-.open-textarea:focus{outline:none;border-color:var(--gold);}
-.open-textarea::placeholder{color:var(--muted2);}
+.open-textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-bg);}
+.open-textarea::placeholder{color:var(--text3);}
 
-/* Rubric hint */
+/* ── Rubric hint ───────────────────────────── */
 .rubric-hint{
-  background:var(--bg3);border:1px solid rgba(201,162,39,0.1);
-  border-radius:var(--radius-sm);padding:12px 16px;
-  margin-bottom:16px;
+  background:var(--surface2);border-radius:var(--r-sm);
+  padding:12px 16px;margin-bottom:14px;
 }
-.rubric-hint h4{font-size:11px;font-weight:600;letter-spacing:0.08em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.rubric-hint h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text2);margin-bottom:8px;}
 .rubric-hint-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
-.rubric-hint-grid span{font-size:13px;color:var(--muted);}
+.rubric-hint-grid span{font-size:13px;color:var(--text2);}
+.rubric-hint-grid strong{color:var(--blue);}
 
-/* Buttons */
+/* ── Buttons ───────────────────────────────── */
 .btn-primary{
-  background:var(--gold);color:var(--bg);
-  font-family:'Crimson Pro',serif;font-size:15px;font-weight:600;
-  padding:10px 26px;border:none;border-radius:var(--radius-sm);
-  cursor:pointer;transition:all var(--transition);
-  letter-spacing:0.02em;
+  background:var(--blue);color:#fff;
+  font-family:inherit;font-size:15px;font-weight:500;
+  padding:11px 24px;border:none;border-radius:var(--r-sm);
+  cursor:pointer;transition:all .18s;letter-spacing:-.01em;
 }
-.btn-primary:hover{background:var(--gold2);}
-.btn-primary:disabled{opacity:0.5;cursor:not-allowed;}
+.btn-primary:hover{background:#0077ed;transform:scale(1.01);}
+.btn-primary:active{transform:scale(.98);}
+.btn-primary:disabled{opacity:.45;cursor:not-allowed;transform:none;}
 .btn-secondary{
-  background:none;border:1px solid var(--gold-border);color:var(--gold);
-  font-family:'Crimson Pro',serif;font-size:15px;font-weight:500;
-  padding:10px 26px;border-radius:var(--radius-sm);cursor:pointer;
-  transition:all var(--transition);
+  background:var(--surface);border:1.5px solid var(--sep);color:var(--blue);
+  font-family:inherit;font-size:15px;font-weight:500;
+  padding:10px 22px;border-radius:var(--r-sm);cursor:pointer;
+  transition:all .18s;
 }
-.btn-secondary:hover{background:var(--gold-dim);}
-.btn-verify{
-  background:none;border:1px solid var(--gold-border);color:var(--gold);
-  font-family:'Crimson Pro',serif;font-size:13px;
-  padding:6px 14px;border-radius:var(--radius-sm);cursor:pointer;
-  transition:all var(--transition);white-space:nowrap;
-}
-.btn-verify:hover{background:var(--gold-dim);}
-.btn-row{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;}
+.btn-secondary:hover{border-color:var(--blue);background:var(--blue-bg);}
+.btn-secondary:disabled{opacity:.4;cursor:not-allowed;}
+.btn-row{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;}
 
-/* AI Grade result */
+/* ── Grade result ──────────────────────────── */
 .grade-header{
   display:flex;align-items:center;gap:16px;
-  padding:20px 24px;
-  border-bottom:1px solid rgba(201,162,39,0.15);
+  padding:20px 24px;border-bottom:1px solid var(--sep);
 }
 .grade-circle{
-  width:64px;height:64px;border-radius:50%;
+  width:60px;height:60px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-family:'Playfair Display',serif;font-size:24px;font-weight:700;
-  flex-shrink:0;
+  font-size:22px;font-weight:700;flex-shrink:0;letter-spacing:-.03em;
 }
-.grade-circle.high{background:rgba(45,122,79,0.2);color:#60d090;border:1px solid var(--green-border);}
-.grade-circle.mid{background:rgba(160,112,32,0.2);color:#e0b050;border:1px solid var(--amber-border);}
-.grade-circle.low{background:rgba(155,53,53,0.2);color:#e07070;border:1px solid var(--red-border);}
-.grade-label{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--cream);}
-.grade-sub{font-size:14px;color:var(--muted);margin-top:2px;}
+.grade-circle.high{background:var(--green-bg);color:var(--green);border:2px solid var(--green-border);}
+.grade-circle.mid{background:var(--orange-bg);color:var(--orange);border:2px solid var(--orange-border);}
+.grade-circle.low{background:var(--red-bg);color:var(--red);border:2px solid var(--red-border);}
+.grade-label{font-size:17px;font-weight:600;color:var(--text1);letter-spacing:-.02em;}
+.grade-sub{font-size:12px;color:var(--text2);margin-top:3px;}
 .grade-scores{display:flex;gap:14px;margin-left:auto;}
 .grade-score-item{text-align:center;}
-.grade-score-item .gsn{font-size:16px;font-weight:600;color:var(--gold);}
-.grade-score-item .gsl{font-size:11px;color:var(--muted);}
+.grade-score-item .gsn{font-size:15px;font-weight:700;letter-spacing:-.02em;}
+.grade-score-item .gsl{font-size:11px;color:var(--text2);margin-top:1px;}
+.grade-body{padding:20px 24px;background:var(--surface);}
+.grade-section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text2);margin-bottom:10px;}
+.grade-retro{font-size:15px;line-height:1.7;color:var(--text1);margin-bottom:16px;}
+.grade-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grade-col h5{font-size:12px;font-weight:600;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em;}
+.grade-col.good h5{color:var(--green);}
+.grade-col.bad h5{color:var(--red);}
+.grade-col p{font-size:14px;color:var(--text1);line-height:1.55;}
+.grade-missing{margin-top:12px;padding:10px 14px;background:var(--surface2);border-radius:var(--r-xs);font-size:13px;color:var(--text2);}
+.grade-missing strong{color:var(--text1);}
 
-.grade-body{padding:20px 24px;}
-.grade-section-title{
-  font-size:11px;font-weight:600;letter-spacing:0.1em;
-  text-transform:uppercase;color:var(--gold);margin-bottom:10px;
-}
-.grade-retro{
-  font-size:15px;line-height:1.7;color:var(--cream);
-  margin-bottom:18px;
-}
-.grade-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px;}
-.grade-col h5{
-  font-size:12px;font-weight:600;color:var(--muted);
-  margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;
-}
-.grade-col.good h5{color:#60d090;}
-.grade-col.bad h5{color:#e07070;}
-.grade-col p{font-size:14px;color:var(--cream);line-height:1.55;}
-.grade-missing{
-  margin-top:14px;padding:10px 14px;
-  background:var(--bg3);border-radius:var(--radius-sm);
-  font-size:13px;color:var(--muted);
-}
-.grade-missing strong{color:var(--cream);}
-
-/* === RESULTS SCREEN === */
-.results-hero{text-align:center;padding:48px 0 36px;}
+/* ── Results screen ────────────────────────── */
+.results-hero{text-align:center;padding:44px 0 32px;}
 .results-circle{
-  width:100px;height:100px;border-radius:50%;
-  margin:0 auto 20px;
+  width:90px;height:90px;border-radius:50%;margin:0 auto 18px;
   display:flex;align-items:center;justify-content:center;
-  font-family:'Playfair Display',serif;font-size:36px;font-weight:700;
+  font-size:30px;font-weight:700;letter-spacing:-.03em;
 }
-.results-circle.high{background:rgba(45,122,79,0.15);color:#60d090;border:2px solid var(--green-border);}
-.results-circle.mid{background:rgba(160,112,32,0.15);color:#e0b050;border:2px solid var(--amber-border);}
-.results-circle.low{background:rgba(155,53,53,0.15);color:#e07070;border:2px solid var(--red-border);}
-.results-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--cream);margin-bottom:6px;}
-.results-mod{font-size:15px;color:var(--muted);}
-.results-lbl{font-size:18px;font-weight:600;margin-top:8px;}
-
-.results-detail{
-  background:var(--bg2);border:1px solid var(--gold-border);
-  border-radius:var(--radius);overflow:hidden;margin-bottom:24px;
-}
-.results-detail-header{
-  padding:14px 20px;border-bottom:1px solid var(--gold-border);
-  font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);
-}
-.results-row{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.04);
-}
+.results-circle.high{background:var(--green-bg);color:var(--green);border:2px solid var(--green-border);}
+.results-circle.mid{background:var(--orange-bg);color:var(--orange);border:2px solid var(--orange-border);}
+.results-circle.low{background:var(--red-bg);color:var(--red);border:2px solid var(--red-border);}
+.results-title{font-size:26px;font-weight:700;color:var(--text1);letter-spacing:-.02em;}
+.results-mod{font-size:15px;color:var(--text2);margin-top:4px;}
+.results-lbl{font-size:17px;font-weight:600;margin-top:8px;}
+.results-detail{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:24px;}
+.results-detail-header{padding:14px 22px;border-bottom:1px solid var(--sep);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text2);}
+.results-row{display:flex;align-items:center;gap:14px;padding:13px 22px;border-bottom:1px solid var(--sep);}
 .results-row:last-child{border-bottom:none;}
-.results-qnum{
-  width:32px;height:32px;border-radius:50%;
-  background:var(--bg3);display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:600;color:var(--muted);flex-shrink:0;
-}
+.results-qnum{width:30px;height:30px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--text2);flex-shrink:0;}
 .results-qinfo{flex:1;}
-.results-qtext{font-size:14px;color:var(--cream);line-height:1.3;}
-.results-qtype{font-size:11px;color:var(--muted);margin-top:2px;}
-.results-qscore{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;}
-.rs-high{color:#60d090;} .rs-mid{color:#e0b050;} .rs-low{color:#e07070;} .rs-na{color:var(--muted);}
+.results-qtext{font-size:13px;color:var(--text1);line-height:1.3;}
+.results-qtype{font-size:11px;color:var(--text2);margin-top:2px;}
+.results-qscore{font-size:17px;font-weight:700;letter-spacing:-.02em;}
+.rs-high{color:var(--green);}.rs-mid{color:var(--orange);}.rs-low{color:var(--red);}.rs-na{color:var(--text2);}
+.results-actions{display:flex;gap:12px;justify-content:center;padding-bottom:16px;}
 
-.results-actions{display:flex;gap:12px;justify-content:center;padding-bottom:20px;}
-
-/* Divider */
-.divider{height:1px;background:var(--gold-border);margin:32px 0;}
-
-/* Responsive */
-@media(max-width:580px){
-  .hero-title{font-size:30px;}
-  .mod-grid,.rubric-grid,.grade-cols,.grade-scores,.rubric-hint-grid{grid-template-columns:1fr;}
-  .grade-scores{margin-left:0;margin-top:8px;}
-  .grade-header{flex-wrap:wrap;}
-  .apikey-input{width:180px;}
-  .q-text{font-size:16px;padding:18px 16px;}
-}
-
-/* ── STUDY MODE ─────────────────────────────────── */
-.mode-toggle{display:flex;gap:0;margin:24px 0 0;border:1px solid var(--gold-border);border-radius:var(--radius);overflow:hidden;}
-.mode-btn{flex:1;padding:10px 0;text-align:center;font-family:'Crimson Pro',serif;font-size:15px;font-weight:500;cursor:pointer;background:none;border:none;color:var(--muted);transition:all .2s;}
-.mode-btn.active{background:var(--gold);color:var(--bg);}
-.mode-btn:not(.active):hover{background:var(--gold-dim);color:var(--cream);}
-
-/* Study screen */
-.study-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0 0;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
-.study-tabs{display:flex;gap:0;border:1px solid var(--gold-border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px;}
-.stab{flex:1;padding:9px 4px;text-align:center;font-family:'Crimson Pro',serif;font-size:14px;font-weight:500;cursor:pointer;background:none;border:none;color:var(--muted);transition:all .2s;white-space:nowrap;}
-.stab.active{background:var(--bg3);color:var(--gold);}
-.stab:not(.active):hover{background:var(--bg2);}
+/* ── Study mode ─────────────────────────────── */
+.study-nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0 0;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+.study-tabs{display:flex;background:var(--surface3);border-radius:var(--r-sm);padding:3px;margin-bottom:22px;}
+.stab{flex:1;padding:8px 4px;text-align:center;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;background:none;border:none;color:var(--text2);border-radius:calc(var(--r-sm) - 3px);transition:all .2s;white-space:nowrap;}
+.stab.active{background:var(--surface);color:var(--text1);box-shadow:var(--shadow-xs);}
+.stab:not(.active):hover{color:var(--text1);}
 .stab-panel{display:none;}.stab-panel.active{display:block;}
 
 /* Resumen */
-.resumen-section{margin-bottom:20px;}
-.resumen-section h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--gold);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--gold-border);}
-.resumen-list{list-style:none;padding:0;}
-.resumen-list li{padding:7px 0 7px 16px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:15px;color:var(--cream);line-height:1.5;position:relative;}
-.resumen-list li::before{content:'›';position:absolute;left:0;color:var(--gold);}
+.resumen-section{margin-bottom:22px;}
+.resumen-section h3{font-size:15px;font-weight:600;color:var(--text1);letter-spacing:-.01em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--sep);}
+.resumen-list{list-style:none;padding:0;background:var(--surface);border-radius:var(--r-sm);box-shadow:var(--shadow-xs);overflow:hidden;}
+.resumen-list li{padding:11px 18px;border-bottom:1px solid var(--sep);font-size:14px;color:var(--text1);line-height:1.55;position:relative;padding-left:32px;}
+.resumen-list li::before{content:'›';position:absolute;left:16px;color:var(--blue);font-weight:600;}
 .resumen-list li:last-child{border-bottom:none;}
 .norm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;}
-.norm-card{background:var(--bg3);border:1px solid var(--gold-border);border-radius:var(--radius-sm);padding:12px 14px;}
-.norm-ref{font-size:12px;font-weight:600;color:var(--gold);margin-bottom:4px;letter-spacing:.03em;}
-.norm-desc{font-size:13px;color:var(--cream);line-height:1.5;}
-.case-card{background:var(--bg2);border-left:3px solid var(--gold);padding:14px 16px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-bottom:12px;}
-.case-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--cream);margin-bottom:4px;}
-.case-meta{font-size:12px;color:var(--gold);margin-bottom:8px;letter-spacing:.03em;}
-.case-holding{font-size:14px;color:var(--muted);line-height:1.55;}
+.norm-card{background:var(--surface);border-radius:var(--r-sm);box-shadow:var(--shadow-xs);padding:14px 16px;}
+.norm-ref{font-size:12px;font-weight:600;color:var(--blue);margin-bottom:4px;letter-spacing:.02em;}
+.norm-desc{font-size:13px;color:var(--text1);line-height:1.5;}
+.case-card{background:var(--surface);border-left:3px solid var(--blue);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:14px 18px;margin-bottom:10px;box-shadow:var(--shadow-xs);}
+.case-title{font-size:15px;font-weight:600;color:var(--text1);margin-bottom:3px;letter-spacing:-.01em;}
+.case-meta{font-size:12px;color:var(--blue);margin-bottom:7px;font-weight:500;}
+.case-holding{font-size:14px;color:var(--text2);line-height:1.55;}
 
 /* Flashcards */
-.fc-wrap{perspective:1200px;margin-bottom:20px;}
-.fc-card{width:100%;min-height:200px;position:relative;transform-style:preserve-3d;transition:transform .5s ease;cursor:pointer;}
+.fc-wrap{perspective:1200px;margin-bottom:18px;}
+.fc-card{width:100%;min-height:210px;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1);cursor:pointer;}
 .fc-card.flipped{transform:rotateY(180deg);}
-.fc-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 32px;text-align:center;}
-.fc-front{background:var(--bg2);border:1px solid var(--gold-border);}
-.fc-back{background:var(--bg3);border:1px solid rgba(201,162,39,0.4);transform:rotateY(180deg);}
-.fc-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
-.fc-term{font-family:'Playfair Display',serif;font-size:19px;font-weight:500;color:var(--cream);line-height:1.4;}
-.fc-def{font-size:15px;color:var(--cream);line-height:1.6;}
-.fc-hint{font-size:12px;color:var(--muted2);margin-top:16px;}
-.fc-controls{display:flex;align-items:center;justify-content:space-between;margin-top:14px;}
-.fc-progress{font-size:13px;color:var(--muted);}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 32px;text-align:center;}
+.fc-front{background:var(--surface);box-shadow:var(--shadow);}
+.fc-back{background:var(--blue);box-shadow:var(--shadow-lg);transform:rotateY(180deg);}
+.fc-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;}
+.fc-front .fc-label{color:var(--blue);}
+.fc-back .fc-label{color:rgba(255,255,255,0.7);}
+.fc-term{font-size:18px;font-weight:600;color:var(--text1);line-height:1.4;letter-spacing:-.01em;}
+.fc-def{font-size:15px;color:#ffffff;line-height:1.65;}
+.fc-hint{font-size:12px;color:var(--text2);margin-top:14px;}
+.fc-controls{display:flex;align-items:center;justify-content:space-between;margin-top:12px;}
+.fc-progress{font-size:13px;color:var(--text2);}
 .fc-nav{display:flex;gap:8px;}
 .fc-dot-row{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-top:10px;}
-.fc-dot{width:8px;height:8px;border-radius:50%;background:var(--bg4);transition:background .2s;}
-.fc-dot.seen{background:var(--muted2);}.fc-dot.current{background:var(--gold);}
+.fc-dot{width:7px;height:7px;border-radius:50%;background:var(--surface3);transition:background .2s;}
+.fc-dot.seen{background:rgba(0,113,227,0.3);}.fc-dot.current{background:var(--blue);}
 
-/* AI Assistant */
+/* AI chat */
 .ai-chat{display:flex;flex-direction:column;gap:12px;}
-.chat-history{display:flex;flex-direction:column;gap:10px;min-height:120px;max-height:400px;overflow-y:auto;padding:4px 0;}
-.chat-msg{padding:12px 16px;border-radius:var(--radius-sm);font-size:14px;line-height:1.6;max-width:92%;}
-.chat-msg.user{background:var(--gold-dim);border:1px solid var(--gold-border);align-self:flex-end;color:var(--cream);}
-.chat-msg.ai{background:var(--bg3);border:1px solid rgba(255,255,255,0.07);align-self:flex-start;color:var(--cream);}
-.chat-msg.thinking{color:var(--muted);font-style:italic;}
+.chat-history{display:flex;flex-direction:column;gap:8px;min-height:100px;max-height:380px;overflow-y:auto;padding:4px 0;}
+.chat-msg{padding:11px 16px;border-radius:var(--r-sm);font-size:14px;line-height:1.6;max-width:90%;}
+.chat-msg.user{background:var(--blue);color:#fff;align-self:flex-end;border-radius:var(--r-sm) var(--r-sm) 4px var(--r-sm);}
+.chat-msg.ai{background:var(--surface);box-shadow:var(--shadow-xs);color:var(--text1);align-self:flex-start;border-radius:var(--r-sm) var(--r-sm) var(--r-sm) 4px;}
+.chat-msg.thinking{color:var(--text2);font-style:italic;background:var(--surface2);}
 .chat-suggestions{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:4px;}
-.chat-sug{font-size:12px;padding:5px 12px;border:1px solid var(--gold-border);border-radius:20px;cursor:pointer;color:var(--muted);background:none;font-family:'Crimson Pro',serif;transition:all .2s;}
-.chat-sug:hover{background:var(--gold-dim);color:var(--cream);}
+.chat-sug{font-size:13px;padding:6px 14px;border:1.5px solid var(--sep);border-radius:20px;cursor:pointer;color:var(--text2);background:var(--surface);font-family:inherit;transition:all .18s;box-shadow:var(--shadow-xs);}
+.chat-sug:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-bg);}
 .chat-input-row{display:flex;gap:8px;}
-.chat-input{flex:1;background:var(--bg2);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-sm);padding:10px 14px;font-family:'Crimson Pro',serif;font-size:15px;color:var(--cream);transition:border-color .2s;}
-.chat-input:focus{outline:none;border-color:var(--gold);}
-.chat-input::placeholder{color:var(--muted2);}
-@media(max-width:580px){.norm-grid{grid-template-columns:1fr;}.study-tabs{flex-wrap:wrap;}.stab{flex:none;flex-basis:50%;}}
+.chat-input{flex:1;background:var(--surface);border:1.5px solid var(--sep);border-radius:var(--r-sm);padding:10px 14px;font-family:inherit;font-size:15px;color:var(--text1);transition:border-color .2s,box-shadow .2s;}
+.chat-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-bg);}
+.chat-input::placeholder{color:var(--text3);}
+
+@media(max-width:580px){
+  .hero-title{font-size:28px;}
+  .mod-grid,.rubric-grid,.grade-cols,.grade-scores,.rubric-hint-grid,.norm-grid{grid-template-columns:1fr;}
+  .grade-scores{margin-left:0;margin-top:8px;}
+  .grade-header{flex-wrap:wrap;}
+  .apikey-input{width:150px;}
+  .study-tabs{flex-wrap:wrap;}
+  .stab{flex:none;flex-basis:50%;}
+}
+
+/* ── Enhanced Study Mode ─────────────────────── */
+.study-header{display:flex;align-items:center;justify-content:space-between;padding:18px 0 0;margin-bottom:14px;flex-wrap:wrap;gap:10px;}
+.study-module-pill{font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px;background:var(--blue-bg);color:var(--blue);}
+.study-tabs-scroll{display:flex;gap:2px;background:var(--surface3);border-radius:var(--r-sm);padding:3px;margin-bottom:20px;overflow-x:auto;}
+.stab{flex:none;padding:8px 16px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;background:none;border:none;color:var(--text2);border-radius:calc(var(--r-sm) - 3px);transition:all .2s;white-space:nowrap;}
+.stab.active{background:var(--surface);color:var(--text1);box-shadow:var(--shadow-xs);}
+.stab:not(.active):hover{color:var(--text1);}
+
+/* Resumen enhancements */
+.resumen-intro{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:24px;padding:16px 20px;background:var(--blue-bg);border-radius:var(--r-sm);border-left:3px solid var(--blue);}
+.key-def-box{background:var(--surface);border-radius:var(--r-sm);box-shadow:var(--shadow-xs);padding:16px 20px;margin-bottom:10px;border-left:3px solid var(--blue);}
+.key-def-term{font-size:13px;font-weight:700;color:var(--blue);letter-spacing:.02em;margin-bottom:5px;}
+.key-def-text{font-size:14px;color:var(--text1);line-height:1.6;}
+.exam-tip{display:flex;gap:10px;background:rgba(255,159,10,0.08);border:1px solid rgba(255,159,10,0.25);border-radius:var(--r-sm);padding:12px 16px;margin:14px 0;}
+.exam-tip-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.exam-tip-text{font-size:13px;color:#7a4a00;line-height:1.55;}
+.connection-box{background:rgba(142,68,228,0.06);border:1px solid rgba(142,68,228,0.18);border-radius:var(--r-sm);padding:12px 16px;margin-top:16px;}
+.connection-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--purple);margin-bottom:8px;}
+.connection-text{font-size:13px;color:var(--text1);line-height:1.55;}
+
+/* Flashcard enhancements */
+.fc-stats-bar{display:flex;gap:10px;margin-bottom:14px;}
+.fc-stat{flex:1;text-align:center;background:var(--surface);border-radius:var(--r-sm);padding:10px 8px;box-shadow:var(--shadow-xs);}
+.fc-stat-n{font-size:20px;font-weight:700;letter-spacing:-.02em;color:var(--text1);}
+.fc-stat-l{font-size:11px;color:var(--text2);margin-top:2px;}
+.fc-stat.good .fc-stat-n{color:var(--green);}
+.fc-stat.hard .fc-stat-n{color:var(--red);}
+.fc-diff-btns{display:flex;gap:10px;margin-top:12px;justify-content:center;}
+.fc-diff-btn{flex:1;max-width:160px;padding:10px;border:none;border-radius:var(--r-sm);font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:all .18s;}
+.fc-diff-easy{background:var(--green-bg);color:var(--green);}
+.fc-diff-easy:hover{background:rgba(52,199,89,0.18);}
+.fc-diff-hard{background:var(--red-bg);color:var(--red);}
+.fc-diff-hard:hover{background:rgba(255,59,48,0.14);}
+.fc-filter-bar{display:flex;gap:8px;margin-bottom:14px;align-items:center;}
+.fc-filter-label{font-size:12px;color:var(--text2);font-weight:500;}
+.fc-filter-btn{font-size:12px;padding:5px 12px;border:1.5px solid var(--sep);border-radius:20px;cursor:pointer;background:var(--surface);color:var(--text2);font-family:inherit;transition:all .16s;}
+.fc-filter-btn.active{border-color:var(--blue);color:var(--blue);background:var(--blue-bg);}
+
+/* Esquemas */
+.esquema-card{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:24px 26px;margin-bottom:20px;}
+.esquema-title{font-size:14px;font-weight:700;color:var(--text1);letter-spacing:-.01em;margin-bottom:4px;}
+.esquema-desc{font-size:13px;color:var(--text2);margin-bottom:20px;}
+/* Flowchart nodes */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;}
+.flow-node{width:100%;max-width:520px;padding:12px 18px;border-radius:var(--r-sm);font-size:14px;line-height:1.5;text-align:center;position:relative;}
+.flow-node.blue{background:var(--blue-bg);border:2px solid var(--blue);color:var(--blue);font-weight:600;}
+.flow-node.green{background:var(--green-bg);border:2px solid var(--green-border);color:#1a6b30;font-weight:600;}
+.flow-node.red{background:var(--red-bg);border:2px solid var(--red-border);color:#c0211a;}
+.flow-node.gray{background:var(--surface2);border:1.5px solid var(--sep);color:var(--text1);}
+.flow-node.orange{background:var(--orange-bg);border:2px solid var(--orange-border);color:#7a4a00;}
+.flow-node.purple{background:var(--purple-bg);border:2px solid rgba(142,68,228,0.3);color:var(--purple);font-weight:600;}
+.flow-arrow{display:flex;flex-direction:column;align-items:center;margin:4px 0;}
+.flow-arrow-line{width:2px;height:16px;background:var(--sep);}
+.flow-arrow-head{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--sep);}
+.flow-arrow-label{font-size:11px;color:var(--text2);margin:2px 0;font-weight:500;}
+.flow-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:520px;}
+.flow-row{display:flex;gap:12px;width:100%;max-width:520px;}
+/* Comparison table */
+.comp-table{width:100%;border-collapse:collapse;font-size:14px;}
+.comp-table th{background:var(--surface2);padding:10px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);border-bottom:2px solid var(--sep);}
+.comp-table th.blue-th{background:var(--blue-bg);color:var(--blue);}
+.comp-table th.green-th{background:var(--green-bg);color:var(--green);}
+.comp-table td{padding:10px 16px;border-bottom:1px solid var(--sep);vertical-align:top;color:var(--text1);line-height:1.5;}
+.comp-table td:first-child{font-weight:600;color:var(--text2);font-size:13px;white-space:nowrap;}
+.comp-table tr:last-child td{border-bottom:none;}
+/* Matrix */
+.matrix-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.matrix-cell{background:var(--surface2);border-radius:var(--r-sm);padding:12px 14px;text-align:center;}
+.matrix-cell.good{background:var(--green-bg);border:1px solid var(--green-border);}
+.matrix-cell.bad{background:var(--red-bg);border:1px solid var(--red-border);}
+.matrix-cell.mid{background:var(--orange-bg);border:1px solid var(--orange-border);}
+.matrix-header{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+.matrix-header.good{color:var(--green);}
+.matrix-header.bad{color:var(--red);}
+.matrix-header.mid{color:var(--orange);}
+.matrix-body{font-size:13px;color:var(--text1);line-height:1.5;}
+
+/* Casos expandidos */
+.caso-card{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:22px 24px;margin-bottom:16px;}
+.caso-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--sep);}
+.caso-titulo{font-size:16px;font-weight:700;color:var(--text1);letter-spacing:-.01em;}
+.caso-badge{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--blue-bg);color:var(--blue);white-space:nowrap;flex-shrink:0;}
+.caso-meta{display:flex;gap:16px;margin-bottom:12px;flex-wrap:wrap;}
+.caso-meta-item{font-size:12px;color:var(--text2);}
+.caso-meta-item strong{color:var(--text1);font-weight:600;}
+.caso-section{margin-bottom:12px;}
+.caso-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text2);margin-bottom:5px;}
+.caso-section-text{font-size:14px;color:var(--text1);line-height:1.6;}
+.caso-holding{background:var(--blue-bg);border-left:3px solid var(--blue);border-radius:0 var(--r-xs) var(--r-xs) 0;padding:10px 14px;font-size:14px;color:var(--text1);line-height:1.6;font-style:italic;}
+
+/* Glosario */
+.glosario-search{width:100%;padding:12px 16px;background:var(--surface);border:1.5px solid var(--sep);border-radius:var(--r-sm);font-family:inherit;font-size:15px;color:var(--text1);margin-bottom:16px;transition:border-color .2s,box-shadow .2s;}
+.glosario-search:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-bg);}
+.glosario-search::placeholder{color:var(--text3);}
+.glosario-list{display:flex;flex-direction:column;gap:8px;}
+.glosario-item{background:var(--surface);border-radius:var(--r-sm);padding:14px 18px;box-shadow:var(--shadow-xs);border-left:3px solid transparent;transition:border-color .18s;}
+.glosario-item:hover{border-left-color:var(--blue);}
+.glosario-term{font-size:15px;font-weight:700;color:var(--text1);letter-spacing:-.01em;margin-bottom:4px;}
+.glosario-def{font-size:14px;color:var(--text2);line-height:1.55;}
+.glosario-tag{font-size:11px;font-weight:600;color:var(--blue);margin-top:5px;}
+
+/* Notas */
+.notas-area{display:flex;flex-direction:column;gap:12px;}
+.notas-textarea{width:100%;min-height:200px;padding:16px;background:var(--surface);border:1.5px solid var(--sep);border-radius:var(--r-sm);font-family:inherit;font-size:15px;color:var(--text1);line-height:1.7;resize:vertical;transition:border-color .2s,box-shadow .2s;}
+.notas-textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-bg);}
+.notas-hints{display:flex;flex-direction:column;gap:8px;}
+.notas-hint-item{display:flex;gap:10px;padding:10px 14px;background:var(--surface2);border-radius:var(--r-xs);}
+.notas-hint-label{font-size:11px;font-weight:700;color:var(--blue);margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em;}
+.notas-hint-text{font-size:13px;color:var(--text2);line-height:1.5;}
 
 </style>
 </head>
@@ -506,9 +508,9 @@ body::before{
       <button class="btn-verify" onclick="testKey()">Verificar</button>
     </div>
   </header>
-  <div id="key-banner" style="background:rgba(201,162,39,0.07);border:1px solid rgba(201,162,39,0.25);border-radius:10px;padding:11px 16px;margin-top:14px;font-size:13px;color:#8a8070;line-height:1.55;display:flex;gap:10px;align-items:flex-start">
-    <span style="flex-shrink:0;color:#c9a227">ℹ</span>
-    <span>Obtenga su API Key gratis en <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:#c9a227;text-decoration:none">console.anthropic.com</a>. Si al abrir el archivo desde el escritorio el botón no responde, sirva el archivo con <code style="background:#0f1c2e;padding:1px 5px;border-radius:3px;font-size:12px">python -m http.server</code> y ábralo desde <code style="background:#0f1c2e;padding:1px 5px;border-radius:3px;font-size:12px">http://localhost:8000</code>.</span>
+  <div id="key-banner" style="background:#f0f7ff;border:1px solid rgba(0,113,227,0.2);border-radius:10px;padding:11px 16px;margin-top:14px;font-size:13px;color:#6e6e73;line-height:1.55;display:flex;gap:10px;align-items:flex-start">
+    <span style="flex-shrink:0;color:#0071e3">ℹ</span>
+    <span>Obtenga su API Key gratis en <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:#0071e3;text-decoration:none">console.anthropic.com</a>. Si al abrir el archivo desde el escritorio el botón no responde, sirva el archivo con <code style="background:#f0f7ff;padding:1px 5px;border-radius:3px;font-size:12px">python -m http.server</code> y ábralo desde <code style="background:#f0f7ff;padding:1px 5px;border-radius:3px;font-size:12px">http://localhost:8000</code>.</span>
     <button onclick="this.parentElement.style.display='none'" style="background:none;border:none;color:#6a6050;cursor:pointer;font-size:18px;line-height:1;flex-shrink:0;padding:0">x</button>
   </div>
 
@@ -555,22 +557,31 @@ body::before{
 
   <!-- STUDY SCREEN -->
   <div class="screen" id="screen-study">
-    <div class="study-nav">
+    <div class="study-header">
       <div style="display:flex;align-items:center;gap:10px;">
         <button class="btn-back" onclick="goHome()">← Módulos</button>
-        <div class="quiz-mod-name" id="study-mod-name"></div>
+        <span class="study-module-pill" id="study-mod-badge"></span>
       </div>
-      <button class="btn-primary" onclick="startMod(activeStudyIdx)" style="font-size:13px;padding:7px 16px">Evaluar este módulo →</button>
+      <button class="btn-primary" onclick="startMod(activeStudyIdx)" style="font-size:13px;padding:8px 18px">Evaluar módulo →</button>
     </div>
-    <div class="study-tabs">
+    <div style="margin-bottom:6px;"><span style="font-size:22px;font-weight:700;color:var(--text1);letter-spacing:-.02em;" id="study-mod-name"></span></div>
+    <div class="study-tabs-scroll" id="study-tabs-container">
       <button class="stab active" onclick="showStab('resumen')">Resumen</button>
+      <button class="stab" onclick="showStab('conceptos')">Conceptos clave</button>
       <button class="stab" onclick="showStab('flashcards')">Flashcards</button>
-      <button class="stab" onclick="showStab('normas')">Normativa</button>
+      <button class="stab" onclick="showStab('esquemas')">Esquemas</button>
+      <button class="stab" onclick="showStab('casos')">Casos</button>
+      <button class="stab" onclick="showStab('glosario')">Glosario</button>
+      <button class="stab" onclick="showStab('notas')">Notas</button>
       <button class="stab" onclick="showStab('asistente')">Asistente IA</button>
     </div>
     <div class="stab-panel active" id="stab-resumen"></div>
+    <div class="stab-panel" id="stab-conceptos"></div>
     <div class="stab-panel" id="stab-flashcards"></div>
-    <div class="stab-panel" id="stab-normas"></div>
+    <div class="stab-panel" id="stab-esquemas"></div>
+    <div class="stab-panel" id="stab-casos"></div>
+    <div class="stab-panel" id="stab-glosario"></div>
+    <div class="stab-panel" id="stab-notas"></div>
     <div class="stab-panel" id="stab-asistente"></div>
   </div>
 
@@ -1228,12 +1239,12 @@ async function testKey() {
     if (data.error) throw new Error(data.error.message);
     if (data.content && data.content.length > 0) {
       btn.textContent = '✓ Conectado';
-      btn.style.color = '#60d090'; btn.style.borderColor = '#2d7a4f';
+      btn.style.color = '#34c759'; btn.style.borderColor = '#2d7a4f';
       setTimeout(() => { btn.textContent='Verificar'; btn.style.color=''; btn.style.borderColor=''; btn.disabled=false; }, 3000);
     } else throw new Error('Respuesta inesperada');
   } catch(e) {
     btn.textContent = '✗ Error';
-    btn.style.color = '#e07070'; btn.style.borderColor = '#9b3535';
+    btn.style.color = '#ff3b30'; btn.style.borderColor = '#9b3535';
     alert('Error de conexión: ' + e.message + '\n\nSi dice "Failed to fetch", abra el archivo con python -m http.server en vez de doble clic.');
     setTimeout(() => { btn.textContent='Verificar'; btn.style.color=''; btn.style.borderColor=''; btn.disabled=false; }, 2000);
   }
@@ -1350,17 +1361,17 @@ function renderOpen(q, container) {
     <div class="q-wrap">
       <div class="q-type-badge ${isK ? 'qt-caso' : 'qt-abierta'}">${q.label}</div>
       <div class="q-text">${q.text.replace(/\n/g,'<br/>')}</div>
-      ${isK ? `<div style="background:rgba(201,162,39,0.06);border:1px solid var(--gold-border);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:14px;font-size:14px;color:var(--muted);">Estructure su respuesta como concepto jurídico o alegato ante la Superintendencia de Sociedades. Identifique normas, jurisprudencia y estrategia procesal.</div>` : ''}
+      ${isK ? `<div style="background:rgba(0,113,227,0.05);border:1px solid var(--sep);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:14px;font-size:14px;color:var(--text2);">Estructure su respuesta como concepto jurídico o alegato ante la Superintendencia de Sociedades. Identifique normas, jurisprudencia y estrategia procesal.</div>` : ''}
       <div class="open-wrap">
         <textarea class="open-textarea" id="open-ans" placeholder="Desarrolle su respuesta con rigor jurídico…"></textarea>
       </div>
       <div class="rubric-hint">
         <h4>Criterios de evaluación</h4>
         <div class="rubric-hint-grid">
-          <span>Claridad conceptual <strong style="color:var(--gold)">30%</strong></span>
-          <span>Potencial argumentativo <strong style="color:var(--gold)">30%</strong></span>
-          <span>Rigor normativo/jurisprudencial <strong style="color:var(--gold)">20%</strong></span>
-          <span>Aplicación práctica <strong style="color:var(--gold)">20%</strong></span>
+          <span>Claridad conceptual <strong style="color:var(--blue)">30%</strong></span>
+          <span>Potencial argumentativo <strong style="color:var(--blue)">30%</strong></span>
+          <span>Rigor normativo/jurisprudencial <strong style="color:var(--blue)">20%</strong></span>
+          <span>Aplicación práctica <strong style="color:var(--blue)">20%</strong></span>
         </div>
       </div>
       <div class="feedback" id="ofb"></div>
@@ -1488,7 +1499,7 @@ async function gradeOpen() {
 
     scores[activeQIdx] = n;
     var cls    = n >= 4.0 ? 'high' : n >= 3.0 ? 'mid' : 'low';
-    var sColor = n >= 4.0 ? '#60d090' : n >= 3.0 ? '#e0b050' : '#e07070';
+    var sColor = n >= 4.0 ? '#34c759' : n >= 3.0 ? '#ff9f0a' : '#ff3b30';
     var missing = (r.elementos_faltantes && r.elementos_faltantes !== 'Ninguno')
       ? '<div class="grade-missing"><strong>Elementos no abordados:</strong> ' + r.elementos_faltantes + '</div>'
       : '';
@@ -1541,7 +1552,7 @@ function showResults() {
   const avg    = valid.length > 0 ? valid.reduce((a,b) => a+b, 0) / valid.length : 0;
   const cls    = avg >= 4.0 ? 'high' : avg >= 3.0 ? 'mid' : 'low';
   const lbl    = avg >= 4.5 ? 'Excelente' : avg >= 4.0 ? 'Sobresaliente' : avg >= 3.5 ? 'Bueno' : avg >= 3.0 ? 'Aceptable' : avg >= 2.0 ? 'Insuficiente' : 'Deficiente';
-  const sColor = avg >= 4.0 ? '#60d090' : avg >= 3.0 ? '#e0b050' : '#e07070';
+  const sColor = avg >= 4.0 ? '#34c759' : avg >= 3.0 ? '#ff9f0a' : '#ff3b30';
 
   const rows = mod.questions.map((q, i) => {
     const s    = scores[i];
@@ -1825,6 +1836,300 @@ const STUDY_DATA = [
   }
 ];
 
+
+// ── Study data additions (conceptos, esquemas, casos_ext, notas_guias, intro, conexiones) ──
+
+(function() {
+var ADD = [
+// MODULE 1 ─ Desestimación de la Personalidad Jurídica
+{
+  intro:'Esta unidad estudia cómo el derecho societario colombiano protege a los acreedores y terceros cuando los socios utilizan la forma societaria para fines fraudulentos. La regla es la separación patrimonial; su excepción, el levantamiento del velo.',
+  conexiones:'El levantamiento del velo conecta con: (1) Derecho concursal: responsabilidad en procesos de insolvencia (Ley 1116/06). (2) Derecho tributario: solidaridad de socios por obligaciones fiscales (Art. 794 E.T.). (3) Derecho laboral: responsabilidad en procesos de sustitución patronal. (4) Derecho penal societario: cuando el fraude constituye conducta punible.',
+  conceptos_clave:[
+    {term:'Separación patrimonial — la regla',def:'La persona jurídica es distinta a sus socios para TODOS los efectos legales. La sociedad responde con su patrimonio; los socios solo arriesgan su aporte. Esta regla es el fundamento del capitalismo moderno: permite la inversión sin riesgo ilimitado.'},
+    {term:'Levantamiento del velo — la excepción',def:'Remedio EXCEPCIONAL y de ÚLTIMA RATIO que ignora la forma jurídica para evitar fraude, abuso o injusticia intolerable. No es una sanción automática ni general: opera caso por caso, para acreedores específicos y respecto de bienes concretos.'},
+    {term:'Desestimación directa (Piercing)',def:'El socio responde por las DEUDAS DE LA SOCIEDAD. Dirección: Sociedad → Socio. Es la modalidad clásica, regulada en múltiples normas del C. de Co., E.T. y Ley 1116.'},
+    {term:'Desestimación inversa (Reverse Piercing)',def:'La SOCIEDAD responde por las OBLIGACIONES PERSONALES DEL SOCIO. Dirección: Socio → Sociedad. Modalidad excepcional, requiere adicionalmente justificación en la equidad. Caso paradigmático: Sentencia 2018-800-00094 Supersociedades.'},
+    {term:'Inoponibilidad vs. Extensión de responsabilidad',def:'INOPONIBILIDAD: los atributos de la personalidad jurídica no se oponen frente a ciertos acreedores (efecto relativo). EXTENSIÓN: se desconoce la limitación de responsabilidad y los socios quedan expuestos. La inoponibilidad es más precisa y limitada.'},
+    {term:'Fraude a la ley en el contexto societario',def:'Uso de un acto formalmente lícito (constituir una sociedad, aportar bienes) para eludir el alcance real de una obligación. La Supersociedades lo usó en el caso 2018-800-00094: los aportes eran válidos en forma, pero fraudulentos en propósito.'},
+    {term:'Infracapitalización — indicio, no causa autónoma',def:'Capital insuficiente para las operaciones de la sociedad. Es un INDICIO de fraude o abuso, pero NO es suficiente por sí sola para levantar el velo (Walkovsky v. Carlton). Se requiere probar el elemento de fraude o abuso adicionalmente.'},
+  ],
+  esquemas:[
+    {titulo:'Flujo de análisis: ¿Procede el levantamiento del velo?',
+     desc:'Árbol de decisión para determinar si aplica la figura en un caso concreto.',
+     html:'<div class="flow">'
+       +'<div class="flow-node blue">¿Existe una demanda de levantamiento del velo?</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-node gray">Verificar: ¿hay fraude, abuso o injusticia intolerable?</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div></div>'
+       +'<div class="flow-split">'
+       +'<div class="flow"><div class="flow-node red">NO → Rechazar. La separación patrimonial prevalece</div></div>'
+       +'<div class="flow"><div class="flow-node green">SÍ → Identificar la modalidad aplicable</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-split" style="gap:6px">'
+       +'<div class="flow-node blue" style="font-size:12px">Directa: socio responde por deuda de la sociedad</div>'
+       +'<div class="flow-node purple" style="font-size:12px">Inversa: sociedad responde por deuda del socio + equidad</div>'
+       +'</div></div>'
+       +'</div></div>'},
+    {titulo:'Las cuatro modalidades de desestimación',
+     desc:'Clasificación según el efecto patrimonial y el sujeto alcanzado.',
+     html:'<div class="matrix-grid">'
+       +'<div class="matrix-cell good"><div class="matrix-header good">Desestimación de la personalidad</div><div class="matrix-body">Se ignora la forma jurídica societaria. Se considera inexistente la separación.</div></div>'
+       +'<div class="matrix-cell mid"><div class="matrix-header mid">Inoponibilidad</div><div class="matrix-body">Los atributos de la persona jurídica no son oponibles frente a ciertos acreedores específicos.</div></div>'
+       +'<div class="matrix-cell" style="background:var(--blue-bg);border:1px solid var(--blue-border)"><div class="matrix-header" style="color:var(--blue)">Extensión interna</div><div class="matrix-body">Se desconoce la limitación de responsabilidad. Los socios responden por deudas de la sociedad.</div></div>'
+       +'<div class="matrix-cell" style="background:var(--purple-bg);border:1px solid rgba(142,68,228,0.3)"><div class="matrix-header" style="color:var(--purple)">Extensión externa</div><div class="matrix-body">Se alcanza a terceros que son los verdaderos beneficiarios de la actividad social.</div></div>'
+       +'</div>'},
+    {titulo:'Directa vs. Inversa: comparativa',
+     desc:'Las diferencias estructurales entre las dos modalidades principales.',
+     html:'<table class="comp-table"><thead><tr><th>Aspecto</th><th class="blue-th">Directa</th><th class="green-th">Inversa</th></tr></thead><tbody>'
+       +'<tr><td>Dirección</td><td>Sociedad → Socio</td><td>Socio → Sociedad</td></tr>'
+       +'<tr><td>¿Quién paga?</td><td>El socio responde por deudas de la sociedad</td><td>La sociedad responde por deudas del socio</td></tr>'
+       +'<tr><td>Frecuencia</td><td>Más común. Múltiples normas legales.</td><td>Excepcional. Caso paradigmático: Sentencia 2018-800-00094</td></tr>'
+       +'<tr><td>Requisito adicional</td><td>Fraude, abuso o injusticia intolerable</td><td>Todo lo anterior + justificación en la equidad</td></tr>'
+       +'<tr><td>Fundamento en Colombia</td><td>Arts. 207 C.Co., 794 E.T., Art. 82 L.1116</td><td>Fraude a la ley, Art. 42 L.1258 (para SAS)</td></tr>'
+       +'</tbody></table>'},
+  ],
+  casos_ext:[
+    {titulo:'Sentencia 2018-800-00094 — Desestimación Inversa',tipo:'Jurisprudencia',tribunal:'Superintendencia de Sociedades',anio:'2018',
+     partes:'Exesposa y otros acreedores vs. SAS constituida por el socio deudor',
+     hechos:'Un socio, para eludir a sus acreedores personales (exesposa en proceso de liquidación de sociedad conyugal y otros), constituyó una SAS y transfirió a ella la totalidad de su patrimonio personal (bienes inmuebles, vehículos). Los bienes representaban prácticamente el 100% de su patrimonio.',
+     holding:'La Supersociedades declaró: (1) la inoponibilidad de la personificación jurídica de la SAS frente a los acreedores; (2) la nulidad de los aportes realizados a la sociedad por constituir fraude a la ley; (3) la restitución de los bienes al patrimonio del socio para que los acreedores pudieran perseguirlos.',
+     relevancia:'Es el caso PARADIGMÁTICO de desestimación inversa en Colombia. Confirma que la separación patrimonial no puede ser escudo para defraudar acreedores. Demuestra que la Supersociedades actúa como tribunal especializado en estas materias.'},
+    {titulo:'Walkovsky v. Carlton — Infracapitalización insuficiente',tipo:'Derecho comparado',tribunal:'New York Court of Appeals (EE.UU.)',anio:'1966',
+     partes:'Walkovsky (víctima) vs. Carlton (socio controlante)',
+     hechos:'Carlton era propietario de 10 compañías de taxis, cada una con mínimos activos y el seguro mínimo legal. Un taxi atropelló a Walkovsky. Walkovsky demandó a Carlton personalmente argumentando que la estructura era diseñada para evitar responsabilidad.',
+     holding:'El tribunal rechazó el levantamiento del velo. La infracapitalización per se no es suficiente para levantar el velo; se requiere que el socio haya creado las sociedades específicamente para cometer fraude. La estructura, aunque agresiva, era legal.',
+     relevancia:'Establece la regla mundial de que la INFRACAPITALIZACIÓN sola no basta para levantar el velo. Es referencia doctrinal esencial en Colombia. El profesor lo cita para explicar que se necesita algo más: fraude activo.'},
+  ],
+  notas_guias:[
+    {label:'Pregunta clave 1',text:'¿Cuál es la diferencia entre inoponibilidad, extensión de responsabilidad interna y extensión externa? ¿Cuándo usaría cada una?'},
+    {label:'Pregunta clave 2',text:'¿Por qué la desestimación inversa requiere un requisito adicional (justificación en equidad) que la directa no exige?'},
+    {label:'Para memorizar',text:'Directa = Sociedad falla → Socio paga. Inversa = Socio falla → Sociedad paga. La inversa siempre es más difícil de acreditar.'},
+    {label:'Error frecuente',text:'Confundir inoponibilidad (efecto relativo, solo para ciertos acreedores) con nulidad (efecto erga omnes). En el caso 2018-800-00094 se declararon AMBAS.'},
+  ]
+},
+// MODULE 2 ─ Abuso del Derecho de Voto
+{
+  intro:'El abuso del derecho de voto es el principal mecanismo legal de protección de los socios minoritarios en las SAS colombianas. Su análisis exige dominar los tres elementos concurrentes, la construcción de indicios y los efectos de la nulidad según la modalidad de abuso.',
+  conexiones:'Conecta con: (1) Análisis económico: el principio mayoritario como solución de eficiencia vs. el riesgo de expropiación. (2) Derecho procesal: la Supersociedades como juez especializado. (3) Derecho civil: el abuso del derecho (Art. 830 C.Co., Art. 8 Ley 153/1887). (4) Teoría del gobierno corporativo: tunneling y protección de minoritarios.',
+  conceptos_clave:[
+    {term:'Elemento subjetivo: la intención',def:'El requisito más difícil de probar. Intención de DAÑAR a otros socios o a la sociedad, O de obtener una VENTAJA INJUSTIFICADA para sí o para un tercero. Se prueba por indicios, nunca directamente.'},
+    {term:'Elemento objetivo: el resultado',def:'PERJUICIO (real o POTENCIAL) o VENTAJA INJUSTIFICADA como resultado del voto. La palabra "potencial" es la innovación legislativa del Art. 43: no se requiere daño consumado. El perjuicio probable y concreto basta.'},
+    {term:'Elemento teleológico: el interés social',def:'La decisión debe ser contraria al interés social. Debate: contractualistas (interés de los socios) vs. institucionalistas (interés de todos los stakeholders). La Supersociedades ha acogido una visión ecléctica.'},
+    {term:'Prueba por indicios — construcción de la demanda',def:'La demanda exitosa tiene al menos 3-5 indicios encadenados: (1) conflictos previos documentados, (2) falta de lógica económica, (3) beneficio privado correlativo (ej: aumento de salario), (4) cronología sospechosa, (5) ausencia de justificación formal.'},
+    {term:'Nulidad en abuso de mayoría',def:'Al anularse los votos abusivos del mayoritario, la decisión pierde su sustento matemático y cae completamente. La acción es plenamente eficaz. Esta es la modalidad más "rentable" procesalmente.'},
+    {term:'Nulidad en abuso de paridad/minoría — la trampa',def:'En paridad (50/50) o veto de minoría: la nulidad del voto no cambia el resultado (bloqueo persiste o voto mayoritario subsiste). La nulidad es procesalmente INOCUA. La pretensión útil es la INDEMNIZACIÓN de perjuicios.'},
+    {term:'Tunneling — los 9 supuestos de la Supersociedades',def:'1) Reservas innecesarias. 2) Capitalizaciones dilutivas. 3) Renuncia a suscripción preferente. 4) Retención de utilidades. 5) Colocación a valor nominal. 6) Contratos con vinculadas. 7) Exclusión forzosa. 8) Creación/supresión de órganos. 9) Bloqueo de acción social de responsabilidad.'},
+  ],
+  esquemas:[
+    {titulo:'Los 3 elementos del abuso del voto y su prueba',
+     desc:'Estructura lógica de la acción: qué demostrar y cómo.',
+     html:'<div class="flow">'
+       +'<div class="flow-node blue">Acción de abuso del derecho de voto (Art. 43 L. 1258)</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-split">'
+       +'<div class="flow-node purple" style="font-size:13px"><strong>1. Subjetivo</strong><br>Intención de dañar<br>O ventaja injustificada<br><em style="font-size:11px">→ Se prueba por INDICIOS</em></div>'
+       +'<div class="flow-node blue" style="font-size:13px"><strong>2. Objetivo</strong><br>Perjuicio real o POTENCIAL<br>O ventaja injustificada<br><em style="font-size:11px">→ "Potencial" = innovación</em></div>'
+       +'<div class="flow-node orange" style="font-size:13px"><strong>3. Teleológico</strong><br>Contrario al<br>interés social<br><em style="font-size:11px">→ Definición ambigua</em></div>'
+       +'</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-node green">Los 3 elementos concurren → ABUSO CONFIGURADO</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-split">'
+       +'<div class="flow-node blue" style="font-size:12px">Pretensión 1: Nulidad absoluta de la decisión (objeto ilícito)</div>'
+       +'<div class="flow-node green" style="font-size:12px">Pretensión 2: Indemnización de perjuicios</div>'
+       +'</div></div>'},
+    {titulo:'Efectividad de la nulidad según la modalidad de abuso',
+     desc:'Por qué la nulidad no siempre es la pretensión más útil.',
+     html:'<div class="matrix-grid">'
+       +'<div class="matrix-cell good"><div class="matrix-header good">Abuso de mayoría</div><div class="matrix-body">Nulidad: <strong>EFECTIVA</strong><br>Sin votos abusivos, la decisión pierde sustento matemático y cae completamente.</div></div>'
+       +'<div class="matrix-cell bad"><div class="matrix-header bad">Abuso en paridad (50/50)</div><div class="matrix-body">Nulidad: <strong>INOCUA</strong><br>El otro socio mantiene el 50%. El bloqueo persiste. Usar: indemnización.</div></div>'
+       +'<div class="matrix-cell mid"><div class="matrix-header mid">Abuso de minoría (veto)</div><div class="matrix-body">Nulidad del voto negativo: <strong>INOCUA</strong><br>La decisión no se "aprueba" sola. Posible: indemnización + argumento de declaración de aprobación.</div></div>'
+       +'</div>'},
+    {titulo:'Tunneling: estrategias de extracción de valor',
+     desc:'Los 9 supuestos reconocidos por la Superintendencia de Sociedades.',
+     html:'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
+       +'<div class="flow-node gray" style="font-size:12px;text-align:left">1. Constitución de reservas innecesarias</div>'
+       +'<div class="flow-node gray" style="font-size:12px;text-align:left">2. Capitalizaciones con fin de dilución</div>'
+       +'<div class="flow-node gray" style="font-size:12px;text-align:left">3. Renuncia al derecho de suscripción preferente</div>'
+       +'<div class="flow-node gray" style="font-size:12px;text-align:left">4. Retención injustificada de utilidades</div>'
+       +'<div class="flow-node gray" style="font-size:12px;text-align:left">5. Colocación de acciones a valor nominal</div>'
+       +'<div class="flow-node gray" style="font-size:12px;text-align:left">6. Contratos con vinculadas en condiciones desfavorables</div>'
+       +'<div class="flow-node gray" style="font-size:12px;text-align:left">7. Exclusión forzosa de accionistas</div>'
+       +'<div class="flow-node gray" style="font-size:12px;text-align:left">8. Creación/supresión de órganos para consolidar poder</div>'
+       +'<div class="flow-node red" style="font-size:12px;text-align:left;grid-column:span 2">9. Bloqueo de la acción social de responsabilidad (el más grave: impide que la sociedad demande al controlante)</div>'
+       +'</div>'},
+  ],
+  casos_ext:[
+    {titulo:'Martha Cecilia López c. Comercializadora GL S.A.S.',tipo:'Supersociedades',tribunal:'Superintendencia de Sociedades',anio:'N/D',
+     partes:'Socia minoritaria vs. socios mayoritarios y sociedad',
+     hechos:'Los socios mayoritarios aprobaron en asamblea la exclusión forzosa de la socia minoritaria, utilizando el mecanismo estatutario de exclusión pero con propósito de deshacerse de ella sin compensación justa.',
+     holding:'La Supersociedades declaró que la exclusión forzosa de un accionista, cuando se realiza con ánimo de causarle daño o para obtener una ventaja injustificada, configura abuso del derecho de voto. Ordenó nulidad e indemnización.',
+     relevancia:'Confirma que el abuso no requiere un mecanismo ilegal en sí mismo: un mecanismo estatutariamente válido puede ejercerse abusivamente. Es uno de los 9 supuestos reconocidos por la Supersociedades.'},
+    {titulo:'Edgar Orlando Corredor c. Induesa Pinilla & Pinillas',tipo:'Supersociedades',tribunal:'Superintendencia de Sociedades',anio:'N/D',
+     partes:'Socio c. otros socios y sociedad (sociedad en comandita)',
+     hechos:'Los socios mayoritarios aprobaron la creación de nuevos órganos de administración que desequilibraban las mayorías calificadas existentes y suprimían los derechos de voto del minoritario en ciertas decisiones.',
+     holding:'La Supersociedades calificó la creación de órganos de administración con el propósito de alterar mayorías calificadas y consolidar el poder del controlante como abuso del derecho de voto. Nulidad de la decisión.',
+     relevancia:'Demuestra que el abuso puede manifestarse en decisiones estructurales de gobierno corporativo, no solo en decisiones financieras. La "ventaja injustificada" puede ser política/de control, no solo económica.'},
+  ],
+  notas_guias:[
+    {label:'Estructura de la demanda',text:'Cap. 1: Acreditar que HUBO voto (sin voto no hay acción). Cap. 2: Resultado (perjuicio o ventaja injustificada). Cap. 3: Intención (indicios encadenados — ser muy robusto). ¿Nulidad, indemnización o ambas?'},
+    {label:'La trampa de la nulidad',text:'Antes de pedir nulidad, hacer el análisis matemático: ¿tiene sentido la nulidad en este caso? En paridad y minoría, pedir nulidad solo si hay argumento para que se declare la decisión aprobada, y como subsidiaria.'},
+    {label:'Indicios más poderosos',text:'(1) Beneficio privado correlativo al daño del minoritario (ej: aumento de salario mientras se niegan dividendos). (2) Ausencia total de justificación económica documentada. (3) Patrón histórico de conducta.'},
+  ]
+},
+// MODULE 3 ─ Acuerdos de Accionistas
+{
+  intro:'Los acuerdos de accionistas son la herramienta de negociación más flexible del derecho societario: permiten distribuir el control, proteger al inversor y gestionar la salida de socios, todo sin reformar los estatutos. Dominar su tipología, oponibilidad y límites es esencial.',
+  conexiones:'Conecta con: (1) Venture capital y M&A: los acuerdos son el corazón de cualquier deal. (2) Abuso del voto: el incumplimiento del acuerdo es un indicio de intención maliciosa. (3) Derecho contractual: relatividad, promesa por otro (Art. 1507 C.C.). (4) Derecho comparado: Delaware (stockholder agreements), España (pactos parasociales).',
+  conceptos_clave:[
+    {term:'Naturaleza contractual del acuerdo',def:'El acuerdo de accionistas es un CONTRATO (no una norma societaria). Se rige por el principio de relatividad: solo vincula a los firmantes. Sus límites son los del derecho contractual: ley, moral, orden público.'},
+    {term:'Oponibilidad frente a la sociedad vs. frente a terceros',def:'DEPÓSITO → oponible a la SOCIEDAD (no a socios no firmantes, no a terceros). SIN DEPÓSITO → solo vincula a los firmantes. La sociedad que desconoce un acuerdo depositado puede ser demandada por ejecución específica ante la Supersociedades.'},
+    {term:'La "promesa por otro" y sus límites',def:'Los socios pueden comprometerse a que los administradores actuarán de cierta manera (Art. 1507 C.C.: "promesa por otro"). Pero si el administrador incumple, la consecuencia es responsabilidad entre socios, NO nulidad del voto del administrador. Sus deberes fiduciarios son imperativos.'},
+    {term:'Cociente electoral en S.A. — norma imperativa',def:'El único mecanismo para elegir la JD en una S.A. es el cociente electoral (Art. 198 C.Co.). Es norma imperativa: ningún acuerdo ni estatuto puede sustituirlo. SÍ puede pactarse: cómo conformar las listas sometidas al cociente.'},
+    {term:'Acuerdos en SAS vs. SA — diferencias clave',def:'En SAS: autonomía privada amplia, casi cualquier mecanismo es posible. Las prohibiciones del C.Co. (Arts. 185, 404) no aplican por defecto. En SA: normas más rígidas, cociente electoral imperativo, menos flexibilidad.'},
+    {term:'Tipos de acuerdos — clasificación práctica',def:'DE RELACIÓN: regulan la transferencia (ROFR, drag-along, tag-along, lock-up). DE ATRIBUCIÓN: regulan el voto (sindicatos de voto, vetos). DE ORGANIZACIÓN: gobierno corporativo (composición de órganos, deadlock, arbitraje).'},
+    {term:'Deadlock — mecanismos contractuales de resolución',def:'SHOTGUN/BUY-SELL: un socio propone precio, el otro elige comprar o vender. CONSULTA A EXPERTO: un tercero determina quién tiene razón. ARBITRAJE. DISOLUCIÓN VOLUNTARIA. La ley no resuelve el deadlock automáticamente: debe preverse en el acuerdo.'},
+  ],
+  esquemas:[
+    {titulo:'Estatutos vs. Acuerdos de accionistas',
+     desc:'Las diferencias estructurales que determinan cuándo usar cada instrumento.',
+     html:'<table class="comp-table"><thead><tr><th>Dimensión</th><th class="blue-th">Estatutos sociales</th><th class="green-th">Acuerdos de accionistas</th></tr></thead><tbody>'
+       +'<tr><td>Naturaleza</td><td>Norma constitutiva de la sociedad</td><td>Contrato privado entre socios</td></tr>'
+       +'<tr><td>Publicidad</td><td>Registro Mercantil → erga omnes</td><td>Depósito ante la sociedad → oponible solo a la sociedad</td></tr>'
+       +'<tr><td>Modificación</td><td>Reforma estatutaria con mayorías calificadas y notaría</td><td>Acuerdo de partes → más ágil</td></tr>'
+       +'<tr><td>Terceros</td><td>Oponible a todos sin requisito adicional</td><td>No oponible a terceros ni a socios no firmantes</td></tr>'
+       +'<tr><td>Ventaja principal</td><td>Seguridad jurídica y publicidad plena</td><td>Confidencialidad y flexibilidad</td></tr>'
+       +'<tr><td>Límite clave</td><td>Mayorías y formalidades para cambiar</td><td>No puede derogar normas imperativas del tipo societario</td></tr>'
+       +'</tbody></table>'},
+    {titulo:'Ruta de oponibilidad del acuerdo',
+     desc:'El camino que debe recorrer un acuerdo para ser exigible en distintos ámbitos.',
+     html:'<div class="flow">'
+       +'<div class="flow-node blue">Acuerdo suscrito por los socios</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-node gray">¿Entre quiénes? Solo entre los FIRMANTES (relatividad contractual)</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-split">'
+       +'<div class="flow"><div class="flow-node red" style="font-size:12px">Sin depósito<br>→ NO oponible a la sociedad<br>Solo acción contractual entre socios</div></div>'
+       +'<div class="flow"><div class="flow-node green" style="font-size:12px">Con depósito ante el Rep. Legal<br>→ Oponible a la SOCIEDAD<br>Ejecución específica ante Supersociedades</div></div>'
+       +'</div>'
+       +'<div class="flow-arrow" style="margin-top:8px"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-node gray" style="font-size:12px">Socios no firmantes: NO quedan vinculados en ningún caso<br>Terceros: NO quedan vinculados en ningún caso</div>'
+       +'</div>'},
+    {titulo:'Tipología de acuerdos de accionistas',
+     desc:'Los tres grandes grupos con sus principales cláusulas.',
+     html:'<div class="matrix-grid">'
+       +'<div class="matrix-cell" style="background:var(--blue-bg);border:1px solid var(--blue-border)"><div class="matrix-header" style="color:var(--blue)">De relación (Transferencia)</div><div class="matrix-body">Lock-up · ROFR · Drag-along · Tag-along · Call/Put options · Valoración en salida · Bad leaver / Good leaver</div></div>'
+       +'<div class="matrix-cell" style="background:var(--purple-bg);border:1px solid rgba(142,68,228,0.3)"><div class="matrix-header" style="color:var(--purple)">De atribución (Voto)</div><div class="matrix-body">Sindicatos de voto · Cláusulas de veto · Anti-dilución · Quórum calificados · Voto mínimo garantizado</div></div>'
+       +'<div class="matrix-cell" style="background:rgba(0,179,134,0.08);border:1px solid rgba(0,179,134,0.25)"><div class="matrix-header" style="color:var(--teal)">De organización (Gobierno)</div><div class="matrix-body">Composición de órganos · Resolución de deadlock · Arbitraje · Auditoría · Información preferente · No competencia</div></div>'
+       +'</div>'},
+  ],
+  casos_ext:[
+    {titulo:'Sierra Murillo y otros c. Colmenares S.A. — Promesa por otro',tipo:'Laudo arbitral',tribunal:'Tribunal Arbitral (Cárdenas, Vélez, Díaz Ramírez)',anio:'2014',
+     partes:'Sierra Murillo y otros (socios) c. Colmenares S.A., Tribeca Fund y Woodmont Services S.A.',
+     hechos:'El acuerdo de accionistas comprometía a los socios firmantes a que los miembros de la JD de Colmenares votarían en determinado sentido en ciertas decisiones. Los miembros de JD no siguieron el acuerdo y los socios firmantes lo incumplieron.',
+     holding:'El tribunal arbitral calificó la cláusula como una lícita "promesa por otro" (Art. 1507 C.C.). Si los administradores no adoptan la decisión conforme al acuerdo, los accionistas que prometieron incurren en responsabilidad contractual. La autonomía fiduciaria del administrador prevalece; la cláusula genera obligación entre socios, no entre administrador y las partes.',
+     relevancia:'Establece el alcance de los acuerdos sobre comportamiento de administradores: la promesa es lícita pero sus efectos son INTER PARTES. Otro laudo posterior declaró nula la misma cláusula. El debate no está resuelto uniformemente en Colombia.'},
+    {titulo:'Doctrina Supersociedades — Ejecución específica de acuerdos depositados',tipo:'Doctrina jurisdiccional',tribunal:'Superintendencia de Sociedades',anio:'Doctrina',
+     partes:'N/A (múltiples pronunciamientos)',
+     hechos:'La Supersociedades ha conocido en su función jurisdiccional de acciones de cumplimiento de acuerdos de accionistas depositados, incluyendo solicitudes de ejecución específica de cláusulas de voto, transferencia y gobierno corporativo.',
+     holding:'La Supersociedades tiene competencia para ordenar la ejecución específica (no solo indemnización) de acuerdos de accionistas depositados. Sin embargo, cuando la ejecución implica sustituir la voluntad de órganos sociales (ej: declarar aprobada una decisión bloqueada), la Supersociedades ha sido reacia.',
+     relevancia:'Delimita el poder de la Supersociedades como juez de cumplimiento. La ejecución específica es posible pero tiene límites: no puede sustituir la voluntad de la asamblea ni obligar directamente a los administradores.'},
+  ],
+  notas_guias:[
+    {label:'Pregunta de práctica',text:'Un inversor quiere protección contra dilución, derecho de salida y veto en fusiones. ¿Qué cláusulas específicas incluirías en el acuerdo? ¿Estatutos o acuerdo? ¿Por qué?'},
+    {label:'Checklist de redacción',text:'Al redactar un acuerdo: (1) ¿Quiénes son partes? ¿Incluir la sociedad? (2) ¿Depositar o no? (3) ¿Qué normas imperativas del tipo societario no se pueden derogar? (4) ¿Cláusula de arbitraje vs. Supersociedades?'},
+    {label:'Error frecuente',text:'Creer que el acuerdo, por ser suscrito por TODOS los socios, tiene el mismo efecto que los estatutos. FALSO. La forma importa: para ser oponible a la sociedad, se requiere depósito. Para ser oponible erga omnes, se requiere estatutos en el registro mercantil.'},
+  ]
+},
+// MODULE 4 ─ Administradores y BJR
+{
+  intro:'El régimen de responsabilidad de los administradores en Colombia es especial y autónomo, con el estándar del "buen hombre de negocios" como eje. La BJR, adoptada desde 2013, protege las decisiones empresariales legítimas de la revisión judicial con sesgo retrospectivo.',
+  conexiones:'Conecta con: (1) Gobierno corporativo: diseño de juntas, comités de auditoría, políticas de conflicto de interés. (2) Seguros D&O: pólizas de responsabilidad de directivos como herramienta de gestión de riesgo. (3) Derecho penal: conductas del administrador que también son delitos (abuso de confianza, fraude). (4) Derecho laboral: la relación entre el administrador y la sociedad (¿contrato de trabajo o mandato?).',
+  conceptos_clave:[
+    {term:'Régimen especial y autónomo (CSJ 2021)',def:'La responsabilidad del administrador NO se rige por el Art. 63 C.C. (tripartición culpa grave/leve/levísima). Es un régimen especial con estándar propio: el "buen hombre de negocios". La CSJ lo confirmó formalmente en 2021.'},
+    {term:'Buen hombre de negocios — contenido',def:'Administrador INFORMADO (recaba información antes de decidir), PRUDENTE (mide riesgos), DILIGENTE (supervisa delegados), LEAL (prioriza el interés social), de BUENA FE (transparente). Este es el estándar contra el que se mide su conducta.'},
+    {term:'Business Judgment Rule — a quién va dirigida',def:'La BJR le habla AL JUEZ, no al administrador. Le dice: "Si la decisión fue tomada con información, sin conflicto, de buena fe y con propósito racional, NO analices el mérito". Protege el proceso, no el resultado.'},
+    {term:'Los 5 requisitos del checklist BJR',def:'1) DECISIÓN DE NEGOCIOS (no violación de ley). 2) INDEPENDENCIA (sin conflicto de interés). 3) SIN FRAUDE/ILEGALIDAD. 4) PROPÓSITO RACIONAL. 5) PROCESO INFORMADO. Si falla UNO SOLO, el juez puede entrar al fondo.'},
+    {term:'Hindsight bias — el enemigo de la justicia empresarial',def:'El sesgo retroactivo: juzgar una decisión desde su resultado conocido. Si el juez sabe que la inversión falló, tenderá a ver negligencia donde no la había. La BJR prohíbe este análisis ex post: exige análisis del PROCESO ex ante.'},
+    {term:'Colombianización de la BJR — el debate',def:'En EE.UU.: presunción a favor del administrador, demandante debe desvirtuar. En Colombia (Supersociedades 2013 + CSJ 2021): criterio de análisis. El debate es si invierte o no la carga de la prueba. Sin postura consolidada.'},
+    {term:'Administrador de hecho — 3 requisitos y límites',def:'ACTIVO (actos positivos, no omisiones). EJERCICIO EFECTIVO de funciones de administración. SUPLANTACIÓN de administradores de derecho. CONTINUIDAD. Le aplica el deber de lealtad pero NO deberes formales.'},
+    {term:'Deber de vigilancia — la extensión de la responsabilidad',def:'Delegar no exonera. El administrador que delega una función debe supervisar que sea cumplida correctamente. Si un trabajador muere porque no había mallas de seguridad que el administrador delegó supervisar, su responsabilidad personal es posible.'},
+  ],
+  esquemas:[
+    {titulo:'Checklist BJR: los 5 filtros secuenciales',
+     desc:'Si falla cualquier filtro, la protección de la BJR desaparece y el juez puede analizar el fondo.',
+     html:'<div class="flow">'
+       +'<div class="flow-node blue">¿Alguien demanda al administrador por responsabilidad?<br><em style="font-size:11px">La BJR solo se activa con una acción de responsabilidad</em></div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-node gray" style="font-size:13px"><strong>Filtro 1:</strong> ¿Es una decisión de NEGOCIOS?<br><em style="font-size:11px">❌ Violar la ley nunca es "decisión de negocios"</em></div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-node gray" style="font-size:13px"><strong>Filtro 2:</strong> ¿Era el administrador INDEPENDIENTE?<br><em style="font-size:11px">❌ Conflicto de interés → protección desaparece</em></div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-node gray" style="font-size:13px"><strong>Filtro 3:</strong> ¿Sin fraude ni ilegalidad?</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-node gray" style="font-size:13px"><strong>Filtro 4:</strong> ¿Tenía PROPÓSITO RACIONAL la decisión?</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-node gray" style="font-size:13px"><strong>Filtro 5:</strong> ¿Actuó con PROCESO INFORMADO?<br><em style="font-size:11px">(Se informó, consultó expertos, analizó alternativas)</em></div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-split">'
+       +'<div class="flow-node red" style="font-size:12px">Falla algún filtro →<br>Juez analiza el FONDO<br>(no condena automática)</div>'
+       +'<div class="flow-node green" style="font-size:12px">Todos pasan →<br>BJR protege al administrador<br>Juez NO analiza el mérito</div>'
+       +'</div></div>'},
+    {titulo:'Deber de diligencia vs. deber de lealtad',
+     desc:'Los dos deberes fiduciarios principales y su diferente naturaleza.',
+     html:'<table class="comp-table"><thead><tr><th>Dimensión</th><th class="blue-th">Deber de diligencia</th><th class="green-th">Deber de lealtad</th></tr></thead><tbody>'
+       +'<tr><td>Pregunta central</td><td>¿Actuó con el cuidado del buen hombre de negocios?</td><td>¿Actuó en el interés de la sociedad o en el suyo propio?</td></tr>'
+       +'<tr><td>Núcleo</td><td>Proceso informado, vigilancia, prudencia</td><td>Ausencia de conflicto de interés, no autobeneficiarse</td></tr>'
+       +'<tr><td>Herramienta protectora</td><td>Business Judgment Rule (protege el proceso)</td><td>Ninguna: el conflicto de interés elimina la protección de la BJR</td></tr>'
+       +'<tr><td>Prueba</td><td>¿Qué información tenía? ¿Consultó expertos? ¿Documentó?</td><td>¿Tenía interés personal en la transacción? ¿Lo reveló?</td></tr>'
+       +'<tr><td>Consecuencia del incumplimiento</td><td>Responsabilidad por culpa → indemnización</td><td>Nulidad del acto + restitución + responsabilidad</td></tr>'
+       +'<tr><td>Aplica a administ. de hecho</td><td>Parcialmente (no deberes formales)</td><td>SÍ, plenamente exigible</td></tr>'
+       +'</tbody></table>'},
+    {titulo:'Evolución jurisprudencial del régimen de administradores',
+     desc:'El camino hasta el reconocimiento formal de la BJR y la autonomía del régimen.',
+     html:'<div class="flow">'
+       +'<div class="flow-node red" style="font-size:12px"><strong>1999 — CSJ</strong><br>Asimila el régimen al Código Civil. Obiter dicta: sugiere aplicar tripartición de la culpa. ERROR FUNDACIONAL.</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-node gray" style="font-size:12px"><strong>2005 y 2011 — CSJ</strong><br>Casos tangenciales (represa, Capital Tower). No resuelven el debate de fondo.</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-node blue" style="font-size:12px"><strong>2013 en adelante — Supersociedades</strong><br>Adopta la BJR como criterio de análisis. Primera aplicación sistemática en Colombia. Genera debate sobre carga de la prueba.</div>'
+       +'<div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-head"></div></div>'
+       +'<div class="flow-node green" style="font-size:12px"><strong>2021 — CSJ (HITO)</strong><br>Reconoce formalmente la BJR. Confirma: régimen ESPECIAL y AUTÓNOMO. Descarta tripartición civil. Punto de inflexión definitivo.</div>'
+       +'</div>'},
+  ],
+  casos_ext:[
+    {titulo:'Sentencia BJR — CSJ 2021',tipo:'Corte Suprema de Justicia',tribunal:'Corte Suprema de Justicia, Sala Civil',anio:'2021',
+     partes:'N/D (nombre oficial no público)',
+     hechos:'Un administrador fue demandado por daños derivados de una decisión de negocios que resultó perjudicial para la sociedad. El debate fue si debía aplicarse la tripartición civil de la culpa o el estándar especial del buen hombre de negocios.',
+     holding:'La CSJ: (1) reconoció formalmente la BJR como aplicable en Colombia; (2) confirmó que el régimen de responsabilidad de los administradores es ESPECIAL y AUTÓNOMO; (3) descartó la tripartición del Art. 63 C.C.; (4) aunque reconoció la BJR, no la aplicó directamente al caso.',
+     relevancia:'Es el HITO definitivo: cierra el debate abierto desde 1999 sobre si aplica la culpa civil. Respalda la línea de la Supersociedades. Pero no resolvió el debate sobre la distribución de la carga de la prueba bajo la BJR.'},
+    {titulo:'Sentencia 820-78 de 2017 — Administrador de hecho',tipo:'Supersociedades',tribunal:'Superintendencia de Sociedades',anio:'2017',
+     partes:'N/D',
+     hechos:'Una persona sin nombramiento formal ejercía funciones de administración de forma visible y continua: firmaba correos instruyendo operaciones de tesorería, dirigía negociaciones, daba órdenes al personal gerencial.',
+     holding:'La Supersociedades estableció los 3 requisitos del administrador de hecho: (1) ejercicio efectivo de funciones, (2) suplantación de administradores de derecho, (3) continuidad. Al administrador de hecho se le exige el deber de LEALTAD pero no deberes formales (convocar asambleas, firmar estados financieros, inscribir en registros).',
+     relevancia:'Es el caso de referencia para el administrador de hecho. Delimita precisamente qué deberes se le aplican y cuáles no. El requisito de ser ACTIVO (no pasivo) protege contra imputaciones excesivas.'},
+  ],
+  notas_guias:[
+    {label:'Para recordar la BJR',text:'La BJR es un mensaje del legislador al JUEZ: "No te metas en los zapatos del administrador si él actuó bien". El administrador no "usa" la BJR; el juez la aplica. Se activa solo cuando hay una demanda.'},
+    {label:'Documentar para defenderse',text:'El consejo práctico de la cátedra: el "hito probatorio" del administrador es documentar su proceso de decisión. Correos, minutas, informes de asesores, análisis de riesgos. Si se demanda, esa documentación es la defensa.'},
+    {label:'La pregunta trampa',text:'¿Aplica la BJR a omisiones? En principio NO — la BJR protege "decisiones de negocios". La omisión de actuar (no convocar asamblea, no supervisar) no es una "decisión de negocios" y el juez puede analizar el fondo libremente.'},
+  ]
+},
+];
+ADD.forEach(function(a, i) {
+  if (STUDY_DATA[i]) {
+    STUDY_DATA[i].intro          = a.intro;
+    STUDY_DATA[i].conexiones     = a.conexiones;
+    STUDY_DATA[i].conceptos_clave= a.conceptos_clave;
+    STUDY_DATA[i].esquemas       = a.esquemas;
+    STUDY_DATA[i].casos_ext      = a.casos_ext;
+    STUDY_DATA[i].notas_guias    = a.notas_guias;
+  }
+});
+})();
+
+
 // ══════════════════════════════════════════════════════════════
 //  STUDY MODE LOGIC
 // ══════════════════════════════════════════════════════════════
@@ -1862,76 +2167,243 @@ function startStudy(idx) {
 }
 
 function showStab(name) {
-  var panels = {resumen:'stab-resumen',flashcards:'stab-flashcards',normas:'stab-normas',asistente:'stab-asistente'};
-  var order = ['resumen','flashcards','normas','asistente'];
+  var panels = {resumen:'stab-resumen',conceptos:'stab-conceptos',flashcards:'stab-flashcards',
+    esquemas:'stab-esquemas',casos:'stab-casos',glosario:'stab-glosario',
+    notas:'stab-notas',asistente:'stab-asistente'};
+  var order  = ['resumen','conceptos','flashcards','esquemas','casos','glosario','notas','asistente'];
   document.querySelectorAll('.stab').forEach(function(b,i){b.classList.toggle('active', order[i]===name);});
   document.querySelectorAll('.stab-panel').forEach(function(p){p.classList.remove('active');});
   var el = document.getElementById(panels[name]);
-  if (el) el.classList.add('active');
+  if (el) { el.classList.add('active'); renderStudyTab(name); }
 }
 
 function renderStudyTab(name) {
-  var sd = STUDY_DATA[activeStudyIdx];
+  var sd  = STUDY_DATA[activeStudyIdx];
+  var mod = MODULES[activeStudyIdx];
+  var el  = document.getElementById('stab-' + name);
+  if (!el || el.innerHTML.trim()) return; // already rendered
+
   if (name === 'resumen') {
-    var html = '';
+    var h = '<div class="resumen-intro">' + sd.intro + '</div>';
     sd.resumen.forEach(function(s) {
-      html += '<div class="resumen-section"><h3>' + s.titulo + '</h3><ul class="resumen-list">';
-      s.puntos.forEach(function(p){ html += '<li>' + p + '</li>'; });
-      html += '</ul></div>';
+      h += '<div class="resumen-section"><h3>' + s.titulo + '</h3><ul class="resumen-list">';
+      s.puntos.forEach(function(p){ h += '<li>' + p + '</li>'; });
+      h += '</ul></div>';
+      if (s.tip) h += '<div class="exam-tip"><div class="exam-tip-icon">&#9888;&#65039;</div><div class="exam-tip-text"><strong>Punto de examen:</strong> ' + s.tip + '</div></div>';
     });
-    document.getElementById('stab-resumen').innerHTML = html;
+    if (sd.conexiones) {
+      h += '<div class="connection-box"><div class="connection-title">Conexiones interdisciplinarias</div><div class="connection-text">' + sd.conexiones + '</div></div>';
+    }
+    el.innerHTML = h;
   }
+
+  if (name === 'conceptos') {
+    var h = '<div style="margin-bottom:16px;font-size:13px;color:var(--text2)">Definiciones técnicas precisas. Cada una puede ser objeto de pregunta directa en evaluación.</div>';
+    sd.conceptos_clave.forEach(function(c) {
+      h += '<div class="key-def-box"><div class="key-def-term">' + c.term + '</div><div class="key-def-text">' + c.def + '</div></div>';
+    });
+    el.innerHTML = h;
+  }
+
   if (name === 'flashcards') {
+    fcIndex = 0; fcFlipped = false;
+    fcFilter = 0;
     renderFC();
   }
-  if (name === 'normas') {
-    var sd2 = STUDY_DATA[activeStudyIdx];
-    var h = '<div class="resumen-section"><h3>Normativa clave</h3><div class="norm-grid">';
-    sd2.normas.forEach(function(n){ h += '<div class="norm-card"><div class="norm-ref">'+n.ref+'</div><div class="norm-desc">'+n.desc+'</div></div>'; });
-    h += '</div></div>';
-    h += '<div class="resumen-section"><h3>Jurisprudencia y casos de referencia</h3>';
-    sd2.casos.forEach(function(c){ h += '<div class="case-card"><div class="case-title">'+c.titulo+'</div><div class="case-meta">'+c.tribunal+' · '+c.año+'</div><div class="case-holding">'+c.holding+'</div></div>'; });
-    h += '</div>';
-    document.getElementById('stab-normas').innerHTML = h;
+
+  if (name === 'esquemas') {
+    var h = '';
+    sd.esquemas.forEach(function(e) {
+      h += '<div class="esquema-card"><div class="esquema-title">' + e.titulo + '</div>';
+      h += '<div class="esquema-desc">' + e.desc + '</div>';
+      h += e.html;
+      h += '</div>';
+    });
+    el.innerHTML = h;
   }
+
+  if (name === 'casos') {
+    var h = '<div style="margin-bottom:16px;font-size:13px;color:var(--text2)">Casos jurisprudenciales y académicos de referencia con análisis completo.</div>';
+    sd.casos_ext.forEach(function(c) {
+      h += '<div class="caso-card">';
+      h += '<div class="caso-header"><div class="caso-titulo">' + c.titulo + '</div><span class="caso-badge">' + c.tipo + '</span></div>';
+      h += '<div class="caso-meta">';
+      h += '<div class="caso-meta-item"><strong>Tribunal:</strong> ' + c.tribunal + '</div>';
+      h += '<div class="caso-meta-item"><strong>Año:</strong> ' + c.anio + '</div>';
+      if (c.partes) h += '<div class="caso-meta-item"><strong>Partes:</strong> ' + c.partes + '</div>';
+      h += '</div>';
+      h += '<div class="caso-section"><div class="caso-section-label">Hechos relevantes</div><div class="caso-section-text">' + c.hechos + '</div></div>';
+      h += '<div class="caso-section"><div class="caso-section-label">Decisión y holding</div><div class="caso-holding">' + c.holding + '</div></div>';
+      h += '<div class="caso-section"><div class="caso-section-label">Relevancia para el examen</div><div class="caso-section-text">' + c.relevancia + '</div></div>';
+      h += '</div>';
+    });
+    el.innerHTML = h;
+  }
+
+  if (name === 'glosario') {
+    el.innerHTML = '<input class="glosario-search" type="text" id="glos-search" placeholder="Buscar término jurídico..." oninput="filterGlosario()" /><div class="glosario-list" id="glos-list"></div>';
+    renderGlosario('');
+  }
+
+  if (name === 'notas') {
+    var saved = moduleNotes[activeStudyIdx] || '';
+    var h = '<div class="notas-area">';
+    h += '<div style="font-size:13px;color:var(--text2);margin-bottom:10px;">Tus apuntes personales para este módulo. Se guardan mientras la página esté abierta.</div>';
+    h += '<textarea class="notas-textarea" id="notas-ta" placeholder="Escribe tus apuntes, reflexiones, casos que debes recordar, conexiones con otros temas..." oninput="saveNote()">' + saved + '</textarea>';
+    h += '<div style="font-size:12px;color:var(--text2);text-align:right;" id="notas-saved"></div>';
+    h += '<div class="notas-hints"><div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Guías de estudio sugeridas</div>';
+    sd.notas_guias.forEach(function(g){
+      h += '<div class="notas-hint-item"><div><div class="notas-hint-label">' + g.label + '</div><div class="notas-hint-text">' + g.text + '</div></div></div>';
+    });
+    h += '</div></div>';
+    el.innerHTML = h;
+  }
+
   if (name === 'asistente') {
     renderAssistant();
   }
 }
 
-function renderFC() {
-  var sd = STUDY_DATA[activeStudyIdx];
-  var n = sd.flashcards.length;
-  var fc = sd.flashcards[fcOrder[fcIndex]];
-  var dots = '';
-  for (var i=0;i<n;i++) {
-    var cls = i < fcIndex ? 'fc-dot seen' : i === fcIndex ? 'fc-dot current' : 'fc-dot';
-    dots += '<span class="' + cls + '"></span>';
+var moduleNotes = {};
+function saveNote() {
+  var ta = document.getElementById('notas-ta');
+  if (ta) {
+    moduleNotes[activeStudyIdx] = ta.value;
+    var savedEl = document.getElementById('notas-saved');
+    if (savedEl) { savedEl.textContent = 'Guardado'; setTimeout(function(){savedEl.textContent='';},1500); }
   }
-  var html = '<div class="fc-wrap">'
-    + '<div class="fc-card" id="fc-card" onclick="flipFC()">'
+}
+
+var fcFilter = 0;
+var fcDifficulty = {};
+
+
+function buildActiveDeck() {
+  var total = STUDY_DATA[activeStudyIdx].flashcards.length;
+  var deck = [];
+  for (var i = 0; i < fcOrder.length; i++) {
+    var idx = fcOrder[i];
+    if (fcFilter === 2) {
+      if (fcDifficulty[activeStudyIdx + '-' + idx] === 2) deck.push(idx);
+    } else {
+      deck.push(idx);
+    }
+  }
+  return deck;
+}
+
+function renderFC() {
+  var el = document.getElementById('stab-flashcards');
+  if (!el) return;
+
+  var sd    = STUDY_DATA[activeStudyIdx];
+  var total = sd.flashcards.length;
+
+  var nEasy = 0, nHard = 0;
+  for (var ki = 0; ki < total; ki++) {
+    var v = fcDifficulty[activeStudyIdx + '-' + ki];
+    if (v === 1) nEasy++;
+    if (v === 2) nHard++;
+  }
+
+  var deck = buildActiveDeck();
+
+  if (deck.length === 0) {
+    el.innerHTML = '<div style="text-align:center;padding:40px 20px;">'
+      + '<p style="color:var(--text2);margin-bottom:16px">No hay tarjetas marcadas como "A repasar" aún.</p>'
+      + '<button class="btn-primary" onclick="setFcFilter(0)">Ver todas las tarjetas</button>'
+      + '</div>';
+    return;
+  }
+
+  if (fcIndex >= deck.length) fcIndex = 0;
+  var fc = sd.flashcards[deck[fcIndex]];
+  var n  = deck.length;
+
+  var dots = '';
+  for (var di = 0; di < n; di++) {
+    var dotCls = di < fcIndex ? 'fc-dot seen' : di === fcIndex ? 'fc-dot current' : 'fc-dot';
+    dots += '<span class="' + dotCls + '"></span>';
+  }
+
+  var markedKey = activeStudyIdx + '-' + deck[fcIndex];
+  var markVal   = fcDifficulty[markedKey];
+  var prevMark  = markVal === 1
+    ? '<span style="font-size:12px;color:var(--green);font-weight:600">&#10003; Dominada</span>'
+    : markVal === 2
+    ? '<span style="font-size:12px;color:var(--red);font-weight:600">&#8635; A repasar</span>'
+    : '';
+
+  var statsBar =
+    '<div class="fc-stats-bar">'
+    + '<div class="fc-stat"><div class="fc-stat-n">' + total + '</div><div class="fc-stat-l">Total</div></div>'
+    + '<div class="fc-stat good"><div class="fc-stat-n">' + nEasy + '</div><div class="fc-stat-l">Dominadas</div></div>'
+    + '<div class="fc-stat hard"><div class="fc-stat-n">' + nHard + '</div><div class="fc-stat-l">A repasar</div></div>'
+    + '</div>';
+
+  var filterBar =
+    '<div class="fc-filter-bar">'
+    + '<span class="fc-filter-label">Ver:</span>'
+    + '<button class="fc-filter-btn' + (fcFilter === 0 ? ' active' : '') + '" onclick="setFcFilter(0)">Todas (' + total + ')</button>'
+    + '<button class="fc-filter-btn' + (fcFilter === 2 ? ' active' : '') + '" onclick="setFcFilter(2)">A repasar (' + nHard + ')</button>'
+    + '</div>';
+
+  var card =
+    '<div class="fc-wrap">'
+    + '<div class="fc-card' + (fcFlipped ? ' flipped' : '') + '" id="fc-card" onclick="flipFC()">'
     + '<div class="fc-face fc-front">'
-    + '<div class="fc-label">Pregunta</div>'
+    + '<div class="fc-label">Pregunta ' + (fcIndex + 1) + ' de ' + n + '</div>'
     + '<div class="fc-term">' + fc.q + '</div>'
-    + '<div class="fc-hint">Haz clic para ver la respuesta</div>'
+    + (prevMark ? '<div style="margin-top:12px">' + prevMark + '</div>' : '')
+    + '<div class="fc-hint">Toca para revelar la respuesta</div>'
     + '</div>'
     + '<div class="fc-face fc-back">'
     + '<div class="fc-label">Respuesta</div>'
     + '<div class="fc-def">' + fc.a + '</div>'
     + '</div>'
     + '</div>'
-    + '</div>'
-    + '<div class="fc-dot-row">' + dots + '</div>'
-    + '<div class="fc-controls" style="margin-top:14px">'
-    + '<div class="fc-progress">' + (fcIndex+1) + ' / ' + n + '</div>'
-    + '<div class="fc-nav">'
-    + '<button class="btn-secondary" onclick="fcNav(-1)" style="padding:7px 16px;font-size:13px"' + (fcIndex===0?' disabled':'') + '>← Anterior</button>'
-    + '<button class="btn-secondary" onclick="shuffleFC()" style="padding:7px 16px;font-size:13px">&#x21BB; Mezclar</button>'
-    + '<button class="btn-primary" onclick="fcNav(1)" style="padding:7px 16px;font-size:13px"' + (fcIndex===n-1?' disabled':'') + '>Siguiente →</button>'
-    + '</div>'
     + '</div>';
-  document.getElementById('stab-flashcards').innerHTML = html;
+
+  var diffBtns = fcFlipped
+    ? '<div class="fc-diff-btns">'
+      + '<button class="fc-diff-btn fc-diff-easy" onclick="markCard(1)">&#10003; Lo domino</button>'
+      + '<button class="fc-diff-btn fc-diff-hard" onclick="markCard(2)">&#8635; Repasar</button>'
+      + '</div>'
+    : '';
+
+  var nav =
+    '<div class="fc-dot-row" style="margin:10px 0">' + dots + '</div>'
+    + '<div class="fc-controls" style="margin-top:4px">'
+    + '<div class="fc-progress">' + (fcIndex + 1) + ' / ' + n + '</div>'
+    + '<div class="fc-nav">'
+    + '<button class="btn-secondary" onclick="fcNav(-1)" style="padding:7px 14px;font-size:13px"' + (fcIndex === 0 ? ' disabled' : '') + '>&#8592; Anterior</button>'
+    + '<button class="btn-secondary" onclick="shuffleFC()" style="padding:7px 14px;font-size:13px">&#8635; Mezclar</button>'
+    + '<button class="btn-primary" onclick="fcNav(1)" style="padding:7px 14px;font-size:13px"' + (fcIndex === n - 1 ? ' disabled' : '') + '>Siguiente &#8594;</button>'
+    + '</div></div>';
+
+  el.innerHTML = statsBar + filterBar + card + diffBtns + nav;
 }
+
+function setFcFilter(f) {
+  fcFilter  = f;
+  fcIndex   = 0;
+  fcFlipped = false;
+  renderFC();
+}
+
+function markCard(level) {
+  var deck   = buildActiveDeck();
+  var realIdx = deck[fcIndex];
+  fcDifficulty[activeStudyIdx + '-' + realIdx] = level;
+  fcFlipped = false;
+  if (fcIndex < deck.length - 1) {
+    fcIndex++;
+  } else {
+    fcIndex = 0;
+  }
+  renderFC();
+}
+
 
 function flipFC() {
   var card = document.getElementById('fc-card');
@@ -1964,7 +2436,7 @@ function renderAssistant() {
     return '<div class="chat-msg ' + m.role + '">' + m.text + '</div>';
   }).join('');
   var html = '<div class="ai-chat">'
-    + '<div style="font-size:13px;color:var(--muted);margin-bottom:10px;">Pregunta cualquier duda sobre este módulo. El asistente tiene acceso al contexto completo del curso.</div>'
+    + '<div style="font-size:13px;color:var(--text2);margin-bottom:10px;">Pregunta cualquier duda sobre este módulo. El asistente tiene acceso al contexto completo del curso.</div>'
     + '<div class="chat-suggestions">' + sugs + '</div>'
     + '<div class="chat-history" id="chat-hist">' + msgs + '</div>'
     + '<div class="chat-input-row">'
@@ -2018,6 +2490,65 @@ async function sendChat() {
     chatHistory[chatHistory.length-1] = {role:'ai', text:'Error al conectar: ' + e.message};
   }
   refreshChatHTML();
+}
+
+
+// ── Glosario global ───────────────────────────
+var GLOSARIO_GLOBAL = [
+  {term:'Separación patrimonial',def:'Principio por el cual el patrimonio de la sociedad es distinto al de sus socios. Los socios no responden con su patrimonio personal por las deudas de la sociedad.',mod:'Módulo 1'},
+  {term:'Levantamiento del velo corporativo',def:'Remedio excepcional que permite ignorar la forma jurídica societaria para hacer responsables a los socios (directa) o a la sociedad por deudas del socio (inversa). Solo procede ante fraude, abuso o injusticia intolerable.',mod:'Módulo 1'},
+  {term:'Desestimación inversa (Reverse Piercing)',def:'Variante del levantamiento del velo por la cual se busca que el patrimonio de la SOCIEDAD responda por obligaciones PERSONALES del socio. Requiere justificación en la equidad para evitar injusticia intolerable.',mod:'Módulo 1'},
+  {term:'Inoponibilidad',def:'Efecto relativo por el cual los atributos de la personalidad jurídica (separación patrimonial, limitación de responsabilidad) no pueden oponerse frente a determinados acreedores que acreditan fraude o abuso.',mod:'Módulo 1'},
+  {term:'Fraude a la ley',def:'Uso de una forma jurídica lícita (como constituir una sociedad) con el propósito real de eludir el alcance de una obligación o prohibición. Fundamento del levantamiento del velo en la Sentencia 2018-800-00094.',mod:'Módulo 1'},
+  {term:'Confusión de activos (Commingling)',def:'Mezcla indistinguible del patrimonio de la sociedad con el patrimonio personal del socio, haciendo imposible su separación. Una de las causales clásicas para levantar el velo corporativo.',mod:'Módulo 1'},
+  {term:'Abuso del derecho de voto',def:'Ejercicio del derecho de voto contrario al interés social, con intención de dañar a otros socios o a la sociedad, o de obtener una ventaja injustificada. Regulado en el Art. 43 Ley 1258/08.',mod:'Módulo 2'},
+  {term:'Tunneling',def:'Extracción de valor de la sociedad hacia el socio controlante en perjuicio de los socios minoritarios. Mecanismos: reservas innecesarias, capitalizaciones dilutivas, contratos con vinculadas, retención de utilidades.',mod:'Módulo 2'},
+  {term:'Dilución',def:'Reducción del porcentaje de participación de un socio mediante una capitalización que no le ofrece suscripción preferente en condiciones equitativas. Forma de tunneling financiero.',mod:'Módulo 2'},
+  {term:'Interés social',def:'Criterio rector al que deben subordinarse los votos de todos los socios. Debatido entre la visión contractualista (interés colectivo de los socios) y la institucionalista (incluye stakeholders).',mod:'Módulo 2'},
+  {term:'Nulidad absoluta por objeto ilícito',def:'Sanción aplicada al voto abusivo por el Art. 43 L. 1258: la decisión adoptada con voto abusivo es nula de pleno derecho por ilicitud de su objeto. No admite ratificación.',mod:'Módulo 2'},
+  {term:'Ventaja injustificada',def:'Beneficio obtenido por un socio mediante su voto que no tiene justificación económica o jurídica legítima. Alternativa al perjuicio como elemento objetivo del abuso del voto.',mod:'Módulo 2'},
+  {term:'Acuerdo de accionistas',def:'Contrato entre propietarios de participaciones sociales que regula el ejercicio de sus derechos: voto, transferencia de acciones, actuación de administradores o gobierno corporativo.',mod:'Módulo 3'},
+  {term:'Depósito ante la sociedad',def:'Entrega formal del acuerdo de accionistas al representante legal en la sede de la administración. Requisito para que el acuerdo sea oponible a la sociedad (no a los socios no firmantes).',mod:'Módulo 3'},
+  {term:'Promesa por otro',def:'Figura del Art. 1507 C.C.: un socio promete que un tercero (el administrador) actuará de cierta manera. Si el administrador no cumple, la responsabilidad es entre los socios firmantes, no nulidad del voto del administrador.',mod:'Módulo 3'},
+  {term:'Drag-along (Arrastre)',def:'Cláusula en acuerdos de accionistas que obliga al socio minoritario a vender sus acciones junto al mayoritario cuando este vende, en las mismas condiciones ofrecidas al comprador.',mod:'Módulo 3'},
+  {term:'Tag-along (Acompañamiento)',def:'Derecho del socio minoritario a vender sus acciones en las mismas condiciones que el mayoritario cuando este enajena su participación. Protege al minoritario ante un nuevo controlante no deseado.',mod:'Módulo 3'},
+  {term:'Right of First Refusal (ROFR)',def:'Derecho de preferencia: los socios existentes tienen prioridad para adquirir las acciones que un socio desea vender a un tercero, en las mismas condiciones ofrecidas a ese tercero.',mod:'Módulo 3'},
+  {term:'Deadlock societario',def:'Bloqueo en la toma de decisiones por falta de mayoría o acuerdo entre socios. Se resuelve contractualmente mediante cláusulas de arbitraje, shotgun clause, consulta a experto o disolución.',mod:'Módulo 3'},
+  {term:'Cociente electoral',def:'Único mecanismo imperativo para elegir miembros de la junta directiva en una sociedad anónima (Art. 198 C. de Co.). No puede modificarse por acuerdo de accionistas ni por estatutos.',mod:'Módulo 3'},
+  {term:'Buen hombre de negocios',def:'Estándar de conducta del administrador societario colombiano (Ley 222/95): comportamiento profesional, informado, prudente y consciente de los riesgos propios de la gestión empresarial.',mod:'Módulo 4'},
+  {term:'Business Judgment Rule (BJR)',def:'Estándar de revisión judicial dirigido a los jueces, no a los administradores. Si la decisión de negocios fue tomada informada, sin conflicto y de buena fe, el juez se abstiene de analizar su mérito.',mod:'Módulo 4'},
+  {term:'Hindsight bias (Sesgo de retrospectiva)',def:'Tendencia del juzgador a percibir los eventos pasados como más predecibles de lo que eran cuando se decidió. La BJR prohíbe al juez analizar la decisión desde el resultado (ex post); debe hacerlo desde el proceso (ex ante).',mod:'Módulo 4'},
+  {term:'Administrador de hecho',def:'Quien ejerce funciones de administración sin nombramiento formal. Requiere: ejercicio efectivo, suplantación de administradores de derecho y continuidad. Debe ser activo (no pasivo).',mod:'Módulo 4'},
+  {term:'Deber de lealtad',def:'Obligación del administrador de actuar en el mejor interés de la sociedad, subordinando sus intereses personales. Su violación puede generar nulidad de actos y obligación de restitución.',mod:'Módulo 4'},
+  {term:'Deber de diligencia',def:'Obligación del administrador de actuar como un buen hombre de negocios: tomar decisiones informadas, supervisar delegados y gestionar riesgos con prudencia profesional.',mod:'Módulo 4'},
+  {term:'Deber de vigilancia',def:'Componente del deber de diligencia: el administrador debe supervisar activamente las funciones que delegó. La delegación no exime de responsabilidad; el delegante debe verificar el cumplimiento.',mod:'Módulo 4'},
+  {term:'Deber de revelación',def:'Deber implícito basado en la buena fe de revelar "información material" que podría cambiar el sentido de una votación, más allá de lo exigido formalmente. No está codificado expresamente en Colombia.',mod:'Módulo 4'},
+  {term:'Sindicato de voto',def:'Acuerdo de accionistas por el cual varios socios se comprometen a votar de manera conjunta. De mando: para nombrar administradores. De defensa: suscrito por minoritarios para protegerse.',mod:'Módulo 3'},
+  {term:'Lock-up',def:'Cláusula de permanencia que prohíbe la venta de acciones durante un período determinado. Es lícita si tiene plazo razonable. Usada en startups para mantener a los fundadores durante la fase de crecimiento.',mod:'Módulo 3'},
+];
+
+function filterGlosario() {
+  var q = (document.getElementById('glos-search').value || '').toLowerCase().trim();
+  renderGlosario(q);
+}
+
+function renderGlosario(q) {
+  var list = document.getElementById('glos-list');
+  if (!list) return;
+  var filtered = GLOSARIO_GLOBAL.filter(function(g) {
+    return !q || g.term.toLowerCase().includes(q) || g.def.toLowerCase().includes(q);
+  });
+  if (filtered.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text2)">No se encontraron términos.</div>';
+    return;
+  }
+  list.innerHTML = filtered.map(function(g) {
+    return '<div class="glosario-item">'
+      + '<div class="glosario-term">' + g.term + '</div>'
+      + '<div class="glosario-def">' + g.def + '</div>'
+      + '<div class="glosario-tag">' + g.mod + '</div>'
+      + '</div>';
+  }).join('');
 }
 
 function refreshChatHTML() {
