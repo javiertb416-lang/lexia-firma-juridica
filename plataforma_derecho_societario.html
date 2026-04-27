@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cátedra de Derecho Societario — Maestría Externado</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Crimson+Pro:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#04090f;
+  --bg2:#0a1220;
+  --bg3:#0f1c2e;
+  --bg4:#162338;
+  --gold:#c9a227;
+  --gold2:#e8c547;
+  --gold-dim:rgba(201,162,39,0.15);
+  --gold-border:rgba(201,162,39,0.25);
+  --cream:#f5f0e8;
+  --muted:#8a8070;
+  --muted2:#6a6050;
+  --green:#2d7a4f;
+  --green-bg:rgba(45,122,79,0.12);
+  --green-border:rgba(45,122,79,0.35);
+  --red:#9b3535;
+  --red-bg:rgba(155,53,53,0.12);
+  --red-border:rgba(155,53,53,0.35);
+  --amber:#a07020;
+  --amber-bg:rgba(160,112,32,0.12);
+  --amber-border:rgba(160,112,32,0.35);
+  --blue-dim:rgba(30,80,160,0.15);
+  --blue-border:rgba(30,80,160,0.3);
+  --radius:10px;
+  --radius-sm:6px;
+  --transition:0.2s ease;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--cream);
+  font-family:'Crimson Pro',Georgia,serif;
+  font-size:17px;
+  line-height:1.7;
+  min-height:100vh;
+}
+
+/* Subtle grain texture */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:0.6;
+}
+
+.app{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 20px 60px}
+
+/* Header */
+.site-header{
+  border-bottom:1px solid var(--gold-border);
+  padding:20px 0;
+  margin-bottom:0;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.site-logo{
+  font-family:'Playfair Display',serif;
+  font-size:15px;font-weight:600;
+  color:var(--gold);
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+}
+.site-logo span{color:var(--muted);font-weight:400;font-size:13px;display:block;text-transform:none;letter-spacing:0;}
+
+/* API Key settings */
+.apikey-area{
+  display:flex;align-items:center;gap:8px;
+}
+.apikey-input{
+  background:var(--bg3);border:1px solid var(--gold-border);
+  border-radius:var(--radius-sm);
+  padding:6px 12px;font-size:13px;color:var(--cream);
+  font-family:'Crimson Pro',serif;width:240px;
+  transition:border-color var(--transition);
+}
+.apikey-input:focus{outline:none;border-color:var(--gold);}
+.apikey-input::placeholder{color:var(--muted2);}
+.key-label{font-size:12px;color:var(--muted);white-space:nowrap;}
+
+/* Screen management */
+.screen{display:none;animation:fadeIn 0.3s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* === HOME SCREEN === */
+.hero{padding:60px 0 40px;text-align:center;}
+.hero-eyebrow{
+  font-size:12px;font-weight:500;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';flex:1;max-width:60px;height:1px;background:var(--gold-border);}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:42px;font-weight:700;
+  color:var(--cream);line-height:1.15;
+  margin-bottom:20px;
+}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-desc{
+  font-size:17px;color:var(--muted);
+  max-width:520px;margin:0 auto 48px;line-height:1.7;
+}
+
+/* Rubric card */
+.rubric-card{
+  background:var(--bg2);
+  border:1px solid var(--gold-border);
+  border-radius:var(--radius);
+  padding:24px 28px;
+  margin-bottom:48px;
+}
+.rubric-card h3{
+  font-family:'Playfair Display',serif;
+  font-size:14px;font-weight:500;
+  color:var(--gold);text-transform:uppercase;
+  letter-spacing:0.08em;margin-bottom:16px;
+}
+.rubric-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.rubric-item{
+  background:var(--bg3);border:1px solid rgba(201,162,39,0.1);
+  border-radius:var(--radius-sm);padding:12px 14px;
+}
+.rubric-item .ri-name{font-size:13px;color:var(--muted);margin-bottom:4px;}
+.rubric-item .ri-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--cream);}
+.rubric-item .ri-pct{font-size:12px;color:var(--gold);margin-left:4px;}
+
+/* Module section */
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:14px;font-weight:500;color:var(--gold);
+  text-transform:uppercase;letter-spacing:0.1em;
+  margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
+}
+.section-title::after{content:'';flex:1;height:1px;background:var(--gold-border);}
+.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px;}
+.mod-card{
+  background:var(--bg2);
+  border:1px solid rgba(201,162,39,0.15);
+  border-radius:var(--radius);
+  padding:22px;cursor:pointer;
+  transition:border-color var(--transition),background var(--transition),transform 0.15s;
+  position:relative;overflow:hidden;
+}
+.mod-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at top left,rgba(201,162,39,0.04) 0%,transparent 60%);
+  pointer-events:none;
+}
+.mod-card:hover{
+  border-color:var(--gold-border);background:var(--bg3);
+  transform:translateY(-2px);
+}
+.mod-num{font-size:11px;font-weight:600;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.mod-title{
+  font-family:'Playfair Display',serif;
+  font-size:17px;font-weight:600;color:var(--cream);
+  line-height:1.3;margin-bottom:6px;
+}
+.mod-sub{font-size:13px;color:var(--muted);line-height:1.4;margin-bottom:14px;}
+.mod-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.tag{
+  font-size:11px;font-weight:500;padding:2px 9px;
+  border-radius:20px;letter-spacing:0.04em;
+}
+.tag-c{background:var(--blue-dim);color:#7aadff;border:1px solid var(--blue-border);}
+.tag-o{background:rgba(100,60,160,0.15);color:#b09ae0;border:1px solid rgba(100,60,160,0.3);}
+.tag-k{background:rgba(180,80,40,0.12);color:#e09870;border:1px solid rgba(180,80,40,0.3);}
+
+/* === QUIZ SCREEN === */
+.quiz-nav{
+  padding:20px 0 0;
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:24px;
+}
+.btn-back{
+  background:none;border:1px solid var(--gold-border);color:var(--gold);
+  font-family:'Crimson Pro',serif;font-size:14px;
+  padding:6px 14px;border-radius:var(--radius-sm);cursor:pointer;
+  transition:all var(--transition);
+}
+.btn-back:hover{background:var(--gold-dim);}
+.quiz-mod-name{
+  font-size:13px;color:var(--muted);
+  border-left:2px solid var(--gold);padding-left:10px;
+}
+
+/* Progress */
+.progress-wrap{margin-bottom:8px;}
+.progress-track{height:3px;background:var(--bg4);border-radius:2px;}
+.progress-fill{height:100%;border-radius:2px;background:var(--gold);transition:width 0.4s ease;}
+.progress-info{display:flex;justify-content:space-between;margin-top:8px;}
+.progress-info span{font-size:12px;color:var(--muted);}
+
+/* Question card */
+.q-wrap{margin-top:24px;}
+.q-type-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:600;letter-spacing:0.08em;
+  text-transform:uppercase;padding:4px 12px;
+  border-radius:20px;margin-bottom:18px;
+}
+.qt-cerrada{background:var(--blue-dim);color:#7aadff;border:1px solid var(--blue-border);}
+.qt-abierta{background:rgba(100,60,160,0.15);color:#b09ae0;border:1px solid rgba(100,60,160,0.3);}
+.qt-caso{background:rgba(180,80,40,0.12);color:#e09870;border:1px solid rgba(180,80,40,0.3);}
+
+.q-text{
+  font-family:'Playfair Display',serif;
+  font-size:19px;font-weight:500;color:var(--cream);
+  line-height:1.5;margin-bottom:24px;
+  padding:24px 28px;
+  background:var(--bg2);border:1px solid var(--gold-border);
+  border-radius:var(--radius);
+  white-space:pre-line;
+}
+
+/* Options */
+.opts-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.opt{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px 18px;
+  background:var(--bg2);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:var(--radius);cursor:pointer;
+  transition:all var(--transition);
+  font-size:16px;color:var(--cream);line-height:1.5;
+}
+.opt:hover{border-color:rgba(201,162,39,0.3);background:var(--bg3);}
+.opt.sel{border-color:var(--gold);background:var(--gold-dim);}
+.opt.ok{border-color:var(--green);background:var(--green-bg);cursor:default;}
+.opt.err{border-color:var(--red);background:var(--red-bg);cursor:default;}
+.opt-letter{
+  min-width:28px;height:28px;border-radius:50%;
+  background:var(--bg4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:600;letter-spacing:0;
+  color:var(--muted);flex-shrink:0;margin-top:1px;
+  transition:all var(--transition);
+}
+.opt.sel .opt-letter{background:var(--gold);color:var(--bg);}
+.opt.ok .opt-letter{background:var(--green);color:white;}
+.opt.err .opt-letter{background:var(--red);color:white;}
+
+/* Feedback */
+.feedback{
+  border-radius:var(--radius);padding:18px 22px;
+  margin-top:16px;font-size:15px;line-height:1.65;
+  display:none;
+}
+.feedback.ok{
+  background:var(--green-bg);border:1px solid var(--green-border);
+  color:#90e0b0;
+}
+.feedback.err{
+  background:var(--red-bg);border:1px solid var(--red-border);
+  color:#e09090;
+}
+.feedback.loading{
+  background:var(--bg3);border:1px solid var(--gold-border);
+  color:var(--muted);
+}
+.feedback.result{
+  background:var(--bg2);border:1px solid var(--gold-border);
+  color:var(--cream);padding:0;overflow:hidden;
+}
+.feedback strong{font-weight:600;}
+
+/* Open textarea */
+.open-wrap{margin-bottom:16px;}
+.open-textarea{
+  width:100%;min-height:160px;
+  padding:16px 18px;
+  background:var(--bg2);border:1px solid rgba(255,255,255,0.1);
+  border-radius:var(--radius);
+  font-family:'Crimson Pro',serif;font-size:16px;
+  color:var(--cream);line-height:1.65;resize:vertical;
+  transition:border-color var(--transition);
+}
+.open-textarea:focus{outline:none;border-color:var(--gold);}
+.open-textarea::placeholder{color:var(--muted2);}
+
+/* Rubric hint */
+.rubric-hint{
+  background:var(--bg3);border:1px solid rgba(201,162,39,0.1);
+  border-radius:var(--radius-sm);padding:12px 16px;
+  margin-bottom:16px;
+}
+.rubric-hint h4{font-size:11px;font-weight:600;letter-spacing:0.08em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.rubric-hint-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+.rubric-hint-grid span{font-size:13px;color:var(--muted);}
+
+/* Buttons */
+.btn-primary{
+  background:var(--gold);color:var(--bg);
+  font-family:'Crimson Pro',serif;font-size:15px;font-weight:600;
+  padding:10px 26px;border:none;border-radius:var(--radius-sm);
+  cursor:pointer;transition:all var(--transition);
+  letter-spacing:0.02em;
+}
+.btn-primary:hover{background:var(--gold2);}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;}
+.btn-secondary{
+  background:none;border:1px solid var(--gold-border);color:var(--gold);
+  font-family:'Crimson Pro',serif;font-size:15px;font-weight:500;
+  padding:10px 26px;border-radius:var(--radius-sm);cursor:pointer;
+  transition:all var(--transition);
+}
+.btn-secondary:hover{background:var(--gold-dim);}
+.btn-verify{
+  background:none;border:1px solid var(--gold-border);color:var(--gold);
+  font-family:'Crimson Pro',serif;font-size:13px;
+  padding:6px 14px;border-radius:var(--radius-sm);cursor:pointer;
+  transition:all var(--transition);white-space:nowrap;
+}
+.btn-verify:hover{background:var(--gold-dim);}
+.btn-row{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;}
+
+/* AI Grade result */
+.grade-header{
+  display:flex;align-items:center;gap:16px;
+  padding:20px 24px;
+  border-bottom:1px solid rgba(201,162,39,0.15);
+}
+.grade-circle{
+  width:64px;height:64px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:24px;font-weight:700;
+  flex-shrink:0;
+}
+.grade-circle.high{background:rgba(45,122,79,0.2);color:#60d090;border:1px solid var(--green-border);}
+.grade-circle.mid{background:rgba(160,112,32,0.2);color:#e0b050;border:1px solid var(--amber-border);}
+.grade-circle.low{background:rgba(155,53,53,0.2);color:#e07070;border:1px solid var(--red-border);}
+.grade-label{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--cream);}
+.grade-sub{font-size:14px;color:var(--muted);margin-top:2px;}
+.grade-scores{display:flex;gap:14px;margin-left:auto;}
+.grade-score-item{text-align:center;}
+.grade-score-item .gsn{font-size:16px;font-weight:600;color:var(--gold);}
+.grade-score-item .gsl{font-size:11px;color:var(--muted);}
+
+.grade-body{padding:20px 24px;}
+.grade-section-title{
+  font-size:11px;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+}
+.grade-retro{
+  font-size:15px;line-height:1.7;color:var(--cream);
+  margin-bottom:18px;
+}
+.grade-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px;}
+.grade-col h5{
+  font-size:12px;font-weight:600;color:var(--muted);
+  margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;
+}
+.grade-col.good h5{color:#60d090;}
+.grade-col.bad h5{color:#e07070;}
+.grade-col p{font-size:14px;color:var(--cream);line-height:1.55;}
+.grade-missing{
+  margin-top:14px;padding:10px 14px;
+  background:var(--bg3);border-radius:var(--radius-sm);
+  font-size:13px;color:var(--muted);
+}
+.grade-missing strong{color:var(--cream);}
+
+/* === RESULTS SCREEN === */
+.results-hero{text-align:center;padding:48px 0 36px;}
+.results-circle{
+  width:100px;height:100px;border-radius:50%;
+  margin:0 auto 20px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:36px;font-weight:700;
+}
+.results-circle.high{background:rgba(45,122,79,0.15);color:#60d090;border:2px solid var(--green-border);}
+.results-circle.mid{background:rgba(160,112,32,0.15);color:#e0b050;border:2px solid var(--amber-border);}
+.results-circle.low{background:rgba(155,53,53,0.15);color:#e07070;border:2px solid var(--red-border);}
+.results-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--cream);margin-bottom:6px;}
+.results-mod{font-size:15px;color:var(--muted);}
+.results-lbl{font-size:18px;font-weight:600;margin-top:8px;}
+
+.results-detail{
+  background:var(--bg2);border:1px solid var(--gold-border);
+  border-radius:var(--radius);overflow:hidden;margin-bottom:24px;
+}
+.results-detail-header{
+  padding:14px 20px;border-bottom:1px solid var(--gold-border);
+  font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);
+}
+.results-row{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.results-row:last-child{border-bottom:none;}
+.results-qnum{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--bg3);display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:600;color:var(--muted);flex-shrink:0;
+}
+.results-qinfo{flex:1;}
+.results-qtext{font-size:14px;color:var(--cream);line-height:1.3;}
+.results-qtype{font-size:11px;color:var(--muted);margin-top:2px;}
+.results-qscore{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;}
+.rs-high{color:#60d090;} .rs-mid{color:#e0b050;} .rs-low{color:#e07070;} .rs-na{color:var(--muted);}
+
+.results-actions{display:flex;gap:12px;justify-content:center;padding-bottom:20px;}
+
+/* Divider */
+.divider{height:1px;background:var(--gold-border);margin:32px 0;}
+
+/* Responsive */
+@media(max-width:580px){
+  .hero-title{font-size:30px;}
+  .mod-grid,.rubric-grid,.grade-cols,.grade-scores,.rubric-hint-grid{grid-template-columns:1fr;}
+  .grade-scores{margin-left:0;margin-top:8px;}
+  .grade-header{flex-wrap:wrap;}
+  .apikey-input{width:180px;}
+  .q-text{font-size:16px;padding:18px 16px;}
+}
+
+/* ── STUDY MODE ─────────────────────────────────── */
+.mode-toggle{display:flex;gap:0;margin:24px 0 0;border:1px solid var(--gold-border);border-radius:var(--radius);overflow:hidden;}
+.mode-btn{flex:1;padding:10px 0;text-align:center;font-family:'Crimson Pro',serif;font-size:15px;font-weight:500;cursor:pointer;background:none;border:none;color:var(--muted);transition:all .2s;}
+.mode-btn.active{background:var(--gold);color:var(--bg);}
+.mode-btn:not(.active):hover{background:var(--gold-dim);color:var(--cream);}
+
+/* Study screen */
+.study-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0 0;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+.study-tabs{display:flex;gap:0;border:1px solid var(--gold-border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px;}
+.stab{flex:1;padding:9px 4px;text-align:center;font-family:'Crimson Pro',serif;font-size:14px;font-weight:500;cursor:pointer;background:none;border:none;color:var(--muted);transition:all .2s;white-space:nowrap;}
+.stab.active{background:var(--bg3);color:var(--gold);}
+.stab:not(.active):hover{background:var(--bg2);}
+.stab-panel{display:none;}.stab-panel.active{display:block;}
+
+/* Resumen */
+.resumen-section{margin-bottom:20px;}
+.resumen-section h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--gold);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--gold-border);}
+.resumen-list{list-style:none;padding:0;}
+.resumen-list li{padding:7px 0 7px 16px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:15px;color:var(--cream);line-height:1.5;position:relative;}
+.resumen-list li::before{content:'›';position:absolute;left:0;color:var(--gold);}
+.resumen-list li:last-child{border-bottom:none;}
+.norm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;}
+.norm-card{background:var(--bg3);border:1px solid var(--gold-border);border-radius:var(--radius-sm);padding:12px 14px;}
+.norm-ref{font-size:12px;font-weight:600;color:var(--gold);margin-bottom:4px;letter-spacing:.03em;}
+.norm-desc{font-size:13px;color:var(--cream);line-height:1.5;}
+.case-card{background:var(--bg2);border-left:3px solid var(--gold);padding:14px 16px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-bottom:12px;}
+.case-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--cream);margin-bottom:4px;}
+.case-meta{font-size:12px;color:var(--gold);margin-bottom:8px;letter-spacing:.03em;}
+.case-holding{font-size:14px;color:var(--muted);line-height:1.55;}
+
+/* Flashcards */
+.fc-wrap{perspective:1200px;margin-bottom:20px;}
+.fc-card{width:100%;min-height:200px;position:relative;transform-style:preserve-3d;transition:transform .5s ease;cursor:pointer;}
+.fc-card.flipped{transform:rotateY(180deg);}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 32px;text-align:center;}
+.fc-front{background:var(--bg2);border:1px solid var(--gold-border);}
+.fc-back{background:var(--bg3);border:1px solid rgba(201,162,39,0.4);transform:rotateY(180deg);}
+.fc-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.fc-term{font-family:'Playfair Display',serif;font-size:19px;font-weight:500;color:var(--cream);line-height:1.4;}
+.fc-def{font-size:15px;color:var(--cream);line-height:1.6;}
+.fc-hint{font-size:12px;color:var(--muted2);margin-top:16px;}
+.fc-controls{display:flex;align-items:center;justify-content:space-between;margin-top:14px;}
+.fc-progress{font-size:13px;color:var(--muted);}
+.fc-nav{display:flex;gap:8px;}
+.fc-dot-row{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-top:10px;}
+.fc-dot{width:8px;height:8px;border-radius:50%;background:var(--bg4);transition:background .2s;}
+.fc-dot.seen{background:var(--muted2);}.fc-dot.current{background:var(--gold);}
+
+/* AI Assistant */
+.ai-chat{display:flex;flex-direction:column;gap:12px;}
+.chat-history{display:flex;flex-direction:column;gap:10px;min-height:120px;max-height:400px;overflow-y:auto;padding:4px 0;}
+.chat-msg{padding:12px 16px;border-radius:var(--radius-sm);font-size:14px;line-height:1.6;max-width:92%;}
+.chat-msg.user{background:var(--gold-dim);border:1px solid var(--gold-border);align-self:flex-end;color:var(--cream);}
+.chat-msg.ai{background:var(--bg3);border:1px solid rgba(255,255,255,0.07);align-self:flex-start;color:var(--cream);}
+.chat-msg.thinking{color:var(--muted);font-style:italic;}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:4px;}
+.chat-sug{font-size:12px;padding:5px 12px;border:1px solid var(--gold-border);border-radius:20px;cursor:pointer;color:var(--muted);background:none;font-family:'Crimson Pro',serif;transition:all .2s;}
+.chat-sug:hover{background:var(--gold-dim);color:var(--cream);}
+.chat-input-row{display:flex;gap:8px;}
+.chat-input{flex:1;background:var(--bg2);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-sm);padding:10px 14px;font-family:'Crimson Pro',serif;font-size:15px;color:var(--cream);transition:border-color .2s;}
+.chat-input:focus{outline:none;border-color:var(--gold);}
+.chat-input::placeholder{color:var(--muted2);}
+@media(max-width:580px){.norm-grid{grid-template-columns:1fr;}.study-tabs{flex-wrap:wrap;}.stab{flex:none;flex-basis:50%;}}
+
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- SITE HEADER -->
+  <header class="site-header">
+    <div class="site-logo">
+      Derecho Societario
+      <span>Maestría en Derecho Comercial · Externado de Colombia</span>
+    </div>
+    <div class="apikey-area">
+      <span class="key-label">API Key:</span>
+      <input class="apikey-input" type="password" id="apiKey" placeholder="sk-ant-api03-…"/>
+      <button class="btn-verify" onclick="testKey()">Verificar</button>
+    </div>
+  </header>
+  <div id="key-banner" style="background:rgba(201,162,39,0.07);border:1px solid rgba(201,162,39,0.25);border-radius:10px;padding:11px 16px;margin-top:14px;font-size:13px;color:#8a8070;line-height:1.55;display:flex;gap:10px;align-items:flex-start">
+    <span style="flex-shrink:0;color:#c9a227">ℹ</span>
+    <span>Obtenga su API Key gratis en <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:#c9a227;text-decoration:none">console.anthropic.com</a>. Si al abrir el archivo desde el escritorio el botón no responde, sirva el archivo con <code style="background:#0f1c2e;padding:1px 5px;border-radius:3px;font-size:12px">python -m http.server</code> y ábralo desde <code style="background:#0f1c2e;padding:1px 5px;border-radius:3px;font-size:12px">http://localhost:8000</code>.</span>
+    <button onclick="this.parentElement.style.display='none'" style="background:none;border:none;color:#6a6050;cursor:pointer;font-size:18px;line-height:1;flex-shrink:0;padding:0">x</button>
+  </div>
+
+  <!-- HOME SCREEN -->
+  <div class="screen active" id="screen-home">
+    <div class="hero">
+      <div class="hero-eyebrow">Plataforma de Evaluación Interactiva</div>
+      <h1 class="hero-title">Cátedra de<br/><em>Derecho Societario</em></h1>
+      <p class="hero-desc">Preguntas teóricas y casos prácticos de nivel posgrado, con calificación automática por inteligencia artificial bajo una rúbrica de exigencia académica Externado.</p>
+    </div>
+
+    <div class="rubric-card">
+      <h3>Sistema de calificación — Escala 1.0 a 5.0</h3>
+      <div class="rubric-grid">
+        <div class="rubric-item">
+          <div class="ri-name">Claridad conceptual</div>
+          <div class="ri-val">30%<span class="ri-pct">· 1.5 pts</span></div>
+        </div>
+        <div class="rubric-item">
+          <div class="ri-name">Potencial argumentativo</div>
+          <div class="ri-val">30%<span class="ri-pct">· 1.5 pts</span></div>
+        </div>
+        <div class="rubric-item">
+          <div class="ri-name">Rigor normativo y jurisprudencial</div>
+          <div class="ri-val">20%<span class="ri-pct">· 1.0 pt</span></div>
+        </div>
+        <div class="rubric-item">
+          <div class="ri-name">Aplicación práctica al caso</div>
+          <div class="ri-val">20%<span class="ri-pct">· 1.0 pt</span></div>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="btn-mode-eval" onclick="setMode('eval')">&#128221; Modo Evaluación</button>
+        <button class="mode-btn" id="btn-mode-study" onclick="setMode('study')">&#128218; Modo Estudio</button>
+      </div>
+
+    <div class="section-title" id="home-section-title">Módulos temáticos — Evaluación</div>
+    <div class="mod-grid" id="mod-grid"></div>
+  </div>
+
+
+  <!-- STUDY SCREEN -->
+  <div class="screen" id="screen-study">
+    <div class="study-nav">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button class="btn-back" onclick="goHome()">← Módulos</button>
+        <div class="quiz-mod-name" id="study-mod-name"></div>
+      </div>
+      <button class="btn-primary" onclick="startMod(activeStudyIdx)" style="font-size:13px;padding:7px 16px">Evaluar este módulo →</button>
+    </div>
+    <div class="study-tabs">
+      <button class="stab active" onclick="showStab('resumen')">Resumen</button>
+      <button class="stab" onclick="showStab('flashcards')">Flashcards</button>
+      <button class="stab" onclick="showStab('normas')">Normativa</button>
+      <button class="stab" onclick="showStab('asistente')">Asistente IA</button>
+    </div>
+    <div class="stab-panel active" id="stab-resumen"></div>
+    <div class="stab-panel" id="stab-flashcards"></div>
+    <div class="stab-panel" id="stab-normas"></div>
+    <div class="stab-panel" id="stab-asistente"></div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div class="screen" id="screen-quiz">
+    <div class="quiz-nav">
+      <button class="btn-back" onclick="goHome()">← Módulos</button>
+      <div class="quiz-mod-name" id="quiz-mod-name"></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="progress-info">
+        <span id="prog-label"></span>
+        <span id="prog-score"></span>
+      </div>
+    </div>
+    <div id="q-container"></div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div class="screen" id="screen-results">
+    <div id="results-container"></div>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+const MODULES = [
+  {
+    id:'m1',
+    title:'Desestimación de la Personalidad Jurídica',
+    sub:'Levantamiento del velo · Reverse piercing · Fraude a la ley',
+    questions:[
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál es la diferencia fundamental entre la desestimación directa y la desestimación inversa de la personalidad jurídica societaria?',
+        opts:[
+          'En la directa, la sociedad responde por deudas del socio; en la inversa, el socio responde por deudas de la sociedad.',
+          'En la directa, el socio responde por deudas de la sociedad; en la inversa, la sociedad responde por obligaciones personales del socio.',
+          'Ambas figuras producen el mismo efecto patrimonial; solo difieren en el sujeto que interpone la demanda.',
+          'La desestimación inversa únicamente es aplicable a sociedades anónimas con pluralidad de accionistas.'
+        ],
+        ans:1,
+        expl:'La desestimación directa (piercing the corporate veil) hace responsable al socio por las deudas de la sociedad. La desestimación inversa (reverse piercing) opera en sentido contrario: busca que el patrimonio de la persona jurídica responda por las obligaciones personales del socio. Esta variante requiere justificación adicional en la equidad para evitar una injusticia intolerable, según la doctrina y la Superintendencia de Sociedades.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'Según la doctrina y jurisprudencia colombiana, la infracapitalización de la sociedad ("undercapitalization"), por sí sola, constituye fundamento jurídico suficiente para declarar el levantamiento del velo corporativo.',
+        opts:[
+          'Verdadero. La infracapitalización genera automáticamente la responsabilidad ilimitada de los socios frente a terceros acreedores.',
+          'Falso. La infracapitalización es un indicio relevante, pero por sí sola es insuficiente; se requiere fraude, abuso o injusticia intolerable para levantar el velo.'
+        ],
+        ans:1,
+        expl:'La infracapitalización no es, por sí sola, fundamento suficiente para la desestimación. La doctrina comparada (Walkovsky v. Carlton, EE.UU.) y la colombiana coinciden en que se requiere la concurrencia de fraude, abuso o injusticia intolerable. La regla es la separación patrimonial; el levantamiento del velo es la excepción reservada para situaciones de abuso o fraude comprobados.'
+      },
+      
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'La separación patrimonial entre la sociedad y sus socios es la excepción en el derecho societario colombiano, mientras que el levantamiento del velo corporativo es la regla general.',
+        opts:['Verdadero. En Colombia el velo corporativo se levanta siempre que lo solicite un acreedor afectado.','Falso. La separación patrimonial es la REGLA GENERAL; el levantamiento del velo es la excepción reservada para fraude, abuso e injusticias intolerables.'],
+        ans:1,
+        expl:'La regla es la separación patrimonial: la persona jurídica es distinta a sus socios y conserva autonomía propia. El levantamiento del velo es una medida de última ratio, excepcional, que solo procede ante situaciones de abuso, fraude o injusticia intolerable.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Qué fundamento jurídico empleó la Superintendencia de Sociedades en la Sentencia 2018-800-00094 para declarar inoponible la personalidad jurídica de una SAS?',
+        opts:['El principio de limitación de responsabilidad de los accionistas como norma de orden público.','La teoría del fraude a la ley y la inoponibilidad de la personificación jurídica frente a los acreedores del socio.','La acción pauliana del artículo 2488 del Código Civil por insolvencia sobreviniente.','La extensión de responsabilidad por infracapitalización societaria sobreviniente.'],
+        ans:1,
+        expl:'La Supersociedades declaró que el socio usó la SAS en "fraude a la ley" para eludir a sus acreedores. El remedio fue la inoponibilidad de la personalidad jurídica: se declaró nula la transferencia de bienes y se ordenó su restitución al patrimonio personal del socio para que los acreedores pudieran perseguirlos.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál de las siguientes modalidades de desestimación busca que el patrimonio de la persona jurídica responda por obligaciones personales del socio?',
+        opts:['Desestimación directa o tradicional (piercing the corporate veil).','Inoponibilidad o interposición societaria como mecanismo de extensión interna.','Extensión de responsabilidad externa hacia terceros beneficiarios de la actividad.','Desestimación inversa o "reverse piercing of the corporate veil".'],
+        ans:3,
+        expl:'La desestimación inversa (reverse piercing) opera en sentido contrario a la directa: no es el socio quien responde por deudas de la sociedad, sino que se busca que el patrimonio de la persona jurídica responda por las obligaciones personales del socio. Requiere justificación en la equidad para evitar una injusticia intolerable.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'Según el artículo 42 de la Ley 1258 de 2008, el accionista controlante de una SAS que actúa de manera fraudulenta puede ser responsabilizado solidariamente por las obligaciones surgidas de esos actos.',
+        opts:['Verdadero. La Ley 1258 consagra expresamente que el controlante que usa la SAS en fraude responde solidariamente por las obligaciones derivadas de esa conducta.','Falso. En las SAS la limitación de responsabilidad es absoluta y no admite excepciones legales.'],
+        ans:0,
+        expl:'El Art. 42 de la Ley 1258/08 establece la "inoponibilidad de la personalidad jurídica" de la SAS: cuando la SAS se utilice en fraude a la ley o en perjuicio de terceros, los accionistas que hubieran realizado, participado o facilitado los actos defraudatorios responderán solidariamente por las obligaciones surgidas de tales actos.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuáles son los presupuestos para que proceda el levantamiento del velo corporativo según la doctrina colombiana?',
+        opts:['Pluralidad de socios, infracapitalización acreditada y perjuicio cuantificado a terceros acreedores.','Fraude, abuso o injusticia intolerable: la figura es un remedio excepcional y de último recurso.','Insolvencia societaria, confusión de activos y sola prueba de responsabilidad del socio controlante.','Violación de formalidades registrales, omisión de asambleas anuales y estados financieros no auditados.'],
+        ans:1,
+        expl:'La doctrina y la jurisprudencia colombiana (siguiendo el derecho comparado) exigen que concurran fraude, abuso o una injusticia intolerable para que proceda el levantamiento del velo. Se trata de un remedio excepcional: la regla siempre es la separación patrimonial.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿En qué consiste la "confusión de activos" o "commingling of assets" como causal para levantar el velo corporativo?',
+        opts:['La transferencia regulada de activos entre matriz y filiales dentro de un grupo empresarial reconocido.','La mezcla indistinguible del patrimonio de la sociedad con el patrimonio personal del socio, haciendo imposible su separación.','La constitución de la sociedad con un capital inferior al mínimo legal exigido por el tipo societario.','La celebración de contratos entre la sociedad y sus socios sin autorización previa del órgano competente.'],
+        ans:1,
+        expl:'La confusión de activos ocurre cuando el socio y la sociedad mezclan su patrimonio hasta hacer imposible distinguir qué pertenece a quién. Es una de las circunstancias más frecuentes que dan lugar al levantamiento del velo en el derecho comparado, pues evidencia que la separación jurídica no existe en la práctica.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'La declaración de inoponibilidad de la personalidad jurídica implica la disolución y liquidación automática de la sociedad afectada.',
+        opts:['Verdadero. La inoponibilidad extingue la existencia legal de la sociedad frente a todos los terceros.','Falso. La inoponibilidad tiene efecto relativo: opera solo frente a los acreedores que la invocan y para los bienes específicos del fraude; la sociedad puede seguir existiendo y operando frente a otros.'],
+        ans:1,
+        expl:'La inoponibilidad no equivale a la disolución de la sociedad. Su efecto es limitado y relativo: los atributos de la personalidad jurídica (separación patrimonial, limitación de responsabilidad) se ignoran únicamente frente a los acreedores que obtuvieron la declaración y para los bienes objeto del fraude.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'En la doctrina de la "regla de la instrumentalidad" desarrollada en EE.UU., ¿cuáles son los tres elementos requeridos para levantar el velo?',
+        opts:['Infracapitalización, fraude documental y perjuicio acreditado a trabajadores o acreedores de la sociedad.','Relación de dominación en la actividad empresarial, fraude o error inexcusable en el ejercicio de esa dominación, y relación de causalidad entre ambos.','Unidad de intereses accionaria, confusión patrimonial voluntaria y resultado inequitativo para terceros.','Autocontratación prohibida, violación de estatutos y abuso reiterado de la forma societaria durante más de un año.'],
+        ans:1,
+        expl:'La "regla de la instrumentalidad" en el derecho norteamericano exige: (i) relación de dominación de la actividad empresarial de la sociedad; (ii) fraude o error inexcusable en el ejercicio de esa relación, que se concrete en violación de estatutos u otros deberes legales; y (iii) relación de causalidad entre (i) y (ii).'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál es la diferencia entre la "extensión de responsabilidad interna" y la "extensión de responsabilidad externa" en el esquema de desestimación?',
+        opts:['La interna aplica solo a sociedades cerradas con menos de 25 socios; la externa aplica solo a sociedades abiertas o con oferta pública.','La interna desconoce la limitación de responsabilidad haciendo responder a los socios; la externa alcanza a terceros que son los verdaderos beneficiarios de la actividad social.','La interna requiere sentencia judicial previa; la externa puede ser declarada directamente por la Superintendencia en función administrativa.','La interna opera sobre el patrimonio de la sociedad anónima; la externa sobre el patrimonio de las sociedades de personas.'],
+        ans:1,
+        expl:'La extensión interna busca hacer responder a los socios (desconoce la limitación de responsabilidad hacia adentro). La extensión externa apunta a terceros que, sin ser socios formales, son los verdaderos beneficiarios de la actividad social y se ocultaron tras la forma societaria.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'Según la doctrina del "alter ego" desarrollada en EE.UU., para levantar el velo se requiere probar que la separación entre la sociedad y el accionista no existe en la práctica y que mantenerla generaría un resultado inequitativo.',
+        opts:['Verdadero. La doctrina del alter ego exige esos dos elementos: unidad real de intereses y resultado inequitativo si se mantiene la separación.','Falso. El alter ego solo requiere probar que el accionista tiene control mayoritario sobre las decisiones de la sociedad.'],
+        ans:0,
+        expl:'La doctrina del "alter ego": (i) debe existir una unidad de intereses y propiedad accionaria tal que la personalidad separada de las sociedades y de los accionistas no exista más —la sociedad es un apéndice del accionista—; y (ii) si los actos fueran tratados como solo imputables a la sociedad, ello implicaría un resultado inequitativo.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Ante qué autoridad se presenta típicamente la acción de desestimación de la personalidad jurídica cuando involucra una sociedad comercial en Colombia?',
+        opts:['Exclusivamente ante tribunales de arbitraje comercial, por ser la desestimación una controversia estrictamente societaria y privada.','Ante la Superintendencia de Sociedades en ejercicio de su función jurisdiccional, que tiene competencia para conocer este tipo de conflictos societarios.','Ante la Corte Suprema de Justicia, Sala Civil, como tribunal de primera y única instancia en materia societaria.','Ante la Superintendencia de Industria y Comercio cuando el fraude afecta la libre competencia económica.'],
+        ans:1,
+        expl:'La Superintendencia de Sociedades, en ejercicio de su función jurisdiccional (otorgada por el CGP), tiene competencia para conocer las acciones de desestimación de la personalidad jurídica cuando involucran sociedades comerciales. Esta fue la autoridad que decidió el caso paradigmático 2018-800-00094.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál de los siguientes supuestos NO ha sido reconocido por la doctrina comparada como circunstancia que da lugar al levantamiento del velo corporativo?',
+        opts:['Fraude a socios o acreedores de la sociedad mediante uso de la forma societaria.','Violación de formalidades legales y estatutarias de manera reiterada y grave.','La simple existencia de un grupo empresarial con sociedad holding y filiales debidamente registradas y operando lícitamente.','Restablecimiento de la equidad cuando la decisión se funda en principios de equity.'],
+        ans:2,
+        expl:'La mera existencia de un grupo empresarial (holding + filiales) no da lugar al levantamiento del velo. Los grupos empresariales son lícitos y reconocidos por la ley. Es necesario que concurra fraude, abuso o confusión de activos. El solo hecho de la vinculación empresarial no es suficiente.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'El acreedor que obtiene una declaración de inoponibilidad de la personalidad jurídica puede perseguir la totalidad del patrimonio de la sociedad para satisfacer su crédito personal contra el socio.',
+        opts:['Verdadero. La inoponibilidad abre el patrimonio completo de la sociedad a todos los acreedores personales del socio deudor.','Falso. La inoponibilidad tiene alcance limitado: el acreedor puede perseguir solo los bienes específicamente identificados como transferidos fraudulentamente, una vez restituidos al patrimonio del socio.'],
+        ans:1,
+        expl:'El efecto de la inoponibilidad es específico y limitado: recae sobre los bienes concretos que fueron transferidos fraudulentamente. Una vez restituidos al patrimonio del socio, sus acreedores pueden perseguirlos. No implica una apertura general e ilimitada del patrimonio de la sociedad.'
+      },
+      {
+        type:'o',
+        label:'Abierta · Análisis jurisprudencial',
+        text:'Analice la Sentencia 2018-800-00094 de la Superintendencia de Sociedades, considerada el caso paradigmático de desestimación inversa en Colombia. ¿Cuál fue el fundamento jurídico empleado para declarar la inoponibilidad de la personificación jurídica, y cuáles son sus implicaciones prácticas para la asesoría societaria y la planeación patrimonial?',
+        rubric:'Evalúa: (1) supuesto fáctico: socio transfiere patrimonio a SAS para eludir acreedores; (2) fundamento: fraude a la ley e inoponibilidad de la personalidad jurídica; (3) efectos: nulidad de aportes y restitución al patrimonio del socio; (4) implicaciones para la práctica: riesgos en due diligence, planeación patrimonial fraudulenta, alertas para el asesor; (5) rigor en los conceptos de desestimación inversa.'
+      },
+      {
+        type:'k',
+        label:'Caso práctico',
+        text:'CASO: Carlos Medina, socio único de una SAS constructora, transfiere la totalidad de sus bienes inmuebles personales —avaluados en $3.000 millones— a la sociedad dos meses antes de que su exesposa inicie proceso de liquidación de sociedad conyugal. Los inmuebles representan el 95% del patrimonio de Carlos. La exesposa, abogada, sospecha del fraude y lo consulta a usted.\n\nEstructure: (a) las pretensiones que invocaría en la demanda; (b) el juez o autoridad competente; (c) los fundamentos jurídicos de la acción (teorías aplicables); y (d) las dificultades probatorias que enfrentaría.',
+        rubric:'Evalúa: (a) pretensiones: inoponibilidad de personificación, nulidad de aportes, restitución, medidas cautelares; (b) competencia: Superintendencia de Sociedades en función jurisdiccional; (c) teorías: desestimación inversa + fraude a la ley; requisitos de la figura (abuso, fraude, injusticia intolerable); (d) pruebas: indicio de transferencia reciente, falta de causa legítima, cronología de hechos; (e) conocimiento de normas y jurisprudencia aplicables.'
+      }
+    ]
+  },
+  {
+    id:'m2',
+    title:'Abuso del Derecho de Voto',
+    sub:'Art. 43 Ley 1258 · Tunneling · Protección de minoritarios',
+    questions:[
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'Según el artículo 43 de la Ley 1258 de 2008, ¿cuáles son los tres elementos que deben concurrir para que se configure el abuso del derecho de voto en una SAS?',
+        opts:[
+          'Voto emitido, daño patrimonial probado cuantitativamente y relación de causalidad directa con perjuicio consumado.',
+          'Voto contrario al interés social, intención de dañar o ventaja injustificada, y perjuicio potencial o ventaja injustificada como resultado.',
+          'Voto mayoritario, dolo específico y demostración de fraude expreso a los estatutos sociales de la compañía.',
+          'Voto, decisión ejecutada e impugnación presentada dentro del plazo legal ante la Superintendencia de Sociedades.'
+        ],
+        ans:1,
+        expl:'Los tres elementos son: (i) Subjetivo: intención de dañar a socios/sociedad o de obtener ventaja injustificada; (ii) Objetivo: resultado de perjuicio (real o potencial) o ventaja injustificada; (iii) Teleológico: actuación contraria al interés social. La norma facilita la prueba al incluir el "perjuicio potencial" y la "ventaja injustificada", eliminando la exigencia de daño consumado. La intención se prueba por indicios.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'Si el juez decreta la nulidad absoluta del voto mayoritario abusivo en una asamblea de SAS, ¿cuál es el efecto matemático-jurídico concreto sobre la decisión asamblearia impugnada?',
+        opts:[
+          'La decisión queda suspendida cautelarmente hasta nueva convocatoria de asamblea con el orden del día respectivo.',
+          'La decisión cae por completo porque, al anularse los votos abusivos, la mayoría necesaria deja de alcanzarse.',
+          'Solo procede la indemnización de perjuicios; la nulidad de la decisión no puede solicitarse de forma simultánea.',
+          'La decisión subsiste pero el socio mayoritario pierde el derecho de voto en las tres asambleas siguientes.'
+        ],
+        ans:1,
+        expl:'Al anularse el voto mayoritario abusivo, la decisión pierde el sustento matemático y cae completamente. Este efecto contrasta con el abuso de minoría o de paridad: en paridad (50/50), la nulidad es inocua para remover el bloqueo; en minoría, el voto legítimo mayoritario basta sin el voto abusivo, haciendo igualmente inocua la nulidad. En esos casos, la acción tiene mayor utilidad para obtener indemnización de perjuicios.'
+      },
+      
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál es el fundamento normativo principal del abuso del derecho en materia mercantil en Colombia, aplicable con carácter general antes y más allá del Art. 43 de la Ley 1258?',
+        opts:['El artículo 95 de la Constitución Política, que establece deberes sociales de los ciudadanos.','El artículo 830 del Código de Comercio, que prohíbe el abuso del derecho y obliga a indemnizar perjuicios.','El artículo 2341 del Código Civil sobre responsabilidad extracontractual por hecho propio.','El artículo 43 de la Ley 1258, que es la única fuente normativa del abuso del voto en Colombia.'],
+        ans:1,
+        expl:'El Art. 830 C. de Co. prohíbe el ejercicio abusivo de los derechos en materia mercantil y consagra la obligación de indemnizar perjuicios. La Corte Suprema también ha encontrado sustento en el Art. 8 de la Ley 153/1887 y en el Art. 95 constitucional. El Art. 43 L. 1258 es la consagración específica para el voto en SAS.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Qué significa la inclusión del "perjuicio potencial" como causal en el artículo 43 de la Ley 1258 de 2008?',
+        opts:['Que basta con la mera posibilidad abstracta e hipotética de que pudiera ocurrir algún daño en el futuro.','Que no es necesario esperar a que el daño se materialice: el perjuicio probable y concreto, aunque no consumado, activa la acción.','Que el demandante puede cuantificar el daño con base en proyecciones financieras hipotéticas sin soporte real.','Que el juez puede decretar medidas cautelares autónomas antes de que se inicie formalmente el proceso.'],
+        ans:1,
+        expl:'La innovación del Art. 43 es eliminar la exigencia de daño consumado y cuantificado. El perjuicio potencial es aquel que, aunque no se haya materializado todavía, es probable y concreto. Esto facilita enormemente la acción de los minoritarios, pues no deben esperar a que el daño sea irreversible.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Qué es la "dilución" como mecanismo de tunneling en el contexto societario?',
+        opts:['La reducción del capital social nominal mediante reforma estatutaria aprobada por unanimidad de los socios.','La disminución del porcentaje de participación de un socio mediante una capitalización que no le ofrece suscripción preferente en condiciones equitativas.','La venta de activos esenciales de la sociedad a precio de mercado certificado, con autorización del órgano competente.','La distribución de utilidades en especie en lugar de en efectivo cuando no existe flujo de caja suficiente.'],
+        ans:1,
+        expl:'La dilución reduce el porcentaje de participación del socio minoritario sin compensación. Se logra mediante una capitalización: se emiten nuevas acciones a un precio que el minoritario no puede o no quiere pagar, y al no suscribirlas su porcentaje disminuye. Es uno de los mecanismos de tunneling más utilizados.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'La nulidad declarada por abuso del derecho de voto es una nulidad relativa, susceptible de ser ratificada por los socios mediante una decisión posterior adoptada sin el vicio.',
+        opts:['Verdadero. Al ser una nulidad relativa, cualquier acto posterior de los socios que no incurra en el mismo vicio subsana el acto abusivo anterior.','Falso. La nulidad es ABSOLUTA, pues el legislador calificó el voto abusivo como de objeto ilícito. La nulidad absoluta no admite ratificación ni saneamiento.'],
+        ans:1,
+        expl:'El Art. 43 Ley 1258 calificó la decisión adoptada con voto abusivo como nula de pleno derecho por ilicitud del objeto. La nulidad absoluta por objeto ilícito no admite ratificación. Su declaración puede pedirse por cualquier interesado y el juez puede declararla de oficio.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál de los siguientes supuestos NO configura por sí mismo un caso de tunneling o extracción de valor indebida?',
+        opts:['Celebración de contratos con vinculadas del controlante en condiciones más onerosas para la sociedad que las del mercado.','Capitalización de la sociedad a precio de mercado que permite a TODOS los socios ejercer su suscripción preferente en igualdad de condiciones.','Constitución reiterada de reservas sin justificación económica real cuando beneficia directamente al socio controlante.','Colocación de acciones a valor nominal cuando el valor intrínseco de la acción es significativamente superior.'],
+        ans:1,
+        expl:'Una capitalización en la que todos los socios pueden ejercer su derecho de suscripción preferente en condiciones equitativas y a precio de mercado no es tunneling. El problema surge cuando la capitalización se diseña para diluir al minoritario: precio accesible solo para el controlante, o plazo insuficiente para que el minoritario suscriba.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'En el caso del "abuso de minoría" mediante veto, ¿cuál es el principal problema que enfrenta el juez que declara la nulidad del voto negativo abusivo?',
+        opts:['Que la Superintendencia de Sociedades carece de competencia para conocer casos de abuso ejercido por socios minoritarios.','Que al anularse el voto negativo, la decisión no queda automáticamente aprobada, pues el juez es reacio a sustituir la voluntad de las partes con su propio criterio.','Que el voto de veto del minoritario siempre se presume legítimo por ser un mecanismo legal de protección de minorías.','Que la nulidad del voto negativo transforma la abstención en voto afirmativo por operación de pleno derecho.'],
+        ans:1,
+        expl:'En el abuso de veto por minoría, la nulidad del voto negativo no aprueba automáticamente la decisión bloqueada. El juez necesitaría "sustituir" la voluntad de los socios y declarar la decisión aprobada, lo cual la Superintendencia ha resistido por violar la autonomía privada. La indemnización de perjuicios es la pretensión más eficaz en este escenario.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál es la diferencia más relevante entre la acción de impugnación ordinaria de decisiones sociales y la acción de abuso del derecho de voto?',
+        opts:['La impugnación solo procede contra decisiones de la asamblea; el abuso del voto solo aplica contra decisiones de la junta directiva.','La impugnación ataca la decisión por violar normas imperativas; el abuso del voto ataca el ejercicio mismo del voto por intención maliciosa, aunque la decisión sea formalmente válida.','La impugnación puede presentarla cualquier tercero; el abuso del voto es una acción reservada exclusivamente a la sociedad.','La impugnación genera nulidad relativa; el abuso del voto genera solo responsabilidad penal por fraude procesal.'],
+        ans:1,
+        expl:'La impugnación ordinaria ataca la decisión por violar el ordenamiento jurídico en su forma o contenido. El abuso del voto es más sutil: la decisión puede ser formalmente impecable, pero el voto que la sustentó fue ejercido con intención maliciosa o para obtener ventaja injustificada. Es un vicio en el ejercicio del derecho, no en la forma del acto.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'Para probar la intención maliciosa en una acción de abuso del derecho de voto, el demandante puede construirla exclusivamente con base en indicios, sin necesidad de aportar prueba directa de la mala fe del socio demandado.',
+        opts:['Verdadero. La intención maliciosa, por su naturaleza subjetiva, se prueba principalmente mediante indicios encadenados: conflictos previos, falta de lógica económica, beneficios privados correlativos.','Falso. La prueba de la intención maliciosa debe ser directa; los indicios son insuficientes para desvirtuar la presunción de buena fe del socio.'],
+        ans:0,
+        expl:'La intención es un estado mental que no puede probarse directamente en la mayoría de los casos. El legislador permitió su prueba mediante indicios. La práctica jurídica indica que la demanda debe ser robusta en indicios encadenados: conflictos previos, ausencia de justificación económica, beneficios correlativos para el socio, patrón histórico.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿A quién aplica exclusivamente la acción de abuso del derecho de voto del artículo 43 de la Ley 1258 de 2008?',
+        opts:['A cualquier persona que ejerza influencia sobre las decisiones de la sociedad, incluyendo administradores y asesores externos con poderes amplios.','Exclusivamente a los socios (accionistas) que votan en su rol como socios en la asamblea general de la SAS.','A los socios y también a los miembros de junta directiva cuando votan en abuso de sus funciones de administración.','A los socios de cualquier tipo societario colombiano, incluyendo SA, SRL, SAS y sociedad en comandita por acciones.'],
+        ans:1,
+        expl:'El Art. 43 aplica al VOTO de los SOCIOS en la ASAMBLEA de la SAS. Si quien actúa abusivamente es un miembro de junta directiva, la vía es la acción de responsabilidad de administradores (Art. 200 C. de Co.), no el abuso del derecho de voto. Esta distinción fue expresamente destacada en la cátedra.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál de las siguientes situaciones ha sido reconocida por la Superintendencia de Sociedades como supuesto de abuso del derecho de voto?',
+        opts:['La votación en contra de una propuesta de fusión cuando el socio tiene razones de negocio legítimas, documentadas y comunicadas a la asamblea.','La creación de órganos de administración con el propósito de alterar mayorías calificadas y consolidar el poder del controlante.','La abstención en la votación cuando el socio considera que no cuenta con información suficiente para decidir informadamente.','La votación a favor de una distribución del 70% de las ganancias del ejercicio cuando la política habitual era distribuir el 50%.'],
+        ans:1,
+        expl:'La Supersociedades reconoció en el caso Edgar Orlando Corredor c. Induesa Pinilla & Pinillas que la creación de órganos de administración con el propósito de alterar mayorías y consolidar poder configura abuso del derecho de voto. También ha reconocido: reservas innecesarias, capitalizaciones dilutivas, exclusión forzosa de socios y bloqueo de la acción social de responsabilidad.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuáles son las dos pretensiones que puede ejercer el afectado por un abuso del derecho de voto según el artículo 43 de la Ley 1258?',
+        opts:['Nulidad de la decisión y remoción judicial inmediata del administrador que ejecutó la decisión impugnada.','Nulidad absoluta de la decisión (por objeto ilícito) e indemnización de los perjuicios causados, de forma acumulada o alternativa.','Suspensión provisional de la decisión y multa administrativa contra el socio que ejerció el voto abusivo.','Anulación de los votos abusivos y reconocimiento judicial de la decisión contraria como válidamente adoptada.'],
+        ans:1,
+        expl:'El Art. 43 L. 1258 consagra dos pretensiones: (1) nulidad absoluta de la decisión por ilicitud del objeto, y (2) indemnización de los perjuicios causados. Pueden ejercerse de forma acumulada o alternativa según la eficacia que se busque: la nulidad es útil en abuso de mayoría; la indemnización es más eficaz en abuso de paridad o minoría.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'En el análisis económico del abuso del derecho de voto, ¿qué justifica que la ley otorgue a la mayoría el poder de tomar decisiones vinculantes para todos los socios?',
+        opts:['La presunción legal irrefutable de que la mayoría siempre actúa en beneficio del interés social y de la comunidad.','La eficiencia de reducir costos de transacción: si fuera por unanimidad, cualquier socio podría bloquear, generando costos de negociación prohibitivos.','El principio democrático constitucional que establece que las decisiones colectivas se adoptan por mayoría simple.','La regla de que quien más aporta capital tiene mayor poder de decisión proporcional sobre la gestión social.'],
+        ans:1,
+        expl:'El principio mayoritario es una solución de eficiencia económica: la unanimidad generaría costos de transacción prohibitivos, pues cualquier socio podría vetar cualquier decisión. La mayoría reduce esos costos, pero genera el riesgo de expropiación de los minoritarios (tunneling). El abuso del voto es el antídoto a ese riesgo.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'La acción de abuso del derecho de voto puede presentarse ante la Superintendencia de Sociedades para impugnar el voto de un miembro de la junta directiva que actúa en contra del interés social en una reunión de ese órgano.',
+        opts:['Verdadero. El abuso del derecho de voto aplica a cualquier decisión en cualquier órgano colegiado de la sociedad.','Falso. El Art. 43 aplica exclusivamente a socios que votan en su rol de socios en la asamblea general. La mala conducta del miembro de JD se ataca vía la acción de responsabilidad de administradores (Art. 200 C. de Co.).'],
+        ans:1,
+        expl:'Esta distinción fue especialmente enfatizada en la cátedra: si quien actúa mal es un miembro de junta directiva en su rol de administrador, la acción es de responsabilidad de administradores, no de abuso del derecho de voto. El Art. 43 es para socios que votan como socios en la asamblea; el Art. 200 es para administradores.'
+      },
+      {
+        type:'o',
+        label:'Abierta · Análisis dogmático y crítico',
+        text:'Explique la distinción doctrinal entre el "abuso de mayoría", el "abuso de minoría" y el "abuso en paridad" en el marco del artículo 43 de la Ley 1258 de 2008. Analice críticamente la eficacia práctica de la nulidad absoluta como sanción en cada supuesto y proponga, para el caso del abuso de veto minoritario, la solución jurídica más conveniente y sus fundamentos.',
+        rubric:'Evalúa: (1) definición precisa y técnica de cada modalidad; (2) análisis del efecto matemático de la nulidad en cada caso (mayoría: decisión cae; paridad: inocua; minoría de veto: inocua); (3) crítica fundamentada a la inocuidad en paridad/minoría; (4) propuesta argumentada para abuso de veto (ej. declarar decisión aprobada) y postura cautelosa de la Superintendencia frente a sustituir voluntad de partes; (5) coherencia argumental.'
+      },
+      {
+        type:'k',
+        label:'Caso práctico',
+        text:'CASO: En una SAS con dos socios al 50% —Valentina (inversora pasiva) y Rodrigo (socio gestor-gerente)—, Rodrigo vota sistemáticamente en contra de distribuir utilidades durante 6 años consecutivos. Los estados financieros certificados muestran rentabilidad neta sostenida del 28% anual. Rodrigo alega "razones estratégicas de reinversión", pero no presenta ningún plan de negocios. Paralelamente, Valentina descubre que Rodrigo ha incrementado su propio salario como gerente un 250% durante ese mismo período.\n\nEstructure la demanda en nombre de Valentina: (a) ¿Configura abuso del derecho de voto? Identifique los indicios clave; (b) pretensiones principales y subsidiarias; (c) obstáculos procesales que enfrentaría y cómo superarlos.',
+        rubric:'Evalúa: (a) configuración del abuso: modalidad de paridad-bloqueo; indicios: falta de justificación económica, beneficio privado vía salario (tunneling); (b) pretensiones: nulidad (inocua en paridad, arguméntela subsidiariamente) + indemnización como pretensión principal; (c) obstáculos: prueba de intención, definición ambigua de "interés social", efecto limitado de nulidad en paridad; competencia: Superintendencia de Sociedades; estrategia alternativa.'
+      }
+    ]
+  },
+  {
+    id:'m3',
+    title:'Acuerdos de Accionistas',
+    sub:'Oponibilidad · Tipología · Depósito · Exigibilidad',
+    questions:[
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Qué requisito formal es indispensable para que un acuerdo de accionistas sea oponible a la sociedad anónima colombiana, conforme al ordenamiento vigente?',
+        opts:[
+          'Inscripción en el registro mercantil de la Cámara de Comercio del domicilio social.',
+          'Depósito ante la sociedad mediante entrega escrita del documento al representante legal en la sede de la administración.',
+          'Incorporación expresa de sus cláusulas en los estatutos sociales mediante reforma con las mayorías reglamentarias.',
+          'Protocolización ante notario público y registro posterior ante la Superintendencia de Sociedades.'
+        ],
+        ans:1,
+        expl:'El depósito ante la sociedad —mediante entrega material del documento al representante legal en las oficinas de la administración— es el requisito formal para la oponibilidad frente a la sociedad. Sin depósito, el acuerdo tiene plena vigencia entre firmantes (relatividad contractual) pero no puede oponerse a la sociedad para activar los mecanismos societarios de cumplimiento. A diferencia de los estatutos, no se requiere inscripción en el registro mercantil.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'En una sociedad anónima, un acuerdo de accionistas puede comprometer válidamente y de forma directa el comportamiento de los miembros de la junta directiva, vinculándolos a votar en un sentido determinado bajo pena de nulidad de sus actuaciones.',
+        opts:[
+          'Verdadero. Si todos los socios lo suscribieron, la junta directiva queda directamente vinculada y debe seguir las instrucciones del acuerdo.',
+          'Falso. El acuerdo puede crear una "promesa por otro" entre socios, pero no puede derogar los deberes fiduciarios de los administradores ni vincularlos directamente; el incumplimiento genera responsabilidad entre socios, no nulidad del voto del miembro de junta.'
+        ],
+        ans:1,
+        expl:'Los administradores tienen deberes fiduciarios legales (diligencia, lealtad, buena fe) que son normas imperativas, no disponibles por contrato. Un acuerdo de accionistas no puede vincularlos directamente. Lo que sí puede pactarse es la composición de listas (en S.A., el cociente electoral es el mecanismo imperativo). Si se pacta que "la junta aprobará X contrato", se configura una "promesa por otro": el incumplimiento genera responsabilidad civil entre socios, pero el voto del miembro de junta es válido.'
+      },
+      
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál es la naturaleza jurídica de los acuerdos de accionistas en Colombia?',
+        opts:['Son normas de carácter societario que se incorporan automáticamente a los estatutos al ser suscritos por la mayoría de los socios.','Son contratos de naturaleza civil o comercial entre propietarios de participaciones, con efecto relativo entre las partes salvo depósito ante la sociedad.','Son reglamentos internos con fuerza obligatoria erga omnes desde el momento de su suscripción por cualquier número de socios.','Son instrumentos cuasi-estatutarios que adquieren fuerza vinculante frente a terceros mediante su protocolización notarial.'],
+        ans:1,
+        expl:'Los acuerdos de accionistas son contratos (no hay definición legal en Colombia). Se rigen por los principios generales de los contratos: ley, moral y orden público como límites. Su efecto es relativo entre las partes firmantes; solo son oponibles a la sociedad si son debidamente depositados.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál es la función económica principal de los acuerdos de accionistas en sociedades con socios de control y socios inversores?',
+        opts:['Maximizar el rendimiento financiero de la sociedad mediante reglas de distribución de utilidades obligatoria para todos los socios.','Mitigar problemas de agencia entre control y propiedad, y distribuir el poder de forma eficiente según los intereses de cada tipo de socio.','Sustituir a los estatutos sociales en la regulación completa del funcionamiento interno de los órganos de administración.','Facilitar la transferencia libre de acciones entre socios sin necesidad de autorización del órgano competente.'],
+        ans:1,
+        expl:'Los acuerdos mitigan los "problemas de agencia" inherentes a la separación propiedad-control: el controlante puede usar la sociedad en su propio beneficio perjudicando al minoritario (tunneling). El acuerdo distribuye el control de forma eficiente: le da al inversor vetos en decisiones clave, mecanismos de salida y protecciones frente al controlante.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Qué son los acuerdos "de relación" en la tipología clásica de acuerdos de accionistas?',
+        opts:['Acuerdos que regulan el ejercicio del derecho de voto en los órganos colegiados de gobierno de la sociedad.','Acuerdos que establecen condiciones, restricciones o mecanismos para la enajenación o transferencia de participaciones accionarias (lock-up, ROFR, drag-along, tag-along).','Acuerdos que fijan la composición y reglas de funcionamiento de los órganos de administración y gobierno corporativo.','Acuerdos que determinan la política obligatoria de distribución de dividendos entre todos los socios.'],
+        ans:1,
+        expl:'Los acuerdos "de relación" o sobre transferencia de acciones regulan cómo los socios pueden o no transferir sus participaciones. Incluyen: lock-up (prohibición de vender por un período), ROFR (derecho de preferencia), drag-along (arrastre), tag-along (acompañamiento), y cláusulas de valoración en caso de venta.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Qué es la cláusula "drag-along" o de "arrastre" en un acuerdo de accionistas?',
+        opts:['El derecho del socio minoritario a vender sus acciones en las mismas condiciones que el mayoritario cuando este vende a un tercero.','La obligación del socio minoritario de vender sus acciones junto al mayoritario cuando este vende, en las mismas condiciones ofrecidas al comprador.','El derecho del socio mayoritario a adquirir con prioridad las acciones del minoritario cuando este desea vender a un tercero.','La obligación de todos los socios de mantener su participación durante un período mínimo de permanencia en la sociedad.'],
+        ans:1,
+        expl:'El drag-along protege al comprador que quiere adquirir el 100% de la compañía: si el mayoritario acepta vender, puede "arrastrar" al minoritario y obligarlo a vender en las mismas condiciones. Sin esta cláusula, el comprador no podría adquirir el 100% si el minoritario se niega.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Qué es la cláusula "tag-along" o de "acompañamiento" en un acuerdo de accionistas?',
+        opts:['La obligación del socio minoritario de vender junto al mayoritario cuando este encuentra un comprador para su participación.','El derecho del socio minoritario a vender sus acciones en las mismas condiciones que el mayoritario cuando este decide enajenar su participación a un tercero.','El derecho de la sociedad a adquirir sus propias acciones con prelación cuando un socio desea venderlas a un tercero competidor.','La cláusula que obliga a todos los socios a mantener un porcentaje mínimo de participación durante toda la vida de la sociedad.'],
+        ans:1,
+        expl:'El tag-along protege al minoritario: si el mayoritario vende a un nuevo controlante, el minoritario no queda "atrapado" con un socio nuevo que no eligió. Puede exigir que el comprador también le compre sus acciones en las mismas condiciones. Equilibra el poder del drag-along.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'Una cláusula de "lock-up" o permanencia que prohíbe la venta de acciones durante cierto período es siempre nula por violar el principio de libre circulación de acciones del Código de Comercio.',
+        opts:['Verdadero. Las restricciones a la transferencia de acciones son de orden público y no pueden limitarse contractualmente.','Falso. Las cláusulas de lock-up son lícitas cuando tienen un plazo razonable y no son perpetuas. En SAS, la autonomía privada permite establecer restricciones amplias a la transferencia dentro de los límites legales.'],
+        ans:1,
+        expl:'Las restricciones a la transferencia son lícitas y comunes en acuerdos de accionistas, siempre que no sean perpetuas ni absolutas. La Ley 1258 consagra expresamente que los estatutos de la SAS pueden establecer restricciones a la negociación de las acciones. Lo que no puede pactarse es la inalienabilidad total y permanente.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál de los siguientes es un mecanismo contractual válido y reconocido para resolver un deadlock o bloqueo societario?',
+        opts:['Presentación de demanda de disolución forzosa ante la Supersociedades como único remedio disponible ante un bloqueo.','La cláusula "shotgun" o "buy-sell": un socio propone un precio y el otro elige entre comprar o vender a ese mismo precio.','La convocatoria automática de una asamblea de segunda instancia donde el voto del socio mayoritario siempre prevalece.','La designación de un árbitro de emergencia por la Supersociedades para tomar la decisión bloqueada.'],
+        ans:1,
+        expl:'La cláusula "shotgun" o "buy-sell" es uno de los mecanismos más creativos para resolver deadlocks: el socio A propone un precio global para la sociedad; el socio B elige si compra la participación de A o vende la suya a A, al mismo precio propuesto. El mecanismo incentiva precios justos.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál de las siguientes afirmaciones sobre la relación entre estatutos y acuerdos de accionistas es CORRECTA?',
+        opts:['Un acuerdo de accionistas suscrito por la totalidad de los socios reforma implícitamente los estatutos sin necesidad de cumplir formalidades.','Los estatutos tienen publicidad registral y efecto erga omnes; los acuerdos tienen efecto relativo y requieren depósito para ser oponibles a la sociedad.','Los acuerdos de accionistas tienen primacía sobre los estatutos en caso de conflicto por ser instrumentos más específicos y recientes.','Los estatutos y los acuerdos son instrumentos jurídicamente equivalentes que producen los mismos efectos frente a todos los terceros.'],
+        ans:1,
+        expl:'Los estatutos se inscriben en el registro mercantil: tienen publicidad y son oponibles erga omnes. Los acuerdos son contratos privados: su efecto es relativo entre las partes firmantes; para ser oponibles a la sociedad requieren depósito. Esta diferencia determina los límites de cada instrumento.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'En una sociedad anónima, es posible establecer en un acuerdo de accionistas un mecanismo de elección de miembros de la junta directiva distinto al cociente electoral, si el acuerdo es suscrito por la totalidad de los accionistas.',
+        opts:['Verdadero. La unanimidad de los socios puede sustituir cualquier norma del tipo societario por vía de acuerdo privado.','Falso. El cociente electoral es una norma IMPERATIVA del tipo S.A. y no puede modificarse por acuerdo de accionistas. Lo que sí puede pactarse es la conformación de las listas dentro del sistema.'],
+        ans:1,
+        expl:'El cociente electoral (Art. 198 C. de Co.) es el único mecanismo para elegir la junta directiva en una S.A. Es norma imperativa: no puede ser derogada ni sustituida por estatutos ni por acuerdos, ni siquiera con el consentimiento unánime. Sí puede pactarse cómo conformar las listas de candidatos que se someten al cociente.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Qué es el "Right of First Refusal" (ROFR) o derecho de preferencia en acuerdos de accionistas?',
+        opts:['El derecho de la sociedad a rechazar la transferencia de acciones cuando el cesionario no cumple el perfil establecido en los estatutos.','El derecho de los socios existentes a adquirir prioritariamente las acciones que un socio desea vender, en las mismas condiciones ofrecidas al tercero interesado, antes de que este pueda comprarlas.','El derecho del mayoritario a comprar las acciones del minoritario a un precio preestablecido cuando ocurre un evento de incumplimiento del acuerdo.','El derecho de la sociedad a recomprar sus propias acciones cuando el valor de mercado supera un umbral definido contractualmente.'],
+        ans:1,
+        expl:'El ROFR ("derecho del tanto" en el derecho colombiano) permite a los socios existentes mantenerse como propietarios ante la llegada de un tercero no deseado. Si un socio quiere vender, debe primero ofrecerle a los demás socios en las mismas condiciones. Si no ejercen el derecho en el plazo pactado, puede vender al tercero.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Puede la sociedad misma ser parte firmante de un acuerdo de accionistas y qué efecto tiene esa calidad?',
+        opts:['No, porque los acuerdos de accionistas son contratos entre socios exclusivamente y la sociedad es un tercero ajeno al vínculo accionario.','Sí, puede ser parte firmante, lo que tiene la ventaja de hacer innecesario el depósito para la oponibilidad: la sociedad queda obligada directamente por el principio de relatividad contractual.','Sí, pero solo cuando la sociedad tiene menos de cinco socios y todos son personas naturales domiciliadas en Colombia.','No, porque la participación de la sociedad como firmante generaría un conflicto de interés institucional que vicia el acuerdo de nulidad absoluta.'],
+        ans:1,
+        expl:'Si la sociedad misma es parte del acuerdo, queda obligada directamente como contraparte contractual (no como tercero destinatario del depósito). Esto tiene ventajas prácticas: evita la controversia sobre el depósito y fortalece la exigibilidad. Es una estrategia de redacción reconocida en la práctica societaria.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'Los socios no suscriptores de un acuerdo de accionistas quedan vinculados automáticamente a sus cláusulas cuando el acuerdo es depositado ante la sociedad.',
+        opts:['Verdadero. El depósito del acuerdo produce efectos frente a la sociedad Y frente a todos los socios, sean o no firmantes.','Falso. El depósito hace el acuerdo oponible a la SOCIEDAD, no a los socios no firmantes. Los no suscriptores no quedan obligados por el principio de relatividad contractual. El proyecto de reforma busca ampliar esa oponibilidad, pero aún no está vigente.'],
+        ans:1,
+        expl:'El depósito opera frente a la sociedad como institución: la sociedad debe respetar y operativizar el acuerdo. Pero los socios no firmantes no quedan vinculados: el principio de relatividad contractual del Art. 1602 C.C. exige que el contrato haya sido suscrito para obligar. El proyecto de ley en discusión busca ampliar la oponibilidad.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál de los siguientes es un límite reconocido a la libertad de contenido de los acuerdos de accionistas?',
+        opts:['La prohibición de incluir cláusulas sobre política de dividendos, pues es competencia exclusiva e indelegable de la asamblea general.','La imposibilidad de comprometer directamente a los administradores a votar en cierto sentido, pues sus deberes fiduciarios son normas imperativas que no pueden derogarse por contrato.','La prohibición de pactar mecanismos de put y call options sobre acciones propias, pues estas son operaciones legalmente prohibidas.','La exigencia de que el acuerdo sea aprobado por la asamblea general con mayoría calificada del 70% para tener validez entre los socios.'],
+        ans:1,
+        expl:'El límite más discutido es la imposibilidad de comprometer directamente a los administradores: sus deberes fiduciarios (lealtad, diligencia, buena fe) son normas imperativas que no pueden derogarse por acuerdo privado. El acuerdo puede establecer una "promesa por otro" entre socios, pero el administrador que incumple no ve anulado su voto; solo genera responsabilidad entre socios firmantes.'
+      },
+      {
+        type:'o',
+        label:'Abierta · Análisis comparativo estructural',
+        text:'¿Cuáles son las diferencias estructurales entre los estatutos sociales y los acuerdos de accionistas como instrumentos de regulación del gobierno corporativo? Analice las ventajas y desventajas de cada mecanismo desde las perspectivas de la publicidad, la oponibilidad, la flexibilidad para su modificación y los efectos frente a terceros, con referencia a la tensión entre seguridad jurídica y autonomía privada.',
+        rubric:'Evalúa: (1) distinción clara: estatutos como norma constitutiva pública (erga omnes, registro) vs. acuerdo como contrato (relatividad, oponibilidad restringida); (2) modificación: estatutos requieren formalidades y mayorías; acuerdos son más ágiles; (3) publicidad: estatutos en registro mercantil; acuerdos mediante depósito; (4) eficacia: estatutos directamente oponibles; acuerdos requieren depósito; (5) casos prácticos donde uno supera al otro; (6) tensión seguridad jurídica vs. flexibilidad.'
+      },
+      {
+        type:'k',
+        label:'Caso práctico',
+        text:'CASO: Tres inversores constituyen una SAS de tecnología. Santiago aporta el 60%, Camila el 30%, y Tomás el 10%. En el acuerdo de accionistas, debidamente depositado, se incluyen las siguientes estipulaciones:\n\n(i) Ninguna decisión estratégica puede adoptarse sin el voto afirmativo de Tomás (el socio del 10%);\n(ii) Los miembros de la junta directiva votarán siempre según las instrucciones del sindicato de voto conformado por Camila y Tomás;\n(iii) La sociedad no podrá celebrar contratos con sociedades afiliadas o vinculadas a Santiago sin consentimiento unánime.\n\nSantiago, anticipando un litigio, lo consulta a usted. Analice la validez, eficacia y potenciales conflictos de cada una de las tres estipulaciones.',
+        rubric:'(i) Veto del 10%: válida en SAS (amplia autonomía privada), eficaz por estar depositada; riesgo: abuso de minoría; (ii) Sindicato instruyendo a junta: tensión con deberes fiduciarios; distinción entre nombrar vía acuerdo vs. obligar a votar en sentido; promesa por otro lícita pero débil en ejecución; nulidad potencial de la cláusula; (iii) Restricción contratos con vinculadas: lícita como gobierno corporativo, necesita procedimiento claro. Calidad del análisis de cada cláusula de forma independiente.'
+      }
+    ]
+  },
+  {
+    id:'m4',
+    title:'Administradores y Business Judgment Rule',
+    sub:'Deberes fiduciarios · BJR · Responsabilidad · Art. 200 C. de Co.',
+    questions:[
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál es el estándar de conducta exigido al administrador societario en Colombia según la Ley 222 de 1995 y cuál es la postura jurisprudencial dominante respecto a su relación con la tripartición de la culpa del artículo 63 del Código Civil?',
+        opts:[
+          'El estándar del buen padre de familia; la tripartición civil (culpa grave, leve, levísima) se aplica íntegramente por remisión expresa al Código Civil.',
+          'El estándar del buen hombre de negocios; la jurisprudencia —con el hito de 2021 de la Corte Suprema— estableció que el régimen es especial y autónomo, descartando la tripartición civil.',
+          'Responsabilidad objetiva con presunción de culpa: el administrador debe probar su propia diligencia para exonerarse en todo caso.',
+          'El estándar del buen hombre de negocios; la tripartición civil se aplica subsidiariamente cuando no existe una norma societaria específica.'
+        ],
+        ans:1,
+        expl:'El estándar es el del "buen hombre de negocios". La sentencia de 2021 de la Corte Suprema zanjó el debate: el régimen de responsabilidad de los administradores es especial y autónomo, y la tripartición de la culpa del artículo 63 del Código Civil no es pertinente. El administrador responde por dolo o culpa bajo su propio estándar profesional, que implica comportamiento informado, prudente y consciente de los riesgos de la gestión empresarial.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'La Business Judgment Rule (BJR), tal como ha sido adoptada en Colombia principalmente por la Superintendencia de Sociedades desde 2013, se describe correctamente como:',
+        opts:[
+          'Un criterio dirigido a los administradores para que estructuren mejor sus procesos de decisión y eviten incurrir en responsabilidad civil ante los socios.',
+          'Un estándar de revisión judicial dirigido a los jueces, que los instruye para abstenerse de analizar el mérito de una decisión de negocios si fue tomada de forma informada, sin conflicto de interés y de buena fe.',
+          'Una presunción legal a favor del demandante que invierte la carga de la prueba en los procesos de responsabilidad de administradores.',
+          'Una garantía de origen constitucional que protege la autonomía privada de los administradores frente a las instrucciones de los accionistas mayoritarios.'
+        ],
+        ans:1,
+        expl:'La BJR es un criterio de revisión judicial dirigido a los jueces, no un mandato para administradores. Su mensaje: si la decisión de negocios fue tomada de forma informada, de buena fe y sin conflicto de interés, el juez debe abstenerse de analizar el fondo. En EE.UU. opera como presunción a favor del administrador; en Colombia, la Superintendencia la "colombianizó" como criterio de análisis, generando debate sobre si mantiene el efecto presuncional. La Corte Suprema la reconoció formalmente en 2021.'
+      },
+      
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál es el PRIMER requisito del "checklist" de la Business Judgment Rule según su desarrollo en EE.UU. y su recepción en Colombia?',
+        opts:['Que el administrador haya actuado de buena fe y en ausencia de conflicto de interés personal en la transacción.','Que lo que se cuestiona constituya una decisión de negocios, y no la violación de una norma legal o estatutaria.','Que el administrador haya consultado a expertos externos antes de tomar la decisión cuestionada por los socios.','Que la decisión haya sido adoptada con el voto favorable de una mayoría calificada del órgano colegiado.'],
+        ans:1,
+        expl:'El primer filtro es determinar si lo cuestionado es una "decisión de negocios". Si el administrador violó la ley (ej: construir sin permisos, celebrar un contrato prohibido), no estamos ante una decisión de negocios: el juez puede analizar el fondo sin que la BJR lo proteja. Solo cuando hay una decisión de negocios genuina se activan los demás requisitos.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Qué es el "hindsight bias" o sesgo de retrospectiva, y por qué es relevante para la Business Judgment Rule?',
+        opts:['La tendencia del administrador a sobreestimar las probabilidades de éxito de un proyecto antes de tomarlo; la BJR lo incentiva a ser más cauteloso.','La tendencia del juez a percibir los eventos pasados como más predecibles de lo que eran cuando se decidió; la BJR prohíbe juzgar la decisión por su resultado ex post.','El sesgo cognitivo de los socios al subestimar los riesgos de las decisiones adoptadas por administradores externos a la empresa.','La práctica judicial de revisar solo las formalidades de una decisión sin analizar si fue económicamente razonable.'],
+        ans:1,
+        expl:'El hindsight bias es el riesgo de que el juez juzgue una decisión de negocios con el conocimiento de su resultado (ex post), cuando en el momento en que se tomó (ex ante) la incertidumbre era real. La BJR obliga al juez a analizar la CALIDAD DEL PROCESO de toma de decisión en el momento en que ocurrió, no el resultado final.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'La Business Judgment Rule, tal como fue adoptada por la Superintendencia de Sociedades desde 2013, opera con el mismo efecto presuncional pleno que en los estados de Delaware (EE.UU.), invirtiendo automáticamente la carga de la prueba hacia el demandante.',
+        opts:['Verdadero. La Supersociedades adoptó íntegramente el modelo de Delaware, con la misma presunción a favor del administrador y la misma distribución de la carga probatoria.','Falso. La "colombianización" adoptó la BJR como un CRITERIO de análisis, no como una presunción plena. El debate sobre la distribución de la carga de la prueba no está resuelto uniformemente en Colombia.'],
+        ans:1,
+        expl:'Este es el debate central de la "colombianización": en Delaware, la BJR es una presunción a favor del administrador que el demandante debe desvirtuar. En Colombia, la Supersociedades la adoptó como criterio de análisis, lo que genera incertidumbre sobre si el demandante o el administrador tiene la carga de probar los requisitos.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál fue la postura de la Corte Suprema de Justicia sobre el régimen de responsabilidad de administradores en su sentencia de 1999?',
+        opts:['Reconoció la autonomía del régimen societario y descartó expresamente la tripartición civil de la culpa.','Asimiló la responsabilidad de los administradores al régimen general del Código Civil, sugiriendo en obiter dicta la aplicación de la tripartición de la culpa.','Reconoció formalmente la Business Judgment Rule como aplicable en Colombia desde esa fecha.','Estableció que la responsabilidad del administrador es objetiva e independiente de cualquier prueba de culpa.'],
+        ans:1,
+        expl:'En 1999, la Corte Suprema asimiló en obiter dicta el régimen de responsabilidad de los administradores al régimen civil general, ignorando la especialidad que la Ley 222/95 buscaba establecer. Este pronunciamiento generó una confusión jurídica que duró décadas, hasta que la sentencia de 2021 corrigió la postura y confirmó la especialidad y autonomía del régimen.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuáles son los tres requisitos para que una persona sea considerada "administrador de hecho" según la doctrina y jurisprudencia colombiana?',
+        opts:['Haber firmado contratos en nombre de la sociedad en al menos dos ocasiones sin poder de representación.','Ejercicio efectivo de funciones de administración, suplantación de los administradores de derecho, y continuidad en el tiempo.','Haber sido designado verbalmente por el máximo órgano social sin cumplir las formalidades de inscripción en el CERL.','Tener participación accionaria superior al 50% y ejercer control efectivo sobre las operaciones diarias de la sociedad.'],
+        ans:1,
+        expl:'La Sentencia 820-78 de 2017 de la Supersociedades estableció los 3 requisitos del administrador de hecho: (1) ejercicio EFECTIVO de funciones, (2) SUPLANTACIÓN de los administradores de derecho, y (3) CONTINUIDAD en el tiempo. Además, debe ser ACTIVO: no hay administrador de hecho por omisión; se requieren actos positivos de gestión.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'La delegación de funciones por parte de un administrador societario lo exonera de responsabilidad frente a terceros por los daños causados por la persona en quien delegó.',
+        opts:['Verdadero. Quien recibe la delegación asume plena responsabilidad y el delegante queda exonerado de toda obligación.','Falso. La delegación NO exime de responsabilidad. El administrador mantiene el deber de vigilancia: debe supervisar que la función delegada se cumpla correctamente. Incumplir ese deber genera responsabilidad personal.'],
+        ans:1,
+        expl:'El deber de vigilancia es consecuencia del cargo: el administrador no puede delegar y "lavarse las manos". Debe establecer mecanismos de supervisión, solicitar informes periódicos y actuar ante señales de alerta. Si un trabajador muere por ausencia de señalización que el administrador debía supervisar, su delegación no lo exonera.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál es el "deber de revelación" del administrador y en qué se fundamenta jurídicamente en Colombia?',
+        opts:['El deber legal expreso de presentar estados financieros auditados y un informe de gestión anual ante la asamblea de accionistas.','El deber implícito, fundado en la buena fe, de revelar información material que podría cambiar el sentido de una votación, más allá de lo exigido formalmente por la ley.','La obligación de reportar a la Supersociedades cualquier operación que supere el 10% del activo de la sociedad.','El deber de publicar los estados financieros cuando la sociedad supera los umbrales de activos fijados por la Superintendencia.'],
+        ans:1,
+        expl:'El deber de revelación no está codificado expresamente, pero se funda en la buena fe (cláusula general). Exige revelar información MATERIAL: aquella que podría cambiar el sentido del voto de los demás. Ejemplo: en una fusión, ocultar una investigación administrativa con multa significativa es reprochable aunque no esté en el checklist legal formal. Analogía con el "duty of candor" del derecho anglosajón.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuándo se activa el análisis de la Business Judgment Rule en un proceso judicial colombiano?',
+        opts:['Siempre que un administrador tome una decisión que resulte económicamente perjudicial para la sociedad o para sus socios.','Únicamente cuando existe una acción de responsabilidad que busca responsabilizar al administrador por una decisión de negocios cuestionada.','Automáticamente en todas las controversias societarias que involucren la gestión de los administradores.','Solo cuando el administrador demandado invoca expresamente la regla como defensa en su contestación de la demanda.'],
+        ans:1,
+        expl:'La BJR se activa solo cuando hay una ACCIÓN DE RESPONSABILIDAD contra un administrador. No es una regla de conducta que aplica siempre: es un criterio de revisión que el juez usa cuando se le pide que evalúe si el administrador actuó bien. En palabras de la cátedra: "el bombillo se prende cuando hay una acción de por medio".'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál es la diferencia entre la "acción social de responsabilidad" y la "acción individual" o "derivada"?',
+        opts:['La acción social la ejerce la sociedad para reparar el daño causado a ella misma; la acción individual la ejercen los socios o terceros para reparar el daño que el administrador les causó directamente a ellos.','La acción social requiere unanimidad de los socios para interponerse; la acción individual puede ser ejercida por cualquier socio sin autorización.','La acción social solo procede por dolo del administrador; la acción individual procede por dolo o cualquier grado de culpa.','La acción social prescribe en 2 años desde el acto; la acción individual prescribe en 10 años desde que el daño fue conocido.'],
+        ans:0,
+        expl:'La acción social busca reparar el daño causado a la sociedad como persona jurídica; la ejerce la sociedad (previa decisión del órgano competente) o subsidiariamente cualquier socio. La acción individual (derivada) busca reparar el daño causado directamente a socios o terceros por actos del administrador, y la ejerce directamente el afectado.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Verdadero o Falso',
+        text:'Las prohibiciones generales para administradores de los artículos 185 y 404 del Código de Comercio aplican por defecto a todos los administradores de las Sociedades por Acciones Simplificadas (SAS).',
+        opts:['Verdadero. Las prohibiciones del C. de Co. son normas imperativas de orden público que aplican a toda forma societaria colombiana sin excepción.','Falso. En las SAS, las prohibiciones de los Arts. 185 y 404 NO aplican por defecto. Solo aplican si se pactan expresamente en los estatutos de la SAS.'],
+        ans:1,
+        expl:'Este es uno de los aspectos donde el régimen de la SAS difiere del Código de Comercio: la Ley 1258 otorga amplia autonomía privada, de modo que las prohibiciones generales del C. de Co. solo operan si los socios las incorporan expresamente a los estatutos. Si los estatutos no las mencionan, el administrador de una SAS puede, por ejemplo, votar en la aprobación de estados financieros que él mismo elaboró.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál es la finalidad del régimen de responsabilidad de los administradores societarios según la doctrina colombiana?',
+        opts:['Sancionar y disuadir la conducta dolosa o negligente de los administradores mediante multas, sanciones pecuniarias y penales.','Reparar a la víctima colocándola en la situación en que se encontraba antes del daño; la responsabilidad es reparadora, no sancionatoria.','Proteger el interés general y la seguridad del tráfico mercantil mediante la responsabilidad objetiva de los administradores.','Garantizar el control estatal sobre la gestión privada empresarial a través de la supervisión preventiva de la Supersociedades.'],
+        ans:1,
+        expl:'La responsabilidad del administrador tiene finalidad REPARADORA, no sancionatoria: busca colocar a la víctima (sociedad, socios, terceros) en la situación anterior al daño. No es un castigo. Por eso exige probar: hecho, daño, nexo causal, y culpa o dolo. No hay responsabilidad objetiva del administrador.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'Si una empresa constructora responde objetivamente ante un tercero por daños causados por su actividad peligrosa, ¿responde también su representante legal de forma objetiva?',
+        opts:['Sí, porque la responsabilidad objetiva de la sociedad se extiende automáticamente a sus administradores y representantes legales.','No. La sociedad puede responder objetivamente por actividad peligrosa, pero el representante legal responde solo por dolo o culpa bajo el régimen subjetivo especial de la Ley 222. Son regímenes distintos y autónomos.','Sí, siempre que el representante legal haya tenido conocimiento previo de la actividad que generó el daño.','No, porque la responsabilidad objetiva de la sociedad excluye completamente la responsabilidad personal de sus administradores.'],
+        ans:1,
+        expl:'Este punto fue destacado expresamente en la cátedra: incluso si la sociedad responde objetivamente (por actividad peligrosa, por ejemplo), el administrador responde bajo el régimen SUBJETIVO especial de la Ley 222/95: se requiere probar dolo o culpa bajo el estándar del buen hombre de negocios. Son dos regímenes de responsabilidad distintos que coexisten.'
+      },
+      {
+        type:'c',
+        label:'Cerrada · Opción múltiple',
+        text:'¿Cuál es la norma "norte" que establece el alcance y contenido del deber de responder de los administradores societarios colombianos?',
+        opts:['El artículo 2341 del Código Civil, por remisión expresa del Código de Comercio al régimen general de responsabilidad extracontractual.','El artículo 200 del Código de Comercio, que establece que los administradores responden por los daños que por dolo o culpa ocasionen a la sociedad, a los socios y a terceros.','El artículo 63 del Código Civil, que define los grados de culpa (grave, leve y levísima) aplicables al estándar del buen hombre de negocios.','La Ley 222 de 1995 en su totalidad, por cuanto deroga completamente el Código de Comercio en materia de responsabilidad de administradores societarios.'],
+        ans:1,
+        expl:'El Art. 200 C. de Co. es la norma central: los administradores responden de los perjuicios que por dolo o culpa ocasionen a la sociedad, a los socios y a terceros. No es el Art. 63 C.C. (cuya tripartición fue descartada por la CSJ 2021), ni el Art. 2341 C.C. (cuya remisión fue rechazada). Es un régimen especial propio del derecho societario.'
+      },
+      {
+        type:'o',
+        label:'Abierta · Análisis crítico comparado',
+        text:'Explique el "checklist" de cinco requisitos de la Business Judgment Rule según su desarrollo en los Estados Unidos. Analice críticamente cómo la Superintendencia de Sociedades la ha "colombianizado" y en qué se diferencia el modelo colombiano del anglosajón, especialmente en cuanto a la distribución de la carga de la prueba, el efecto presuncional y las implicaciones prácticas para la defensa de un administrador demandado.',
+        rubric:'Evalúa: (1) identificación precisa de los 5 requisitos: decisión de negocios, independencia/desinterés, ausencia de fraude/ilegalidad, propósito racional, proceso informado; (2) efecto en EE.UU.: presunción a favor del administrador; demandante debe desvirtuar; (3) colombianización: debate sobre presunción vs. criterio; postura Superintendencia 2013 y Corte Suprema 2021; (4) diferencias prácticas: carga probatoria, documentación como "hito probatorio"; (5) crítica fundamentada.'
+      },
+      {
+        type:'k',
+        label:'Caso práctico',
+        text:'CASO: Jorge Pardo, representante legal de BuildCo S.A.S. (constructora), ordena el inicio de obras de adecuación de una vía de acceso a un inmueble de la sociedad sin obtener los permisos ambientales ni de curaduría urbana. Su argumento: la sociedad estaba a punto de perder un contrato de $5.000 millones por demoras en el acceso al lote. Durante las obras, un trabajador fallece por ausencia de señalización reglamentaria.\n\nLos socios minoritarios demandan a Jorge por responsabilidad personal (Art. 200 C. de Co.). Jorge invoca la Business Judgment Rule como defensa principal.\n\nEvalúe: (a) si la BJR es aplicable a los hechos concretos y por qué; (b) la responsabilidad de Jorge bajo el deber de diligencia y el deber de vigilancia; (c) si la urgencia comercial constituye defensa válida; (d) el régimen de responsabilidad aplicable (contractual vs. extracontractual).',
+        rubric:'(a) BJR no aplica: omitir permisos legales no es "decisión de negocios" sino violación de ley — primer requisito del checklist fallido; (b) deber de vigilancia: aunque se delegue, el representante legal debe supervisar el cumplimiento de normas de seguridad; nexo causal entre omisión y muerte; (c) urgencia comercial no excusa ilegalidad: las decisiones de negocio nunca pueden consistir en no cumplir la ley; (d) Art. 200 C. de Co.: responsabilidad por daños a socios, terceros y sociedad; régimen subjetivo (dolo o culpa); concurrencia con responsabilidad penal y laboral.'
+      }
+    ]
+  }
+];
+
+// ─── State ───────────────────────────────────────────────────────────────────
+let activeModIdx = 0;
+let activeQIdx   = 0;
+let scores       = [];
+let selOpt       = null;
+
+// ─── Test API Key ────────────────────────────────────────────────────────────
+async function testKey() {
+  const apiKey = document.getElementById('apiKey').value.trim();
+  if (!apiKey) { alert('Ingrese su API Key primero.'); return; }
+  const btn = document.querySelector('.btn-verify');
+  btn.textContent = 'Verificando…'; btn.disabled = true;
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body: JSON.stringify({
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:10,
+        messages:[{role:'user',content:'Di "OK"'}]
+      })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    if (data.content && data.content.length > 0) {
+      btn.textContent = '✓ Conectado';
+      btn.style.color = '#60d090'; btn.style.borderColor = '#2d7a4f';
+      setTimeout(() => { btn.textContent='Verificar'; btn.style.color=''; btn.style.borderColor=''; btn.disabled=false; }, 3000);
+    } else throw new Error('Respuesta inesperada');
+  } catch(e) {
+    btn.textContent = '✗ Error';
+    btn.style.color = '#e07070'; btn.style.borderColor = '#9b3535';
+    alert('Error de conexión: ' + e.message + '\n\nSi dice "Failed to fetch", abra el archivo con python -m http.server en vez de doble clic.');
+    setTimeout(() => { btn.textContent='Verificar'; btn.style.color=''; btn.style.borderColor=''; btn.disabled=false; }, 2000);
+  }
+}
+
+// ─── Home ────────────────────────────────────────────────────────────────────
+function renderHome() {
+  const grid = document.getElementById('mod-grid');
+  grid.innerHTML = MODULES.map((m, i) => {
+    const nc = m.questions.filter(q => q.type === 'c').length;
+    const no = m.questions.filter(q => q.type === 'o').length;
+    const nk = m.questions.filter(q => q.type === 'k').length;
+    return `
+    <div class="mod-card" onclick="appMode==='study'?startStudy(${i}):startMod(${i})">
+      <div class="mod-num">Módulo ${i + 1}</div>
+      <div class="mod-title">${m.title}</div>
+      <div class="mod-sub">${m.sub}</div>
+      <div class="mod-tags">
+        <span class="tag tag-c">${nc} cerradas</span>
+        <span class="tag tag-o">${no} abierta</span>
+        <span class="tag tag-k">${nk} caso</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function goHome() {
+  showScreen('screen-home');
+}
+
+// ─── Quiz ─────────────────────────────────────────────────────────────────────
+function startMod(idx) {
+  activeModIdx = idx;
+  activeQIdx   = 0;
+  selOpt       = null;
+  scores       = new Array(MODULES[idx].questions.length).fill(null);
+  document.getElementById('quiz-mod-name').textContent = MODULES[idx].title;
+  showScreen('screen-quiz');
+  renderQ();
+}
+
+function renderQ() {
+  const mod = MODULES[activeModIdx];
+  const q   = mod.questions[activeQIdx];
+  const tot = mod.questions.length;
+  const pct = (activeQIdx / tot) * 100;
+
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `Pregunta ${activeQIdx + 1} de ${tot}`;
+
+  const closed = scores.filter((s, i) => s !== null && mod.questions[i].type === 'c');
+  const ctot   = mod.questions.filter(q => q.type === 'c').length;
+  document.getElementById('prog-score').textContent =
+    closed.length > 0 ? `${closed.length}/${ctot} cerradas respondidas` : '';
+
+  selOpt = null;
+  const c = document.getElementById('q-container');
+  if (q.type === 'c') renderClosed(q, c);
+  else renderOpen(q, c);
+}
+
+function renderClosed(q, container) {
+  const L     = ['A','B','C','D'];
+  const isTF  = q.opts.length === 2;
+  container.innerHTML = `
+    <div class="q-wrap">
+      <div class="q-type-badge qt-cerrada">${q.label}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="opts-wrap" id="opts">
+        ${q.opts.map((o, i) => `
+          <div class="opt" id="opt${i}" onclick="pickOpt(${i})">
+            <div class="opt-letter">${isTF ? (i===0?'V':'F') : L[i]}</div>
+            <div>${o}</div>
+          </div>`).join('')}
+      </div>
+      <div class="feedback" id="cfb"></div>
+      <div class="btn-row">
+        <button class="btn-primary" id="btn-confirm" style="display:none" onclick="confirmC()">Confirmar respuesta</button>
+        <button class="btn-primary" id="btn-next-c" style="display:none" onclick="nextQ()">Siguiente →</button>
+      </div>
+    </div>`;
+}
+
+function pickOpt(i) {
+  if (document.getElementById('btn-next-c').style.display === 'inline-block') return;
+  selOpt = i;
+  document.querySelectorAll('.opt').forEach((el, idx) => {
+    el.classList.toggle('sel', idx === i);
+  });
+  document.getElementById('btn-confirm').style.display = 'inline-block';
+}
+
+function confirmC() {
+  const q  = MODULES[activeModIdx].questions[activeQIdx];
+  const ok = selOpt === q.ans;
+  document.querySelectorAll('.opt').forEach((el, i) => {
+    el.classList.remove('sel');
+    if (i === q.ans) el.classList.add('ok');
+    else if (i === selOpt && !ok) el.classList.add('err');
+    el.onclick = null;
+  });
+  scores[activeQIdx] = ok ? 5.0 : 1.0;
+  const fb = document.getElementById('cfb');
+  fb.style.display = 'block';
+  fb.className = `feedback ${ok ? 'ok' : 'err'}`;
+  fb.innerHTML = `<strong>${ok ? '✓ Correcto' : '✗ Incorrecto'}</strong> — ${q.expl}`;
+  document.getElementById('btn-confirm').style.display = 'none';
+  document.getElementById('btn-next-c').style.display  = 'inline-block';
+}
+
+function renderOpen(q, container) {
+  const isK = q.type === 'k';
+  container.innerHTML = `
+    <div class="q-wrap">
+      <div class="q-type-badge ${isK ? 'qt-caso' : 'qt-abierta'}">${q.label}</div>
+      <div class="q-text">${q.text.replace(/\n/g,'<br/>')}</div>
+      ${isK ? `<div style="background:rgba(201,162,39,0.06);border:1px solid var(--gold-border);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:14px;font-size:14px;color:var(--muted);">Estructure su respuesta como concepto jurídico o alegato ante la Superintendencia de Sociedades. Identifique normas, jurisprudencia y estrategia procesal.</div>` : ''}
+      <div class="open-wrap">
+        <textarea class="open-textarea" id="open-ans" placeholder="Desarrolle su respuesta con rigor jurídico…"></textarea>
+      </div>
+      <div class="rubric-hint">
+        <h4>Criterios de evaluación</h4>
+        <div class="rubric-hint-grid">
+          <span>Claridad conceptual <strong style="color:var(--gold)">30%</strong></span>
+          <span>Potencial argumentativo <strong style="color:var(--gold)">30%</strong></span>
+          <span>Rigor normativo/jurisprudencial <strong style="color:var(--gold)">20%</strong></span>
+          <span>Aplicación práctica <strong style="color:var(--gold)">20%</strong></span>
+        </div>
+      </div>
+      <div class="feedback" id="ofb"></div>
+      <div class="btn-row">
+        <button class="btn-primary" id="btn-grade" onclick="gradeOpen()">Calificar con IA →</button>
+        <button class="btn-primary" id="btn-next-o" style="display:none" onclick="nextQ()">Siguiente →</button>
+      </div>
+    </div>`;
+}
+
+async function gradeOpen() {
+  // Wrap EVERYTHING so no error escapes silently
+  let fb = document.getElementById('ofb');
+  let bg = document.getElementById('btn-grade');
+  try {
+    var ansEl = document.getElementById('open-ans');
+    if (!ansEl) throw new Error('No se encontró el campo de respuesta. Recargue la página.');
+    var ans = (ansEl.value || '').trim();
+    if (ans.length < 60) {
+      alert('Por favor elabore una respuesta más completa antes de calificar (mínimo 60 caracteres).');
+      return;
+    }
+
+    var apiKey = (document.getElementById('apiKey').value || '').trim();
+    if (!apiKey) {
+      alert('Por favor ingrese su Anthropic API Key en la parte superior.');
+      return;
+    }
+
+    var q = MODULES[activeModIdx] && MODULES[activeModIdx].questions[activeQIdx];
+    if (!q) throw new Error('No se pudo identificar la pregunta actual. activeModIdx=' + activeModIdx + ' activeQIdx=' + activeQIdx);
+
+    if (bg) { bg.disabled = true; bg.textContent = 'Calificando\u2026'; }
+    if (fb) { fb.style.display = 'block'; fb.className = 'feedback loading'; fb.textContent = '\u23f3 Analizando su respuesta\u2026 (puede tardar hasta 30 segundos)'; }
+
+    // Build prompt with string concat to avoid any template-literal encoding issue
+    var qText   = (q.text   || '').replace(/\n/g, ' | ');
+    var qRubric = (q.rubric || 'Evaluar claridad, argumentos, rigor normativo y aplicacion practica.');
+    var prompt = 'Eres un profesor experto en Derecho Societario Colombiano de la Maestria en Derecho Comercial de la Universidad Externado de Colombia. '
+      + 'Califica la respuesta de un estudiante de posgrado con el maximo nivel de exigencia academica.\n\n'
+      + 'PREGUNTA:\n' + qText + '\n\n'
+      + 'CRITERIOS DE EVALUACION:\n' + qRubric + '\n\n'
+      + 'RESPUESTA DEL ESTUDIANTE:\n' + ans + '\n\n'
+      + 'Evalua en escala 1.0 a 5.0 los siguientes criterios:\n'
+      + '1. Claridad conceptual (30%): precision en definiciones y uso tecnico del lenguaje juridico.\n'
+      + '2. Potencial argumentativo (30%): solidez, coherencia y persuasion; anticipacion de contraargumentos.\n'
+      + '3. Rigor normativo y jurisprudencial (20%): cita y aplicacion correcta de normas, sentencias, doctrinas.\n'
+      + '4. Aplicacion practica (20%): conexion teoria-caso, propuestas viables y estrategicas.\n\n'
+      + 'IMPORTANTE: Responde UNICAMENTE con un objeto JSON valido. Sin texto adicional, sin markdown, sin explicaciones antes o despues.\n'
+      + 'Formato exacto (reemplaza los valores de ejemplo con tu evaluacion real):\n'
+      + '{"claridad":3.5,"argumentativo":3.0,"rigor":2.5,"practica":3.0,"nota_final":3.1,'
+      + '"lbl":"Aceptable","fortalezas":"texto de fortalezas","debilidades":"texto de debilidades",'
+      + '"retroalimentacion":"parrafo de retroalimentacion academica",'
+      + '"elementos_faltantes":"elementos no abordados o Ninguno"}';
+
+    var bodyObj = {
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 2048,
+      messages: [{ role: 'user', content: prompt }]
+    };
+
+    var res;
+    try {
+      res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify(bodyObj)
+      });
+    } catch (fetchErr) {
+      if (fetchErr.message && fetchErr.message.includes('postMessage')) {
+        throw new Error('Error de comunicacion del navegador. Intente recargar la pagina e ingresar su respuesta de nuevo.');
+      }
+      throw new Error('No se pudo conectar con la API. Verifique su conexion a internet. Detalle: ' + fetchErr.message);
+    }
+
+    if (!res.ok) {
+      var errBody = '';
+      try { var j = await res.json(); errBody = (j.error && j.error.message) ? j.error.message : JSON.stringify(j); } catch(e2) {}
+      if (res.status === 401) throw new Error('API Key invalida o expirada. Verifique su clave en console.anthropic.com');
+      if (res.status === 429) throw new Error('Limite de solicitudes alcanzado. Espere un momento e intente de nuevo.');
+      throw new Error('HTTP ' + res.status + ': ' + errBody);
+    }
+
+    var data = await res.json();
+    if (!data.content || !data.content.length) {
+      throw new Error('La API devolvio respuesta vacia. Datos: ' + JSON.stringify(data).substring(0, 200));
+    }
+
+    var txt = '';
+    for (var ci = 0; ci < data.content.length; ci++) {
+      if (data.content[ci].type === 'text') txt += data.content[ci].text;
+    }
+    txt = txt.trim();
+
+    // Strip markdown fences if present
+    txt = txt.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/i, '').trim();
+
+    // Extract first JSON object
+    var jsonMatch = txt.match(/\{[\s\S]*\}/);
+    if (jsonMatch) txt = jsonMatch[0];
+
+    var r;
+    try { r = JSON.parse(txt); }
+    catch(pe) { throw new Error('No se pudo interpretar la respuesta como JSON. Respuesta recibida: ' + txt.substring(0, 300)); }
+
+    // Clamp values to valid range with fallbacks
+    function clamp(v, d) { return (typeof v === 'number' && !isNaN(v)) ? Math.min(5, Math.max(1, v)) : d; }
+    r.claridad      = clamp(r.claridad, 3.0);
+    r.argumentativo = clamp(r.argumentativo, 3.0);
+    r.rigor         = clamp(r.rigor, 3.0);
+    r.practica      = clamp(r.practica, 3.0);
+    var weighted = Math.round((r.claridad*0.3 + r.argumentativo*0.3 + r.rigor*0.2 + r.practica*0.2)*10)/10;
+    r.nota_final = clamp(r.nota_final, weighted);
+    var n = r.nota_final;
+    r.lbl = r.lbl || (n>=4.5?'Excelente':n>=4.0?'Sobresaliente':n>=3.5?'Bueno':n>=3.0?'Aceptable':'Insuficiente');
+    r.fortalezas        = r.fortalezas        || 'No especificado.';
+    r.debilidades       = r.debilidades       || 'No especificado.';
+    r.retroalimentacion = r.retroalimentacion || 'Sin retroalimentacion adicional.';
+    r.elementos_faltantes = r.elementos_faltantes || 'Ninguno';
+
+    scores[activeQIdx] = n;
+    var cls    = n >= 4.0 ? 'high' : n >= 3.0 ? 'mid' : 'low';
+    var sColor = n >= 4.0 ? '#60d090' : n >= 3.0 ? '#e0b050' : '#e07070';
+    var missing = (r.elementos_faltantes && r.elementos_faltantes !== 'Ninguno')
+      ? '<div class="grade-missing"><strong>Elementos no abordados:</strong> ' + r.elementos_faltantes + '</div>'
+      : '';
+
+    fb.className = 'feedback result';
+    fb.innerHTML =
+      '<div class="grade-header">'
+      + '<div class="grade-circle ' + cls + '">' + n.toFixed(1) + '</div>'
+      + '<div>'
+      + '<div class="grade-label">' + n.toFixed(1) + ' / 5.0 \u2014 ' + r.lbl + '</div>'
+      + '<div class="grade-sub">Calificaci\u00f3n autom\u00e1tica IA \u00b7 Maestr\u00eda Externado</div>'
+      + '</div>'
+      + '<div class="grade-scores">'
+      + '<div class="grade-score-item"><div class="gsn" style="color:' + sColor + '">' + r.claridad.toFixed(1) + '</div><div class="gsl">Claridad</div></div>'
+      + '<div class="grade-score-item"><div class="gsn" style="color:' + sColor + '">' + r.argumentativo.toFixed(1) + '</div><div class="gsl">Argumentos</div></div>'
+      + '<div class="grade-score-item"><div class="gsn" style="color:' + sColor + '">' + r.rigor.toFixed(1) + '</div><div class="gsl">Rigor</div></div>'
+      + '<div class="grade-score-item"><div class="gsn" style="color:' + sColor + '">' + r.practica.toFixed(1) + '</div><div class="gsl">Pr\u00e1ctica</div></div>'
+      + '</div>'
+      + '</div>'
+      + '<div class="grade-body">'
+      + '<div class="grade-section-title">Retroalimentaci\u00f3n acad\u00e9mica</div>'
+      + '<div class="grade-retro">' + r.retroalimentacion + '</div>'
+      + '<div class="grade-cols">'
+      + '<div class="grade-col good"><h5>\u2713 Fortalezas</h5><p>' + r.fortalezas + '</p></div>'
+      + '<div class="grade-col bad"><h5>\u2191 Por mejorar</h5><p>' + r.debilidades + '</p></div>'
+      + '</div>'
+      + missing
+      + '</div>';
+
+    if (bg) bg.style.display = 'none';
+    var nxtBtn = document.getElementById('btn-next-o');
+    if (nxtBtn) nxtBtn.style.display = 'inline-block';
+
+  } catch(e) {
+    if (fb) { fb.className = 'feedback err'; fb.innerHTML = '<strong>Error al calificar:</strong> ' + e.message; }
+    if (bg) { bg.disabled = false; bg.textContent = 'Reintentar \u2192'; }
+  }
+}
+function nextQ() {
+  activeQIdx++;
+  if (activeQIdx >= MODULES[activeModIdx].questions.length) showResults();
+  else renderQ();
+}
+
+// ─── Results ──────────────────────────────────────────────────────────────────
+function showResults() {
+  showScreen('screen-results');
+  const mod    = MODULES[activeModIdx];
+  const valid  = scores.filter(s => s !== null);
+  const avg    = valid.length > 0 ? valid.reduce((a,b) => a+b, 0) / valid.length : 0;
+  const cls    = avg >= 4.0 ? 'high' : avg >= 3.0 ? 'mid' : 'low';
+  const lbl    = avg >= 4.5 ? 'Excelente' : avg >= 4.0 ? 'Sobresaliente' : avg >= 3.5 ? 'Bueno' : avg >= 3.0 ? 'Aceptable' : avg >= 2.0 ? 'Insuficiente' : 'Deficiente';
+  const sColor = avg >= 4.0 ? '#60d090' : avg >= 3.0 ? '#e0b050' : '#e07070';
+
+  const rows = mod.questions.map((q, i) => {
+    const s    = scores[i];
+    const sv   = s !== null ? s.toFixed(1) : '—';
+    const rcls = s === null ? 'rs-na' : s >= 4 ? 'rs-high' : s >= 3 ? 'rs-mid' : 'rs-low';
+    const tl   = q.type === 'c' ? 'Cerrada' : q.type === 'o' ? 'Abierta' : 'Caso práctico';
+    const pre  = q.text.replace(/<[^>]*>/g,'').substring(0, 72) + '…';
+    return `
+    <div class="results-row">
+      <div class="results-qnum">${i+1}</div>
+      <div class="results-qinfo">
+        <div class="results-qtext">${pre}</div>
+        <div class="results-qtype">${tl}</div>
+      </div>
+      <div class="results-qscore ${rcls}">${sv}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('results-container').innerHTML = `
+    <div class="results-hero">
+      <div class="results-circle ${cls}">${avg.toFixed(1)}</div>
+      <div class="results-title">Resultado del módulo</div>
+      <div class="results-mod">${mod.title}</div>
+      <div class="results-lbl" style="color:${sColor}">${lbl}</div>
+    </div>
+    <div class="results-detail">
+      <div class="results-detail-header">Detalle por pregunta</div>
+      ${rows}
+    </div>
+    <div class="results-actions">
+      <button class="btn-secondary" onclick="startMod(${activeModIdx})">Reintentar módulo</button>
+      <button class="btn-primary" onclick="goHome()">← Otros módulos</button>
+    </div>`;
+}
+
+// ─── Util ─────────────────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+
+
+// ══════════════════════════════════════════════════════════════
+//  STUDY DATA
+// ══════════════════════════════════════════════════════════════
+const STUDY_DATA = [
+  {
+    modId:'m1',
+    contexto:'Eres un tutor experto en Derecho Societario Colombiano especializado en desestimación de la personalidad jurídica (levantamiento del velo corporativo), desestimación inversa (reverse piercing), separación patrimonial y protección de acreedores. Conoces en detalle la Sentencia 2018-800-00094 de la Superintendencia de Sociedades y la doctrina comparada (Walkovsky v. Carlton). Responde con rigor académico propio de una Maestría en Derecho Comercial del Externado de Colombia.',
+    sugerencias:[
+      '¿Cuándo procede el levantamiento del velo?',
+      '¿Qué es la desestimación inversa y cuándo aplica?',
+      '¿Cómo se acredita el fraude a la ley en este contexto?',
+      '¿Qué diferencia la inoponibilidad de la extensión de responsabilidad?'
+    ],
+    resumen:[
+      {titulo:'Principio general y la excepción',puntos:[
+        'La separación patrimonial entre la sociedad y sus socios es la REGLA GENERAL: la sociedad responde con su patrimonio; el socio limita su responsabilidad al aporte.',
+        'El levantamiento del velo es la EXCEPCIÓN: solo en casos de fraude, abuso o injusticia intolerable se puede ignorar la forma jurídica para hacer responsables a socios o viceversa.',
+        'La infracapitalización, por sí sola, NO es fundamento suficiente para levantar el velo (doctrina Walkovsky v. Carlton).'
+      ]},
+      {titulo:'Desestimación directa vs. inversa',puntos:[
+        'Directa (Piercing): se busca responsabilizar al SOCIO por las deudas de la SOCIEDAD. Es la modalidad clásica.',
+        'Inversa (Reverse Piercing): se busca que la SOCIEDAD responda por deudas PERSONALES del socio. Requiere justificación adicional en la equidad.',
+        'La desestimación inversa exige probar: (1) que el socio utilizó la sociedad como instrumento fraudulento y (2) que sin el remedio se causaría una injusticia intolerable.'
+      ]},
+      {titulo:'Caso paradigmático colombiano',puntos:[
+        'Sentencia 2018-800-00094 (Supersociedades): un socio transfirió todo su patrimonio personal a una SAS para eludir a sus acreedores (exesposa y otros).',
+        'La Supersociedades declaró la inoponibilidad de la personificación jurídica, la nulidad de los aportes y ordenó la restitución al patrimonio del socio.',
+        'Fundamento: fraude a la ley. La separación patrimonial no puede ser un escudo para defraudar a acreedores legítimos.',
+        'Implicación práctica: la planeación patrimonial mediante constitución de sociedades puede ser atacada si su propósito real es eludir obligaciones.'
+      ]},
+      {titulo:'Las cuatro modalidades de desestimación',puntos:[
+        '(1) Desestimación de la personalidad: se ignora la forma societaria.',
+        '(2) Inoponibilidad o interposición societaria: los atributos de la persona jurídica no son oponibles frente a ciertos acreedores.',
+        '(3) Extensión de responsabilidad interna: se extiende a socios o administradores.',
+        '(4) Extensión de responsabilidad externa: se alcanza a terceros beneficiarios reales de la actividad.'
+      ]}
+    ],
+    flashcards:[
+      {q:'¿Cuál es la diferencia fundamental entre la desestimación directa y la inversa?',a:'Directa: el socio responde por deudas de la sociedad. Inversa (reverse piercing): la sociedad responde por obligaciones personales del socio. La inversa exige además justificación en equidad para evitar una injusticia intolerable.'},
+      {q:'¿Cuándo procede el levantamiento del velo corporativo?',a:'Solo en situaciones EXCEPCIONALES de fraude, abuso o injusticias intolerables. La regla es la separación patrimonial; el levantamiento del velo es la excepción de último recurso.'},
+      {q:'¿Es suficiente la infracapitalización para levantar el velo?',a:'No. Es un indicio relevante pero insuficiente por sí sola. Así lo confirma Walkovsky v. Carlton (EE.UU.) y la doctrina colombiana: se requiere fraude o abuso adicional.'},
+      {q:'¿Cuál es el caso paradigmático de desestimación inversa en Colombia?',a:'Sentencia 2018-800-00094 de la Supersociedades: un socio transfirió su patrimonio personal a una SAS para eludir acreedores. La Supersociedades declaró la inoponibilidad y ordenó la restitución de los bienes al patrimonio del socio.'},
+      {q:'¿Qué es la "inoponibilidad" de la personalidad jurídica?',a:'El efecto mediante el cual los atributos de la persona jurídica (patrimonio separado, limitación de responsabilidad) no son oponibles frente a ciertos acreedores en casos de fraude o abuso específico.'},
+      {q:'¿Qué requisito ADICIONAL exige la desestimación inversa frente a la directa?',a:'Justificación en la equidad: debe demostrarse que sin el remedio se causaría una injusticia intolerable. La carga argumentativa es significativamente mayor que en la desestimación directa.'},
+      {q:'¿Qué significa "fraude a la ley" en el contexto societario?',a:'Utilizar la forma jurídica de la sociedad (un acto formalmente lícito) para eludir el alcance de una obligación o prohibición. El acto puede ser válido en forma pero ilícito en su propósito real.'},
+      {q:'¿Cuáles son las circunstancias clásicas que han dado lugar al levantamiento del velo?',a:'1) Autocontratación y conflictos de interés. 2) Violación de formalidades legales. 3) Confusión de activos (commingling). 4) Fraude a socios o acreedores. 5) Infracapitalización. 6) Restablecimiento de la equidad.'}
+    ],
+    normas:[
+      {ref:'Art. 794 E.T.',desc:'Responsabilidad solidaria de socios por deudas tributarias de la sociedad en ciertos supuestos.'},
+      {ref:'Art. 207 C. de Co.',desc:'Socios de sociedades colectivas responden ilimitada y solidariamente por las operaciones sociales.'},
+      {ref:'Ley 1116/2006 Art. 82',desc:'En procesos de insolvencia, el juez puede extender la responsabilidad a socios controlantes en casos de conductas fraudulentas.'},
+      {ref:'Ley 222/95 Art. 71',desc:'Nulidad de actos de la sociedad en perjuicio de acreedores. Fundamento de la acción pauliana societaria.'},
+      {ref:'Art. 2488 C.C.',desc:'El patrimonio del deudor es prenda general de sus acreedores. Base del derecho de los acreedores a perseguir bienes.'},
+      {ref:'Ley 1258/08 Art. 42',desc:'En SAS: el accionista controlante que fraude actúa responde solidariamente por las obligaciones de la sociedad.'}
+    ],
+    casos:[
+      {titulo:'Sentencia 2018-800-00094',tribunal:'Superintendencia de Sociedades',año:'2018',holding:'Primer caso paradigmático de desestimación INVERSA en Colombia. Un socio constituyó una SAS y le aportó su patrimonio para eludir acreedores personales. La Supersociedades declaró la inoponibilidad, nulidad de aportes y ordenó la restitución.'},
+      {titulo:'Walkovsky v. Carlton',tribunal:'New York Court of Appeals',año:'1966',holding:'La infracapitalización por sí sola no es fundamento suficiente para el levantamiento del velo. Es un indicio, no una causa autónoma. Doctrina de referencia mundial.'},
+      {titulo:'Self-dealing transactions',tribunal:'Derecho comparado (EE.UU.)',año:'Doctrina',holding:'Las operaciones que implican conflicto de interés entre el socio/administrador y la sociedad son el supuesto más frecuente de levantamiento del velo en el derecho comparado.'}
+    ]
+  },
+  {
+    modId:'m2',
+    contexto:'Eres un tutor experto en Derecho Societario Colombiano especializado en el abuso del derecho de voto (Art. 43 Ley 1258 de 2008), la teoría del abuso del derecho, tunneling, protección de socios minoritarios y el régimen de impugnación de decisiones sociales. Conoces los pronunciamientos de la Superintendencia de Sociedades y el análisis económico de Juan Antonio Gaviria sobre el abuso del voto. Responde con rigor académico propio de una Maestría en Derecho Comercial del Externado.',
+    sugerencias:[
+      '¿Cuáles son los 3 elementos del abuso del derecho de voto?',
+      '¿Cómo se prueba la intención maliciosa?',
+      '¿Qué diferencia la acción de abuso de voto de la impugnación ordinaria?',
+      '¿Por qué es inocua la nulidad en el abuso de paridad?'
+    ],
+    resumen:[
+      {titulo:'Los tres elementos concurrentes (Art. 43 L. 1258)',puntos:[
+        'SUBJETIVO: intención de dañar a otros socios o a la sociedad, O intención de obtener una ventaja injustificada para sí o para un tercero.',
+        'OBJETIVO: resultado de perjuicio patrimonial (real o POTENCIAL) o de ventaja injustificada. La palabra "potencial" es la innovación clave: no se requiere daño consumado.',
+        'TELEOLÓGICO: la decisión es contraria al interés social. Este es el elemento que le da coherencia sistemática a la figura.'
+      ]},
+      {titulo:'La prueba de la intención (indicios)',puntos:[
+        'La intención maliciosa nunca se prueba directamente: se construye por INDICIOS.',
+        'Indicios relevantes: conflictos previos entre socios, falta de lógica económica de la decisión, circunstancias de tiempo-modo-lugar, ausencia de información, beneficio privado correlativo (ej: aumento del propio salario), patrón histórico de conducta.',
+        'La demanda debe ser ROBUSTA en indicios: no bastar uno solo; construir una cadena lógica irrefutable.'
+      ]},
+      {titulo:'Las tres modalidades y el efecto de la nulidad',puntos:[
+        'ABUSO DE MAYORÍA: al anularse los votos abusivos, la decisión pierde su sustento matemático y cae completamente. La acción es plenamente eficaz.',
+        'ABUSO EN PARIDAD (50/50): la nulidad es INOCUA para remover el bloqueo (el otro también tiene 50%). La acción es útil principalmente para indemnización de perjuicios.',
+        'ABUSO DE MINORÍA (veto): la nulidad del voto negativo no aprueba automáticamente la decisión. La Supersociedades ha sido reacia a sustituir la voluntad de las partes.',
+        'La nulidad es absoluta por ilicitud del objeto: no admite ratificación.'
+      ]},
+      {titulo:'Tunneling y las estrategias de extracción',puntos:[
+        'El tunneling es la extracción de valor de la sociedad hacia el controlante en perjuicio de los minoritarios.',
+        'Mecanismos: constitución de reservas innecesarias, capitalizaciones dilutivas, renuncia al derecho de suscripción preferente, retención injustificada de utilidades, colocación de acciones a valor nominal, contratos con vinculadas, exclusión forzosa de accionistas.',
+        'La dilución es una forma de tunneling financiero: reduce el porcentaje de participación del minoritario sin compensación.'
+      ]}
+    ],
+    flashcards:[
+      {q:'¿Cuáles son los 3 elementos que deben concurrir para configurar el abuso del derecho de voto?',a:'1) SUBJETIVO: intención de dañar u obtener ventaja injustificada. 2) OBJETIVO: perjuicio real o POTENCIAL, o ventaja injustificada. 3) TELEOLÓGICO: contrario al interés social. Deben probarse concurrentemente.'},
+      {q:'¿Qué innovación procesal introdujo el Art. 43 L. 1258 frente al régimen general del abuso del derecho?',a:'Incluyó el "perjuicio potencial" y la "ventaja injustificada" como causales autónomas. Así no es necesario probar un daño consumado y cuantificado, lo que facilita enormemente la prueba.'},
+      {q:'¿Cómo se prueba la intención maliciosa en el abuso del derecho de voto?',a:'Por INDICIOS: conflictos previos entre socios, falta de lógica económica, beneficio privado correlativo (ej: aumento de salario propio), patrón de conducta, ausencia de justificación. La demanda debe ser robusta en indicios encadenados.'},
+      {q:'¿Qué es el tunneling?',a:'La extracción de valor de la sociedad hacia el socio controlante en perjuicio de los minoritarios. Incluye: reservas innecesarias, capitalizaciones dilutivas, retención de utilidades, contratos con vinculadas y exclusión forzosa de socios.'},
+      {q:'¿Cuál es el efecto de anular el voto en el "abuso de mayoría"?',a:'La decisión cae completamente al perder su sustento matemático: sin los votos abusivos, la mayoría necesaria deja de alcanzarse.'},
+      {q:'¿Por qué es inocua la nulidad en el "abuso de paridad" (50/50)?',a:'Porque al anularse el voto de uno, el otro mantiene el 50%. El bloqueo persiste exactamente igual. En este caso, la acción sirve principalmente para obtener INDEMNIZACIÓN de perjuicios.'},
+      {q:'¿Cuál es la naturaleza jurídica de la nulidad del voto abusivo?',a:'Nulidad ABSOLUTA por ilicitud del objeto. El objeto mismo de la decisión es ilícito. No admite ratificación ni saneamiento posterior.'},
+      {q:'¿Ante qué autoridad se presenta la acción por abuso del derecho de voto?',a:'Ante la Superintendencia de Sociedades en ejercicio de su función JURISDICCIONAL (no administrativa), con competencia específica otorgada por el CGP.'},
+      {q:'¿Qué diferencia al "interés social" en la visión contractualista vs. institucionalista?',a:'Contractualista: el interés social = interés colectivo de todos los socios. Institucionalista: el interés social trasciende a los socios e incluye stakeholders (trabajadores, acreedores, comunidad). El debate sobre cuál aplicar es relevante para la prueba del elemento teleológico.'}
+    ],
+    normas:[
+      {ref:'Art. 43 Ley 1258/2008',desc:'Consagra el abuso del derecho de voto en SAS: nulidad por objeto ilícito e indemnización cuando el voto es contrario al interés social con intención de dañar u obtener ventaja injustificada.'},
+      {ref:'Art. 830 C. de Co.',desc:'Prohibición del abuso del derecho en materia mercantil. Fundamento general del que se deriva el abuso del derecho de voto en sociedades del Código.'},
+      {ref:'Art. 8 Ley 153/1887',desc:'Primeros pronunciamientos de la CSJ sobre el abuso del derecho se respaldaron en este artículo. Antecedente histórico.'},
+      {ref:'Art. 95 Constitución',desc:'La teoría del abuso del derecho también tiene fundamento constitucional: los derechos conllevan responsabilidades y no pueden ejercerse en perjuicio de otros.'},
+      {ref:'Art. 382 CGP',desc:'Otorga a la Supersociedades competencia para conocer de las controversias sobre el cumplimiento de acuerdos y acciones de abuso del voto.'}
+    ],
+    casos:[
+      {titulo:'Martha Cecilia López c. Comercializadora GL S.A.S.',tribunal:'Superintendencia de Sociedades',año:'N/D',holding:'Caso de exclusión forzosa de accionista calificada como abuso del derecho de voto. La Supersociedades declaró la nulidad y ordenó indemnización.'},
+      {titulo:'Edgar Orlando Corredor c. Induesa Pinilla & Pinillas',tribunal:'Superintendencia de Sociedades',año:'N/D',holding:'Caso de creación de órganos de administración con propósito de consolidar poder. Calificado como abuso del derecho de voto por alteración de mayorías calificadas.'},
+      {titulo:'Caso Constitución de Reservas Innecesarias',tribunal:'Superintendencia de Sociedades',año:'Doctrina',holding:'La constitución reiterada de reservas sin justificación económica real, cuando beneficia al controlante, configura tunneling y puede constituir abuso del voto.'}
+    ]
+  },
+  {
+    modId:'m3',
+    contexto:'Eres un tutor experto en Derecho Societario Colombiano especializado en acuerdos de accionistas: su naturaleza jurídica, tipología, requisitos de validez, oponibilidad, exigibilidad y su relación con los estatutos y el gobierno corporativo. Conoces los laudos arbitrales del caso Sierra Murillo c. Colmenares y la jurisprudencia sobre promesa por otro. Responde con rigor académico propio de una Maestría en Derecho Comercial del Externado.',
+    sugerencias:[
+      '¿En qué se diferencia un acuerdo de accionistas de los estatutos?',
+      '¿Cuáles son los requisitos para la oponibilidad del acuerdo?',
+      '¿Puede un acuerdo comprometer a la junta directiva?',
+      '¿Qué mecanismos existen para resolver un deadlock?'
+    ],
+    resumen:[
+      {titulo:'Naturaleza jurídica y función económica',puntos:[
+        'Los acuerdos de accionistas son contratos entre propietarios de participaciones que regulan el control: voto, derechos de los accionistas, actuación de administradores o transferencia de acciones.',
+        'Función: mitigar problemas de agencia (separación propiedad-control) y distribuir el control de manera eficiente.',
+        'No hay definición legal en Colombia. Se rigen por principios generales del contrato: ley, moral y orden público como límites.'
+      ]},
+      {titulo:'Estatutos vs. acuerdos de accionistas',puntos:[
+        'Estatutos: norma constitutiva, publicidad registral, efecto erga omnes, modificación con formalidades y mayorías. Oponibles a todos sin requisitos adicionales.',
+        'Acuerdos: contrato privado, relatividad contractual, oponibilidad restringida. Ventaja: más ágiles para modificar y más flexibles.',
+        'Límite clave: un acuerdo NO puede reformar estatutos ni establecer mecanismos de elección distintos a los imperativos del tipo societario (ej: cociente electoral en S.A.).'
+      ]},
+      {titulo:'Oponibilidad frente a la sociedad',puntos:[
+        'REQUISITO: depósito ante la sociedad mediante entrega escrita al representante legal en la sede de la administración.',
+        'Sin depósito: el acuerdo vincula solo a los firmantes (relatividad contractual). No es oponible a la sociedad.',
+        'Con depósito: la sociedad debe respetar y operativizar el acuerdo. Permite activar mecanismos de ejecución específica.',
+        'Diferencia crucial con estatutos: estos no requieren depósito; su publicidad es registral.'
+      ]},
+      {titulo:'Límites y prohibiciones',puntos:[
+        'El acuerdo NO puede comprometer directamente el comportamiento de la JD: genera una "promesa por otro" entre socios, no una obligación del administrador.',
+        'Sí puede pactar: cómo conformar listas para elegir miembros de JD (dentro del cociente electoral), cláusulas de lock-up, drag-along, tag-along, anti-dilución, deadlock mechanisms.',
+        'En SAS hay mayor flexibilidad: autonomía privada amplia permite pactar casi cualquier mecanismo de gobierno.'
+      ]}
+    ],
+    flashcards:[
+      {q:'¿Qué hace oponible un acuerdo de accionistas a la sociedad anónima?',a:'El DEPÓSITO ante la sociedad, mediante entrega escrita del documento al representante legal en la sede de la administración. Sin depósito, el acuerdo solo vincula a los firmantes (relatividad contractual).'},
+      {q:'¿En qué se diferencia la publicidad de los estatutos vs. los acuerdos de accionistas?',a:'Estatutos: publicidad REGISTRAL (Registro Mercantil), efecto erga omnes automático. Acuerdos: publicidad INTERNA mediante depósito, oponibilidad restringida a la sociedad y socios.'},
+      {q:'¿Puede un acuerdo de accionistas comprometer directamente a los miembros de la JD?',a:'No directamente. Solo crea una "promesa por otro" entre los socios firmantes. El incumplimiento genera responsabilidad entre socios, pero el voto del miembro de JD es válido. Sus deberes fiduciarios son normas imperativas.'},
+      {q:'¿Cuáles son los 3 tipos clásicos de acuerdos de accionistas?',a:'1) DE RELACIÓN: transferencia de acciones (drag-along, tag-along, ROFR). 2) DE ATRIBUCIÓN: ejercicio del voto (sindicatos de voto). 3) DE ORGANIZACIÓN: gobierno corporativo (composición de órganos, deadlock, arbitraje).'},
+      {q:'¿Puede un acuerdo establecer un mecanismo de elección de JD distinto al cociente electoral en una S.A.?',a:'No. El cociente electoral es el ÚNICO mecanismo imperativo para elegir JD en una S.A. Lo que sí puede pactarse es cómo conformar las listas (número de candidatos, criterios de selección).'},
+      {q:'¿Qué es un sindicato de voto?',a:'Acuerdo por el cual varios socios se comprometen a votar de manera conjunta según lo pactado. De MANDO: para nombrar administradores. De DEFENSA: suscrito por minoritarios para protegerse.'},
+      {q:'¿Qué es la cláusula drag-along?',a:'Cláusula de "arrastre": si el socio mayoritario vende, puede obligar al minoritario a vender en las mismas condiciones. Protege al comprador que quiere el 100% de la compañía.'},
+      {q:'¿Qué es la cláusula tag-along?',a:'Cláusula de "acompañamiento": si el socio mayoritario vende, el minoritario tiene derecho a vender en las mismas condiciones y precio. Protege al minoritario de quedarse solo con un nuevo controlante.'},
+      {q:'¿Qué es un deadlock y cómo se resuelve contractualmente?',a:'Bloqueo societario: imposibilidad de tomar decisiones por falta de mayoría o acuerdo. Mecanismos contractuales: consulta a un tercero experto, buy-sell (shotgun clause), arbitraje, disolución voluntaria.'}
+    ],
+    normas:[
+      {ref:'Art. 70 Ley 1258/2008',desc:'Regula los acuerdos de accionistas en SAS: oponibilidad, depósito y ejecución específica por la Supersociedades.'},
+      {ref:'Art. 1507 C.C.',desc:'Promesa por otro: es perfectamente lícita. Fundamento de la eficacia de los acuerdos que comprometen a administradores.'},
+      {ref:'Art. 198 C. de Co.',desc:'Sistema del cociente electoral para elegir miembros de la JD en sociedades anónimas. Norma imperativa.'},
+      {ref:'Art. 382 CGP',desc:'Competencia de la Supersociedades para resolver controversias sobre cumplimiento de acuerdos de accionistas, incluyendo la ejecución específica.'},
+      {ref:'Art. 624 C. de Co.',desc:'Regula el voto en sindicatos en comandita por acciones. Referente normativo para sindicatos de voto.'}
+    ],
+    casos:[
+      {titulo:'Sierra Murillo y otros c. Colmenares S.A.',tribunal:'Tribunal Arbitral (Árbitros: Cárdenas, Vélez, Díaz)',año:'2014',holding:'Un acuerdo que compromete a los miembros de JD a votar en cierto sentido es una "promesa por otro" (Art. 1507 C.C.), lícita entre los socios. Pero si los administradores no siguen el acuerdo, la responsabilidad es entre socios, no nulidad del voto.'},
+      {titulo:'Laudo con decisión contraria',tribunal:'Tribunal Arbitral colombiano',año:'N/D',holding:'Otro tribunal declaró NULA la cláusula que comprometía el comportamiento de los administradores, al entender que vulnera las normas imperativas sobre el régimen de administradores. Debate no resuelto uniformemente.'},
+      {titulo:'Doctrina Supersociedades - Ejecución específica',tribunal:'Superintendencia de Sociedades',año:'Doctrina',holding:'La Supersociedades tiene competencia para ordenar la ejecución específica de acuerdos depositados, pero su alcance práctico es objeto de debate cuando implica sustituir la voluntad de órganos sociales.'}
+    ]
+  },
+  {
+    modId:'m4',
+    contexto:'Eres un tutor experto en Derecho Societario Colombiano especializado en el régimen de responsabilidad de administradores, los deberes fiduciarios (diligencia y lealtad), la Business Judgment Rule (BJR) y el administrador de hecho. Conoces la evolución jurisprudencial de la Corte Suprema (1999, 2005, 2011, 2021) y los pronunciamientos de la Superintendencia de Sociedades desde 2013. Responde con rigor académico propio de una Maestría en Derecho Comercial del Externado.',
+    sugerencias:[
+      '¿Cuáles son los 5 requisitos del checklist BJR?',
+      '¿Cómo funciona el deber de vigilancia del administrador?',
+      '¿Qué es el administrador de hecho y qué deberes se le aplican?',
+      '¿Cuál es la diferencia entre la BJR en EE.UU. y en Colombia?'
+    ],
+    resumen:[
+      {titulo:'El estándar del buen hombre de negocios',puntos:[
+        'La Ley 222 de 1995 impone el estándar del "buen hombre de negocios": comportamiento profesional, informado, prudente y consciente de los riesgos.',
+        'La tripartición civil de la culpa (Art. 63 C.C.) NO aplica al administrador. La Sentencia CSJ 2021 zanjó el debate: el régimen es especial y autónomo.',
+        'El administrador responde por DOLO o CULPA bajo su propio estándar profesional. No hay responsabilidad objetiva.',
+        'El deber de diligencia se descompone en: deber de información (actuar informado) y deber de vigilancia (supervisar delegados).'
+      ]},
+      {titulo:'Business Judgment Rule (BJR)',puntos:[
+        'La BJR es un estándar de revisión judicial dirigido a los JUECES, no a los administradores. Les dice: "si se cumplen 5 condiciones, absténgase de analizar el mérito de la decisión".',
+        'Objetivo: evitar el "hindsight bias" (sesgo de retrospectiva): juzgar una decisión con el conocimiento del resultado ex post, en vez de analizar el proceso ex ante.',
+        'En EE.UU.: opera como PRESUNCIÓN a favor del administrador; el demandante debe desvirtuar los requisitos.',
+        'En Colombia (Supersociedades desde 2013 y CSJ 2021): se adoptó como CRITERIO de análisis, generando debate sobre si mantiene el efecto presuncional.',
+        'Hito: Sentencia CSJ 2021 reconoció formalmente la BJR como aplicable en Colombia.'
+      ]},
+      {titulo:'Checklist BJR: los 5 requisitos',puntos:[
+        '1. DECISIÓN DE NEGOCIOS: no aplica a violaciones de la ley (construir sin permisos no es "decisión de negocios").',
+        '2. INDEPENDENCIA Y DESINTERÉS: el administrador no debe tener interés personal en la transacción.',
+        '3. AUSENCIA DE FRAUDE O ILEGALIDAD: conecta con el deber de actuar de buena fe.',
+        '4. PROPÓSITO RACIONAL: la decisión debe tener justificación lógica y empresarial.',
+        '5. PROCESO INFORMADO: ¿se informó el administrador? ¿consultó expertos? Este es el núcleo del deber de diligencia.'
+      ]},
+      {titulo:'El administrador de hecho',puntos:[
+        'Quien ejerce funciones de administración sin nombramiento formal. Debe ser ACTIVO (no pasivo): se requieren actos positivos de gestión, no meras omisiones.',
+        'Tipologías: notorio (actúa públicamente como administrador), oculto (a la sombra, da instrucciones sin figurar), por contrato (cláusulas contractuales tan intrusivas que generan administración de facto).',
+        'Responsabilidad: se le puede exigir el deber de LEALTAD (no apropiarse de bienes sociales), pero no deberes formales (convocar asambleas, firmar estados financieros).',
+        'Su responsabilidad requiere nexo causal entre su actuación y el daño. No basta la sola calidad de administrador de hecho.'
+      ]}
+    ],
+    flashcards:[
+      {q:'¿Cuál es el estándar de conducta exigido al administrador societario colombiano?',a:'El del "BUEN HOMBRE DE NEGOCIOS" (Ley 222/95): comportamiento profesional, informado, prudente, consciente de los riesgos. No aplica la tripartición de la culpa civil (Art. 63 C.C.).'},
+      {q:'¿A quién está dirigida la Business Judgment Rule?',a:'A los JUECES. Les instruye abstenerse de analizar el mérito de una decisión de negocios si se cumplen los 5 requisitos. No es un mandato para los administradores, sino un límite a la revisión judicial.'},
+      {q:'¿Cuáles son los 5 requisitos del "checklist" BJR?',a:'1) Decisión de negocios (no violación de ley). 2) Independencia/desinterés (sin conflicto). 3) Sin fraude ni ilegalidad. 4) Propósito racional. 5) Proceso informado y cuidadoso. Si falla UNO, el juez puede revisar el fondo.'},
+      {q:'¿Qué es el hindsight bias y cómo lo evita la BJR?',a:'El sesgo de retrospectiva: juzgar una decisión con el conocimiento de su resultado (ex post). La BJR prohíbe al juez hacer esto: obliga a analizar la CALIDAD DEL PROCESO de decisión en el momento en que se tomó (ex ante).'},
+      {q:'¿Cuál es la diferencia entre la BJR en EE.UU. y en Colombia?',a:'EE.UU.: opera como PRESUNCIÓN a favor del administrador; el demandante debe desvirtuar los 5 requisitos. Colombia (Supersociedades + CSJ 2021): se adopta como CRITERIO de análisis, sin el pleno efecto presuncional. El debate sobre la distribución de la carga probatoria persiste.'},
+      {q:'¿Cuál fue el hito jurisprudencial de la BJR en Colombia?',a:'Sentencia de la Corte Suprema de Justicia de 2021: reconoció formalmente la BJR como aplicable en Colombia y confirmó que el régimen de responsabilidad de administradores es ESPECIAL y AUTÓNOMO (no aplica la tripartición civil).'},
+      {q:'¿Qué es un administrador de hecho?',a:'Quien ejerce funciones de administración sin nombramiento formal. Requiere: (1) ejercicio EFECTIVO de funciones, (2) suplantación de administradores de derecho, (3) CONTINUIDAD en el tiempo. Es ACTIVO (no pasivo): se requieren actos positivos.'},
+      {q:'¿Qué deberes se le pueden exigir al administrador de hecho?',a:'El deber de LEALTAD (ej: no apropiarse de bienes sociales, no incurrir en conflictos de interés). NO se le exigen deberes formales como convocar asambleas, firmar estados financieros o inscribir en registros.'},
+      {q:'¿Cuándo surge el deber de vigilancia del administrador?',a:'Cuando delega funciones: el administrador debe supervisar activamente que la función delegada se cumpla correctamente. La delegación NO exime de responsabilidad. Debe establecer mecanismos de seguimiento y trazabilidad.'},
+      {q:'¿Aplica la BJR a una decisión de violar la ley para no perder un contrato?',a:'NO. Las decisiones de negocios nunca pueden consistir en no cumplir la ley. Viola el primer requisito del checklist BJR. La urgencia comercial tampoco excusa la ilegalidad.'}
+    ],
+    normas:[
+      {ref:'Ley 222/95 Arts. 22-24',desc:'Consagra los deberes del administrador: buena fe, lealtad y diligencia del buen hombre de negocios. Fundamento del régimen especial.'},
+      {ref:'Art. 200 C. de Co.',desc:'Norma "norte" de la responsabilidad: el administrador responde por daños a la sociedad, a los socios y a terceros. Régimen subjetivo (dolo o culpa).'},
+      {ref:'Ley 1258/08 Art. 27',desc:'En SAS: regula el administrador de hecho. Quien actúa como administrador sin serlo formalmente queda sujeto al mismo régimen de responsabilidad.'},
+      {ref:'Arts. 185 y 404 C. de Co.',desc:'Prohibiciones generales para administradores (enajenar acciones sin autorización, voto en aprobación de estados financieros). En SAS estas prohibiciones solo aplican si se pactan en estatutos.'},
+      {ref:'Sentencia CSJ 2021',desc:'Reconocimiento formal de la BJR en Colombia. Confirmación del régimen especial y autónomo de responsabilidad de administradores. Descarta tripartición civil.'}
+    ],
+    casos:[
+      {titulo:'Caso Represa (CSJ 2005)',tribunal:'Corte Suprema de Justicia',año:'2005',holding:'Analizado desde perspectiva extracontractual. No permitió análisis profundo de la diligencia del administrador. Ejemplo de caso tangencial que no aportó doctrina consolidada.'},
+      {titulo:'Capital Tower (CSJ 2011)',tribunal:'Corte Suprema de Justicia',año:'2011',holding:'Mencionó la responsabilidad del administrador pero no se centró en el deber de diligencia. Otro caso tangencial en la evolución jurisprudencial.'},
+      {titulo:'Sentencia BJR (CSJ 2021)',tribunal:'Corte Suprema de Justicia',año:'2021',holding:'Hito: reconoce formalmente la BJR como aplicable en Colombia. Confirma el régimen especial y autónomo. Descarta la tripartición civil. No aplicó la BJR directamente al caso, pero sentó el principio.'},
+      {titulo:'Sentencia 820-78 de 2017',tribunal:'Superintendencia de Sociedades',año:'2017',holding:'Caso paradigmático del administrador de hecho: definió los 3 requisitos (ejercicio efectivo, suplantación, continuidad). Estableció que al administrador de hecho se le puede exigir el deber de lealtad pero no deberes formales.'}
+    ]
+  }
+];
+
+// ══════════════════════════════════════════════════════════════
+//  STUDY MODE LOGIC
+// ══════════════════════════════════════════════════════════════
+var appMode = 'eval'; // 'eval' | 'study'
+var activeStudyIdx = 0;
+var fcIndex = 0;
+var fcFlipped = false;
+var fcOrder = [];
+var chatHistory = [];
+
+function setMode(mode) {
+  appMode = mode;
+  document.getElementById('btn-mode-eval').classList.toggle('active', mode === 'eval');
+  document.getElementById('btn-mode-study').classList.toggle('active', mode === 'study');
+  var titleEl = document.getElementById('home-section-title');
+  if (titleEl) titleEl.textContent = mode === 'study' ? 'Módulos temáticos — Estudio' : 'Módulos temáticos — Evaluación';
+  renderHome();
+}
+
+function startStudy(idx) {
+  activeStudyIdx = idx;
+  var sd = STUDY_DATA[idx];
+  var mod = MODULES[idx];
+  fcIndex = 0; fcFlipped = false; chatHistory = [];
+  fcOrder = sd.flashcards.map(function(_,i){return i;});
+  document.getElementById('study-mod-name').textContent = mod.title;
+  // Reset tabs
+  document.querySelectorAll('.stab').forEach(function(b,i){b.classList.toggle('active',i===0);});
+  document.querySelectorAll('.stab-panel').forEach(function(p,i){p.classList.toggle('active',i===0);});
+  showScreen('screen-study');
+  renderStudyTab('resumen');
+  renderStudyTab('flashcards');
+  renderStudyTab('normas');
+  renderStudyTab('asistente');
+}
+
+function showStab(name) {
+  var panels = {resumen:'stab-resumen',flashcards:'stab-flashcards',normas:'stab-normas',asistente:'stab-asistente'};
+  var order = ['resumen','flashcards','normas','asistente'];
+  document.querySelectorAll('.stab').forEach(function(b,i){b.classList.toggle('active', order[i]===name);});
+  document.querySelectorAll('.stab-panel').forEach(function(p){p.classList.remove('active');});
+  var el = document.getElementById(panels[name]);
+  if (el) el.classList.add('active');
+}
+
+function renderStudyTab(name) {
+  var sd = STUDY_DATA[activeStudyIdx];
+  if (name === 'resumen') {
+    var html = '';
+    sd.resumen.forEach(function(s) {
+      html += '<div class="resumen-section"><h3>' + s.titulo + '</h3><ul class="resumen-list">';
+      s.puntos.forEach(function(p){ html += '<li>' + p + '</li>'; });
+      html += '</ul></div>';
+    });
+    document.getElementById('stab-resumen').innerHTML = html;
+  }
+  if (name === 'flashcards') {
+    renderFC();
+  }
+  if (name === 'normas') {
+    var sd2 = STUDY_DATA[activeStudyIdx];
+    var h = '<div class="resumen-section"><h3>Normativa clave</h3><div class="norm-grid">';
+    sd2.normas.forEach(function(n){ h += '<div class="norm-card"><div class="norm-ref">'+n.ref+'</div><div class="norm-desc">'+n.desc+'</div></div>'; });
+    h += '</div></div>';
+    h += '<div class="resumen-section"><h3>Jurisprudencia y casos de referencia</h3>';
+    sd2.casos.forEach(function(c){ h += '<div class="case-card"><div class="case-title">'+c.titulo+'</div><div class="case-meta">'+c.tribunal+' · '+c.año+'</div><div class="case-holding">'+c.holding+'</div></div>'; });
+    h += '</div>';
+    document.getElementById('stab-normas').innerHTML = h;
+  }
+  if (name === 'asistente') {
+    renderAssistant();
+  }
+}
+
+function renderFC() {
+  var sd = STUDY_DATA[activeStudyIdx];
+  var n = sd.flashcards.length;
+  var fc = sd.flashcards[fcOrder[fcIndex]];
+  var dots = '';
+  for (var i=0;i<n;i++) {
+    var cls = i < fcIndex ? 'fc-dot seen' : i === fcIndex ? 'fc-dot current' : 'fc-dot';
+    dots += '<span class="' + cls + '"></span>';
+  }
+  var html = '<div class="fc-wrap">'
+    + '<div class="fc-card" id="fc-card" onclick="flipFC()">'
+    + '<div class="fc-face fc-front">'
+    + '<div class="fc-label">Pregunta</div>'
+    + '<div class="fc-term">' + fc.q + '</div>'
+    + '<div class="fc-hint">Haz clic para ver la respuesta</div>'
+    + '</div>'
+    + '<div class="fc-face fc-back">'
+    + '<div class="fc-label">Respuesta</div>'
+    + '<div class="fc-def">' + fc.a + '</div>'
+    + '</div>'
+    + '</div>'
+    + '</div>'
+    + '<div class="fc-dot-row">' + dots + '</div>'
+    + '<div class="fc-controls" style="margin-top:14px">'
+    + '<div class="fc-progress">' + (fcIndex+1) + ' / ' + n + '</div>'
+    + '<div class="fc-nav">'
+    + '<button class="btn-secondary" onclick="fcNav(-1)" style="padding:7px 16px;font-size:13px"' + (fcIndex===0?' disabled':'') + '>← Anterior</button>'
+    + '<button class="btn-secondary" onclick="shuffleFC()" style="padding:7px 16px;font-size:13px">&#x21BB; Mezclar</button>'
+    + '<button class="btn-primary" onclick="fcNav(1)" style="padding:7px 16px;font-size:13px"' + (fcIndex===n-1?' disabled':'') + '>Siguiente →</button>'
+    + '</div>'
+    + '</div>';
+  document.getElementById('stab-flashcards').innerHTML = html;
+}
+
+function flipFC() {
+  var card = document.getElementById('fc-card');
+  if (card) card.classList.toggle('flipped');
+}
+
+function fcNav(dir) {
+  var sd = STUDY_DATA[activeStudyIdx];
+  fcIndex = Math.max(0, Math.min(sd.flashcards.length-1, fcIndex+dir));
+  renderFC();
+}
+
+function shuffleFC() {
+  var sd = STUDY_DATA[activeStudyIdx];
+  fcOrder = sd.flashcards.map(function(_,i){return i;});
+  for (var i=fcOrder.length-1;i>0;i--) {
+    var j=Math.floor(Math.random()*(i+1));
+    var t=fcOrder[i]; fcOrder[i]=fcOrder[j]; fcOrder[j]=t;
+  }
+  fcIndex = 0;
+  renderFC();
+}
+
+function renderAssistant() {
+  var sd = STUDY_DATA[activeStudyIdx];
+  var sugs = sd.sugerencias.map(function(s){
+    return '<button class="chat-sug" onclick="askSuggestion(\'' + s.replace(/'/g,"\\'") + '\')">' + s + '</button>';
+  }).join('');
+  var msgs = chatHistory.map(function(m){
+    return '<div class="chat-msg ' + m.role + '">' + m.text + '</div>';
+  }).join('');
+  var html = '<div class="ai-chat">'
+    + '<div style="font-size:13px;color:var(--muted);margin-bottom:10px;">Pregunta cualquier duda sobre este módulo. El asistente tiene acceso al contexto completo del curso.</div>'
+    + '<div class="chat-suggestions">' + sugs + '</div>'
+    + '<div class="chat-history" id="chat-hist">' + msgs + '</div>'
+    + '<div class="chat-input-row">'
+    + '<input class="chat-input" id="chat-inp" type="text" placeholder="Escribe tu pregunta jurídica..." onkeydown="if(event.key===\'Enter\')sendChat()"/>'
+    + '<button class="btn-primary" onclick="sendChat()" style="white-space:nowrap">Preguntar →</button>'
+    + '</div>'
+    + '</div>';
+  document.getElementById('stab-asistente').innerHTML = html;
+  scrollChat();
+}
+
+function askSuggestion(q) {
+  var inp = document.getElementById('chat-inp');
+  if (inp) { inp.value = q; sendChat(); }
+}
+
+async function sendChat() {
+  var inp = document.getElementById('chat-inp');
+  if (!inp) return;
+  var q = inp.value.trim();
+  if (!q) return;
+  var apiKey = (document.getElementById('apiKey').value || '').trim();
+  if (!apiKey) { alert('Ingrese su API Key para usar el asistente.'); return; }
+  inp.value = '';
+  chatHistory.push({role:'user', text: q});
+  chatHistory.push({role:'ai thinking', text:'Analizando su consulta\u2026'});
+  refreshChatHTML();
+  var sd = STUDY_DATA[activeStudyIdx];
+  var messages = [{role:'user', content: sd.contexto + '\n\nEl estudiante pregunta: ' + q}];
+  if (chatHistory.length > 3) {
+    // include prior exchanges
+    for (var i=0; i<chatHistory.length-2 && i<6; i++) {
+      var m = chatHistory[i];
+      if (m.role==='user') messages.push({role:'user', content: m.text});
+      else if (m.role==='ai') messages.push({role:'assistant', content: m.text});
+    }
+    messages.push({role:'user', content: q});
+  }
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1024,messages:messages})
+    });
+    var data = await res.json();
+    var txt = '';
+    if (data.content) data.content.forEach(function(c){if(c.type==='text') txt+=c.text;});
+    else txt = 'Error: ' + JSON.stringify(data).substring(0,200);
+    chatHistory[chatHistory.length-1] = {role:'ai', text: txt};
+  } catch(e) {
+    chatHistory[chatHistory.length-1] = {role:'ai', text:'Error al conectar: ' + e.message};
+  }
+  refreshChatHTML();
+}
+
+function refreshChatHTML() {
+  var hist = document.getElementById('chat-hist');
+  if (!hist) return;
+  hist.innerHTML = chatHistory.map(function(m){
+    return '<div class="chat-msg ' + m.role + '">' + m.text.replace(/\n/g,'<br>') + '</div>';
+  }).join('');
+  scrollChat();
+}
+
+function scrollChat() {
+  setTimeout(function(){
+    var hist = document.getElementById('chat-hist');
+    if (hist) hist.scrollTop = hist.scrollHeight;
+  }, 50);
+}
+
+renderHome();
+</script>
+</body>
+</html>
