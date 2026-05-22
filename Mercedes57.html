@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Proyecto Mercedes 57 — Su caso en palabras simples</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --b900:#0F2D55;--b700:#1A4A8A;--b500:#2B6CB0;--b400:#3B82C4;
+  --b200:#BFDBF7;--b100:#DBEAFE;--b50:#EFF6FF;
+  --white:#FFFFFF;--gray:#64748B;
+  --green:#15803D;--amber:#B45309;--red:#B91C1C;--gold:#D97706;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--b50);color:#1C2B40;font-size:16px;line-height:1.6;min-height:100vh}
+
+/* ── COVER ── */
+.cover{background:linear-gradient(145deg,var(--b900) 0%,var(--b700) 60%,var(--b500) 100%);color:white;text-align:center;padding:56px 24px 48px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(59,130,196,.2) 0%,transparent 55%)}
+.cover-badge{display:inline-block;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.28);border-radius:30px;padding:5px 20px;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:18px;font-weight:700;position:relative}
+.cover h1{font-family:'Montserrat',sans-serif;font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.1;margin-bottom:10px;position:relative}
+.cover h1 span{color:#93C5FD}
+.cover p{font-size:clamp(14px,2vw,18px);opacity:.85;max-width:580px;margin:0 auto 28px;position:relative}
+.cover-stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;max-width:960px;margin:0 auto;position:relative}
+.cs{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:13px 16px;text-align:center;min-width:110px}
+.cs-n{font-family:'Montserrat',sans-serif;font-size:24px;font-weight:900;color:#93C5FD;line-height:1}
+.cs-l{font-size:11px;opacity:.78;text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+
+/* ── TAB BAR ── */
+.tab-bar-wrap{background:var(--b900);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(15,45,85,.35)}
+.tab-bar{display:flex;overflow-x:auto;scrollbar-width:none;max-width:1280px;margin:0 auto;-webkit-overflow-scrolling:touch}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:15px 22px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:rgba(255,255,255,.55);background:transparent;border:none;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all .18s;display:flex;align-items:center;gap:6px}
+.tab-btn:hover{color:rgba(255,255,255,.85)}
+.tab-btn.active{color:white;border-bottom-color:#93C5FD;background:rgba(147,197,253,.08)}
+.tab-icon{font-size:18px}
+
+/* ── PANELS ── */
+.tab-content{max-width:1280px;margin:0 auto;padding:44px 32px 70px}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── SHARED COMPONENTS ── */
+.section-label{display:inline-flex;align-items:center;gap:7px;background:var(--b700);color:white;border-radius:30px;padding:4px 16px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.panel-title{font-family:'Montserrat',sans-serif;font-size:clamp(26px,3.5vw,40px);font-weight:900;line-height:1.15;margin-bottom:8px;color:var(--b900)}
+.panel-title em{color:var(--b500);font-style:normal}
+.panel-lead{font-size:clamp(16px,2vw,19px);color:#374151;max-width:700px;margin-bottom:24px}
+
+/* ── STORY CARDS ── */
+.story-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:11px}
+.sc-card{background:var(--white);border-radius:16px;padding:20px 18px;box-shadow:0 2px 10px rgba(26,74,138,.07);border:2px solid var(--b100)}
+.sc-card.bad{border-color:#FCA5A5;background:#FFF5F5}
+.sc-card.good{border-color:#86EFAC;background:#F0FFF4}
+.sc-card.now{border-color:#FCD34D;background:#FFFBEB}
+.sc-icon{font-size:40px;display:block;margin-bottom:9px;line-height:1}
+.sc-num{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:3px}
+.sc-title{font-size:17px;font-weight:800;color:var(--b900);margin-bottom:5px;line-height:1.2}
+.sc-text{font-size:15px;color:#374151;line-height:1.5}
+.sc-text strong{color:var(--b900)}
+
+/* ── VERTICAL TIMELINE ── */
+.vtl{position:relative;padding-left:36px}
+.vtl::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--green) 60%,var(--gold) 73%,#BFDBF7 100%)}
+.vtl-item{position:relative;margin-bottom:8px}
+.vtl-dot{width:28px;height:28px;border-radius:50%;position:absolute;left:-36px;top:9px;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 7px rgba(0,0,0,.18);z-index:1}
+.vtl-dot.done{background:var(--b500);color:white}
+.vtl-dot.curr{background:var(--gold);color:white;animation:pulse 2s ease-in-out infinite}
+.vtl-dot.pend{background:#E2E8F0;color:#94A3B8}
+.vtl-dot.tact{background:var(--red);color:white}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(217,119,6,.5)}50%{box-shadow:0 0 0 11px rgba(217,119,6,0)}}
+.vtl-card{background:var(--white);border-radius:11px;padding:11px 15px;box-shadow:0 1px 6px rgba(26,74,138,.07);border-left:4px solid var(--b200);margin-left:4px}
+.vtl-card.done{border-left-color:var(--b500)}
+.vtl-card.curr{border-left-color:var(--gold);background:#FFFBEB}
+.vtl-card.pend{border-left-color:#CBD5E1;background:#F8FBFF}
+.vtl-card.tact{border-left-color:var(--red);background:#FFF5F5}
+.vtl-head{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:2px}
+.vtl-date{font-size:11px;font-weight:700;color:var(--gray);background:var(--b50);border:1px solid var(--b100);border-radius:5px;padding:1px 7px;white-space:nowrap}
+.vtl-dur{font-size:11px;color:white;border-radius:5px;padding:1px 7px;white-space:nowrap;font-weight:700}
+.vtl-dur.ok{background:var(--b500)}
+.vtl-dur.slow{background:var(--amber)}
+.vtl-title{font-size:15px;font-weight:800;color:var(--b900);line-height:1.3}
+.vtl-body{font-size:13.5px;color:#374151;line-height:1.5;margin-top:2px}
+.vtl-tag{display:inline-block;font-size:10px;font-weight:700;border-radius:7px;padding:1px 7px;margin-top:3px}
+.tag-g{background:#DCFCE7;color:var(--green)}
+.tag-a{background:#FEF3C7;color:var(--amber)}
+.tag-r{background:#FEE2E2;color:var(--red)}
+.tag-b{background:var(--b100);color:var(--b700)}
+.tag-p{background:#F1F5F9;color:#64748B}
+
+/* ── CGP TABLE ── */
+.cgp-flow{display:flex;flex-direction:column;gap:7px}
+.cgp-card{background:var(--white);border-radius:13px;padding:13px 16px;box-shadow:0 1px 6px rgba(26,74,138,.07);border:1.5px solid var(--b100)}
+.cgp-hdr{display:flex;align-items:center;gap:10px;margin-bottom:5px}
+.cgp-num{width:32px;height:32px;border-radius:50%;background:var(--b700);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.cgp-num.curr{background:var(--gold)}
+.cgp-num.done2{background:var(--green)}
+.cgp-title{font-size:16px;font-weight:800;color:var(--b900)}
+.cgp-art{font-size:11px;color:var(--b500);font-weight:700;margin-bottom:3px}
+.cgp-desc{font-size:14px;color:#374151;line-height:1.45;margin-bottom:8px}
+.times-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.tg-cell{border-radius:8px;padding:6px 9px}
+.tg-cell.legal{background:var(--b50);border:1px solid var(--b100)}
+.tg-cell.avg{background:#EFF6FF;border:1px solid #BFDBF7}
+.tg-cell.real.ok{background:#DCFCE7;border:1px solid #86EFAC}
+.tg-cell.real.slow{background:#FEF3C7;border:1px solid #FCD34D}
+.tg-cell.real.pend{background:#F1F5F9;border:1px solid #CBD5E1}
+.tg-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);font-weight:700;margin-bottom:1px}
+.tg-val{font-size:13.5px;font-weight:800;line-height:1.2}
+.tg-cell.legal .tg-val{color:var(--b700)}
+.tg-cell.avg .tg-val{color:var(--b500)}
+.tg-cell.real.ok .tg-val{color:var(--green)}
+.tg-cell.real.slow .tg-val{color:var(--amber)}
+.tg-cell.real.pend .tg-val{color:#94A3B8}
+.cgp-divider{background:var(--b700);color:white;border-radius:9px;padding:7px 14px;font-size:12px;font-weight:800;letter-spacing:.5px;margin:10px 0 3px;display:flex;align-items:center;gap:7px}
+.times-legend{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px}
+.tl-box{border-radius:9px;padding:9px 12px;text-align:center}
+.tl-box.legal{background:var(--b50);border:1px solid var(--b100)}
+.tl-box.avg{background:#EFF6FF;border:1px solid #BFDBF7}
+.tl-box.real{background:#F0FFF4;border:1px solid #86EFAC}
+.tl-box-lbl{font-size:11px;font-weight:800;margin-bottom:2px}
+.tl-box.legal .tl-box-lbl{color:var(--b700)}
+.tl-box.avg .tl-box-lbl{color:var(--b500)}
+.tl-box.real .tl-box-lbl{color:var(--green)}
+.tl-box-desc{font-size:12px;color:#374151}
+
+/* ── ACTUACIONES ── */
+.act-hero{background:linear-gradient(135deg,var(--b900),var(--b700));border-radius:20px;padding:28px 24px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;margin-bottom:18px;box-shadow:0 4px 18px rgba(26,74,138,.22)}
+.act-num-big{font-family:'Montserrat',sans-serif;font-size:72px;font-weight:900;color:#93C5FD;line-height:1;text-align:center}
+.act-num-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.55);font-weight:700;text-align:center;margin-top:2px}
+.act-hero-body h3{font-size:19px;font-weight:800;color:white;margin-bottom:6px}
+.act-hero-body p{font-size:14.5px;color:rgba(255,255,255,.78);line-height:1.55}
+.act-phases{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:14px}
+.ap{background:rgba(255,255,255,.1);border-radius:9px;padding:9px;text-align:center}
+.ap-n{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:900;color:#93C5FD}
+.ap-l{font-size:11px;color:rgba(255,255,255,.65);margin-top:1px;line-height:1.3}
+.act-ph-hdr{font-size:14px;font-weight:800;color:var(--b900);margin:16px 0 8px;padding-bottom:4px;border-bottom:2px solid var(--b100)}
+.act-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.act-card{background:var(--white);border-radius:12px;padding:11px 14px;box-shadow:0 1px 5px rgba(26,74,138,.06);display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--b100)}
+.act-n{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px}
+.an-pre{background:var(--b100);color:var(--b700)}
+.an-1{background:var(--b200);color:var(--b900)}
+.an-2{background:#DCFCE7;color:var(--green)}
+.an-3{background:#FEF3C7;color:var(--amber)}
+.act-date{font-size:10.5px;color:var(--gray);font-weight:700}
+.act-dest{font-size:10.5px;color:var(--b500);margin-top:0}
+.act-txt{font-size:13.5px;color:#374151;line-height:1.4;margin-top:1px}
+
+/* ── SCENARIOS ── */
+.scen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:13px;margin-bottom:16px}
+.scen-card{border-radius:18px;padding:22px 18px;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.scen-card.s1{background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:2.5px solid var(--b400)}
+.scen-card.s2{background:linear-gradient(135deg,#F0FFF4,#DCFCE7);border:2.5px solid #4ADE80}
+.scen-card.s3{background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2.5px solid var(--gold)}
+.scen-icon{font-size:42px;display:block;margin-bottom:9px}
+.scen-title{font-size:17px;font-weight:900;margin-bottom:2px}
+.scen-card.s1 .scen-title{color:var(--b700)}
+.scen-card.s2 .scen-title{color:var(--green)}
+.scen-card.s3 .scen-title{color:var(--amber)}
+.scen-sub{font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:700;color:var(--gray);margin-bottom:11px}
+.scen-steps{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.ss-item{display:flex;gap:8px;align-items:flex-start}
+.ss-num{width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:2px}
+.scen-card.s1 .ss-num{background:var(--b700);color:white}
+.scen-card.s2 .ss-num{background:var(--green);color:white}
+.scen-card.s3 .ss-num{background:var(--amber);color:white}
+.ss-txt{font-size:15px;color:#374151;line-height:1.45}
+.ss-txt strong{color:var(--b900)}
+.scen-result{border-radius:11px;padding:11px 14px}
+.scen-card.s1 .scen-result{background:rgba(43,108,176,.1);border:1.5px solid rgba(43,108,176,.25)}
+.scen-card.s2 .scen-result{background:rgba(21,128,61,.1);border:1.5px solid rgba(21,128,61,.25)}
+.scen-card.s3 .scen-result{background:rgba(217,119,6,.1);border:1.5px solid rgba(217,119,6,.25)}
+.sr-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.scen-card.s1 .sr-lbl{color:var(--b700)}
+.scen-card.s2 .sr-lbl{color:var(--green)}
+.scen-card.s3 .sr-lbl{color:var(--amber)}
+.sr-time{font-family:'Montserrat',sans-serif;font-size:19px;font-weight:900;margin-bottom:2px}
+.scen-card.s1 .sr-time{color:var(--b700)}
+.scen-card.s2 .sr-time{color:var(--green)}
+.scen-card.s3 .sr-time{color:var(--amber)}
+.sr-sub{font-size:14px;color:#374151}
+.prog-wrap{background:var(--white);border-radius:15px;padding:20px;box-shadow:0 1px 8px rgba(26,74,138,.07);border:1.5px solid var(--b100)}
+.prog-row{margin-bottom:11px}
+.prog-row:last-child{margin-bottom:0}
+.prog-top{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px}
+.prog-bar{height:20px;background:var(--b50);border-radius:10px;overflow:hidden;border:1px solid var(--b100)}
+.prog-fill{height:100%;border-radius:10px;display:flex;align-items:center;padding-right:9px;justify-content:flex-end}
+.pf-b{background:linear-gradient(90deg,var(--b700),var(--b400))}
+.pf-g{background:linear-gradient(90deg,var(--green),#4ADE80)}
+.pf-a{background:linear-gradient(90deg,var(--amber),var(--gold))}
+.prog-pct{font-size:11px;font-weight:800;color:white}
+
+/* ── MONEY / PROTECTION ── */
+.protect-box{background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:2.5px solid var(--b400);border-radius:20px;padding:26px 22px;display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;margin-bottom:20px}
+.pb-icon{font-size:56px;flex-shrink:0}
+.pb-body h3{font-size:19px;font-weight:900;color:var(--b700);margin-bottom:7px}
+.pb-body p{font-size:14px;color:#374151;line-height:1.6}
+.protect-num{background:var(--b700);color:white;border-radius:11px;padding:10px 18px;display:inline-block;margin-top:11px}
+.pn-v{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:900}
+.pn-l{font-size:11px;opacity:.83;margin-top:1px}
+.money-legend{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:13px}
+.ml-cell{border-radius:10px;padding:11px 14px}
+.ml-cell.base{background:var(--b50);border-left:4px solid var(--b700)}
+.ml-cell.idx{background:#EFF6FF;border-left:4px solid var(--b400)}
+.ml-cell.mora{background:#FEF3C7;border-left:4px solid var(--amber)}
+.ml-cell.total{background:#DCFCE7;border-left:4px solid var(--green)}
+.ml-cell .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--gray);font-weight:700}
+.ml-cell .desc{font-size:12px;color:#374151;margin-top:2px;line-height:1.35}
+.person-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:9px}
+.pc{background:var(--white);border-radius:13px;padding:14px 16px;box-shadow:0 1px 7px rgba(26,74,138,.07);border:1.5px solid var(--b100);border-left:5px solid var(--b500)}
+.pc-name{font-size:13.5px;font-weight:800;color:var(--b900);margin-bottom:10px;line-height:1.3}
+.pc-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.pc-lbl{font-size:13px;color:var(--gray)}
+.pc-val{font-size:14px;font-weight:700}
+.pc-val.base{color:var(--b700)}
+.pc-val.total{color:var(--green);font-size:14.5px;font-family:'Montserrat',sans-serif;font-weight:900}
+.pc-sep{border:none;border-top:1px solid var(--b50);margin:5px 0}
+.total-card{background:linear-gradient(135deg,var(--b900),var(--b700));color:white;border-radius:16px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:11px;box-shadow:0 4px 14px rgba(26,74,138,.22)}
+.tc-lbl{font-size:15px;font-weight:700;opacity:.83}
+.tc-val{font-family:'Montserrat',sans-serif;font-size:30px;font-weight:900;color:#93C5FD}
+.tc-sub{font-size:11px;opacity:.65}
+
+/* ── FAQ ── */
+.faq-item{background:var(--white);border-radius:12px;padding:16px 18px;margin-bottom:8px;box-shadow:0 1px 5px rgba(26,74,138,.06);border:1.5px solid var(--b100)}
+.faq-q{font-size:17px;font-weight:800;color:var(--b900);margin-bottom:5px;display:flex;gap:8px;align-items:flex-start}
+.faq-q span{background:var(--b700);color:white;border-radius:7px;padding:2px 9px;font-size:11px;flex-shrink:0;margin-top:1px}
+.faq-a{font-size:15px;color:#374151;line-height:1.65;padding-left:38px}
+
+/* ── FOOTER ── */
+.footer{background:var(--b900);color:white;text-align:center;padding:32px 20px;margin-top:20px}
+.footer p{font-size:13px;opacity:.75;margin:3px 0}
+.footer strong{color:#93C5FD}
+
+/* ── INFO BOXES ── */
+.info-box{border-radius:11px;padding:11px 16px;font-size:13px;line-height:1.6;margin-bottom:12px}
+.info-box.blue{background:var(--b50);border:1.5px solid var(--b100);color:#1C2B40;font-size:14.5px}
+.info-box.yellow{background:#FFFBEB;border:1.5px solid #FCD34D;color:#4A3500;font-size:14.5px}
+
+@media(max-width:640px){
+  .act-grid{grid-template-columns:1fr}
+  .money-legend{grid-template-columns:1fr}
+  .protect-box{flex-direction:column}
+  .total-card{text-align:center;justify-content:center}
+  .act-hero{grid-template-columns:1fr;text-align:center}
+  .act-phases{grid-template-columns:repeat(2,1fr)}
+  .times-grid{grid-template-columns:1fr}
+  .times-legend{grid-template-columns:1fr}
+  .tab-btn{padding:12px 14px;font-size:12px}
+  .scen-grid{grid-template-columns:1fr}
+}
+
+/* Accordion CGP */
+.cgp-explain{display:none;margin-top:10px;padding:10px 14px;background:var(--b50);border-radius:9px;border:1.5px solid var(--b100);font-size:13px;color:#374151;line-height:1.65}
+.cgp-explain ul{margin:6px 0 0 16px}
+.cgp-explain li{margin-bottom:4px}
+.cgp-explain strong{color:var(--b900)}
+.cgp-toggle{cursor:pointer;background:var(--b700);color:white;border:none;border-radius:8px;padding:5px 14px;font-size:11.5px;font-weight:800;margin-top:8px;display:inline-flex;align-items:center;gap:5px;font-family:'Nunito',sans-serif;letter-spacing:.3px;transition:background .15s}
+.cgp-toggle:hover{background:var(--b500)}
+.cgp-card.open .cgp-explain{display:block}
+/* Tactics tab */
+.tac-card{background:var(--white);border-radius:16px;padding:20px 22px;box-shadow:0 2px 10px rgba(26,74,138,.07);border:1.5px solid var(--b100);margin-bottom:11px}
+.tac-card.tac-r{border-left:6px solid var(--red);background:#FFF5F5}
+.tac-card.tac-g{border-left:6px solid var(--green);background:#F0FFF4}
+.tac-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.tac-num{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:900;color:var(--red);flex-shrink:0}
+.tac-card.tac-g .tac-num{color:var(--green)}
+.tac-title{font-size:15px;font-weight:800;color:var(--b900);flex:1}
+.tac-date{font-size:12px;font-weight:700;color:var(--gray);white-space:nowrap;background:var(--b50);border:1px solid var(--b100);border-radius:6px;padding:3px 10px}
+.tac-body{font-size:15px;color:#374151;line-height:1.6;margin-bottom:8px}
+.tac-result{display:inline-block;font-size:12px;font-weight:700;border-radius:8px;padding:3px 12px}
+.tac-result.neg{background:#FEE2E2;color:var(--red)}
+.tac-result.pos{background:#DCFCE7;color:var(--green)}
+.tac-result.pend{background:#FEF3C7;color:var(--amber)}
+.tac-impact{font-size:12px;color:var(--gray);margin-top:6px;background:var(--b50);border-radius:8px;padding:6px 12px;display:inline-block}
+.tac-summary{background:linear-gradient(135deg,var(--b900),var(--b700));color:white;border-radius:16px;padding:20px 24px;margin-top:16px}
+.tac-summary h3{font-size:17px;font-weight:800;color:#93C5FD;margin-bottom:10px}
+.tac-summary p{font-size:13.5px;opacity:.88;line-height:1.6}
+
+
+/* ── Cronología visual phases ── */
+.crono-phase{border-radius:18px;padding:18px 22px;margin:22px 0 10px;display:flex;align-items:center;gap:16px;position:relative}
+.crono-phase.ph-pre{background:linear-gradient(135deg,#FEF3C7,#FFFBEB);border:2px solid #FCD34D}
+.crono-phase.ph-1{background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:2px solid var(--b200)}
+.crono-phase.ph-2{background:linear-gradient(135deg,#F0FFF4,#DCFCE7);border:2px solid #86EFAC}
+.crono-phase.ph-cas{background:linear-gradient(135deg,var(--b50),#DBEAFE);border:2px solid var(--b400)}
+.crono-phase.ph-now{background:linear-gradient(135deg,#FFFBEB,#FEF9C3);border:2.5px dashed var(--gold)}
+.cp-icon{font-size:52px;flex-shrink:0;line-height:1}
+.cp-body{}
+.cp-title{font-family:'Montserrat',sans-serif;font-size:17px;font-weight:900;margin-bottom:3px}
+.crono-phase.ph-pre .cp-title{color:var(--amber)}
+.crono-phase.ph-1 .cp-title{color:var(--b700)}
+.crono-phase.ph-2 .cp-title{color:var(--green)}
+.crono-phase.ph-cas .cp-title{color:var(--b500)}
+.crono-phase.ph-now .cp-title{color:var(--gold)}
+.cp-sub{font-size:13px;color:var(--gray);font-weight:600}
+.cp-badge{font-size:11px;font-weight:800;border-radius:20px;padding:3px 12px;margin-top:5px;display:inline-block}
+.crono-phase.ph-pre .cp-badge{background:#FEF3C7;color:var(--amber)}
+.crono-phase.ph-1 .cp-badge{background:var(--b100);color:var(--b700)}
+.crono-phase.ph-2 .cp-badge{background:#DCFCE7;color:var(--green)}
+.crono-phase.ph-cas .cp-badge{background:var(--b100);color:var(--b700)}
+.crono-phase.ph-now .cp-badge{background:#FEF3C7;color:var(--amber)}
+
+</style>
+</head>
+<body>
+
+<!-- ══════════ COVER ══════════ -->
+<div class="cover">
+  <div class="cover-badge">📋 Informe para los demandantes · Mayo 2026</div>
+  <h1>Proyecto <span>Mercedes 57</span><br>Su caso en palabras simples</h1>
+  <p>Todo lo que necesita saber sobre el proceso judicial, en lenguaje claro y sencillo.</p>
+  <div class="cover-stats">
+    <div class="cs"><div class="cs-n">16</div><div class="cs-l">Familias demandantes</div></div>
+    <div class="cs"><div class="cs-n">✅ ×2</div><div class="cs-l">Victorias judiciales</div></div>
+    <div class="cs"><div class="cs-n">$2.134 M</div><div class="cs-l">Condena 2ª inst.</div></div>
+    <div class="cs"><div class="cs-n">$3.586 M</div><div class="cs-l">Proyectado ago. 2026</div></div>
+    <div class="cs"><div class="cs-n">✅ Admitida</div><div class="cs-l">Casación Corte Suprema</div></div>
+    <div class="cs"><div class="cs-n">38</div><div class="cs-l">Actuaciones apoderado</div></div>
+  </div>
+</div>
+
+<!-- ══════════ TAB BAR ══════════ -->
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('historia',this)"><span class="tab-icon">📖</span>La Historia</button>
+    <button class="tab-btn" onclick="switchTab('cronologia',this)"><span class="tab-icon">🗺️</span>Cronología</button>
+    <button class="tab-btn" onclick="switchTab('proceso',this)"><span class="tab-icon">⚙️</span>Etapas del Proceso</button>
+    <button class="tab-btn" onclick="switchTab('actuaciones',this)"><span class="tab-icon">⚡</span>Actuaciones</button>
+    <button class="tab-btn" onclick="switchTab('escenarios',this)"><span class="tab-icon">🔮</span>¿Qué Viene?</button>
+    <button class="tab-btn" onclick="switchTab('cifras',this)"><span class="tab-icon">💰</span>Las Cifras</button>
+    <button class="tab-btn" onclick="switchTab('tacticas',this)"><span class="tab-icon">🚨</span>Tácticas Dilatorias</button>
+    <button class="tab-btn" onclick="switchTab('preguntas',this)"><span class="tab-icon">❓</span>Preguntas</button>
+  </div>
+</div>
+
+<!-- ══════════ TAB PANELS ══════════ -->
+<div class="tab-content">
+
+  <!-- ──── 1. LA HISTORIA ──── -->
+  <div class="tab-panel active" id="panel-historia">
+    <div class="section-label">📖 La historia completa</div>
+    <div class="panel-title">¿Qué pasó con <em>su dinero</em>?</div>
+    <p class="panel-lead">Le explicamos paso a paso lo que ocurrió, desde el comienzo hasta hoy.</p>
+    <div class="story-grid">
+      <div class="sc-card"><span class="sc-icon">🏠</span><div class="sc-num">Paso 1 · 2016–2017</div><div class="sc-title">Ustedes invirtieron con confianza</div><div class="sc-text">Cada familia firmó un contrato y entregó su dinero a <strong>Acción Fiduciaria S.A.</strong> — empresa vigilada por el gobierno — para que lo guardara hasta que el apartamento en Palmira estuviera listo.</div></div>
+      <div class="sc-card bad"><span class="sc-icon">⚠️</span><div class="sc-num">Paso 2 · 2018 — hoy</div><div class="sc-title">La constructora y la fiduciaria fallaron</div><div class="sc-text">El banco suspendió los préstamos. Las torres nunca se terminaron. <strong>La fiduciaria no devolvió el dinero ni avisó.</strong> Un empleado de la fiduciaria también robó dinero del fideicomiso. El proyecto sigue sin ejecutarse a la fecha.</div></div>
+      <div class="sc-card bad"><span class="sc-icon">😤</span><div class="sc-num">Paso 3 · 2022</div><div class="sc-title">Pedimos la devolución: nos ignoraron</div><div class="sc-text">Enviamos cartas, peticiones y tutelas. <strong>No respondieron.</strong> No quedó más remedio que acudir a la justicia.</div></div>
+      <div class="sc-card good"><span class="sc-icon">⚖️</span><div class="sc-num">Paso 4 · Ago. 2022</div><div class="sc-title">Demandamos ante la Superfinanciera</div><div class="sc-text">El 24 de agosto de 2022 presentamos la demanda ante la Superintendencia Financiera de Colombia — el juez especializado en problemas con empresas financieras.</div></div>
+      <div class="sc-card good"><span class="sc-icon">🏆</span><div class="sc-num">Paso 5 · Jun. 2024</div><div class="sc-title">¡Primera victoria!</div><div class="sc-text">El 24 de junio de 2024 el juez declaró que <strong>Acción Fiduciaria es responsable y debe pagar</strong> el dinero de las 16 familias, actualizado con la inflación.</div></div>
+      <div class="sc-card good"><span class="sc-icon">🏆🏆</span><div class="sc-num">Paso 6 · Dic. 2024</div><div class="sc-title">¡Segunda victoria! El Tribunal confirmó</div><div class="sc-text">La fiduciaria apeló. El 9 de diciembre de 2024 el Tribunal Superior de Bogotá <strong>confirmó: debe pagar $2.134 millones</strong> a las 16 familias.</div></div>
+      <div class="sc-card now"><span class="sc-icon">🏛️</span><div class="sc-num">Paso 7 · Hoy · Mayo 2026</div><div class="sc-title">Corte Suprema admitió el recurso de casación</div><div class="sc-text">La Corte <strong>admitió el recurso de casación.</strong> Acción Fiduciaria tiene 30 días para presentar sus argumentos. Nosotros responderemos. El dinero sigue <strong>bloqueado y protegido.</strong></div></div>
+      <div class="sc-card good"><span class="sc-icon">🔒</span><div class="sc-num">Garantía · Sep. 2025</div><div class="sc-title">Su dinero está garantizado</div><div class="sc-text">Para continuar el recurso, la fiduciaria tuvo que <strong>bloquear $2.441 millones a nombre de ustedes</strong> en DECEVAL. Ese dinero no puede tocarse sin autorización de ustedes o del juez.</div></div>
+    </div>
+    <div class="info-box blue" style="margin-top:16px">
+      💡 Para más detalles sobre las fechas exactas de cada evento, vaya a la pestaña <strong>🗺️ Cronología</strong>. Para saber cuánto le corresponde a cada uno, vaya a <strong>💰 Las Cifras</strong>.
+    </div>
+  </div>
+
+  <!-- ──── 2. CRONOLOGÍA ──── -->
+  <div class="tab-panel" id="panel-cronologia">
+    <div class="section-label">🗺️ Cronología completa</div>
+    <div class="panel-title">Todo lo que ha pasado, <em>fecha por fecha</em></div>
+    <p class="panel-lead">Cada evento con su fecha y duración. Tarjetas <span style="color:var(--red);font-weight:700">rojas</span> = tácticas de la demandada. Tarjetas <span style="color:var(--b500);font-weight:700">azules</span> = avances. <span style="color:var(--gold);font-weight:700">Doradas</span> = etapa actual.</p>
+    <div class="vtl">
+<div class="crono-phase ph-pre">
+  <div class="cp-icon">🏗️</div>
+  <div class="cp-body">
+    <div class="cp-title">Antes del proceso — El proyecto colapsa y nunca se termina</div>
+    <div class="cp-sub">2016 – Julio 2022</div>
+    <div class="cp-badge">Las familias invierten · La fiduciaria falla · El proyecto nunca se termina · Se agota la vía amistosa</div>
+  </div>
+</div>
+      <div class="vtl-item"><div class="vtl-dot done">🏠</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">2016–2017</span><span class="vtl-dur ok">Inicio</span></div><div class="vtl-title">Aportes al proyecto Mercedes 57</div><div class="vtl-body">Las 16 familias firman contratos de encargo fiduciario y depositan entre $52M y $350M cada una con Acción Fiduciaria S.A. para adquirir apartamento en Palmira.</div></div></div>
+      <div class="vtl-item"><div class="vtl-dot tact">⚠️</div><div class="vtl-card tact"><div class="vtl-head"><span class="vtl-date">2018 — presente</span><span class="vtl-dur slow">8+ años sin solución</span></div><div class="vtl-title">El proyecto colapsa y nunca se retoma — Sin información para los inversionistas</div><div class="vtl-body">Banco de Bogotá suspende desembolsos. Las torres quedan paralizadas y nunca se terminan. Un empleado roba aprox. $700M del fideicomiso. La fiduciaria no informa a los inversionistas ni devuelve el dinero. <strong>A inicios de 2026 el proyecto continúa sin ejecutarse.</strong></div><span class="vtl-tag tag-r">Incumplimiento grave</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">📋</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">Ene.–May. 2022</span><span class="vtl-dur ok">5 meses de gestión</span></div><div class="vtl-title">9 actuaciones previas a la demanda</div><div class="vtl-body">Solicitud desistimiento (ene.) · Derecho de petición (feb.) · Petición a Gerencia (may.) · Desacato tutela (may.) · Impulso Superfinanciera (may.) · Tutela contra Gerencia (may.). Gerencia reconoce el 5 jun. que el presupuesto fue insuficiente desde el inicio.</div><span class="vtl-tag tag-b">9 actuaciones prelitigiosas</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">📄</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">Jun. 2022</span></div><div class="vtl-title">Primera demanda — inadmitida, luego subsanada</div><div class="vtl-body">Rad. 2022137095. Auto de inadmisión el 18 jun. 2022 por aclarar integración de 4 inversionistas con cesiones. El apoderado subsana de inmediato.</div><span class="vtl-tag tag-a">Subsanación</span></div></div>
+      <div class="crono-phase ph-1">
+  <div class="cp-icon">⚖️</div>
+  <div class="cp-body">
+    <div class="cp-title">Primera instancia — Superintendencia Financiera</div>
+    <div class="cp-sub">Agosto 2022 – Junio 2024</div>
+    <div class="cp-badge">22 meses · 13 actuaciones del apoderado · ✅ Victoria</div>
+  </div>
+</div>
+      <div class="vtl-item"><div class="vtl-dot done">📄</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">24 ago. 2022</span></div><div class="vtl-title">Demanda definitiva radicada — Rad. 2022154055</div><div class="vtl-body">Acción de protección al consumidor financiero debidamente admitida el 14 sep. 2022. Este es el proceso que dio lugar a las dos victorias.</div><span class="vtl-tag tag-b">Inicio proceso principal</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot tact">⚡</div><div class="vtl-card tact"><div class="vtl-head"><span class="vtl-date">23 sep.–9 nov. 2022</span><span class="vtl-dur slow">47 días de demora</span></div><div class="vtl-title">Acción Fiduciaria impugna la admisión — Táctica 1</div><div class="vtl-body">Recurso de reposición dentro del término legal. Argumentó prescripción, falta de legitimación, inexistencia del vínculo. <strong>Negado totalmente.</strong></div><span class="vtl-tag tag-r">Táctica dilatoria — fracasó</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">✅</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">9 nov. 2022</span><span class="vtl-dur ok">Victoria procesal</span></div><div class="vtl-title">✦ Superfinanciera RECHAZA todos los argumentos de Acción Fiduciaria</div><div class="vtl-body">El coordinador Jorge Humberto Tinjacá García emite el auto que resuelve el recurso de reposición (Rad. 2022154055-017). Rechaza los tres argumentos de Acción Fiduciaria: (1) supuestos defectos de forma de la demanda, (2) insuficiencia del juramento estimatorio, y (3) unicidad de la dirección de notificaciones. El apoderado demandante no necesitó presentar escrito de respuesta — el auto fue resuelto de oficio. Resuelve: <strong>NO REPONER</strong> el auto admisorio.</div><span class="vtl-tag tag-g">✓ Fallo favorable — recurso negado</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">📝</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">Dic. 2022–Jun. 2023</span><span class="vtl-dur slow">7 meses</span></div><div class="vtl-title">Contestación + 9 excepciones + doble llamamiento en garantía</div><div class="vtl-body">Acción Fiduciaria vincula a Gerencia y AIG Seguros. Presenta su contestación dentro del término legal (dic. 2022) con 9 excepciones de mérito. El apoderado presenta pronunciamiento rebatiendo las excepciones el 21 dic. 2022.</div></div></div>
+      <div class="vtl-item"><div class="vtl-dot tact">⚡</div><div class="vtl-card tact"><div class="vtl-head"><span class="vtl-date">17 feb. 2023</span><span class="vtl-dur slow">Táctica nueva</span></div><div class="vtl-title">Recurso sobre el auto del llamamiento en garantía — Táctica nueva</div><div class="vtl-body">Acción Fiduciaria presentó recurso de reposición en subsidio de apelación contra el auto del 13 de febrero de 2023, argumentando que el término para notificar al llamado debía ser de 6 meses y no el fijado en el auto. Nueva táctica de dilación en plena fase de llamamientos.</div><span class="vtl-tag tag-r">Táctica sobre el llamamiento</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot tact">⚡</div><div class="vtl-card tact"><div class="vtl-head"><span class="vtl-date">22 ago. 2023</span><span class="vtl-dur slow">Táctica sobre audiencia</span></div><div class="vtl-title">Solicitud de adición al auto que fijó la audiencia — Táctica nueva</div><div class="vtl-body">Acción Fiduciaria solicitó adición y/o aclaración del auto del 15 de agosto de 2023 que fijó fecha de audiencia y decretó pruebas, alegando omisión del interrogatorio del llamado en garantía. Táctica para retrasar el inicio de las audiencias.</div><span class="vtl-tag tag-r">Táctica sobre la audiencia</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">🎙️</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">Ago. 2023</span><span class="vtl-dur ok">Audiencia 1 de 4</span></div><div class="vtl-title">Audiencia de conciliación</div><div class="vtl-body">Primera audiencia del proceso. El juez invita a las partes a llegar a un acuerdo. Acción Fiduciaria no concilió. El apoderado demandante asiste y defiende los intereses de los 16 demandantes.</div><span class="vtl-tag tag-b">No conciliación</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">🎙️</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">2023</span><span class="vtl-dur ok">Audiencia 2 de 4</span></div><div class="vtl-title">Audiencia de práctica de pruebas #1</div><div class="vtl-body">Se practican las pruebas documentales decretadas. El apoderado contrainterroga y contradice las pruebas presentadas por Acción Fiduciaria y los llamados en garantía.</div></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">🎙️</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">2023–2024</span><span class="vtl-dur ok">Audiencia 3 de 4</span></div><div class="vtl-title">Audiencia de práctica de pruebas #2</div><div class="vtl-body">Continuación probatoria. El juez interroga a los representantes legales de la fiduciaria y la constructora, y a los inversionistas demandantes. Las pruebas documentales resultan determinantes.</div></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">🎙️</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">2024</span><span class="vtl-dur ok">Audiencia 4 de 4</span></div><div class="vtl-title">Audiencia de alegatos de conclusión</div><div class="vtl-body">Cada parte expone su argumento final. El apoderado demandante presenta el resumen probatorio y el fundamento jurídico para la condena. Semanas después el juez emite la sentencia.</div><span class="vtl-tag tag-g">→ Sentencia favorable jun. 2024</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">🏆</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">24 jun. 2024</span><span class="vtl-dur ok">22 meses total</span></div><div class="vtl-title">PRIMERA VICTORIA — Sentencia condenatoria</div><div class="vtl-body">Acción Fiduciaria declarada responsable. Condena aprox. $1.938M actualizados. 9 excepciones rechazadas. 8 días para pagar desde ejecutoria.</div><span class="vtl-tag tag-g">✓ GANAMOS la primera instancia</span></div></div>
+      <div class="crono-phase ph-2">
+  <div class="cp-icon">🏛️</div>
+  <div class="cp-body">
+    <div class="cp-title">Segunda instancia — Tribunal Superior de Bogotá</div>
+    <div class="cp-sub">Julio – Diciembre 2024</div>
+    <div class="cp-badge">5.5 meses · $2.134 M confirmados · ✅ Segunda victoria</div>
+  </div>
+</div>
+      <div class="vtl-item"><div class="vtl-dot done">📋</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">28 jun.–18 oct. 2024</span></div><div class="vtl-title">Actuaciones del apoderado sobre la apelación</div><div class="vtl-body">28 jun.: recurso de reposición para ajustes (luego desistido el 3 jul.) · 8 jul.: pronunciamiento sobre apelación ante Superfinanciera · 18 oct.: segundo pronunciamiento sobre apelación.</div><span class="vtl-tag tag-b">Defensa activa</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">🏆</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">9 dic. 2024</span><span class="vtl-dur ok">5.5 meses</span></div><div class="vtl-title">SEGUNDA VICTORIA — Tribunal confirma la condena</div><div class="vtl-body">Condena actualizada a $2.134M (IPC noviembre 2024). Costas $3.9M. 8 días para pagar desde ejecutoria.</div><span class="vtl-tag tag-g">✓ GANAMOS la segunda instancia</span></div></div>
+      <div class="crono-phase ph-cas">
+  <div class="cp-icon">🏛️🏛️</div>
+  <div class="cp-body">
+    <div class="cp-title">Casación — Corte Suprema de Justicia</div>
+    <div class="cp-sub">Diciembre 2024 – presente</div>
+    <div class="cp-badge">Último recurso disponible · Recurso admitido · $2.441 M bloqueados</div>
+  </div>
+</div>
+      <div class="vtl-item"><div class="vtl-dot tact">⚡</div><div class="vtl-card tact"><div class="vtl-head"><span class="vtl-date">13 dic. 2024–17 feb. 2025</span><span class="vtl-dur slow">67 días</span></div><div class="vtl-title">Acción Fiduciaria solicita "aclaración" de la sentencia — Táctica</div><div class="vtl-body">4 días después de perder, solicita aclaración para ganar tiempo. Resuelta el 17 feb. 2025: no hay nada que aclarar.</div><span class="vtl-tag tag-r">+67 días de espera</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot tact">⚡</div><div class="vtl-card tact"><div class="vtl-head"><span class="vtl-date">Feb.–Ago. 2025</span><span class="vtl-dur slow">6 meses</span></div><div class="vtl-title">Casación + triple maniobra sobre la caución de $2.441M</div><div class="vtl-body">25 feb.: recurso de casación concedido el 28 feb. 10 abr.: auto fija caución de $2.441M. Acción Fiduciaria impugna el monto, el formato y pide aclaración — todo rechazado.</div><span class="vtl-tag tag-r">3 recursos rechazados</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">🔒</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">Jun.–Sep. 2025</span></div><div class="vtl-title">$2.441 millones bloqueados a nombre de las 16 familias en DECEVAL</div><div class="vtl-body">Certificado DECEVAL: ISIN COL17CT03771. Desde septiembre 2025 la ejecución de la sentencia queda suspendida mientras la Corte decide.</div><span class="vtl-tag tag-g">✓ Dinero protegido</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">📦</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">Sep. 2025–Mar. 2026</span></div><div class="vtl-title">Expediente a la Corte Suprema — se completa el digital</div><div class="vtl-body">2 sep. 2025: expediente enviado a la Corte. Mag. Ponente: Dr. Juan Carlos Sosa Londoño. 11 feb. 2026: auto solicita archivos faltantes. 11 mar. 2026: Superfinanciera los envía.</div></div></div>
+      <div class="vtl-item"><div class="vtl-dot done">✅</div><div class="vtl-card done"><div class="vtl-head"><span class="vtl-date">May. 2026</span><span class="vtl-dur ok">Hito clave</span></div><div class="vtl-title">✦ HITO RECIENTE — La Corte Suprema ADMITE el recurso de casación</div><div class="vtl-body">La Sala de Casación Civil, con ponencia del Dr. Sosa Londoño, admite el recurso. Acción Fiduciaria tiene <strong>30 días comunes</strong> para presentar la demanda de casación.</div><span class="vtl-tag tag-b">Recurso admitido</span></div></div>
+      <div class="crono-phase ph-now">
+  <div class="cp-icon">📍</div>
+  <div class="cp-body">
+    <div class="cp-title">Estamos aquí — Mayo 2026</div>
+    <div class="cp-sub">Demanda de casación en plazo</div>
+    <div class="cp-badge">⏳ Acción Fiduciaria tiene 30 días para presentar la demanda de casación</div>
+  </div>
+</div>
+      <div class="vtl-item"><div class="vtl-dot curr">⏳</div><div class="vtl-card curr"><div class="vtl-head"><span class="vtl-date">Hoy — Próximas semanas</span><span class="vtl-dur slow">En trámite</span></div><div class="vtl-title">Demanda de casación en plazo — ETAPA ACTUAL</div><div class="vtl-body">Acción Fiduciaria tiene 30 días para exponer sus argumentos. Si no los presenta en tiempo y forma, el recurso se declara <strong>desierto</strong> y la condena queda en firme de inmediato.</div><span class="vtl-tag tag-a">⏳ Plazo corriendo</span></div></div>
+      <div class="vtl-item"><div class="vtl-dot pend">💰</div><div class="vtl-card pend"><div class="vtl-head"><span class="vtl-date">Próximamente</span></div><div class="vtl-title">Pago final a las 16 familias</div><div class="vtl-body">Cuando la Corte decida (o el recurso quede desierto), Acción Fiduciaria debe pagar. Si no lo hace, el dinero de DECEVAL se ejecuta directamente.</div><span class="vtl-tag tag-p">Pendiente</span></div></div>
+    </div>
+  </div>
+
+  <!-- ──── 3. ETAPAS DEL PROCESO ──── -->
+  <div class="tab-panel" id="panel-proceso">
+    <div class="section-label">⚙️ Etapas del proceso</div>
+    <div class="panel-title">Los pasos legales <em>y cuánto toman</em></div>
+    <p class="panel-lead">Para cada etapa: el tiempo que manda la ley, el tiempo promedio real en Colombia, y cuánto tardó en <strong>este proceso</strong>.</p>
+    <div class="times-legend">
+      <div class="tl-box legal"><div class="tl-box-lbl">⚖️ Tiempo legal</div><div class="tl-box-desc">Lo que ordena la ley como plazo máximo o mínimo</div></div>
+      <div class="tl-box avg"><div class="tl-box-lbl">📊 Promedio real</div><div class="tl-box-desc">Lo que tarda en promedio en los juzgados de Colombia</div></div>
+      <div class="tl-box real"><div class="tl-box-lbl">🟢 Nuestro proceso</div><div class="tl-box-desc">Lo que tardó realmente en este caso</div></div>
+    </div>
+    <div class="cgp-flow">
+      <div class="cgp-divider">⚖️ Primera instancia — Delegatura Superfinanciera</div>
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num">1</div><div class="cgp-title">Presentar la demanda</div></div><div class="cgp-art">Art. 82–84 CGP · Art. 57–58 Ley 1480</div><div class="cgp-desc">Se redacta y radica la demanda con hechos, pruebas y pretensiones. Hubo una primera demanda inadmitida (jun. 2022) que se subsanó antes de la admisión definitiva.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">Sin límite fijo</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio</div><div class="tg-val">Variable</div></div><div class="tg-cell real ok"><div class="tg-lbl">✓ Nuestro caso</div><div class="tg-val">Ago. 2022</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> Es el escrito formal con el que el abogado inicia el proceso. Contiene los nombres de los demandantes, los hechos del caso, las pruebas y lo que se le pide al juez. En este proceso fue presentada el 24 de agosto de 2022 ante la Superintendencia Financiera.<br><br>
+<strong>¿Por qué importa?</strong> Sin demanda no hay proceso. Esta actuación fue el resultado de años de gestiones previas fallidas.</div>
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num">2</div><div class="cgp-title">El juez admite la demanda</div></div><div class="cgp-art">Art. 90 CGP</div><div class="cgp-desc">El juez revisa si la demanda cumple los requisitos. Si los cumple la admite; si no, la devuelve para corregir. En este proceso hubo una primera inadmisión (jun. 2022) que se subsanó antes de la admisión definitiva.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">10 días hábiles</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">3 a 8 semanas</div></div><div class="tg-cell real ok"><div class="tg-lbl">✓ Nuestro caso</div><div class="tg-val">21 días — Aceptable</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> El juez revisa que la demanda cumpla todos los requisitos formales (identificación de las partes, hechos, pretensiones, pruebas). Si los cumple, la "admite" y el proceso arranca oficialmente.<br><br>
+<strong>En este proceso:</strong> El auto admisorio fue del 14 de septiembre de 2022, 21 días después de presentar la demanda. Hubo una demanda previa que fue inadmitida en junio de 2022 por un requisito menor de forma, que fue corregido de inmediato.</div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num">3</div><div class="cgp-title">Recurso de reposición al auto admisorio</div></div><div class="cgp-art">Art. 318 CGP</div><div class="cgp-desc">La demandada puede pedir en 3 días que el juez reconsidere. <strong>Importante:</strong> mientras este recurso esté pendiente, el término para contestar la demanda NO corre — solo empieza una vez el recurso quede resuelto. Acción Fiduciaria usó esto para ganar tiempo extra.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">3 días h. para interponer; sin plazo para resolver</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">30 a 90 días en resolverse</div></div><div class="tg-cell real ok"><div class="tg-lbl">✓ Nuestro caso</div><div class="tg-val">47 días — Dentro del promedio</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> La empresa demandada tiene 3 días hábiles para pedirle al mismo juez que revoque la admisión. Es como decirle al juez: "cometiste un error, la demanda no debía admitirse".<br><br>
+<strong>En este proceso:</strong> Acción Fiduciaria lo presentó el 23 de septiembre de 2022 argumentando que la demanda tenía defectos de forma. El juez coordinador Jorge Humberto Tinjacá García rechazó todos los argumentos el 9 de noviembre de 2022, señalando que la demanda cumplía plenamente los requisitos. La parte demandante no necesitó ni responder: el auto fue tan claro que se resolvió solo.</div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num">4</div><div class="cgp-title">Notificación a la demandada</div></div><div class="cgp-art">Art. 291–296 CGP · Art. 8 Ley 2213/2022</div><div class="cgp-desc">Se notifica por correo electrónico. Desde la notificación comienzan los 20 días hábiles para contestar. En Colombia la gestión de notificaciones suele demorarse.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">Inmediata tras admisión</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">2 a 6 semanas</div></div><div class="tg-cell real ok"><div class="tg-lbl">✓ Nuestro caso</div><div class="tg-val">aprox. 30 días</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> El juez le comunica formalmente a la empresa demandada que existe un proceso en su contra. Hoy en Colombia esto se hace por correo electrónico.<br><br>
+<strong>¿Por qué importa?</strong> Desde que la empresa queda notificada, empieza a correr el plazo para que conteste la demanda. Sin notificación el proceso no puede continuar.</div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num">5</div><div class="cgp-title">Contestación de la demanda y excepciones de mérito</div></div><div class="cgp-art">Art. 96–100 CGP</div><div class="cgp-desc">El término de 20 días hábiles para contestar solo empezó a correr el <strong>10 de noviembre de 2022</strong>, día siguiente a la notificación por estado del auto que resolvió el recurso de reposición. Esto porque el recurso de reposición suspende los efectos del auto admisorio mientras está pendiente — incluido el término para contestar. Acción Fiduciaria presentó su contestación en diciembre de 2022, <strong>dentro del término legal</strong>, con 9 excepciones de mérito, todas rechazadas en sentencia.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">20 días hábiles desde firmeza del auto que resuelve la reposición</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">1 a 3 meses</div></div><div class="tg-cell real ok"><div class="tg-lbl">✓ Nuestro caso</div><div class="tg-val">Dic. 2022 — Dentro del término</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> La empresa demandada tenía 20 días hábiles para responder formalmente a la demanda, presentar sus argumentos y proponer excepciones (razones por las que cree que no debe pagar).<br><br>
+<strong>En este proceso:</strong> El término para contestar solo empezó a correr el 10 de noviembre de 2022, una vez notificado por estado el auto que resolvió el recurso de reposición. La contestación llegó en diciembre de 2022, dentro de los 20 días hábiles legales, pero cargada de 9 excepciones de mérito — todas rechazadas en la sentencia de primera instancia.</div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num">6</div><div class="cgp-title">Llamamientos en garantía</div></div><div class="cgp-art">Art. 64–66 CGP</div><div class="cgp-desc">Acción Fiduciaria vinculó a la constructora (Gerencia) y a su aseguradora (AIG). Cada llamado debe ser notificado, tiene plazo para contestar y vincularse. En Colombia este trámite genera meses de demora adicional.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">Dentro del término de contestación</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">3 a 8 meses para completar el proceso</div></div><div class="tg-cell real ok"><div class="tg-lbl">✓ Nuestro caso</div><div class="tg-val">5 meses — Ene. a Jun. 2023</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> La demandada puede "llamar" a un tercero al proceso para que asuma parte de la responsabilidad. Acción Fiduciaria llamó a la constructora (Gerencia y Promoción) y a su aseguradora (AIG Seguros).<br><br>
+<strong>En este proceso:</strong> Cada llamado debía ser notificado, vinculado y tenía derecho a contestar. Este trámite tomó meses adicionales. El llamamiento fue <strong>rechazado en la sentencia</strong>: el juez no encontró mérito para trasladar la responsabilidad a los llamados.</div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num">7</div><div class="cgp-title">Audiencias: el juez escucha a todos</div></div><div class="cgp-art">Art. 372 y 373 CGP — Audiencia inicial y de instrucción</div><div class="cgp-desc">El juez fija fechas de audiencia, interroga representantes y practica pruebas. En Colombia la congestión judicial causa esperas de meses solo para obtener la fecha de audiencia.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">Sentencia: 10 días h. tras audiencia</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">12 a 24 meses (incluyendo espera para fechas)</div></div><div class="tg-cell real ok"><div class="tg-lbl">✓ Nuestro caso</div><div class="tg-val">aprox. 12 meses — Dentro del promedio</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> El juez cita a todas las partes para dos audiencias: la inicial (donde se fija el litigio y se decretan las pruebas) y la de instrucción y juzgamiento (donde se practican las pruebas, se interroga a los representantes y al final el juez decide).<br><br>
+<strong>En este proceso:</strong> La audiencia fue fijada el 15 de agosto de 2023. Durante las audiencias el juez interrogó a los representantes legales de la fiduciaria, la constructora y a los inversionistas. Las pruebas documentales fueron determinantes para acreditar el incumplimiento.</div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num done2">8</div><div class="cgp-title">Sentencia 1ª instancia ✅</div></div><div class="cgp-art">Art. 373 num. 5 CGP · Art. 12 Ley 2213/2022</div><div class="cgp-desc">Sentencia escrita. <strong>Acción Fiduciaria declarada responsable. Condena aprox. $1.938M.</strong> 9 excepciones y llamamiento rechazados. Total primera instancia: 22 meses.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">10 días h. desde audiencia</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">18 a 36 meses (primera instancia completa)</div></div><div class="tg-cell real ok"><div class="tg-lbl">✓ Nuestro caso</div><div class="tg-val">24 jun. 2024 · Total: 22 meses</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> Es la primera decisión de fondo del juez sobre quién tiene razón. Se emite por escrito y establece: (1) si la empresa es responsable, (2) cuánto debe pagar, y (3) en qué plazo.<br><br>
+<strong>En este proceso:</strong> El 24 de junio de 2024 el juez declaró responsable a Acción Fiduciaria y la condenó a pagar aprox. $1.938M. <strong>Ganamos la primera instancia.</strong> La empresa tenía 8 días para pagar desde que la sentencia quedara en firme — no lo hizo.</div>
+
+      <div class="cgp-divider">🏛️ Segunda instancia — Tribunal Superior de Bogotá</div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num">9</div><div class="cgp-title">Recurso de apelación + sustentación</div></div><div class="cgp-art">Art. 320–327 CGP · Art. 12 Ley 2213/2022</div><div class="cgp-desc">3 días hábiles para apelar, 5 días para sustentar. El apoderado tiene derecho a responder. La fiduciaria presentó 8 argumentos — todos rechazados en la sentencia de segunda instancia.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">3 días h. interponer; 5 días sustentar</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">Dentro del término</div></div><div class="tg-cell real ok"><div class="tg-lbl">✓ Nuestro caso</div><div class="tg-val">Dentro del término</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> La parte que pierde puede pedirle a un juez superior que revise la decisión. En Colombia, ese juez superior es el Tribunal Superior del Distrito Judicial. La demandada tiene 3 días para apelar y 5 días para explicar sus argumentos por escrito.<br><br>
+<strong>En este proceso:</strong> Acción Fiduciaria apeló en julio de 2024 y sustentó el recurso con 8 argumentos el 28 de octubre de 2024. El apoderado respondió el 5 de noviembre de 2024. Todos los argumentos de la fiduciaria fueron rechazados.</div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num done2">10</div><div class="cgp-title">Sentencia 2ª instancia ✅</div></div><div class="cgp-art">Art. 328–331 CGP</div><div class="cgp-desc"><strong>Tribunal confirma totalmente. Actualiza condena a $2.134M</strong> (IPC noviembre 2024). Costas $3.9M a cargo de la fiduciaria. En Colombia los tribunales tienen congestión significativa.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">Sin plazo perentorio</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">5 a 12 meses</div></div><div class="tg-cell real ok"><div class="tg-lbl">✓ Nuestro caso</div><div class="tg-val">5.5 meses — Relativamente rápido</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> El Tribunal Superior revisa todo el caso y puede confirmar la decisión, cambiarla o revocarla. La sentencia de segunda instancia es, en principio, definitiva — salvo el recurso extraordinario de casación.<br><br>
+<strong>En este proceso:</strong> El 9 de diciembre de 2024 el Tribunal confirmó la condena y actualizó el monto a <strong>$2.134 millones</strong>. También condenó a la fiduciaria a pagar las costas del proceso ($3.9M). <strong>Ganamos la segunda instancia.</strong></div>
+
+      <div class="cgp-divider">🏛️ Casación — Corte Suprema de Justicia</div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num">11</div><div class="cgp-title">Caución de casación (garantía económica)</div></div><div class="cgp-art">Art. 341 inc. 4 · Art. 603 CGP</div><div class="cgp-desc">La ley exige depositar $2.441M como garantía. La fiduciaria tardó 5.5 meses gracias a 3 recursos sobre formato y monto — muy por encima del promedio real.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">10 días h. para constituir</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">1 a 3 meses</div></div><div class="tg-cell real slow"><div class="tg-lbl">⏱️ Nuestro caso</div><div class="tg-val">5.5 meses — Tácticas dilatorias</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> Para poder presentar el recurso de casación y suspender la ejecución de la sentencia, la ley exige que la empresa demandada deposite una garantía económica equivalente al valor de la condena. Si pierde la casación, esa garantía se usa para pagar.<br><br>
+<strong>En este proceso:</strong> El Tribunal fijó la caución en $2.441 millones. Acción Fiduciaria la constituyó en DECEVAL (un depósito de títulos valores), bloqueando ese monto a favor de las 16 familias. Esto tardó 5.5 meses por los recursos interpuestos sobre el monto y el formato.</div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num done2">12</div><div class="cgp-title">Admisibilidad del recurso ✅ — YA OCURRIÓ</div></div><div class="cgp-art">Art. 342 CGP</div><div class="cgp-desc">El Magistrado Ponente Dr. Sosa Londoño <strong>admitió el recurso de casación</strong> en mayo 2026. Tomó aprox. 8 meses — la Corte Suprema tiene alta congestión y los expedientes esperan su turno.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">Sin plazo fijo (debe ser pronto)</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">6 a 18 meses</div></div><div class="tg-cell real ok"><div class="tg-lbl">✓ Nuestro caso</div><div class="tg-val">aprox. 8 meses — Dentro del promedio</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> Una vez que el expediente llega a la Corte Suprema, el Magistrado Ponente revisa si el recurso de casación cumple los requisitos mínimos para ser estudiado de fondo: que sea el tipo de proceso que puede ser casado, que fue interpuesto a tiempo, que lo presenta quien tiene legitimidad para hacerlo.<br><br>
+<strong>En este proceso:</strong> El Magistrado Ponente Dr. Juan Carlos Sosa Londoño admitió el recurso en mayo de 2026. Tomó aprox. 8 meses desde que llegó el expediente.</div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num curr">13</div><div class="cgp-title">Demanda de casación + réplica — ETAPA ACTUAL ⏳</div></div><div class="cgp-art">Art. 343–344 CGP</div><div class="cgp-desc">Acción Fiduciaria tiene <strong>30 días comunes</strong> para presentar sus argumentos. Si no los presenta o no cumple requisitos, se declara <strong>desierta</strong> y la condena queda en firme. Nosotros tenemos <strong>15 días para responder.</strong></div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">30 días + 15 días</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">2 a 3 meses</div></div><div class="tg-cell real pend"><div class="tg-lbl">Nuestro caso</div><div class="tg-val">⏳ En curso ahora</div></div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> Una vez admitido el recurso, Acción Fiduciaria tiene 30 días para presentar por escrito los argumentos jurídicos con los que pretende demostrar que los jueces anteriores aplicaron mal la ley. Nosotros tenemos 15 días para responder y defender los fallos ganados.<br><br>
+<strong>Si no presenta la demanda de casación a tiempo o sin cumplir los requisitos:</strong> El recurso se declara "desierto" — la condena queda en firme de inmediato y se procede al cobro.</div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num">14</div><div class="cgp-title">La Corte examina la demanda de casación</div></div><div class="cgp-art">Art. 346 CGP — Admisibilidad de la demanda</div><div class="cgp-desc">Una vez vencido el término de réplica, la Sala estudia si los argumentos de Acción Fiduciaria cumplen los requisitos técnicos: causales correctamente invocadas, cargos claros y precisos, coherencia lógica. Si no los cumple, declara la demanda <strong>inadmisible</strong> — equivale a desierto: la condena queda en firme.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">Sin plazo fijo tras la réplica</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">1 a 6 meses</div></div><div class="tg-cell real pend"><div class="tg-lbl">Nuestro caso</div><div class="tg-val">Pendiente</div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> La Corte revisa si los argumentos técnicos de la demanda de casación son suficientemente claros y están correctamente formulados conforme al art. 336 CGP.<br><br>
+<strong>Si la declara inadmisible:</strong> El recurso queda desierto — mejor escenario para los demandantes — condena en firme y pago inmediato.<br><br>
+<strong>Si la admite:</strong> Procede al fallo de fondo.</div></div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num">15</div><div class="cgp-title">Recurso de insistencia (eventual)</div></div><div class="cgp-art">Art. 346 inc. 2 CGP</div><div class="cgp-desc">Solo ocurre si la Corte declara inadmisible la demanda de casación. Acción Fiduciaria tiene 5 días para solicitar por escrito que la Sala reconsidere la inadmisión. Si la Sala confirma la inadmisión, el recurso queda definitivamente desierto y la condena en firme. Esta etapa es eventual y muy breve.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">5 días para insistir</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">2 a 4 semanas</div></div><div class="tg-cell real pend"><div class="tg-lbl">Nuestro caso</div><div class="tg-val">Eventual</div></div></div>
+<button class="cgp-toggle" onclick="toggleStep(this)">▼ ¿Qué significa esto?</button>
+<div class="cgp-explain"><strong>¿Qué es esto?</strong> Si la Corte rechaza la demanda de casación por defectos técnicos, Acción Fiduciaria tiene una última oportunidad de pedir reconsideración en 5 días.<br><br>
+<strong>¿Qué probabilidad hay?</strong> Depende de la calidad técnica con que redacten la demanda. Si los argumentos son deficientes, la inadmisión es posible y el proceso terminaría aquí con la condena en firme.<br><br>
+<strong>Si la Sala confirma la inadmisión:</strong> Condena en firme → pago. No hay más recursos disponibles.</div></div>
+
+      <div class="cgp-card"><div class="cgp-hdr"><div class="cgp-num">16</div><div class="cgp-title">Fallo de casación</div></div><div class="cgp-art">Art. 344–349 CGP</div><div class="cgp-desc">La Corte decide: "no casa" (confirma y se paga) o "casa" (muy poco probable). Si la demanda queda desierta, la condena queda firme antes de llegar aquí. La Corte Suprema tiene alta carga laboral.</div><div class="times-grid"><div class="tg-cell legal"><div class="tg-lbl">⚖️ Legal</div><div class="tg-val">Sin plazo fijo</div></div><div class="tg-cell avg"><div class="tg-lbl">📊 Promedio real</div><div class="tg-val">12 a 36 meses</div></div><div class="tg-cell real pend"><div class="tg-lbl">Nuestro caso</div><div class="tg-val">Pendiente</div></div></div></div>
+    </div>
+  </div>
+
+  <!-- ──── 4. ACTUACIONES ──── -->
+  <div class="tab-panel" id="panel-actuaciones">
+    <div class="section-label">⚡ Trabajo del apoderado</div>
+    <div class="panel-title"><em>38 actuaciones</em> adelantadas hasta hoy</div>
+    <p class="panel-lead">Cada actuación es una gestión formal presentada ante un despacho judicial o entidad pública para defender los derechos de las 16 familias.</p>
+    <div class="act-hero">
+      <div><div class="act-num-big">38</div><div class="act-num-lbl">Actuaciones totales</div></div>
+      <div class="act-hero-body">
+        <h3>Javier Ricardo Torres Betancourt — COEM Abogados S.A.S.</h3>
+        <p>Desde enero de 2022 hasta hoy, el apoderado ha presentado escritos, memoriales, recursos, impulsos procesales, pronunciamientos y tutelas ante la Superfinanciera, el Tribunal Superior, la Corte Suprema y otras entidades. La cifra real es mayor al incluir intervenciones orales en audiencias.</p>
+        <div class="act-phases">
+          <div class="ap"><div class="ap-n">9</div><div class="ap-l">Prelitigiosas</div></div>
+          <div class="ap"><div class="ap-n">12</div><div class="ap-l">Primera instancia</div></div>
+          <div class="ap"><div class="ap-n">1</div><div class="ap-l">Segunda instancia</div></div>
+          <div class="ap"><div class="ap-n">16</div><div class="ap-l">Casación</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="act-ph-hdr">📋 Prelitigiosas — 9 actuaciones <span style="font-size:12px;color:var(--gray);font-weight:600">(antes de demandar)</span></div>
+    <div class="act-grid">
+      <div class="act-card"><div class="act-n an-pre">P1</div><div><div class="act-date">12 ene. 2022</div><div class="act-dest">→ Gerencia y Acción Fiduciaria</div><div class="act-txt">Solicitud de desistimiento del proyecto y devolución de dineros</div></div></div>
+      <div class="act-card"><div class="act-n an-pre">P2</div><div><div class="act-date">17 feb. 2022</div><div class="act-dest">→ Gerencia y Acción Fiduciaria</div><div class="act-txt">Derecho de petición de documentación completa del proyecto</div></div></div>
+      <div class="act-card"><div class="act-n an-pre">P3</div><div><div class="act-date">2 may. 2022</div><div class="act-dest">→ Gerencia y Promoción Inmobiliaria</div><div class="act-txt">Petición de informe sobre afectaciones presupuestales</div></div></div>
+      <div class="act-card"><div class="act-n an-pre">P4</div><div><div class="act-date">9 may. 2022</div><div class="act-dest">→ Juzgado 32 Penal Cali</div><div class="act-txt">Desacato de sentencia de tutela contra Acción Fiduciaria</div></div></div>
+      <div class="act-card"><div class="act-n an-pre">P5</div><div><div class="act-date">12 may. 2022</div><div class="act-dest">→ Superfinanciera</div><div class="act-txt">Memorial de impulso para adjudicación de funcionario al trámite</div></div></div>
+      <div class="act-card"><div class="act-n an-pre">P6</div><div><div class="act-date">24 may. 2022</div><div class="act-dest">→ Superfinanciera</div><div class="act-txt">Acción de tutela contra Gerencia por silencio al derecho de petición</div></div></div>
+      <div class="act-card"><div class="act-n an-pre">P7</div><div><div class="act-date">Jun. 2022</div><div class="act-dest">→ Superfinanciera (Rad. 2022137095)</div><div class="act-txt">Primera demanda + escrito de subsanación tras auto de inadmisión</div></div></div>
+      <div class="act-card"><div class="act-n an-pre">P8</div><div><div class="act-date">26 jul. 2022</div><div class="act-dest">→ Superfinanciera</div><div class="act-txt">Aclaraciones sobre 4 inversionistas con cesiones de derechos</div></div></div>
+      <div class="act-card"><div class="act-n an-pre">P9</div><div><div class="act-date">Jul. 2022</div><div class="act-dest">→ Superfinanciera</div><div class="act-txt">Recurso contra acta errónea emitida por la Secretaría</div></div></div>
+    </div>
+    <div class="act-ph-hdr">⚖️ Primera instancia — 9 actuaciones</div>
+    <div class="act-grid">
+      <div class="act-card"><div class="act-n an-1">1a</div><div><div class="act-date">24 ago. 2022</div><div class="act-dest">→ Delegatura Superfinanciera</div><div class="act-txt">Demanda principal radicada (Rad. 2022154055 / Exp. 2022-3699)</div></div></div>
+      <div class="act-card"><div class="act-n an-1">1b</div><div><div class="act-date">Oct.–nov. 2022</div><div class="act-dest">→ Superfinanciera</div><div class="act-txt"><strong>Silencio estratégico al traslado del recurso:</strong> el apoderado eligió no presentar escrito de respuesta al traslado del recurso de reposición de Acción Fiduciaria, dejando que el despacho lo resolviera de oficio — posición que resultó acertada: el auto de nov. 2022 rechazó todos los argumentos de la demandada sin necesitar respuesta del demandante.</div></div></div>
+      <div class="act-card"><div class="act-n an-1">1c</div><div><div class="act-date">21 dic. 2022</div><div class="act-dest">→ Superfinanciera</div><div class="act-txt">Pronunciamiento sobre las 9 excepciones de mérito presentadas por Acción Fiduciaria</div></div></div>
+      <div class="act-card" style="border-color:#86EFAC;background:#F0FFF4"><div class="act-n" style="background:var(--green);color:white">1d</div><div><div class="act-date">2023</div><div class="act-dest">→ Superfinanciera · Audiencia</div><div class="act-txt"><strong>Audiencia de conciliación:</strong> instancia obligatoria donde el juez invita a las partes a llegar a un acuerdo. Acción Fiduciaria no concilió.</div></div></div>
+      <div class="act-card" style="border-color:#86EFAC;background:#F0FFF4"><div class="act-n" style="background:var(--green);color:white">1e</div><div><div class="act-date">2023</div><div class="act-dest">→ Superfinanciera · Audiencia</div><div class="act-txt"><strong>Audiencia de práctica de pruebas #1:</strong> se practican las pruebas documentales y testimoniales decretadas. El apoderado interviene activamente en la contradicción de las pruebas de la demandada.</div></div></div>
+      <div class="act-card" style="border-color:#86EFAC;background:#F0FFF4"><div class="act-n" style="background:var(--green);color:white">1f</div><div><div class="act-date">2023–2024</div><div class="act-dest">→ Superfinanciera · Audiencia</div><div class="act-txt"><strong>Audiencia de práctica de pruebas #2:</strong> continuación de la práctica probatoria. Se interroga a los representantes de la fiduciaria, la constructora y a los inversionistas.</div></div></div>
+      <div class="act-card" style="border-color:#86EFAC;background:#F0FFF4"><div class="act-n" style="background:var(--green);color:white">1g</div><div><div class="act-date">2024</div><div class="act-dest">→ Superfinanciera · Audiencia</div><div class="act-txt"><strong>Audiencia de alegatos de conclusión:</strong> cada parte expone oralmente su argumento final. El apoderado demandante presenta el resumen de las pruebas y el fundamento jurídico para la condena.</div></div></div>
+      <div class="act-card"><div class="act-n an-1">1h</div><div><div class="act-date">28 jun. 2024</div><div class="act-dest">→ Superfinanciera</div><div class="act-txt">Recurso de reposición en subsidio de apelación (para ajustes puntuales)</div></div></div>
+      <div class="act-card"><div class="act-n an-1">1i</div><div><div class="act-date">3 jul. 2024</div><div class="act-dest">→ Superfinanciera</div><div class="act-txt">Desistimiento del recurso de reposición (sentencia suficientemente favorable)</div></div></div>
+      <div class="act-card"><div class="act-n an-1">1j</div><div><div class="act-date">8 jul. 2024</div><div class="act-dest">→ Superfinanciera</div><div class="act-txt">Pronunciamiento sobre el recurso de apelación de Acción Fiduciaria</div></div></div>
+      <div class="act-card"><div class="act-n an-1">1k</div><div><div class="act-date">18 oct. 2024</div><div class="act-dest">→ Superfinanciera</div><div class="act-txt">Segundo pronunciamiento sobre el recurso de apelación de la demandada</div></div></div>
+      <div class="act-card"><div class="act-n an-1">1l</div><div><div class="act-date">28 ene. 2025</div><div class="act-dest">→ Tribunal Superior</div><div class="act-txt">Memorial denunciando la solicitud de aclaración como táctica dilatoria</div></div></div>
+    </div>
+    <div class="act-ph-hdr">🏛️ Segunda instancia — 1 actuación</div>
+    <div class="act-grid" style="grid-template-columns:1fr">
+      <div class="act-card"><div class="act-n an-2">2a</div><div><div class="act-date">5 nov. 2024</div><div class="act-dest">→ Tribunal Superior — Mag. Cruz Miranda</div><div class="act-txt">Pronunciamiento sobre la sustentación del recurso de apelación. Rebate íntegramente los 8 argumentos de Acción Fiduciaria.</div></div></div>
+    </div>
+    <div class="act-ph-hdr">🏛️ Post-sentencia y casación — 16 actuaciones</div>
+    <div class="act-grid">
+      <div class="act-card"><div class="act-n an-3">3a</div><div><div class="act-date">11 feb. 2025</div><div class="act-dest">→ Tribunal Superior</div><div class="act-txt">Pronunciamiento sobre el recurso de casación, solicita verificar procedencia</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3b</div><div><div class="act-date">25 feb. 2025</div><div class="act-dest">→ Superfinanciera</div><div class="act-txt">Solicitud de requerimiento formal de pago de la sentencia confirmada</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3c</div><div><div class="act-date">Mar. 2025</div><div class="act-dest">→ Tribunal Superior</div><div class="act-txt">Memorial sobre solicitud de adición al auto de casación</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3d</div><div><div class="act-date">28 abr. 2025</div><div class="act-dest">→ Tribunal Superior</div><div class="act-txt">Oposición al recurso de reposición contra el auto de caución ($2.441M)</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3e</div><div><div class="act-date">7 jul. 2025</div><div class="act-dest">→ Tribunal Superior</div><div class="act-txt">Impulso: calificación caución y remisión expediente a Corte Suprema</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3f</div><div><div class="act-date">30 jul. 2025</div><div class="act-dest">→ Tribunal Superior</div><div class="act-txt">Reiteración: calificación caución y remisión expediente</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3g</div><div><div class="act-date">2 sep. 2025 (×2)</div><div class="act-dest">→ Tribunal Superior</div><div class="act-txt">Dos impulsos para calificación de caución y remisión del expediente</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3h</div><div><div class="act-date">25 sep. 2025</div><div class="act-dest">→ Corte Suprema de Justicia</div><div class="act-txt">Primer impulso a la Corte: celeridad en la admisibilidad del recurso</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3i</div><div><div class="act-date">24 nov. 2025</div><div class="act-dest">→ Corte Suprema de Justicia</div><div class="act-txt">Impulso con fundamentos constitucionales sobre celeridad y acceso a la justicia</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3j</div><div><div class="act-date">14 ene. 2026</div><div class="act-dest">→ Corte Suprema de Justicia</div><div class="act-txt">Impulso procesal — primer escrito del año 2026</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3k</div><div><div class="act-date">12 feb. 2026</div><div class="act-dest">→ Tribunal / Superfinanciera</div><div class="act-txt">Memorial impulso: remisión de archivos del expediente digital</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3l</div><div><div class="act-date">6 mar. 2026</div><div class="act-dest">→ Tribunal / Superfinanciera</div><div class="act-txt">Reiteración: archivos aún sin remitir. Denuncia incumplimiento del Tribunal</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3m</div><div><div class="act-date">6 abr. 2026</div><div class="act-dest">→ Tribunal Superior</div><div class="act-txt">Memorial: denuncia que el proyecto parece mostrar señales de reactivación mientras los inversionistas siguen sin recibir sus dineros ni su apartamento</div></div></div>
+      <div class="act-card"><div class="act-n an-3">3n</div><div><div class="act-date">4 may. 2026</div><div class="act-dest">→ Corte Suprema de Justicia</div><div class="act-txt">Impulso: informa que el expediente ya fue al despacho del Mag. Ponente</div></div></div>
+    </div>
+    <div class="info-box blue" style="margin-top:14px">💡 Esta lista incluye las actuaciones documentadas en el expediente. El conteo real es mayor al incluir intervenciones orales en audiencias, traslados verbales y comunicaciones con el despacho.</div>
+  </div>
+
+  <!-- ──── 5. QUÉ VIENE ──── -->
+  <div class="tab-panel" id="panel-escenarios">
+    <div class="section-label">🔮 ¿Qué viene?</div>
+    <div class="panel-title">Tres escenarios para <em>lo que puede pasar</em></div>
+    <p class="panel-lead">La Corte ya admitió el recurso. Hay tres caminos posibles desde hoy, dependiendo de lo que haga Acción Fiduciaria y de lo que decida la Corte:</p>
+    <div class="scen-grid">
+      <div class="scen-card s1">
+        <span class="scen-icon">🌟</span>
+        <div class="scen-title">Escenario 1 — Mejor</div>
+        <div class="scen-sub">Demanda de casación queda desierta</div>
+        <div class="scen-steps">
+          <div class="ss-item"><div class="ss-num">1</div><div class="ss-txt">Acción Fiduciaria <strong>no presenta la demanda de casación</strong> dentro del plazo de 30 días, o la presenta sin cumplir los requisitos del art. 336 CGP.</div></div>
+          <div class="ss-item"><div class="ss-num">2</div><div class="ss-txt">La Corte declara el recurso <strong>desierto.</strong> La sentencia del Tribunal queda en firme de inmediato.</div></div>
+          <div class="ss-item"><div class="ss-num">3</div><div class="ss-txt"><strong>Pago inmediato</strong> o ejecución de la caución DECEVAL a favor de las 16 familias.</div></div>
+        </div>
+        <div class="scen-result">
+          <div class="sr-lbl">⏱️ Tiempo adicional estimado</div>
+          <div class="sr-time">1 a 3 meses</div>
+          <div class="sr-sub">Pago estimado: <strong>ago.–sep. 2026</strong></div>
+        </div>
+      </div>
+      <div class="scen-card s2">
+        <span class="scen-icon">⚖️</span>
+        <div class="scen-title">Escenario 2 — Intermedio</div>
+        <div class="scen-sub">Corte estudia y confirma (no casa)</div>
+        <div class="scen-steps">
+          <div class="ss-item"><div class="ss-num">1</div><div class="ss-txt">Acción Fiduciaria presenta la demanda de casación. Nosotros respondemos en 15 días. <strong>El proceso entra al despacho para fallo.</strong></div></div>
+          <div class="ss-item"><div class="ss-num">2</div><div class="ss-txt">La Corte delibera durante meses. Dado que ya ganamos en dos instancias distintas, el resultado más probable es que <strong>NO CASE</strong> — confirme la condena.</div></div>
+          <div class="ss-item"><div class="ss-num">3</div><div class="ss-txt"><strong>Pago definitivo</strong> con todos los intereses acumulados desde diciembre de 2024.</div></div>
+        </div>
+        <div class="scen-result">
+          <div class="sr-lbl">⏱️ Tiempo adicional estimado</div>
+          <div class="sr-time">8 a 14 meses</div>
+          <div class="sr-sub">Pago estimado: <strong>primer semestre 2027</strong></div>
+        </div>
+      </div>
+      <div class="scen-card s3">
+        <span class="scen-icon">⏳</span>
+        <div class="scen-title">Escenario 3 — Pesimista</div>
+        <div class="scen-sub">Corte casa (muy poco probable)</div>
+        <div class="scen-steps">
+          <div class="ss-item"><div class="ss-num">1</div><div class="ss-txt">La Corte encuentra que los jueces anteriores aplicaron mal la ley. <strong>Muy poco probable:</strong> hemos ganado en dos instancias distintas con argumentos sólidos.</div></div>
+          <div class="ss-item"><div class="ss-num">2</div><div class="ss-txt">El proceso regresa a instancia inferior para <strong>nueva sentencia</strong> siguiendo lineamientos de la Corte.</div></div>
+          <div class="ss-item"><div class="ss-num">3</div><div class="ss-txt">Aun así, <strong>la responsabilidad de la fiduciaria ya fue establecida.</strong> El camino se alarga pero el derecho a cobrar no desaparece.</div></div>
+        </div>
+        <div class="scen-result">
+          <div class="sr-lbl">⏱️ Tiempo adicional estimado</div>
+          <div class="sr-time">18 a 36 meses</div>
+          <div class="sr-sub">Pago estimado: <strong>2027–2029 (muy improbable)</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="prog-wrap" style="margin-top:4px">
+      <div style="font-size:14px;font-weight:800;color:var(--b900);margin-bottom:13px">📊 ¿Cuánto del camino ya hemos recorrido?</div>
+      <div class="prog-row">
+        <div class="prog-top"><span style="font-size:12px;color:#374151">Escenario 1 — Desierto (pago sep. 2026, total aprox. 49 meses)</span><span style="font-size:12.5px;font-weight:800;color:var(--b700)">86%</span></div>
+        <div class="prog-bar"><div class="prog-fill pf-b" style="width:86%"><span class="prog-pct">86%</span></div></div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-top"><span style="font-size:12px;color:#374151">Escenario 2 — No casa (pago abr. 2027, total aprox. 56 meses)</span><span style="font-size:12.5px;font-weight:800;color:var(--green)">74%</span></div>
+        <div class="prog-bar"><div class="prog-fill pf-g" style="width:74%"><span class="prog-pct">74%</span></div></div>
+      </div>
+      <div class="prog-row" style="margin-bottom:0">
+        <div class="prog-top"><span style="font-size:12px;color:#374151">Escenario 3 — Casa (pago 2028, total aprox. 72 meses)</span><span style="font-size:12.5px;font-weight:800;color:var(--amber)">58%</span></div>
+        <div class="prog-bar"><div class="prog-fill pf-a" style="width:58%"><span class="prog-pct">58%</span></div></div>
+      </div>
+      <div style="margin-top:11px;font-size:12px;color:var(--gray);background:var(--b50);border-radius:9px;padding:9px 13px;border:1px solid var(--b100)">
+        💡 En los escenarios 1 y 2 — los más probables — <strong>ustedes cobran la condena completa.</strong> En el escenario 3 (muy improbable), el proceso se alarga pero el derecho a cobrar permanece.
+      </div>
+    </div>
+  </div>
+
+  <!-- ──── 6. LAS CIFRAS ──── -->
+  <div class="tab-panel" id="panel-cifras">
+    <div class="section-label">💰 Las cifras</div>
+    <div class="panel-title">¿Cuánto le deben a <em>cada uno</em>?</div>
+    <p class="panel-lead">Los montos base son los que ordenó pagar la <strong>sentencia de segunda instancia</strong> (Tribunal Superior, 9 dic. 2024), que ya incluyó la indexación IPC hasta noviembre de 2024. Desde ahí, se proyectan dos escenarios.</p>
+
+    <!-- Nota sentencia 2a instancia -->
+    <div class="info-box blue" style="margin-bottom:16px">
+      📋 <strong>Base de cálculo:</strong> La sentencia de segunda instancia (9 dic. 2024) ya realizó la liquidación de los montos actualizados a esa fecha, usando el IPC hasta noviembre de 2024 como referencia. Los valores de la columna "Condena 2ª instancia" son los establecidos en ese fallo. Todo lo demás es proyección desde ese punto.
+    </div>
+
+    <!-- Protección -->
+    <div class="protect-box">
+      <div class="pb-icon">🔒</div>
+      <div class="pb-body">
+        <h3>Su dinero está garantizado — $2.441 millones bloqueados</h3>
+        <p>Para continuar el recurso en la Corte Suprema, la ley obligó a Acción Fiduciaria a bloquear <strong>$2.441 millones de pesos</strong> en DECEVAL a nombre de las 16 familias. Este dinero <strong>no puede ser retirado ni usado</strong> por la fiduciaria. Solo se libera cuando el juez ordena el pago.</p>
+        <div class="protect-num"><div class="pn-v">$2.441.581.693,54</div><div class="pn-l">COP bloqueados a su favor · DECEVAL · Desde septiembre 2025</div></div>
+      </div>
+    </div>
+
+    <!-- Scenario toggle -->
+    <div style="display:flex;gap:10px;margin:20px 0 14px;flex-wrap:wrap">
+      <button id="btn-mora" onclick="setCifrasScen(1)" style="flex:1;min-width:200px;padding:12px 18px;border-radius:12px;border:2.5px solid var(--b700);background:var(--b700);color:white;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+        🟠 Con intereses de mora (art. 884)
+      </button>
+      <button id="btn-idx" onclick="setCifrasScen(2)" style="flex:1;min-width:200px;padding:12px 18px;border-radius:12px;border:2.5px solid var(--b200);background:var(--white);color:var(--b700);font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+        🟦 Solo indexación IPC
+      </button>
+    </div>
+
+    <!-- Scenario 1: con mora -->
+    <div id="scen-mora">
+      <div class="money-legend">
+        <div class="ml-cell base"><div class="lbl">🔵 Condena 2ª instancia</div><div class="desc">Monto ordenado por el Tribunal · ya incluye IPC hasta nov. 2024</div></div>
+        <div class="ml-cell idx"><div class="lbl">🟦 + IPC adicional (+7.54%)</div><div class="desc">Factor ×1.07544 — actualización nov. 2024 → ago. 2026 · datos DANE</div></div>
+        <div class="ml-cell mora"><div class="lbl">🟠 + Mora art. 884 (+48.12%)</div><div class="desc">20 dic. 2024 → 31 ago. 2026 · aprox. 26% EA · sobre capital actualizado</div></div>
+        <div class="ml-cell total"><div class="lbl">🟢 Total proyectado ago. 2026</div><div class="desc">Capital actualizado + intereses de mora acumulados · art. 884 C. de Co.</div></div>
+      </div>
+      <div class="person-cards" id="pc-mora"></div>
+      <div class="total-card" id="tc-mora"></div>
+    </div>
+
+    <!-- Scenario 2: solo indexación -->
+    <div id="scen-idx" style="display:none">
+      <div class="money-legend">
+        <div class="ml-cell base"><div class="lbl">🔵 Condena 2ª instancia</div><div class="desc">Monto ordenado por el Tribunal · ya incluye IPC hasta nov. 2024</div></div>
+        <div class="ml-cell idx"><div class="lbl">🟦 + IPC adicional (+7.54%)</div><div class="desc">Factor ×1.07544 — actualización nov. 2024 → ago. 2026 · datos DANE</div></div>
+        <div class="ml-cell total" style="grid-column:span 2"><div class="lbl">🟢 Total solo con indexación</div><div class="desc">Sin intereses de mora — solo actualización IPC conforme al art. 284 CGP</div></div>
+      </div>
+      <div class="person-cards" id="pc-idx"></div>
+      <div class="total-card" id="tc-idx"></div>
+      <div class="info-box blue" style="margin-top:10px">ℹ️ <strong>Escenario sin mora:</strong> Este cálculo aplica solo la actualización por inflación (art. 280 y 283 CGP) sin los intereses de mora del art. 884 C. de Co. Correspondería al mínimo que debería pagar la fiduciaria si un juez determinara que la mora no corrió durante el período de la caución.</div>
+    </div>
+
+    <div class="info-box yellow" style="margin-top:12px">⚠️ <strong>Nota:</strong> Los valores son proyecciones a agosto de 2026. El valor definitivo y vinculante lo calcula el juez al momento del pago efectivo, con los datos certificados del DANE y las resoluciones de Superfinanciera vigentes.</div>
+  </div>
+
+
+  <!-- ──── TÁCTICAS DILATORIAS ──── -->
+  <div class="tab-panel" id="panel-tacticas">
+    <div class="section-label">🚨 Tácticas dilatorias</div>
+    <div class="panel-title">Las <em>10 maniobras</em> de Acción Fiduciaria</div>
+    <p class="panel-lead">A lo largo del proceso, Acción Fiduciaria empleó sistemáticamente todos los mecanismos legales disponibles para retrasar el pago. Cada una fue presentada dentro del término legal, pero su uso acumulado evidencia una estrategia deliberada de desgaste.</p>
+
+    <div class="tac-card tac-r">
+      <div class="tac-hdr"><div class="tac-num">1</div><div class="tac-title">Recurso de reposición al auto admisorio de la demanda</div><div class="tac-date">23 sep. 2022</div></div>
+      <div class="tac-body">Acción Fiduciaria impugnó la admisión de la demanda argumentando tres defectos de forma: (i) ausencia de identificación del fideicomiso como demandado independiente, (ii) insuficiencia del juramento estimatorio, y (iii) dirección única de notificaciones para 20 demandantes. El despacho rechazó todos los argumentos señalando que la demanda cumplía plenamente los requisitos del art. 82 CGP y que los argumentos de la demandada eran prematuros o infundados. El apoderado demandante no necesitó presentar escrito de respuesta — el auto fue tan claro que se resolvió de oficio.</div>
+      <div><span class="tac-result neg">Rechazado totalmente · 9 nov. 2022</span></div>
+      <div class="tac-impact">⏱️ Demora generada: 47 días calendario</div>
+    </div>
+
+    <div class="tac-card tac-r">
+      <div class="tac-hdr"><div class="tac-num">2</div><div class="tac-title">Contestación con 9 excepciones de mérito infundadas</div><div class="tac-date">Dic. 2022</div></div>
+      <div class="tac-body">El término de 20 días hábiles para contestar corrió a partir del 10 de noviembre de 2022, una vez notificado por estado el auto que resolvió el recurso de reposición — conforme al art. 318 CGP, el recurso de reposición suspende el término para contestar mientras esté pendiente. Acción Fiduciaria presentó su contestación dentro del término legal, pero acompañada de 9 excepciones de mérito: falta de legitimación en doble vía, inexistencia del vínculo contractual, inexistencia de responsabilidad, contrato no cumplido, prescripción, caducidad, excepción innominada, entre otras. Todas fueron declaradas no probadas en la sentencia de primera instancia. La carga de responder a cada una representó trabajo adicional para el apoderado demandante.</div>
+      <div><span class="tac-result neg">9 excepciones rechazadas en sentencia</span></div>
+      <div class="tac-impact">⏱️ Demora generada: carga procesal adicional · análisis y pronunciamiento sobre cada excepción</div>
+    </div>
+
+    <div class="tac-card tac-r">
+      <div class="tac-hdr"><div class="tac-num">3</div><div class="tac-title">Llamamiento en garantía doble: constructora + aseguradora</div><div class="tac-date">Dic. 2022 – Jun. 2023</div></div>
+      <div class="tac-body">Acción Fiduciaria llamó en garantía tanto a Gerencia y Promoción Inmobiliaria S.A.S. (la constructora) como a AIG Seguros Colombia S.A. (su aseguradora), argumentando que si era declarada responsable, debían asumir parte o todo el pago. El proceso de notificación, vinculación y contestación de los dos llamados tomó varios meses adicionales. Ambos llamamientos fueron rechazados en la sentencia: el juez no encontró cláusula de indemnidad aplicable ni responsabilidad trasladable.</div>
+      <div><span class="tac-result neg">Llamamientos rechazados en sentencia</span></div>
+      <div class="tac-impact">⏱️ Demora generada: aprox. 5 meses adicionales en la primera instancia</div>
+    </div>
+
+    <div class="tac-card tac-r">
+      <div class="tac-hdr"><div class="tac-num">4</div><div class="tac-title">Recurso de reposición en subsidio de apelación contra el auto del llamamiento (13 feb. 2023)</div><div class="tac-date">17 feb. 2023</div></div>
+      <div class="tac-body">En plena fase de llamamientos, Acción Fiduciaria presentó un recurso de reposición con apelación subsidiaria contra el auto del 13 de febrero de 2023, impugnando el término fijado para notificar al llamado en garantía. Argumentó que debía ser de 6 meses (art. 66 CGP) y no el señalado en el auto, y que la suspensión del término del art. 121 era contraria a derecho. Esta táctica buscó prolongar la fase de llamamientos.</div>
+      <div><span class="tac-result neg">Recurso tramitado · generó demora adicional</span></div>
+      <div class="tac-impact">⏱️ Demora generada: dilación en el trámite de llamamientos</div>
+    </div>
+
+    <div class="tac-card tac-r">
+      <div class="tac-hdr"><div class="tac-num">5</div><div class="tac-title">Solicitud de adición y/o aclaración al auto que fijó la audiencia (15 ago. 2023)</div><div class="tac-date">22 ago. 2023</div></div>
+      <div class="tac-body">Una semana después de que el despacho fijara la fecha de audiencia y decretara las pruebas, Acción Fiduciaria solicitó adición y/o aclaración argumentando que el auto había omitido decretar el interrogatorio de parte del llamado en garantía. Esta táctica tuvo el efecto de generar un trámite adicional previo a la realización de las audiencias.</div>
+      <div><span class="tac-result neg">Táctica procesal · retrasó inicio de audiencias</span></div>
+      <div class="tac-impact">⏱️ Demora generada: retraso en el inicio de audiencias</div>
+    </div>
+
+    <div class="tac-card tac-r">
+      <div class="tac-hdr"><div class="tac-num">6</div><div class="tac-title">Recurso de apelación contra la sentencia de primera instancia con 8 argumentos</div><div class="tac-date">Jul.–Dic. 2024</div></div>
+      <div class="tac-body">Tras perder en primera instancia, Acción Fiduciaria apeló ante el Tribunal Superior de Bogotá sustentando el recurso con 8 argumentos: indebida legitimación, inexistencia de relación de consumo, prescripción, contrato no cumplido, deber de información cumplido, ausencia de nexo causal, fuerza mayor y rechazo indebido del llamamiento. El apoderado demandante respondió el 5 de noviembre de 2024 rebatiendo íntegramente cada argumento. El Tribunal confirmó totalmente la condena el 9 de diciembre de 2024.</div>
+      <div><span class="tac-result neg">Apelación perdida · Tribunal confirma condena · 9 dic. 2024</span></div>
+      <div class="tac-impact">⏱️ Demora generada: 5.5 meses adicionales</div>
+    </div>
+
+    <div class="tac-card tac-r">
+      <div class="tac-hdr"><div class="tac-num">7</div><div class="tac-title">Solicitud de aclaración y adición de la sentencia de segunda instancia</div><div class="tac-date">13 dic. 2024</div></div>
+      <div class="tac-body">Cuatro días después de perder en segunda instancia, Acción Fiduciaria solicitó aclaración y adición de la sentencia del 9 de diciembre de 2024, cuestionando la carga probatoria y la calificación del contrato como de adhesión. Esta solicitud tuvo el efecto de extender la ejecutoria de la sentencia: el plazo para interponer el recurso de casación solo comenzó a correr tras la resolución del 17 de febrero de 2025, ganando dos meses adicionales antes de tener que constituir la caución.</div>
+      <div><span class="tac-result neg">Solicitud negada · extendió ejecutoria 67 días</span></div>
+      <div class="tac-impact">⏱️ Demora generada: +67 días hasta el inicio del término para casación</div>
+    </div>
+
+    <div class="tac-card tac-r">
+      <div class="tac-hdr"><div class="tac-num">8</div><div class="tac-title">Recurso extraordinario de casación</div><div class="tac-date">25 feb. 2025 — presente</div></div>
+      <div class="tac-body">El último recurso procesal disponible. Acción Fiduciaria interpuso casación contra la sentencia del Tribunal Superior, argumentando que los jueces aplicaron mal la ley. El recurso fue admitido por la Corte Suprema en mayo de 2026. Mientras el recurso esté activo y la caución en DECEVAL, la ejecución forzada de la sentencia está suspendida y la fiduciaria no tiene que pagar.</div>
+      <div><span class="tac-result pend">⏳ En trámite — admitido por la Corte Suprema</span></div>
+      <div class="tac-impact">⏱️ Demora generada: 15+ meses y contando desde su interposición</div>
+    </div>
+
+    <div class="tac-card tac-r">
+      <div class="tac-hdr"><div class="tac-num">9</div><div class="tac-title">Triple maniobra sobre la caución de casación ($2.441 millones)</div><div class="tac-date">Mar.–Ago. 2025</div></div>
+      <div class="tac-body">En lugar de constituir la caución de $2.441M dentro de los 10 días hábiles legales, Acción Fiduciaria presentó tres recursos consecutivos: (i) solicitud de adición al auto que concedió la casación, (ii) recurso de reposición contra el auto que fijó el monto de la caución argumentando que era excesivo, y (iii) solicitud de aclaración del auto que resolvió la reposición. Los tres fueron denegados o tramitados sin cambiar el monto. El apoderado demandante presentó oposición al recurso de reposición el 28 de abril de 2025.</div>
+      <div><span class="tac-result neg">Los tres recursos fracasaron</span></div>
+      <div class="tac-impact">⏱️ Demora generada: 5.5 meses para constituir la caución</div>
+    </div>
+
+    <div class="tac-card tac-r">
+      <div class="tac-hdr"><div class="tac-num">10</div><div class="tac-title">No pago voluntario de la condena judicial</div><div class="tac-date">Dic. 2024 — presente</div></div>
+      <div class="tac-body">Desde la ejecutoria de la sentencia de segunda instancia (diciembre de 2024), Acción Fiduciaria no ha realizado ningún pago voluntario a las 16 familias demandantes. La caución constituida en DECEVAL bloquea el cobro forzoso durante la casación, pero no constituye pago — es solo una garantía. Las 16 familias llevan desde 2016 sin recibir sus dineros. El apartamento nunca fue construido — el proyecto permanece sin ejecutarse a inicios de 2026.</div>
+      <div><span class="tac-result pend">⏳ Activo — cero pagos hasta la fecha</span></div>
+      <div class="tac-impact">⏱️ Demora total acumulada: más de 10 años desde los aportes iniciales</div>
+    </div>
+
+    <div class="tac-summary">
+      <h3>📊 Impacto total de las tácticas dilatorias</h3>
+      <p>Desde la demanda (agosto 2022) hasta hoy han transcurrido <strong>45 meses.</strong> Sin estas 10 tácticas dilatorias, un proceso de esta naturaleza habría podido resolverse en aproximadamente 18 a 24 meses. El exceso supera los <strong>21 meses adicionales</strong> directamente atribuibles a las maniobras de Acción Fiduciaria, todas presentadas dentro del término legal pero con el efecto acumulado de postergar el pago de las familias demandantes.<br><br>
+      Vale destacar que ninguna de estas tácticas tuvo éxito en su objetivo de fondo: hemos ganado en <strong>todas las instancias</strong> en que se ha producido una decisión de mérito.</p>
+    </div>
+  </div>
+
+  <!-- ──── 7. PREGUNTAS ──── -->
+  <div class="tab-panel" id="panel-preguntas">
+    <div class="section-label">❓ Preguntas frecuentes</div>
+    <div class="panel-title">Lo que más nos <em>preguntan</em></div>
+    <p class="panel-lead">Respuestas claras a las dudas más comunes.</p>
+    <div class="faq-item"><div class="faq-q"><span>P</span>¿Puedo perder el dinero que me ganaron?</div><div class="faq-a">No. Hemos ganado ante dos jueces distintos. La Corte Suprema solo revisa si se aplicó bien la ley, no vuelve a evaluar los hechos. Además, $2.441 millones están bloqueados a nombre de ustedes en DECEVAL como garantía.</div></div>
+    <div class="faq-item"><div class="faq-q"><span>P</span>¿Cuánto tiempo más puede demorarse?</div><div class="faq-a">Hay tres posibilidades: (1) Si la demanda de casación queda desierta: 1 a 3 meses más, pago en 2026. (2) Si la Corte estudia el fondo y no casa: 8 a 14 meses más, pago en 2027. (3) Si la Corte casa (muy improbable): 18 a 36 meses más. Los dos primeros casos son los más probables.</div></div>
+    <div class="faq-item"><div class="faq-q"><span>P</span>¿La Corte admitió el recurso — eso es malo para nosotros?</div><div class="faq-a">No necesariamente. La admisión solo significa que la Corte revisará los argumentos de fondo. El resultado más probable sigue siendo que confirme la condena, dado que hemos ganado en dos instancias distintas con argumentos jurídicos sólidos. Lo que sí implica es que el proceso tomará algunos meses más.</div></div>
+    <div class="faq-item"><div class="faq-q"><span>P</span>¿Por qué la fiduciaria sigue recurriendo si ya perdió dos veces?</div><div class="faq-a">Porque mientras el proceso esté activo, no tiene que pagar. Cada recurso que presenta —aunque lo pierda— gana tiempo. La Corte ya admitió el recurso, lo que significa que habrá una deliberación de fondo. Pero dado que ganamos en dos instancias distintas, el resultado más probable sigue siendo que la condena se confirme.</div></div>
+    <div class="faq-item"><div class="faq-q"><span>P</span>¿El dinero de DECEVAL es exactamente lo que me van a pagar?</div><div class="faq-a">No necesariamente. La garantía de $2.441M cubre el monto de la condena. El pago final puede ser mayor porque incluirá los intereses de mora acumulados por el tiempo que la fiduciaria no ha pagado. El juez hace la liquidación exacta al momento del pago.</div></div>
+    <div class="faq-item"><div class="faq-q"><span>P</span>¿Tengo que hacer algo para ayudar en el proceso?</div><div class="faq-a">No. El apoderado Javier Torres Betancourt y el equipo de COEM Abogados están manejando todo. Solo les pedimos que mantengan actualizados sus datos de contacto. Si necesitamos algo de su parte, les avisaremos directamente.</div></div>
+    <div class="faq-item"><div class="faq-q"><span>P</span>¿Dónde puedo consultar el estado del proceso por mi cuenta?</div><div class="faq-a">Puede consultar en la página web de la Rama Judicial (ramajudicial.gov.co) buscando el radicado número <strong>11001319900320220369901</strong>. También puede comunicarse directamente con COEM Abogados al 312 834 12 14.</div></div>
+  </div>
+
+</div><!-- fin tab-content -->
+
+<!-- ══════════ FOOTER ══════════ -->
+<div class="footer">
+  <p style="font-size:17px;font-weight:800;color:#93C5FD;margin-bottom:8px">COEM Abogados S.A.S.</p>
+  <p><strong>Apoderado:</strong> Javier Ricardo Torres Betancourt · T.P. 325.030 del C.S. de la Judicatura</p>
+  <p>📞 315 555 3613 · ✉️ jtorres@coemabogados.com</p>
+  <p>📍 Av 4 Norte #6N – 67, Oficina 705, Cali</p>
+  <p style="margin-top:12px;font-size:11px;opacity:.4">Radicado: 11001319900320220369901 · Actualizado: Mayo 2026</p>
+</div>
+
+<script>
+
+// ─── ACCORDION CGP ───
+function toggleStep(btn) {
+  const card = btn.closest('.cgp-card');
+  const isOpen = card.classList.contains('open');
+  card.classList.toggle('open', !isOpen);
+  btn.innerHTML = isOpen ? '▼ ¿Qué significa esto?' : '▲ Cerrar explicación';
+}
+
+// ─── TAB SWITCHING ───
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  // Scroll to top of content area on mobile
+  document.querySelector('.tab-content').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ─── MONEY CALCULATION ───
+const IDX   = 1.07544;        // IPC nov-2024 → ago-2026 (+7.54%) — dato certificado DANE
+const MORA_F = 0.481163;      // Mora art. 884 acumulada +48.12% — período 20-dic-2024 → 31-ago-2026
+const people = [
+  {n:'Isabel Fernanda Ferrari',       v:350764290},
+  {n:'Jacqueline Saavedra Arteaga',   v:295160892},
+  {n:'Diana Lorena Marín Mora',       v:196236097},
+  {n:'Sergio García Cardona',         v:167430752},
+  {n:'Ana María Toro Cifuentes',      v:137193726},
+  {n:'Álvaro Cabrera Valencia',       v:119482258},
+  {n:'Edmundo Ruiz Blanco',           v:116361415},
+  {n:'Marco Castillo y Olga Gómez',   v:106118178},
+  {n:'Martha Fonseca y Hugo Vargas',  v:105643237},
+  {n:'Ruby Henao García',             v:101970495},
+  {n:'Ana María Benjumea Gil',        v:99707298},
+  {n:'Lorena Cabal Gómez',            v:98985268},
+  {n:'Julián Ospina Aristizábal',     v:98636790},
+  {n:'Janeth Gómez Bejarano',         v:104226691},
+  {n:'Carlos Montoya Mazuera',        v:81114076},
+  {n:'Jorge Antonio Páez',            v:72130046},
+];
+function M(v) { return '$' + (v / 1e6).toFixed(1) + ' M'; }
+function MF(v) { return '$' + (v / 1e6).toFixed(2) + ' M'; }
+
+// Build both scenario cards
+let hMora='', hIdx='';
+let tBm=0,tIm=0,tMm=0,tTm=0;
+let tBi=0,tIi=0,tTi=0;
+
+people.forEach(p => {
+  const idxd = p.v * IDX;
+  const iAdd = idxd - p.v;
+  const mora  = idxd * MORA_F;
+  const totM  = idxd + mora;
+  const totI  = idxd;
+  tBm+=p.v; tIm+=iAdd; tMm+=mora; tTm+=totM;
+  tBi+=p.v; tIi+=iAdd; tTi+=totI;
+
+  hMora += `<div class="pc">
+    <div class="pc-name">👤 ${p.n}</div>
+    <div class="pc-row"><span class="pc-lbl">🔵 Condena 2ª inst.</span><span class="pc-val base">${M(p.v)}</span></div>
+    <div class="pc-row"><span class="pc-lbl">🟦 + IPC +7.54%</span><span class="pc-val" style="color:var(--b500)">+ ${M(iAdd)}</span></div>
+    <div class="pc-row"><span class="pc-lbl">🟠 + Mora +48.12%</span><span class="pc-val" style="color:var(--amber)">+ ${M(mora)}</span></div>
+    <hr class="pc-sep">
+    <div class="pc-row"><span class="pc-lbl" style="font-weight:700">🟢 Total con mora</span><span class="pc-val total">${MF(totM)}</span></div>
+  </div>`;
+
+  hIdx += `<div class="pc">
+    <div class="pc-name">👤 ${p.n}</div>
+    <div class="pc-row"><span class="pc-lbl">🔵 Condena 2ª inst.</span><span class="pc-val base">${M(p.v)}</span></div>
+    <div class="pc-row"><span class="pc-lbl">🟦 + IPC +7.54%</span><span class="pc-val" style="color:var(--b500)">+ ${M(iAdd)}</span></div>
+    <hr class="pc-sep">
+    <div class="pc-row"><span class="pc-lbl" style="font-weight:700">🟢 Total solo IPC</span><span class="pc-val total" style="color:var(--b500)">${MF(totI)}</span></div>
+  </div>`;
+});
+
+document.getElementById('pc-mora').innerHTML = hMora;
+document.getElementById('tc-mora').innerHTML = `
+  <div><div class="tc-lbl">💰 TOTAL CON MORA — 16 familias · Agosto 2026</div><div class="tc-sub">IPC +7.54% + mora art. 884 +48.12% · 20 dic. 2024 → 31 ago. 2026</div></div>
+  <div><div class="tc-val">${M(tTm)}</div><div class="tc-sub" style="text-align:right">$${Math.round(tTm).toLocaleString('es-CO')} COP</div></div>`;
+
+document.getElementById('pc-idx').innerHTML = hIdx;
+document.getElementById('tc-idx').innerHTML = `
+  <div><div class="tc-lbl">💰 TOTAL SOLO IPC — 16 familias · Agosto 2026</div><div class="tc-sub">Solo actualización por inflación IPC +7.54% · sin intereses de mora</div></div>
+  <div><div class="tc-val" style="color:#93C5FD">${M(tTi)}</div><div class="tc-sub" style="text-align:right">$${Math.round(tTi).toLocaleString('es-CO')} COP</div></div>`;
+
+function setCifrasScen(n) {
+  const btnMora = document.getElementById('btn-mora');
+  const btnIdx  = document.getElementById('btn-idx');
+  const sMora   = document.getElementById('scen-mora');
+  const sIdx    = document.getElementById('scen-idx');
+  if (n === 1) {
+    sMora.style.display = ''; sIdx.style.display = 'none';
+    btnMora.style.background = 'var(--b700)'; btnMora.style.color = 'white'; btnMora.style.borderColor = 'var(--b700)';
+    btnIdx.style.background  = 'var(--white)'; btnIdx.style.color = 'var(--b700)'; btnIdx.style.borderColor = 'var(--b200)';
+  } else {
+    sMora.style.display = 'none'; sIdx.style.display = '';
+    btnIdx.style.background  = 'var(--b700)'; btnIdx.style.color = 'white'; btnIdx.style.borderColor = 'var(--b700)';
+    btnMora.style.background = 'var(--white)'; btnMora.style.color = 'var(--b700)'; btnMora.style.borderColor = 'var(--b200)';
+  }
+}
+</script>
+</body>
+</html>
