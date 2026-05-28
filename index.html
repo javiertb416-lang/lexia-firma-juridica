@@ -3,911 +3,521 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lexia — Firma Jurídica Virtual</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>FIRMES 2026 · Gestión Territorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy:#0D2545; --navy-mid:#163560; --navy-soft:#1E4380;
-    --blue:#2563A8; --blue-mid:#3B7DC4; --blue-light:#5B9BD5;
-    --sky:#D6E8F7; --sky-pale:#EBF4FB;
-    --white:#FFFFFF; --off-white:#F4F8FC; --silver:#B8CBE0; --mist:#E2EDF6;
-    --ink:#0D2545; --ink-mid:#2C4A6E; --ink-light:#5C7FA0;
-    --border:rgba(37,99,168,0.18);
-    --green:#4DC4A0; --green-bg:rgba(77,196,160,0.12); --green-text:#2A8A70;
-    --rose:#C45B7A; --rose-soft:rgba(196,91,122,0.15);
-    --amber:#D4A017; --amber-soft:rgba(212,160,23,0.12);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Outfit',sans-serif;background:var(--off-white);color:var(--ink);min-height:100vh;overflow-x:hidden;}
-  .bg{position:fixed;inset:0;z-index:0;pointer-events:none;
-    background:radial-gradient(ellipse at 0% 0%,rgba(37,99,168,.08) 0%,transparent 55%),
-    radial-gradient(ellipse at 100% 100%,rgba(13,37,69,.06) 0%,transparent 55%),
-    linear-gradient(180deg,#EBF4FB 0%,#F4F8FC 100%);}
-  .bg::after{content:'';position:absolute;inset:0;
-    background-image:linear-gradient(rgba(37,99,168,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,168,.04) 1px,transparent 1px);
-    background-size:48px 48px;}
-  .app{position:relative;z-index:1;display:flex;flex-direction:column;min-height:100vh;}
+:root{--bg:#0c0f14;--panel:#141922;--panel2:#1a212d;--line:#26303f;--ink:#e8edf4;--mut:#8b97a8;--faint:#5a6678;--accent:#f4b942;--cool:#1b98a8;--ok:#46b98a;--no:#c8607a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);background-image:radial-gradient(1200px 600px at 85% -10%,#16202e 0,transparent 60%),radial-gradient(900px 500px at -10% 110%,#15211f 0,transparent 55%);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+.num{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+button{font-family:inherit;cursor:pointer}
+input,select{font-family:inherit}
 
-  /* HEADER */
-  header{background:var(--navy);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:62px;border-bottom:3px solid var(--blue-mid);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(13,37,69,.3);}
-  .firm-logo{display:flex;align-items:center;gap:12px;}
-  .logo-mark{width:34px;height:34px;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:17px;}
-  .firm-name{font-family:'Fraunces',serif;font-size:21px;font-weight:700;color:var(--white);}
-  .firm-name span{color:var(--blue-light);font-weight:400;font-size:19px;}
-  .header-right{display:flex;align-items:center;gap:12px;}
-  .hbadge{font-size:9.5px;color:var(--blue-light);letter-spacing:.13em;text-transform:uppercase;border:1px solid rgba(91,155,213,.35);padding:4px 10px;border-radius:3px;background:rgba(37,99,168,.2);}
-  .hint{font-size:10px;color:var(--silver);display:flex;align-items:center;gap:5px;}
-  .hdot{width:6px;height:6px;border-radius:50%;background:var(--green);}
+/* TOPBAR */
+.top{position:sticky;top:0;z-index:30;background:rgba(12,15,20,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topin{display:flex;align-items:center;gap:18px;height:64px}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Fraunces',serif;font-weight:900;font-size:21px;letter-spacing:-.01em;white-space:nowrap}
+.brand .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#e85d3d);display:grid;place-items:center;color:#1a1205;font-size:15px}
+.brand small{font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:10px;letter-spacing:.2em;color:var(--accent);display:block;margin-top:-2px}
+.nav{display:flex;gap:4px;margin-left:8px;flex:1;flex-wrap:wrap}
+.nav button{background:none;border:none;color:var(--mut);font-size:13.5px;font-weight:500;padding:9px 14px;border-radius:9px;transition:.15s}
+.nav button:hover{color:var(--ink);background:#171e29}
+.nav button.on{color:var(--accent);background:#1c2330}
+.tools{display:flex;gap:7px}
+.tbtn{background:var(--panel2);border:1px solid var(--line);color:var(--mut);font-size:11.5px;padding:7px 11px;border-radius:8px;font-family:'IBM Plex Mono',monospace}
+.tbtn:hover{color:var(--ink);border-color:var(--faint)}
 
-  /* MAIN */
-  .main{display:flex;flex:1;height:calc(100vh - 62px);}
+/* SECTIONS */
+.view{display:none;padding:34px 0 70px}
+.view.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.vhead{margin-bottom:22px}
+.vhead .eye{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.vhead h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(28px,4.5vw,46px);line-height:1;letter-spacing:-.02em}
+.vhead h1 em{font-style:italic;font-weight:400;color:var(--accent)}
+.vhead p{color:var(--mut);max-width:640px;margin-top:12px;font-size:14.5px}
 
-  /* SIDEBAR */
-  .sidebar{width:265px;min-width:265px;background:var(--navy-mid);display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,.08);overflow:hidden;}
-  .sidebar-title{padding:18px 16px 12px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-light);border-bottom:1px solid rgba(255,255,255,.08);}
-  .agents-list{padding:9px 8px;flex:1;overflow-y:auto;}
-  .agents-list::-webkit-scrollbar{width:3px;}
-  .agents-list::-webkit-scrollbar-thumb{background:rgba(91,155,213,.2);border-radius:2px;}
-  .slabel{padding:9px 8px 3px;font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.2);}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin:32px 0 16px}
+.sec-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:23px}
+.sec-head .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+.sec-head .rule{flex:1;height:1px;background:var(--line)}
 
-  /* RECEPTIONIST */
-  .rec-card{border-radius:8px;margin-bottom:10px;cursor:pointer;border:1px solid rgba(196,91,122,.4);overflow:hidden;background:linear-gradient(135deg,rgba(100,30,60,.85),rgba(140,50,90,.6));transition:all .2s;}
-  .rec-card:hover{transform:translateX(3px);border-color:rgba(196,91,122,.8)!important;}
-  .rec-card.active{border-color:#C45B7A!important;box-shadow:0 0 0 1px rgba(196,91,122,.4);}
-  .rbadge{font-size:8px;background:#C45B7A;color:#fff;border-radius:3px;padding:1px 6px;margin-left:6px;font-weight:600;letter-spacing:.05em;}
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:13px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px}
+.kpi .k-val{font-family:'Fraunces',serif;font-weight:900;font-size:33px;line-height:1;letter-spacing:-.02em}
+.kpi .k-lab{color:var(--mut);font-size:12px;margin-top:7px}
+.kpi.hl .k-val{color:var(--accent)}
+.kpi .k-sub{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--faint);margin-top:3px}
 
-  /* AGENT CARDS */
-  .agent-card{border-radius:7px;margin-bottom:6px;cursor:pointer;transition:all .2s;border:1px solid transparent;overflow:hidden;}
-  .agent-card:hover{transform:translateX(3px);border-color:rgba(91,155,213,.3)!important;}
-  .agent-card.active{border-color:var(--blue-mid)!important;box-shadow:0 0 0 1px rgba(59,125,196,.4);}
-  .card-inner{padding:10px 12px;display:flex;align-items:center;gap:10px;}
-  .aicon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
-  .ainfo{flex:1;min-width:0;}
-  .aname{font-family:'Fraunces',serif;font-size:13.5px;font-weight:600;color:#fff;line-height:1.2;}
-  .asub{font-size:9.5px;color:rgba(255,255,255,.5);margin-top:1px;}
-  .aareas{font-size:8.5px;color:rgba(255,255,255,.3);margin-top:1px;}
-  .astatus{display:flex;align-items:center;gap:4px;font-size:8.5px;color:rgba(255,255,255,.3);margin-top:4px;}
-  .sdot{width:5px;height:5px;border-radius:50%;background:var(--green);}
-  .nbadge{font-size:7.5px;background:var(--blue-mid);color:#fff;border-radius:3px;padding:1px 5px;margin-left:4px;font-weight:600;}
+/* MAP */
+.maprow{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.card-t{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap}
+.card-t h3{font-size:15px;font-weight:600}.card-t .hint{font-size:12px;color:var(--faint)}
+.toggle{display:inline-flex;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:3px}
+.toggle button{background:none;border:none;color:var(--mut);font-family:'IBM Plex Mono',monospace;font-size:11.5px;padding:6px 12px;border-radius:7px;transition:.15s}
+.toggle button.on{background:var(--accent);color:#1a1205;font-weight:600}
+svg{width:100%;height:auto;display:block}
+.tile{cursor:pointer}
+.tile path{transition:.18s;stroke:#0c0f14;stroke-width:1.5}
+.tile:hover path{stroke:#fff;stroke-width:2.5}.tile.sel path{stroke:var(--accent);stroke-width:3}
+.cn{font-family:'Fraunces',serif;font-weight:900;font-size:17px;fill:#fff;pointer-events:none}
+.cv{font-family:'IBM Plex Mono',monospace;font-size:10px;fill:#fff;opacity:.85;pointer-events:none}
+.tile.empty .cn{fill:#55617a}.tile.empty .cv{fill:#55617a;opacity:.6}
+.compass{font-family:'IBM Plex Mono',monospace;font-size:11px;fill:#55617a;letter-spacing:.18em}
+.legend{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:11px;color:var(--mut);font-family:'IBM Plex Mono',monospace}
+.scale{height:10px;flex:1;border-radius:5px;background:linear-gradient(90deg,#13343f,#1b98a8,#f4b942,#e85d3d)}
+.detail{margin-top:14px;border-top:1px solid var(--line);padding-top:14px;min-height:80px}
+.detail .d-empty{color:var(--faint);font-size:13px;font-style:italic}
+.detail h4{font-family:'Fraunces',serif;font-size:20px;font-weight:600}
+.d-stats{display:flex;gap:18px;margin:8px 0 10px;flex-wrap:wrap}
+.d-stats span{font-size:12px;color:var(--mut)}.d-stats b{font-family:'IBM Plex Mono',monospace;color:var(--ink);font-size:15px;display:block}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;font-size:11.5px;color:var(--mut)}
+.names{margin-top:8px;font-size:12px;color:var(--faint);line-height:1.7}
+.rank{max-height:600px;overflow-y:auto;padding-right:6px}
+.rank::-webkit-scrollbar{width:7px}.rank::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+.rrow{display:grid;grid-template-columns:40px 1fr auto;gap:11px;align-items:center;padding:9px 0;border-bottom:1px solid #1b222d;cursor:pointer}
+.rrow:hover{background:#161d27}
+.rbadge{font-family:'Fraunces',serif;font-weight:900;font-size:15px;text-align:center;background:var(--panel2);border-radius:8px;padding:7px 0;color:var(--accent)}
+.rmain{min-width:0}.rname{font-size:13px;font-weight:600}
+.rbar-t{height:7px;background:#1b222d;border-radius:4px;margin-top:6px;overflow:hidden}
+.rbar-f{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--cool),var(--accent))}
+.rbarrios{font-size:11px;color:var(--faint);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rval{font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:600;text-align:right}
+.rval small{display:block;font-size:9.5px;color:var(--faint);font-weight:400}
 
-  .c-comercial{background:linear-gradient(135deg,rgba(13,37,69,.9),rgba(22,53,96,.7));}      .c-comercial .aicon{background:rgba(37,99,168,.5);}
-  .c-tributario{background:linear-gradient(135deg,rgba(22,53,96,.9),rgba(30,67,128,.7));}    .c-tributario .aicon{background:rgba(59,125,196,.4);}
-  .c-inmobiliario{background:linear-gradient(135deg,rgba(30,67,128,.9),rgba(37,99,168,.7));} .c-inmobiliario .aicon{background:rgba(91,155,213,.35);}
-  .c-societario{background:linear-gradient(135deg,rgba(13,47,85,.9),rgba(22,65,110,.7));}    .c-societario .aicon{background:rgba(37,99,168,.45);}
-  .c-administrativo{background:linear-gradient(135deg,rgba(10,30,60,.9),rgba(20,50,90,.7));} .c-administrativo .aicon{background:rgba(59,125,196,.45);}
-  .c-laboral{background:linear-gradient(135deg,rgba(18,55,100,.9),rgba(28,75,130,.7));}      .c-laboral .aicon{background:rgba(91,155,213,.4);}
+/* caveat */
+.caveat{background:linear-gradient(180deg,#1c1812,#15130f);border:1px solid #3a3320;border-left:3px solid var(--accent);border-radius:12px;padding:16px 19px;margin:0 0 22px;font-size:13.5px;color:#d8cdb0}
+.caveat b{color:var(--accent)}
 
-  /* SOFÍA CAPABILITIES */
-  .sofia-caps{margin:0 8px 10px;padding:10px 12px;background:rgba(196,91,122,.1);border:1px solid rgba(196,91,122,.25);border-radius:6px;}
-  .sofia-caps-title{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(196,91,122,.8);margin-bottom:7px;font-weight:500;}
-  .cap-item{display:flex;align-items:center;gap:6px;font-size:9.5px;color:rgba(255,255,255,.5);margin-bottom:4px;}
-  .cap-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
-  .cap-on{background:var(--green);}
-  .cap-off{background:rgba(255,255,255,.2);}
+/* CARAC */
+.cgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.cblock h3{font-size:14px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.cblock h3 .dot{width:8px;height:8px;border-radius:50%}
+.brow{margin-bottom:11px}
+.brow-t{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px}
+.brow-t .bl{color:var(--mut)}.brow-t .bv{font-family:'IBM Plex Mono',monospace;color:var(--ink)}
+.btrack{height:9px;background:#1b222d;border-radius:5px;overflow:hidden}
+.bfill{height:100%;border-radius:5px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
 
-  /* CHAT */
-  .chat-area{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-  .agent-header{padding:14px 26px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:13px;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);box-shadow:0 1px 12px rgba(13,37,69,.06);}
-  .ahicon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;}
-  .ahname{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--navy);}
-  .ahdesc{font-size:10.5px;color:var(--ink-light);margin-top:2px;}
-  .hactions{margin-left:auto;display:flex;align-items:center;gap:8px;}
-  .save-ind{font-size:10px;color:var(--ink-light);display:flex;align-items:center;gap:4px;}
-  .sdot-ui{width:6px;height:6px;border-radius:50%;background:var(--green);}
-  .abtn{display:flex;align-items:center;gap:5px;padding:6px 13px;background:var(--navy);color:var(--sky);border:none;border-radius:6px;font-size:11px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;}
-  .abtn:hover{background:var(--blue);}
-  .abtn:disabled{opacity:.4;cursor:not-allowed;}
+/* SEARCH / PERSONAS */
+.searchbar{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.searchbar input{flex:1;min-width:220px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--ink);font-size:15px}
+.searchbar input:focus{outline:none;border-color:var(--accent)}
+.searchbar .cnt{align-self:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--faint)}
+.btn{background:var(--accent);color:#1a1205;border:none;border-radius:12px;padding:0 18px;font-weight:600;font-size:14px}
+.btn.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+.btn.danger{background:none;color:var(--no);border:1px solid #4a2630}
+.btn.sm{padding:7px 12px;border-radius:9px;font-size:12.5px}
+.persgrid{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
+.plist{max-height:640px;overflow-y:auto;padding-right:6px}
+.plist::-webkit-scrollbar{width:7px}.plist::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+.pcard{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;cursor:pointer;border:1px solid transparent}
+.pcard:hover{background:#161d27}.pcard.on{background:#1c2330;border-color:#2c3a4d}
+.av{width:38px;height:38px;border-radius:50%;background:var(--panel2);display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:900;font-size:15px;color:var(--accent);flex-shrink:0}
+.pcard .pn{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcard .pm{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint)}
+.pcard .pst{margin-left:auto;width:9px;height:9px;border-radius:50%;flex-shrink:0}
 
-  /* MESSAGES */
-  .messages{flex:1;overflow-y:auto;padding:24px 28px;display:flex;flex-direction:column;gap:16px;}
-  .messages::-webkit-scrollbar{width:5px;}
-  .messages::-webkit-scrollbar-thumb{background:var(--mist);border-radius:3px;}
+.profile{min-height:400px}
+.prof-head{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+.prof-head .bigav{width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,#1c2330,#222c3b);display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:900;font-size:24px;color:var(--accent)}
+.prof-head h3{font-family:'Fraunces',serif;font-size:26px;font-weight:600;line-height:1.05}
+.prof-head .sub{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mut);margin-top:3px}
+.statusrow{display:flex;gap:10px;margin:14px 0 4px;flex-wrap:wrap}
+.badge{font-size:12px;padding:5px 11px;border-radius:20px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.badge.empleado{background:#13302a;color:var(--ok);border:1px solid #1f4a3e}
+.badge.noemp{background:#2e1820;color:var(--no);border:1px solid #4a2630}
+.badge.neutral{background:var(--panel2);color:var(--mut);border:1px solid var(--line)}
 
-  .msg{display:flex;flex-direction:column;}
-  .msg.user{align-items:flex-end;}
-  .msg.assistant{align-items:flex-start;}
-  .mbubble{max-width:76%;padding:12px 16px;border-radius:10px;font-size:13.5px;line-height:1.8;}
-  .msg.user .mbubble{background:var(--navy);color:var(--white);border-radius:10px 10px 2px 10px;box-shadow:0 2px 12px rgba(13,37,69,.2);}
-  .msg.assistant .mbubble{background:var(--white);color:var(--ink);border:1px solid var(--border);border-radius:10px 10px 10px 2px;box-shadow:0 2px 12px rgba(13,37,69,.06);}
-  .mmeta{font-size:9.5px;color:var(--ink-light);margin-top:4px;padding:0 3px;display:flex;align-items:center;gap:5px;}
-  .stag{background:var(--green-bg);color:var(--green-text);border-radius:3px;padding:2px 6px;font-size:8.5px;font-weight:500;}
-  .ctag{background:var(--amber-soft);color:#8a6010;border-radius:3px;padding:2px 6px;font-size:8.5px;font-weight:500;}
-  .dtag{background:var(--sky-pale);color:var(--blue);border-radius:3px;padding:2px 6px;font-size:8.5px;font-weight:500;}
+.fgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 18px;margin-top:18px}
+.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin-bottom:5px;font-family:'IBM Plex Mono',monospace}
+.field input,.field select{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:10px 12px;color:var(--ink);font-size:14px}
+.field input:focus,.field select:focus{outline:none;border-color:var(--accent)}
+.field .ro{padding:10px 12px;background:#11161e;border:1px dashed #232c39;border-radius:9px;font-size:14px;color:var(--ink);font-family:'IBM Plex Mono',monospace}
+.field .nofile{font-size:10px;color:var(--accent);margin-top:4px;font-family:'IBM Plex Mono',monospace}
 
-  /* ACTION CARDS — calendar, drive confirmations */
-  .action-card{max-width:76%;padding:14px 18px;background:var(--white);border:1.5px solid var(--border);border-radius:10px 10px 10px 2px;box-shadow:0 3px 16px rgba(13,37,69,.08);}
-  .action-card.calendar{border-color:rgba(59,125,196,.4);background:linear-gradient(135deg,var(--white),var(--sky-pale));}
-  .action-card.drive{border-color:rgba(77,196,160,.4);background:linear-gradient(135deg,var(--white),rgba(77,196,160,.05));}
-  .action-card.summary{border-color:rgba(212,160,23,.3);background:linear-gradient(135deg,var(--white),rgba(212,160,23,.05));}
-  .ac-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:8px;}
-  .ac-label.calendar{color:var(--blue-mid);}
-  .ac-label.drive{color:var(--green-text);}
-  .ac-label.summary{color:#8a6010;}
-  .ac-body{font-size:13px;color:var(--ink-mid);line-height:1.7;}
-  .ac-detail{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-light);margin-top:6px;padding-top:6px;border-top:1px solid var(--border);}
+.subcard{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:16px}
+.subcard h4{font-size:13px;font-weight:600;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.subcard h4 .c2{font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:12px}
+.evtags{display:flex;flex-wrap:wrap;gap:7px}
+.evtag{background:#13302a;border:1px solid #1f4a3e;color:var(--ok);font-size:12px;padding:5px 11px;border-radius:8px}
+.evtag.no{background:#11161e;border:1px solid var(--line);color:var(--faint)}
+.lv-row{display:grid;grid-template-columns:1fr 130px 34px;gap:8px;margin-bottom:8px}
+.lv-row input{background:#11161e;border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--ink);font-size:13px}
+.lv-row .x{background:none;border:1px solid #3a2430;color:var(--no);border-radius:8px;font-size:16px}
+.saverow{display:flex;gap:10px;margin-top:20px;align-items:center}
+.saved{color:var(--ok);font-size:12.5px;font-family:'IBM Plex Mono',monospace;opacity:0;transition:.2s}
+.saved.show{opacity:1}
 
-  /* REFERRAL CARD */
-  .ref-card{max-width:76%;padding:15px 18px;background:var(--white);border:1.5px solid var(--blue-mid);border-radius:10px 10px 10px 2px;box-shadow:0 4px 20px rgba(37,99,168,.12);}
-  .ref-title{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:9px;font-weight:600;}
-  .ref-agent{display:flex;align-items:center;gap:11px;margin-bottom:10px;}
-  .ref-icon{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--sky-pale);border:1px solid var(--border);}
-  .ref-name{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:var(--navy);}
-  .ref-spec{font-size:10.5px;color:var(--ink-light);}
-  .ref-reason{font-size:12.5px;color:var(--ink-mid);line-height:1.6;margin-bottom:12px;}
-  .ref-btn{width:100%;padding:9px;background:var(--navy);color:var(--white);border:none;border-radius:7px;font-size:12.5px;font-family:'Outfit',sans-serif;cursor:pointer;transition:background .2s;}
-  .ref-btn:hover{background:var(--blue);}
+/* EVENTOS */
+.evgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.evcard{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px;transition:.15s}
+.evcard:hover{border-color:var(--faint)}
+.evcard .en{font-family:'Fraunces',serif;font-size:20px;font-weight:600;margin-bottom:4px}
+.evcard .em{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mut)}
+.evcard .ebig{font-family:'Fraunces',serif;font-weight:900;font-size:40px;color:var(--accent);margin:12px 0 2px;line-height:1}
+.evcard .ebl{font-size:12px;color:var(--mut);margin-bottom:14px}
+.evcard .erow{display:flex;gap:8px}
+.attend-head{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.attend-head h3{font-family:'Fraunces',serif;font-size:24px;font-weight:600}
+.attend-head .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mut)}
+.attlist{max-height:560px;overflow-y:auto;padding-right:6px}
+.attrow{display:flex;align-items:center;gap:12px;padding:9px 11px;border-radius:10px;cursor:pointer}
+.attrow:hover{background:#161d27}
+.attrow.on{background:#13302a}
+.cbox{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--faint);display:grid;place-items:center;flex-shrink:0;font-size:13px;color:#1a1205}
+.attrow.on .cbox{background:var(--ok);border-color:var(--ok)}
+.attrow .an{font-size:13.5px}.attrow .am{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint);margin-left:auto}
 
-  /* TRANSITION BANNER */
-  .tbanner{padding:10px 18px;background:linear-gradient(135deg,var(--sky-pale),var(--white));border-bottom:1px solid var(--border);font-size:11.5px;color:var(--ink-mid);display:flex;align-items:center;gap:7px;}
-  .tbanner strong{color:var(--navy);}
-
-  /* THINKING */
-  .think-bubble{background:var(--white);border:1px solid var(--border);border-radius:10px 10px 10px 2px;padding:12px 16px;max-width:76%;box-shadow:0 2px 12px rgba(13,37,69,.06);}
-  .think-dots{display:flex;gap:5px;align-items:center;}
-  .think-dots span{width:6px;height:6px;border-radius:50%;background:var(--blue-mid);opacity:.6;animation:bounce 1.2s ease-in-out infinite;}
-  .think-dots span:nth-child(2){animation-delay:.2s;} .think-dots span:nth-child(3){animation-delay:.4s;}
-  @keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-6px);opacity:1}}
-
-  /* SUGGESTIONS */
-  .suggs{display:flex;flex-direction:column;gap:6px;margin-top:5px;}
-  .sluglabel{font-size:9.5px;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;margin-bottom:1px;}
-  .sugbtn{padding:8px 13px;background:var(--white);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--ink-mid);cursor:pointer;text-align:left;transition:all .2s;font-family:'Outfit',sans-serif;}
-  .sugbtn:hover{border-color:var(--blue);background:var(--sky-pale);color:var(--blue);}
-
-  /* INPUT */
-  .input-area{padding:14px 26px;border-top:1px solid var(--border);background:rgba(255,255,255,.88);backdrop-filter:blur(12px);}
-  .input-row{display:flex;gap:8px;align-items:flex-end;}
-  .input-wrap{flex:1;display:flex;gap:9px;align-items:flex-end;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:9px 13px;transition:all .2s;box-shadow:0 1px 6px rgba(13,37,69,.06);}
-  .input-wrap:focus-within{border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(37,99,168,.1);}
-  .input-wrap textarea{flex:1;border:none;outline:none;resize:none;font-family:'Outfit',sans-serif;font-size:13.5px;color:var(--ink);background:transparent;line-height:1.6;max-height:120px;min-height:34px;}
-  .input-wrap textarea::placeholder{color:var(--ink-light);}
-  .upload-btn{width:34px;height:34px;border-radius:7px;background:var(--sky-pale);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;font-size:14px;}
-  .upload-btn:hover{background:var(--sky);border-color:var(--blue-light);}
-  .send-btn{width:34px;height:34px;border-radius:7px;background:var(--navy);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;color:var(--sky);font-size:13px;}
-  .send-btn:hover{background:var(--blue);color:var(--white);}
-  .send-btn:disabled{opacity:.4;cursor:not-allowed;}
-  #fileInput{display:none;}
-  .input-hint{margin-top:6px;font-size:9.5px;color:var(--ink-light);display:flex;justify-content:space-between;}
-
-  /* QUICK ACTIONS — Isabel */
-  .quick-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;}
-  .qbtn{padding:6px 12px;background:var(--white);border:1px solid var(--border);border-radius:20px;font-size:11px;color:var(--ink-mid);cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;white-space:nowrap;}
-  .qbtn:hover{border-color:var(--rose);background:var(--rose-soft);color:var(--rose);}
-
-  /* MODAL */
-  .modal-overlay{position:fixed;inset:0;background:rgba(13,37,69,.5);backdrop-filter:blur(4px);z-index:200;display:flex;align-items:center;justify-content:center;}
-  .modal{background:var(--white);border-radius:14px;padding:30px;width:460px;max-width:90vw;box-shadow:0 20px 60px rgba(13,37,69,.3);}
-  .modal h3{font-family:'Fraunces',serif;font-size:21px;color:var(--navy);margin-bottom:7px;}
-  .modal p{font-size:12.5px;color:var(--ink-light);margin-bottom:18px;line-height:1.6;}
-  .mfield{margin-bottom:12px;}
-  .mfield label{display:block;font-size:10px;font-weight:500;color:var(--ink-mid);margin-bottom:4px;letter-spacing:.05em;text-transform:uppercase;}
-  .mfield input,.mfield textarea,.mfield select{width:100%;padding:8px 12px;border:1.5px solid var(--border);border-radius:7px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--ink);background:var(--white);outline:none;transition:border-color .2s;}
-  .mfield input:focus,.mfield textarea:focus,.mfield select:focus{border-color:var(--blue-mid);}
-  .mfield textarea{resize:vertical;min-height:65px;}
-  .mactions{display:flex;gap:9px;margin-top:18px;justify-content:flex-end;}
-  .mbtn-cancel{padding:8px 18px;background:var(--mist);border:none;border-radius:7px;font-size:13px;cursor:pointer;color:var(--ink-mid);font-family:'Outfit',sans-serif;}
-  .mbtn-save{padding:8px 20px;background:var(--navy);border:none;border-radius:7px;font-size:13px;cursor:pointer;color:var(--white);font-family:'Outfit',sans-serif;display:flex;align-items:center;gap:6px;transition:background .2s;}
-  .mbtn-save:hover{background:var(--blue);}
-  .mbtn-save:disabled{opacity:.5;cursor:not-allowed;}
-  .spin{animation:spin .8s linear infinite;display:inline-block;}
-  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-
-  /* TOAST */
-  .toast{position:fixed;bottom:20px;right:20px;background:var(--navy);color:var(--white);padding:11px 18px;border-radius:8px;border-left:3px solid var(--green);font-size:12px;z-index:1000;animation:sIn .3s ease,fOut .3s ease 3.7s forwards;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(13,37,69,.3);max-width:340px;}
-  .toast.error{border-left-color:#e05555;}
-  .toast.calendar{border-left-color:var(--blue-mid);}
-  .toast.drive{border-left-color:var(--green);}
-  @keyframes sIn{from{transform:translateX(80px);opacity:0}to{transform:translateX(0);opacity:1}}
-  @keyframes fOut{from{opacity:1}to{opacity:0}}
-.apikey-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;display:flex;align-items:center;justify-content:center}.apikey-box{background:#111827;border:1px solid rgba(201,168,76,.25);border-radius:14px;padding:40px 32px;max-width:400px;width:90%}.apikey-logo{font-size:20px;color:#E8E4DC;margin-bottom:6px;font-weight:600}.apikey-logo span{color:#C9A84C}.apikey-sub{font-size:12px;color:#5A7FA8;margin-bottom:22px;line-height:1.6}.apikey-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5A7FA8;margin-bottom:7px}.apikey-inp{width:100%;background:#0D1B2E;border:1px solid rgba(37,99,168,.35);border-radius:7px;padding:11px 14px;color:#E8E4DC;font-size:13px;font-family:monospace;box-sizing:border-box;outline:none}.apikey-inp:focus{border-color:rgba(201,168,76,.5)}.apikey-btn{width:100%;margin-top:14px;padding:12px;background:#C9A84C;border:none;border-radius:7px;color:#0A0E1A;font-size:14px;font-weight:700;cursor:pointer}.apikey-hint{font-size:11px;color:#3D5A78;margin-top:11px;text-align:center}.apikey-hint a{color:#5A7FA8}
-
-  .reset-key-btn{position:fixed;bottom:16px;right:16px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);color:#C9A84C;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:6px;cursor:pointer;z-index:999;}
-  .reset-key-btn:hover{background:rgba(201,168,76,.22);}
-
-
-  .key-btn{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);color:#C9A84C;font-size:11px;font-weight:600;padding:6px 14px;border-radius:6px;cursor:pointer;margin-right:8px;}
-  .key-btn:hover{background:rgba(201,168,76,.28);}
-  .km-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:9999;display:none;align-items:center;justify-content:center;}
-  .km-box{background:#111827;border:1px solid rgba(201,168,76,.3);border-radius:14px;padding:36px 32px;width:400px;max-width:92vw;}
-  .km-title{font-family:'Fraunces',serif;font-size:20px;color:#E8E4DC;margin-bottom:6px;}
-  .km-sub{font-size:12px;color:#5A7FA8;margin-bottom:20px;line-height:1.6;}
-  .km-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5A7FA8;margin-bottom:8px;}
-  .km-inp{width:100%;background:#0D1B2E;border:1px solid rgba(37,99,168,.4);border-radius:7px;padding:11px 14px;color:#E8E4DC;font-size:13px;font-family:monospace;box-sizing:border-box;outline:none;margin-bottom:14px;}
-  .km-inp:focus{border-color:rgba(201,168,76,.5);}
-  .km-save{width:100%;padding:12px;background:#C9A84C;border:none;border-radius:7px;color:#0A0E1A;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px;}
-  .km-cancel{width:100%;padding:10px;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:7px;color:#5A7FA8;font-size:13px;cursor:pointer;}
-  .km-hint{font-size:11px;color:#3D5A78;margin-top:12px;text-align:center;}
-  .km-hint a{color:#5A7FA8;}
+.empty-state{text-align:center;color:var(--faint);padding:60px 20px;font-size:14px}
+.modal-bg{position:fixed;inset:0;background:rgba(5,7,10,.7);z-index:50;display:none;place-items:center;padding:20px}
+.modal-bg.on{display:grid}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;width:100%;max-width:440px}
+.modal h3{font-family:'Fraunces',serif;font-size:22px;margin-bottom:16px}
+footer{border-top:1px solid var(--line);color:var(--faint);font-size:11.5px;font-family:'IBM Plex Mono',monospace;padding:22px 0 60px;line-height:1.7}
+@media(max-width:860px){.kpis{grid-template-columns:repeat(2,1fr)}.maprow,.persgrid{grid-template-columns:1fr}.cgrid,.fgrid{grid-template-columns:1fr}.nav{order:3;width:100%}.topin{height:auto;flex-wrap:wrap;padding:12px 0}}
 </style>
 </head>
 <body>
-<div class="bg"></div>
-<div class="app">
-  <header>
-    <div class="firm-logo">
-      <div class="logo-mark">⚖</div>
-      <div class="firm-name">Lexia <span>/ Firma Jurídica Virtual</span></div>
-    </div>
-    <div class="header-right">
-      <div class="hint"><div class="hdot"></div>7 personas activas</div>
-      <button class="key-btn" onclick="openKM()">🔑 API Key</button><div class="hbadge">⚖ Colombia · Derecho Especializado</div>
-    </div>
-  </header>
-  <div class="main">
-    <aside class="sidebar">
-      <div class="sidebar-title">⚖ &nbsp;Personal de la Firma</div>
-      <div class="agents-list" id="agentsList"></div>
-      <div class="sofia-caps" id="sofiaCaps">
-        <div class="sofia-caps-title">Isabel puede:</div>
-        <div class="cap-item"><div class="cap-dot cap-on"></div>Recibir y enrutar consultas</div>
-        <div class="cap-item"><div class="cap-dot cap-on"></div>Agendar en Google Calendar</div>
-        <div class="cap-item"><div class="cap-dot cap-on"></div>Guardar docs en Drive</div>
-        <div class="cap-item"><div class="cap-dot cap-on"></div>Resumen diario del despacho</div>
-        <div class="cap-item"><div class="cap-dot cap-on"></div>Recordatorios de tareas</div>
-        <div class="cap-item"><div class="cap-dot cap-off"></div>WhatsApp (próximamente)</div>
-      </div>
-    </aside>
-    <div class="chat-area" id="chatArea"></div>
+<div class="top"><div class="wrap topin">
+  <div class="brand"><span class="mark">✦</span><div>FIRMES<small>2026 · CALI</small></div></div>
+  <nav class="nav" id="nav">
+    <button data-v="mapa" class="on">Mapa</button>
+    <button data-v="personas">Personas</button>
+    <button data-v="eventos">Eventos</button>
+    <button data-v="resumen">Resumen</button>
+  </nav>
+  <div class="tools">
+    <button class="tbtn" id="export">⤓ Exportar</button>
+    <button class="tbtn" id="importbtn">⤒ Importar</button>
+    <input type="file" id="importfile" accept="application/json" style="display:none">
   </div>
+</div></div>
+
+<div class="wrap">
+
+<!-- ===== MAPA ===== -->
+<section class="view on" id="v-mapa">
+  <div class="vhead"><div class="eye">Territorio</div><h1>Cali por comunas<br><em>la base sobre el mapa</em></h1>
+  <p>Mapa de calor de las 22 comunas con la distribución de la base. Representación estilizada fiel a la geografía real de la ciudad (no cartografía a escala).</p></div>
+  <div class="kpis" id="kpis" style="margin-bottom:22px"></div>
+  <div class="caveat" id="caveat"></div>
+  <div class="maprow">
+    <div class="card">
+      <div class="card-t"><div class="hint">Toca una comuna para ver su detalle</div>
+        <div class="toggle" id="metric"><button data-m="personas" class="on">Personas</button><button data-m="proyeccion">Proyección votos</button></div></div>
+      <svg id="map" viewBox="20 -10 620 880"></svg>
+      <div class="legend"><span>menos</span><div class="scale"></div><span>más</span><span id="legmax" style="margin-left:8px;color:var(--accent)"></span></div>
+      <div class="detail" id="detail"><div class="d-empty">Selecciona una comuna…</div></div>
+    </div>
+    <div class="card"><div class="card-t"><h3 id="ranktitle">Ranking</h3><span class="hint" id="rankhint"></span></div><div class="rank" id="rank"></div></div>
+  </div>
+</section>
+
+<!-- ===== PERSONAS ===== -->
+<section class="view" id="v-personas">
+  <div class="vhead"><div class="eye">Ficha individual</div><h1>Buscador de <em>personas</em></h1>
+  <p>Busca por cédula o nombre para ver y actualizar la ficha: empleo, entidad, contrato, salario, eventos, votos certificados y su línea de votantes.</p></div>
+  <div class="searchbar">
+    <input id="q" placeholder="Buscar por cédula o nombre…" autocomplete="off">
+    <span class="cnt" id="qcnt"></span>
+    <button class="btn" id="newpers">+ Nueva persona</button>
+  </div>
+  <div class="persgrid">
+    <div class="card" style="padding:10px"><div class="plist" id="plist"></div></div>
+    <div class="card profile" id="profile"><div class="empty-state">Selecciona una persona de la lista para ver su ficha.</div></div>
+  </div>
+</section>
+
+<!-- ===== EVENTOS ===== -->
+<section class="view" id="v-eventos">
+  <div class="vhead"><div class="eye">Seguimiento</div><h1>Eventos y <em>asistencia</em></h1>
+  <p>Registra cada evento y pasa lista. La asistencia se vincula a cada persona y aparece en su ficha.</p></div>
+  <div id="ev-list-wrap">
+    <div class="sec-head"><h2>Eventos</h2><span class="tag" id="evcount"></span><div class="rule"></div>
+      <button class="btn sm" id="newev">+ Nuevo evento</button></div>
+    <div class="evgrid" id="evgrid"></div>
+  </div>
+  <div id="ev-attend-wrap" style="display:none"></div>
+</section>
+
+<!-- ===== RESUMEN ===== -->
+<section class="view" id="v-resumen">
+  <div class="vhead"><div class="eye">Diagnóstico</div><h1>Caracterización de <em>la base</em></h1>
+  <p>Composición del equipo territorial: gestor, vinculación laboral, desempeño y asistencia a eventos.</p></div>
+  <div class="kpis" id="kpis2" style="margin-bottom:24px"></div>
+  <div class="card"><div class="cgrid" id="carac"></div></div>
+</section>
+
+<footer>
+  FIRMES 2026 · Gestión territorial · Datos: navegador local (este dispositivo). Usa <b>Exportar</b> para respaldar / subir el JSON al repositorio e <b>Importar</b> para cargarlo en otro equipo.<br>
+  Mapa estilizado de Cali. Campos de contrato, salario y línea de votantes se capturan dentro de la app (no venían en el archivo original).
+</footer>
 </div>
 
-<!-- ARCHIVE MODAL -->
-<div class="modal-overlay" id="modalOverlay" style="display:none">
-  <div class="modal">
-    <h3>📁 Archivar Consulta</h3>
-    <p>Complete los datos para guardar esta consulta en Drive y enviarla a su correo.</p>
-    <div class="mfield"><label>Cliente / Referencia</label><input type="text" id="mCliente" placeholder="Ej: Empresa ABC S.A.S."></div>
-    <div class="mfield"><label>Tipo de Caso</label>
-      <select id="mTipo">
-        <option>Consulta general</option><option>Concepto jurídico</option>
-        <option>Revisión de contrato</option><option>Proceso / Litigio</option>
-        <option>Due Diligence</option><option>Asesoría preventiva</option>
-      </select>
-    </div>
-    <div class="mfield"><label>Notas internas (opcional)</label><textarea id="mNotas" placeholder="Observaciones, próximos pasos..."></textarea></div>
-    <div class="mactions">
-      <button class="mbtn-cancel" onclick="closeModal()">Cancelar</button>
-      <button class="mbtn-save" id="btnSave" onclick="saveCase()">📧 Guardar y Enviar</button>
-    </div>
-  </div>
-</div>
-
-<input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt,.jpg,.png" onchange="handleFileUpload(event)">
+<div class="modal-bg" id="modal"><div class="modal" id="modalbody"></div></div>
 
 <script>
-const DEST_EMAIL='javiertb416@gmail.com';
-const TODAY=new Date().toLocaleDateString('es-CO',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
-const NOW_ISO=new Date().toISOString();
+const GEO={"cells": {"2": {"d": "M353.8,101.5 373.5,28.6 360.0,20.0 150.0,30.0 149.8,30.2 192.8,155.0 294.4,155.0Z", "lx": 262.8, "ly": 65.9}, "1": {"d": "M149.8,30.2 90.0,90.0 40.0,200.0 53.0,243.4 150.5,238.0 162.2,229.1 192.8,155.0Z", "lx": 128.4, "ly": 122.5}, "6": {"d": "M416.2,220.1 521.8,187.9 520.0,180.0 470.0,90.0 373.5,28.6 353.8,101.5Z", "lx": 436.3, "ly": 140.8}, "5": {"d": "M294.4,155.0 307.2,270.2 396.3,259.9 416.2,220.1 353.8,101.5Z", "lx": 348.6, "ly": 187.5}, "4": {"d": "M192.8,155.0 162.2,229.1 301.3,275.4 307.2,270.2 294.4,155.0Z", "lx": 238.0, "ly": 192.0}, "7": {"d": "M416.2,220.1 396.3,259.9 433.8,326.4 536.2,352.9 556.9,346.0 521.8,187.9Z", "lx": 480.1, "ly": 293.2}, "3": {"d": "M301.3,275.4 162.2,229.1 150.5,238.0 182.6,350.3 287.2,338.6Z", "lx": 232.2, "ly": 307.0}, "8": {"d": "M433.8,326.4 396.3,259.9 307.2,270.2 301.3,275.4 287.2,338.6 304.8,375.3 376.7,391.6Z", "lx": 357.5, "ly": 300.9}, "20": {"d": "M70.0,300.0 60.0,440.0 63.4,450.8 97.8,447.8 145.8,420.8 182.6,350.3 150.5,238.0 53.0,243.4Z", "lx": 121.8, "ly": 325.1}, "9": {"d": "M287.2,338.6 182.6,350.3 145.8,420.8 266.9,451.1 304.8,375.3Z", "lx": 225.6, "ly": 398.1}, "11": {"d": "M433.8,326.4 376.7,391.6 398.2,448.0 485.3,437.8 536.2,352.9Z", "lx": 459.1, "ly": 372.3}, "10": {"d": "M266.9,451.1 291.9,513.4 374.9,507.5 398.2,448.0 376.7,391.6 304.8,375.3Z", "lx": 335.0, "ly": 419.8}, "19": {"d": "M97.8,447.8 231.8,581.8 250.1,576.2 291.9,513.4 266.9,451.1 145.8,420.8Z", "lx": 205.8, "ly": 482.3}, "12": {"d": "M485.3,437.8 398.2,448.0 374.9,507.5 404.9,540.6 477.3,543.8 505.4,510.0Z", "lx": 441.5, "ly": 477.8}, "13": {"d": "M613.1,510.0 610.0,470.0 560.0,360.0 556.9,346.0 536.2,352.9 485.3,437.8 505.4,510.0Z", "lx": 543.2, "ly": 398.9}, "16": {"d": "M374.9,507.5 291.9,513.4 250.1,576.2 375.5,687.6 404.9,540.6Z", "lx": 349.7, "ly": 631.9}, "14": {"d": "M613.1,510.0 505.4,510.0 477.3,543.8 507.0,614.5 619.2,589.6Z", "lx": 552.2, "ly": 566.7}, "15": {"d": "M477.3,543.8 404.9,540.6 375.5,687.6 375.9,688.8 450.5,744.7 507.0,614.5Z", "lx": 437.0, "ly": 651.1}, "18": {"d": "M63.4,450.8 110.0,600.0 144.0,681.5 231.8,581.8 97.8,447.8Z", "lx": 125.1, "ly": 516.3}, "21": {"d": "M619.2,589.6 507.0,614.5 450.5,744.7 460.9,764.9 470.0,760.0 560.0,690.0 620.0,600.0Z", "lx": 537.9, "ly": 652.3}, "17": {"d": "M250.1,576.2 231.8,581.8 144.0,681.5 160.0,720.0 212.7,755.6 375.9,688.8 375.5,687.6Z", "lx": 250.2, "ly": 631.6}, "22": {"d": "M330.0,835.0 460.9,764.9 450.5,744.7 375.9,688.8 212.7,755.6Z", "lx": 339.0, "ly": 760.2}}, "outline": "M150,30 360,20 470,90 520,180 560,360 610,470 620,600 560,690 470,760 330,835 160,720 110,600 60,440 70,300 40,200 90,90Z"};
+const SEED={"people": [{"id": "p001", "nombre": "Adolfo Perez", "cedula": "94553153", "telefono": "3053273376", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 22, "efectividad": 27, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 39, "notaProy": null, "lineaVotantes": []}, {"id": "p002", "nombre": "Ana Mercedes Aristizabal Restrepo", "cedula": "1107525965", "telefono": "3005237248", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "Florida", "proyeccion": null, "notaProy": "Preguntarle si va a votar acá", "lineaVotantes": []}, {"id": "p003", "nombre": "Anderson Arroyo", "cedula": "1111744908", "telefono": "310 3533518", "gestor": "", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "Km 30", "proyeccion": 0, "notaProy": null, "lineaVotantes": []}, {"id": "p004", "nombre": "Andrea Solarte", "cedula": "1144095703", "telefono": "316 0444163", "gestor": "", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": "Preguntarle si va a votar acá", "lineaVotantes": []}, {"id": "p005", "nombre": "Angelica España", "cedula": "1144100370", "telefono": "317 7369684", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 1, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": 10, "notaProy": null, "lineaVotantes": []}, {"id": "p006", "nombre": "Angie Valeria Amateus Morales", "cedula": "1007827640", "telefono": "3017328038", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 29, "efectividad": 44, "entregoBase": "", "comuna": 22, "barrio": "Valle de Lili", "proyeccion": 27, "notaProy": null, "lineaVotantes": []}, {"id": "p007", "nombre": "Aura Henao", "cedula": "32721923", "telefono": "301 3033319", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 60, "efectividad": 48, "entregoBase": "Sí", "comuna": 3, "barrio": "Libertadores", "proyeccion": 0, "notaProy": null, "lineaVotantes": []}, {"id": "p008", "nombre": "Bademar Tenorio Hurtado", "cedula": "13055909", "telefono": "3135374629", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 30, "efectividad": 46, "entregoBase": "Sí", "comuna": 15, "barrio": "Montebello- Mojica", "proyeccion": 24, "notaProy": null, "lineaVotantes": []}, {"id": "p009", "nombre": "Bayron Henao", "cedula": "1144084151", "telefono": "3194883945", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": 3, "barrio": "Libertadores", "proyeccion": 80, "notaProy": null, "lineaVotantes": []}, {"id": "p010", "nombre": "Betzy Buitrago", "cedula": "1054993668", "telefono": "315 5245172", "gestor": "Juan Pablo Urrea", "contratado": "Sí", "entidad": "SAE", "fechaContrato": "", "salario": null, "votosCert": 7, "efectividad": 0, "entregoBase": "No", "comuna": 9, "barrio": "Bretaña", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p011", "nombre": "Camila Bermudez", "cedula": "1006180483", "telefono": "324 5691283", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 43, "efectividad": 30, "entregoBase": "Sí", "comuna": 7, "barrio": "Las Acacias", "proyeccion": 30, "notaProy": null, "lineaVotantes": []}, {"id": "p012", "nombre": "Camila Vargas", "cedula": "", "telefono": "300 4389081", "gestor": "", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": "Preguntarle si va a votar acá", "lineaVotantes": []}, {"id": "p013", "nombre": "Camilo Gongora", "cedula": "1087127326", "telefono": "3183214644", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 5, "efectividad": 0, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": 10, "notaProy": null, "lineaVotantes": []}, {"id": "p014", "nombre": "Cecilia Ortiz Mena", "cedula": "31872660", "telefono": "3108375050", "gestor": "", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": null, "lineaVotantes": []}, {"id": "p015", "nombre": "Ciro Angulo", "cedula": "", "telefono": "301 3174673", "gestor": "", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "", "comuna": 19, "barrio": "Camino Real", "proyeccion": null, "notaProy": "CONTACTARLO", "lineaVotantes": []}, {"id": "p016", "nombre": "Cristhian F. Camilo Argoti", "cedula": "1144176734", "telefono": "3176784034", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 10, "efectividad": 20, "entregoBase": "No", "comuna": null, "barrio": "La Elvira", "proyeccion": 15, "notaProy": null, "lineaVotantes": []}, {"id": "p017", "nombre": "Cruz Parmenides Paz Patiño", "cedula": "87190661", "telefono": "3186207479", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 33, "efectividad": 10, "entregoBase": "Sí", "comuna": 15, "barrio": "Morichal", "proyeccion": 35, "notaProy": null, "lineaVotantes": []}, {"id": "p018", "nombre": "Daniel Moncayo", "cedula": "1006107998", "telefono": "3207504491", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 10, "efectividad": null, "entregoBase": "No", "comuna": 17, "barrio": "", "proyeccion": 20, "notaProy": null, "lineaVotantes": []}, {"id": "p019", "nombre": "Daniela Cortes Valois", "cedula": "1144185139", "telefono": "3043116553", "gestor": "Juan Pablo Urrea", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 50, "notaProy": null, "lineaVotantes": []}, {"id": "p020", "nombre": "Daniela Guevara Hurtado", "cedula": "1114835638", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p021", "nombre": "David Enrique Mejía Motato", "cedula": "1144084842", "telefono": "3022947065", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": 17, "barrio": "La Alborada", "proyeccion": 43, "notaProy": null, "lineaVotantes": []}, {"id": "p022", "nombre": "Dennis Huffington", "cedula": "", "telefono": "302 8438967", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 237, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "Buenaventura", "proyeccion": 410, "notaProy": null, "lineaVotantes": []}, {"id": "p023", "nombre": "Diana (UniCamacho)", "cedula": "", "telefono": "318 3753538", "gestor": "Juan Pablo Urrea", "contratado": "Sí", "entidad": "UniCamacho", "fechaContrato": "", "salario": null, "votosCert": 8, "efectividad": 62, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": null, "lineaVotantes": []}, {"id": "p024", "nombre": "Diana Espinoza (Duck Truck)", "cedula": "", "telefono": "310 8237090", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": null, "lineaVotantes": []}, {"id": "p025", "nombre": "Diana Milena Rodriguez", "cedula": "66742730", "telefono": "3218270343", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 20, "notaProy": null, "lineaVotantes": []}, {"id": "p026", "nombre": "Diana Padilla", "cedula": "38555924", "telefono": "316 6937400", "gestor": "Juan Pablo Urrea", "contratado": "Sí", "entidad": "SAE", "fechaContrato": "", "salario": null, "votosCert": 37, "efectividad": 48, "entregoBase": "Sí", "comuna": 16, "barrio": "República de Israel", "proyeccion": 55, "notaProy": null, "lineaVotantes": []}, {"id": "p027", "nombre": "Eduar Perlaza", "cedula": "1143934698", "telefono": "3175783808", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 71, "efectividad": 29, "entregoBase": "Sí", "comuna": 21, "barrio": "Remansos de Comfandi", "proyeccion": 55, "notaProy": null, "lineaVotantes": []}, {"id": "p028", "nombre": "Edward Manyoma", "cedula": "", "telefono": "322 4197981", "gestor": "", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": null, "lineaVotantes": []}, {"id": "p029", "nombre": "Edwin David Henao Benitez", "cedula": "1151942536", "telefono": "3128335473", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": 3, "barrio": "Libertadores", "proyeccion": 0, "notaProy": null, "lineaVotantes": []}, {"id": "p030", "nombre": "Erika Andrea Mendez", "cedula": "29681729", "telefono": "3186498190", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 52, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": 100, "notaProy": null, "lineaVotantes": []}, {"id": "p031", "nombre": "Erika Sofía Andrade Chicaiza", "cedula": "1144087424", "telefono": "3155082828", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": 30, "notaProy": null, "lineaVotantes": []}, {"id": "p032", "nombre": "Evelyn Cardona Hincapié", "cedula": "1144158172", "telefono": "3166794536", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 27, "efectividad": null, "entregoBase": "Sí", "comuna": 13, "barrio": "El Pondaje", "proyeccion": 40, "notaProy": null, "lineaVotantes": []}, {"id": "p033", "nombre": "Faisury Rodriguez", "cedula": "1143976526", "telefono": "3158478532", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": 12, "barrio": "Julio Rincon", "proyeccion": 13, "notaProy": null, "lineaVotantes": []}, {"id": "p034", "nombre": "Fernanda Lucia Araujo Narvaez", "cedula": "1130589095", "telefono": "312 2029381", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": 17, "barrio": "", "proyeccion": 30, "notaProy": null, "lineaVotantes": []}, {"id": "p035", "nombre": "German Guerron", "cedula": "1088737497", "telefono": "302 6023416", "gestor": "", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": 22, "barrio": "Ciudad Jardín", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p036", "nombre": "Gloria (Mamá Yei)", "cedula": "", "telefono": "314 8565774", "gestor": "", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p037", "nombre": "Haidiber Montealegre", "cedula": "1005867978", "telefono": "314 2731292", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 43, "efectividad": null, "entregoBase": "Sí", "comuna": 16, "barrio": "Mariano Ramos", "proyeccion": 60, "notaProy": null, "lineaVotantes": []}, {"id": "p038", "nombre": "Heidi Llano", "cedula": "", "telefono": "322 5613838", "gestor": "", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "", "comuna": 2, "barrio": "Centenario", "proyeccion": null, "notaProy": null, "lineaVotantes": []}, {"id": "p039", "nombre": "Ivan Hernandez (Firmes-Buenaventura)", "cedula": "", "telefono": "302 5220378", "gestor": "Votan diferente", "contratado": "Sí", "entidad": "SAE", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "Buenaventura", "proyeccion": 0, "notaProy": null, "lineaVotantes": []}, {"id": "p040", "nombre": "Iver (SAE)", "cedula": "", "telefono": "315 6889213", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "SAE", "fechaContrato": "", "salario": null, "votosCert": 57, "efectividad": 22, "entregoBase": "No", "comuna": 8, "barrio": "El Troncal", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p041", "nombre": "Jackeline Ramos Torres", "cedula": "1130640879", "telefono": "3002903638", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 78, "efectividad": 35, "entregoBase": "Sí", "comuna": 5, "barrio": "", "proyeccion": 41, "notaProy": null, "lineaVotantes": []}, {"id": "p042", "nombre": "Jefferson Espinoza Angulo", "cedula": "94551541", "telefono": "3216896139", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 36, "efectividad": 22, "entregoBase": "Sí", "comuna": 15, "barrio": "Mojica", "proyeccion": 23, "notaProy": null, "lineaVotantes": []}, {"id": "p043", "nombre": "Jeffry Lemus", "cedula": "1005975878", "telefono": "322 5032105", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 29, "efectividad": 41, "entregoBase": "Sí", "comuna": 6, "barrio": "Oasis de Comfandi", "proyeccion": 24, "notaProy": null, "lineaVotantes": []}, {"id": "p044", "nombre": "Jhon Janier Posada", "cedula": "1143925677", "telefono": "3113766046", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 17, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 24, "notaProy": null, "lineaVotantes": []}, {"id": "p045", "nombre": "Johanna Flor Nieto", "cedula": "1130653784", "telefono": "3157878868", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": 33, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p046", "nombre": "Jorge Humberto Valencia", "cedula": "14835505", "telefono": "318 2430172", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p047", "nombre": "Juan Andrés Norato Villada", "cedula": "1143856017", "telefono": "3175711922", "gestor": "", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": null, "lineaVotantes": []}, {"id": "p048", "nombre": "Juan Castilla", "cedula": "", "telefono": "318 2088117", "gestor": "", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 6, "efectividad": 66, "entregoBase": "", "comuna": 2, "barrio": "Centenario", "proyeccion": null, "notaProy": null, "lineaVotantes": []}, {"id": "p049", "nombre": "Juan David Sanchez", "cedula": "1144207150", "telefono": "316 3459784", "gestor": "Juan Pablo Urrea", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 27, "efectividad": null, "entregoBase": "Sí", "comuna": 4, "barrio": "Calima", "proyeccion": 22, "notaProy": null, "lineaVotantes": []}, {"id": "p050", "nombre": "Juan Guillermo Vega", "cedula": "", "telefono": "310 4870055", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 1, "efectividad": 100, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": "CONTACTARLA", "lineaVotantes": []}, {"id": "p051", "nombre": "Juan José García", "cedula": "1192770851", "telefono": "322 6073300", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 50, "efectividad": null, "entregoBase": "Sí", "comuna": 17, "barrio": "Cañaverales", "proyeccion": 80, "notaProy": null, "lineaVotantes": []}, {"id": "p052", "nombre": "Juan Sebastián Marquez", "cedula": "", "telefono": "304 5798333", "gestor": "", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p053", "nombre": "Karen Ayala", "cedula": "", "telefono": "3167309832", "gestor": "Juan Pablo Rojas", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 31, "efectividad": 25, "entregoBase": "Sí", "comuna": 14, "barrio": "Los Naranjos 2", "proyeccion": 23, "notaProy": null, "lineaVotantes": []}, {"id": "p054", "nombre": "Karol Daniela Garzón Sánchez", "cedula": "1143274828", "telefono": "3183831249", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 19, "notaProy": null, "lineaVotantes": []}, {"id": "p055", "nombre": "Katherine Latorre (SAE)", "cedula": "", "telefono": "302 7170050", "gestor": "Juan Pablo Urrea", "contratado": "Sí", "entidad": "SAE", "fechaContrato": "", "salario": null, "votosCert": 16, "efectividad": 18, "entregoBase": "No", "comuna": 4, "barrio": "Salomia", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p056", "nombre": "Kenyi Davila", "cedula": "1143839635", "telefono": "3136643422", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 71, "notaProy": null, "lineaVotantes": []}, {"id": "p057", "nombre": "Laura Herrera (SAE)", "cedula": "31306325", "telefono": "315 2136929", "gestor": "Juan Pablo Urrea", "contratado": "Sí", "entidad": "SAE", "fechaContrato": "", "salario": null, "votosCert": 15, "efectividad": 73, "entregoBase": "No", "comuna": 17, "barrio": "La Hacienda", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p058", "nombre": "Laura Lucía López Taborda", "cedula": "1006166459", "telefono": "3006829170", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 10, "efectividad": null, "entregoBase": "No", "comuna": 5, "barrio": "", "proyeccion": 25, "notaProy": null, "lineaVotantes": []}, {"id": "p059", "nombre": "Laura Sofía Holguin", "cedula": "1062290480", "telefono": "315 8135079", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 42, "efectividad": 28, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 64, "notaProy": null, "lineaVotantes": []}, {"id": "p060", "nombre": "Laura Vanessa Molina", "cedula": "1151968801", "telefono": "3117346124", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 7, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 36, "notaProy": null, "lineaVotantes": []}, {"id": "p061", "nombre": "Leonardo Trujillo", "cedula": "1005868118", "telefono": "320 6708884", "gestor": "Juan Pablo Urrea", "contratado": "Sí", "entidad": "SAE", "fechaContrato": "", "salario": null, "votosCert": 47, "efectividad": 23, "entregoBase": "Sí", "comuna": 10, "barrio": "Panamericano", "proyeccion": 32, "notaProy": null, "lineaVotantes": []}, {"id": "p062", "nombre": "Lina Paola Caro", "cedula": "1144096752", "telefono": "3016930401", "gestor": "", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": null, "lineaVotantes": []}, {"id": "p063", "nombre": "Linda Posso (Firmes Buenaventura)", "cedula": "", "telefono": "", "gestor": "Votan diferente", "contratado": "Sí", "entidad": "Consejera UniPacifico", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "Buenaventura", "proyeccion": 0, "notaProy": null, "lineaVotantes": []}, {"id": "p064", "nombre": "Luis Carlos Angulo Urbano", "cedula": "16482773", "telefono": "3154880664", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 80, "efectividad": 17, "entregoBase": "Sí", "comuna": 16, "barrio": "Ciudad 2000", "proyeccion": 100, "notaProy": null, "lineaVotantes": []}, {"id": "p065", "nombre": "Luis Mejia", "cedula": "", "telefono": "323 4790157", "gestor": "", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "Guabinas", "proyeccion": null, "notaProy": null, "lineaVotantes": []}, {"id": "p066", "nombre": "Luz Dary Niño", "cedula": "", "telefono": "320 6162737", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 17, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 50, "notaProy": null, "lineaVotantes": []}, {"id": "p067", "nombre": "Luz Marina Alzate", "cedula": "31963018", "telefono": "3136077077", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p068", "nombre": "María Alejandra Pacheco", "cedula": "1034286718", "telefono": "3173467927", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 7, "efectividad": 71, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 20, "notaProy": null, "lineaVotantes": []}, {"id": "p069", "nombre": "María Arlina Ramírez Mosquera", "cedula": "66817220", "telefono": "3136511633", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": 15, "barrio": "", "proyeccion": 52, "notaProy": null, "lineaVotantes": []}, {"id": "p070", "nombre": "Mariana Alzate", "cedula": "1005974852", "telefono": "3167745280", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 30, "efectividad": 43, "entregoBase": "Sí", "comuna": 5, "barrio": "Torres de Comfandi", "proyeccion": 27, "notaProy": null, "lineaVotantes": []}, {"id": "p071", "nombre": "Mary Luz Ruales", "cedula": "", "telefono": "316 7494775", "gestor": "Juan Pablo Urrea", "contratado": "Sí", "entidad": "SAE", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": 10, "barrio": "Cristobal Colon", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p072", "nombre": "Milena Charria", "cedula": "1144143204", "telefono": "317 7439258", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 33, "efectividad": 42, "entregoBase": "Sí", "comuna": null, "barrio": "Cachipay", "proyeccion": 35, "notaProy": null, "lineaVotantes": []}, {"id": "p073", "nombre": "Nanci Madroñero (Firmes Buenaventura)", "cedula": "", "telefono": "3226248604", "gestor": "Votan diferente", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "Buenaventura", "proyeccion": 0, "notaProy": null, "lineaVotantes": []}, {"id": "p074", "nombre": "Nelson Henrique Castillo Quiñones", "cedula": "1130625126", "telefono": "3185978372", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 156, "efectividad": 28, "entregoBase": "Sí", "comuna": 15, "barrio": "", "proyeccion": 75, "notaProy": null, "lineaVotantes": []}, {"id": "p075", "nombre": "Nicolás Pasmiño Henao", "cedula": "1006048980", "telefono": "3116659751", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 14, "efectividad": 57, "entregoBase": "No", "comuna": 9, "barrio": "Aranjuez", "proyeccion": 20, "notaProy": null, "lineaVotantes": []}, {"id": "p076", "nombre": "Oscar Torres", "cedula": "1144109450", "telefono": "317 7654039", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": 7, "barrio": "Alfonso Lopez", "proyeccion": 100, "notaProy": null, "lineaVotantes": []}, {"id": "p077", "nombre": "Paula Vargas", "cedula": "", "telefono": "317 2716255", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": "CONTACTARLA", "lineaVotantes": []}, {"id": "p078", "nombre": "Pedro Estrada", "cedula": "1118293283", "telefono": "316 3576224", "gestor": "Votan diferente", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 28, "efectividad": 64, "entregoBase": "No", "comuna": null, "barrio": "Guabinas", "proyeccion": 0, "notaProy": null, "lineaVotantes": []}, {"id": "p079", "nombre": "Santiago Orejuela", "cedula": "1193239740", "telefono": "315 6481741", "gestor": "Votan diferente", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": 9, "barrio": "Bretaña", "proyeccion": 0, "notaProy": null, "lineaVotantes": []}, {"id": "p080", "nombre": "Sara Isabel Parra", "cedula": "1104806983", "telefono": "3219251572", "gestor": "Juan Pablo Urrea", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 35, "efectividad": 22, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p081", "nombre": "Sebastian Cartagena", "cedula": "", "telefono": "", "gestor": "", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": null, "lineaVotantes": []}, {"id": "p082", "nombre": "Sebastian Chavez", "cedula": "1192805481", "telefono": "3152133085", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 16, "efectividad": 31, "entregoBase": "Sí", "comuna": 5, "barrio": "Villa del Sol", "proyeccion": 20, "notaProy": null, "lineaVotantes": []}, {"id": "p083", "nombre": "Sebastian Velasco", "cedula": "", "telefono": "322 6639707", "gestor": "Juan Pablo Urrea", "contratado": "Sí", "entidad": "SAE", "fechaContrato": "", "salario": null, "votosCert": 5, "efectividad": 100, "entregoBase": "No", "comuna": 17, "barrio": "Valle de Lili", "proyeccion": null, "notaProy": "Indagar cuántos votos tiene", "lineaVotantes": []}, {"id": "p084", "nombre": "Sofía García", "cedula": "1193239740", "telefono": "313 6898304", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Programa Tercera Edad", "fechaContrato": "", "salario": null, "votosCert": 9, "efectividad": null, "entregoBase": "Sí", "comuna": 20, "barrio": "El Lido", "proyeccion": 26, "notaProy": null, "lineaVotantes": []}, {"id": "p085", "nombre": "Toyber Arzuaga", "cedula": "1115073605", "telefono": "3014221181", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 50, "notaProy": null, "lineaVotantes": []}, {"id": "p086", "nombre": "Wendy Henao", "cedula": "1130673303", "telefono": "304 6387856", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": 3, "barrio": "Libertadores", "proyeccion": 0, "notaProy": null, "lineaVotantes": []}, {"id": "p087", "nombre": "William Cuero", "cedula": "1114886336", "telefono": "317 7782499", "gestor": "Votan diferente", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 5, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 65, "notaProy": null, "lineaVotantes": []}, {"id": "p088", "nombre": "Wilmer Ocoro Tascon", "cedula": "16510679", "telefono": "3177725841", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 51, "notaProy": null, "lineaVotantes": []}, {"id": "p089", "nombre": "Wilson Carlos Bonilla Bonilla", "cedula": "7633903555", "telefono": "3162708253\n3147142911", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": 14, "barrio": "Alfonso Bonilla Aragon", "proyeccion": 22, "notaProy": null, "lineaVotantes": []}, {"id": "p090", "nombre": "Yeiderman Cortez", "cedula": "1010115018", "telefono": "3188147506", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": 12, "barrio": "El Sindical", "proyeccion": 28, "notaProy": null, "lineaVotantes": []}, {"id": "p091", "nombre": "Yuli Viviana Carabali Hinestrosa", "cedula": "1144195162", "telefono": "3187712739-3206780538", "gestor": "Juan Pablo Rojas", "contratado": "Sí", "entidad": "Alcaldía", "fechaContrato": "", "salario": null, "votosCert": 4, "efectividad": null, "entregoBase": "Sí", "comuna": 12, "barrio": "", "proyeccion": 28, "notaProy": null, "lineaVotantes": []}, {"id": "p092", "nombre": "Nazly Xiomara Vila", "cedula": "1005832670", "telefono": "315 3441608", "gestor": "Juan Pablo Urrea", "contratado": "No", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": "CONTACTARLA", "lineaVotantes": []}, {"id": "p093", "nombre": "Javier Torres", "cedula": "", "telefono": "", "gestor": "", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 16, "efectividad": null, "entregoBase": "", "comuna": null, "barrio": "", "proyeccion": 2449, "notaProy": null, "lineaVotantes": []}, {"id": "p094", "nombre": "ALIADOS ESTRATEGICOS", "cedula": "", "telefono": "", "gestor": "", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": null, "lineaVotantes": []}, {"id": "p095", "nombre": "Sebastián Vargas", "cedula": "", "telefono": "", "gestor": "", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 15, "efectividad": null, "entregoBase": "", "comuna": null, "barrio": "", "proyeccion": null, "notaProy": null, "lineaVotantes": []}, {"id": "p096", "nombre": "Aura (Líder Leidy Valois)", "cedula": "", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 35, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 50, "notaProy": null, "lineaVotantes": []}, {"id": "p097", "nombre": "Nayibe (Líder Leidy Valois)", "cedula": "", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 30, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": 30, "notaProy": null, "lineaVotantes": []}, {"id": "p098", "nombre": "Mela (Líder Leidy Valois)", "cedula": "", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 50, "notaProy": null, "lineaVotantes": []}, {"id": "p099", "nombre": "Doris (Líder Leidy Valois)", "cedula": "", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 50, "efectividad": 25, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 40, "notaProy": null, "lineaVotantes": []}, {"id": "p100", "nombre": "", "cedula": "", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 50, "notaProy": null, "lineaVotantes": []}, {"id": "p101", "nombre": "Mire (Líder Leidy Valois)", "cedula": "", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 50, "notaProy": null, "lineaVotantes": []}, {"id": "p102", "nombre": "Anthony (Líder Leidy Valois)", "cedula": "", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 17, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 30, "notaProy": null, "lineaVotantes": []}, {"id": "p103", "nombre": "Etelvina (Líder Leidy Valois)", "cedula": "", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "No", "comuna": null, "barrio": "", "proyeccion": 20, "notaProy": null, "lineaVotantes": []}, {"id": "p104", "nombre": "Danelly (Líder Leidy Valois)", "cedula": "", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 40, "notaProy": null, "lineaVotantes": []}, {"id": "p105", "nombre": "Santiago Salazar", "cedula": "", "telefono": "", "gestor": "", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 105, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 150, "notaProy": null, "lineaVotantes": []}, {"id": "p106", "nombre": "Alida (Referida de Diana Rodriguez)", "cedula": "", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 200, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 200, "notaProy": null, "lineaVotantes": []}, {"id": "p107", "nombre": "María de los Angeles (Referida Alida)", "cedula": "", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "Sí", "comuna": null, "barrio": "", "proyeccion": 30, "notaProy": null, "lineaVotantes": []}, {"id": "p108", "nombre": "Sandra- Buenaventura  (Referida Alida)", "cedula": "", "telefono": "", "gestor": "Juan Pablo Urrea", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": null, "efectividad": null, "entregoBase": "", "comuna": null, "barrio": "", "proyeccion": 50, "notaProy": null, "lineaVotantes": []}, {"id": "p109", "nombre": "Apostol", "cedula": "", "telefono": "", "gestor": "", "contratado": "", "entidad": "", "fechaContrato": "", "salario": null, "votosCert": 16, "efectividad": null, "entregoBase": "", "comuna": null, "barrio": "", "proyeccion": 790, "notaProy": null, "lineaVotantes": []}], "eventos": [{"id": "ev_madres", "nombre": "Evento Madres", "fecha": "", "lugar": "", "asistentes": ["p003", "p004", "p006", "p007", "p008", "p009", "p011", "p013", "p016", "p018", "p020", "p021", "p022", "p024", "p025", "p027", "p032", "p033", "p035", "p036", "p037", "p041", "p043", "p044", "p047", "p048", "p049", "p051", "p052", "p054", "p056", "p058", "p059", "p060", "p061", "p064", "p065", "p066", "p069", "p072", "p075", "p076", "p082", "p087", "p091"]}, {"id": "ev_fabian", "nombre": "Evento Fabián Prieto", "fecha": "", "lugar": "", "asistentes": []}], "meta": {"version": 1, "fuente": "Base_General_de_FIRMES_2026_.xlsx"}};
+const LS='firmes2026_v1';
 
-// ── MCP SERVERS ──
-const MCP_GMAIL={type:'url',url:'https://gmail.mcp.claude.com/mcp',name:'gmail'};
-const MCP_CALENDAR={type:'url',url:'https://gcal.mcp.claude.com/mcp',name:'google-calendar'};
-const MCP_DRIVE={type:'url',url:'https://gdrive.mcp.claude.com/mcp',name:'google-drive'};
-
-// ── RECEPTIONIST CONFIG ──
-const SOFIA={
-  id:'sofia', name:'Isabel Prada', shortName:'Isabel · Asistente',
-  role:'Asistente Ejecutiva & Recepcionista', icon:'👩‍💼',
-  persona:`Eres Isabel Prada, asistente ejecutiva y recepcionista virtual de la firma jurídica Lexia en Colombia. Hoy es ${TODAY}.
-
-TUS CAPACIDADES ACTIVAS:
-1. CONSULTAS JURÍDICAS → Escuchas y enrutas al especialista correcto
-2. AGENDA → Creas eventos en Google Calendar del usuario
-3. DOCUMENTOS → Guardas y clasificas documentos en Google Drive por área jurídica
-4. RESUMEN DIARIO → Generas y envías por correo el resumen del despacho
-5. RECORDATORIOS → Creas recordatorios como eventos en Calendar
-
-ESPECIALISTAS DE LA FIRMA:
-- comercial: Dr. Rodrigo Peñaloza → Contratos, marcas, competencia, franquicias
-- tributario: Dra. Andrea Solano → DIAN, IVA, renta, sanciones, planeación
-- inmobiliario: Dr. Mauricio Palomino → Arrendamientos, compraventa, SIC, consumidor
-- societario: Dra. Natalia Bravo → Sociedades, M&A, gobierno corporativo, pactos
-- administrativo: Dr. Ernesto Salcedo → Contratación estatal, CPACA, recursos
-- laboral: Dra. Patricia Monroy → Contratos laborales, SST, pensiones, despidos
-
-DETECCIÓN DE INTENCIÓN — responde ÚNICAMENTE con el JSON indicado según la intención:
-
-A) CONSULTA JURÍDICA → enrutar:
-REFERIR:{"agentId":"ID","razon":"Breve razón"}
-
-B) AGENDAR REUNIÓN O RECORDATORIO → confirmar datos:
-AGENDAR:{"titulo":"","fecha":"","hora":"","duracion":60,"descripcion":"","asistentes":[]}
-
-C) RESUMEN DIARIO solicitado:
-RESUMEN:{"tipo":"diario"}
-
-D) Si el usuario dice que envió un documento (Isabel lo recibirá por separado vía el sistema de carga):
-DOCUMENTO:{"nombreSugerido":"","area":"comercial|tributario|inmobiliario|societario|administrativo|laboral","descripcion":""}
-
-Si necesitas más info para cualquier acción, haz máximo UNA pregunta puntual.
-Para saludos simples o preguntas sobre tus funciones, responde en prosa cordial.
-Comunícate siempre en español formal y cálido. Nunca des asesoría jurídica tú misma.`
-};
-
-// ── AGENTS ──
-const AGENTS=[
-  {id:'comercial',group:'o',name:'Dr. Rodrigo Peñaloza',shortName:'R. Peñaloza',specialty:'Derecho Comercial',areas:'Contratos · Marcas · Competencia',icon:'🏛️',card:'c-comercial',hColor:'#2563A8',folder:'LEXIA/DERECHO_COMERCIAL',
-   persona:`Eres el Dr. Rodrigo Peñaloza, abogado especialista en Derecho Comercial colombiano con 20 años en Lexia. Expertise: contratos mercantiles, marcas, competencia (SIC), fusiones y adquisiciones, arbitraje. Legislación: Código de Comercio, Ley 1258/2008. Responde en español formal jurídico colombiano, cita normas y advierte riesgos.`,
-   sugs:['¿Diferencia entre SAS y SA para mi empresa?','¿Cómo protejo mi marca en Colombia?','¿Qué cláusulas esenciales tiene un contrato de distribución?']},
-  {id:'tributario',group:'o',name:'Dra. Andrea Solano',shortName:'A. Solano',specialty:'Derecho Tributario',areas:'DIAN · IVA · Renta · Sanciones',icon:'📊',card:'c-tributario',hColor:'#1E4380',folder:'LEXIA/DERECHO_TRIBUTARIO',
-   persona:`Eres la Dra. Andrea Solano, abogada especialista en Derecho Tributario colombiano, exfuncionaria DIAN. Expertise: renta, IVA, ICA, retención, fiscalización DIAN, planeación tributaria, tributación internacional. Legislación: Estatuto Tributario, Ley 2010/2019, Ley 2277/2022. Responde en español formal jurídico colombiano.`,
-   sugs:['¿Beneficios tributarios para pequeñas empresas?','¿Cómo respondo un requerimiento de la DIAN?','¿Qué gastos son deducibles de renta para una SAS?']},
-  {id:'inmobiliario',group:'o',name:'Dr. Mauricio Palomino',shortName:'M. Palomino',specialty:'Derecho Inmobiliario y Consumo',areas:'Propiedad · Arrendamientos · SIC',icon:'🏠',card:'c-inmobiliario',hColor:'#3B7DC4',folder:'LEXIA/DERECHO_INMOBILIARIO',
-   persona:`Eres el Dr. Mauricio Palomino, abogado especialista en Derecho Inmobiliario y Consumidor colombiano. Arrendamientos, compraventa, propiedad horizontal, SIC, garantías. Legislación: Ley 820/2003, Ley 675/2001, Ley 1480/2011. Responde en español formal jurídico colombiano.`,
-   sugs:['¿Requisitos para lanzar a un arrendatario moroso?','¿Cómo reclamo ante la SIC por producto defectuoso?','¿Qué revisar antes de firmar promesa de compraventa?']},
-  {id:'societario',group:'n',isNew:true,name:'Dra. Natalia Bravo',shortName:'N. Bravo',specialty:'Derecho Societario',areas:'Gobierno · Estructuras · M&A',icon:'🏢',card:'c-societario',hColor:'#163560',folder:'LEXIA/DERECHO_SOCIETARIO',
-   persona:`Eres la Dra. Natalia Bravo, abogada especialista en Derecho Societario colombiano. Constitución de sociedades, gobierno corporativo, pactos de accionistas, M&A, due diligence, conflictos entre socios. Legislación: Código de Comercio, Ley 1258/2008, Ley 1116/2006. Responde en español formal jurídico colombiano.`,
-   sugs:['¿Cómo estructuro un pacto de accionistas para SAS?','¿Etapas de una fusión por absorción en Colombia?','¿Cuándo responde personalmente un administrador?']},
-  {id:'administrativo',group:'n',isNew:true,name:'Dr. Ernesto Salcedo',shortName:'E. Salcedo',specialty:'Derecho Administrativo',areas:'Contratación · Estado · Recursos',icon:'🏛',card:'c-administrativo',hColor:'#0D2545',folder:'LEXIA/DERECHO_ADMINISTRATIVO',
-   persona:`Eres el Dr. Ernesto Salcedo, abogado especialista en Derecho Administrativo colombiano, exConsejero de Estado encargado. Contratación estatal (Ley 80, SECOP II), CPACA, recursos ante entidades, régimen disciplinario. Legislación: Ley 80/1993, CPACA Ley 1437/2011, Decreto 1082/2015. Responde en español formal jurídico colombiano.`,
-   sugs:['¿Causales de caducidad de un contrato estatal?','¿Cómo presento recursos ante entidad pública?','¿Qué modalidad de selección aplica para consultoría estatal?']},
-  {id:'laboral',group:'n',isNew:true,name:'Dra. Patricia Monroy',shortName:'P. Monroy',specialty:'Derecho Laboral',areas:'Contratos · SST · Pensiones · Conflictos',icon:'👷',card:'c-laboral',hColor:'#1E4380',folder:'LEXIA/DERECHO_LABORAL',
-   persona:`Eres la Dra. Patricia Monroy, abogada especialista en Derecho Laboral colombiano. Contratos, prestaciones, despidos, fueros, acoso laboral, teletrabajo, SG-SST, reforma pensional Ley 2381/2024. Legislación: CST, Ley 100/1993, Ley 2381/2024. Responde en español formal jurídico colombiano.`,
-   sugs:['¿Causales de despido con justa causa?','¿Cómo implementar SG-SST en empresa mediana?','¿Qué cambia con la reforma pensional 2024?']}
-];
-
-let active=null, msgs=[], loading=false, saving=false, isReception=true;
-
-// ── INIT ──
-function init(){
-  renderSidebar();
-  openReception();
+/* ---------- estado + persistencia (segura) ---------- */
+function loadState(){
+  try{const r=localStorage.getItem(LS); if(r) return JSON.parse(r);}catch(e){}
+  return JSON.parse(JSON.stringify(SEED));
 }
+let STATE=loadState();
+function save(){ try{localStorage.setItem(LS,JSON.stringify(STATE));}catch(e){} }
 
-function renderSidebar(){
-  const list=document.getElementById('agentsList');
-  const orig=AGENTS.filter(a=>a.group==='o');
-  const nvo=AGENTS.filter(a=>a.group==='n');
-  let h=`<div class="slabel">Recepción & Asistencia</div>
-    <div class="rec-card agent-card" data-id="sofia" onclick="openReception()">
-      <div class="card-inner">
-        <div class="aicon" style="background:rgba(196,91,122,.3);border-radius:8px">👩‍💼</div>
-        <div class="ainfo">
-          <div class="aname">Isabel Prada<span class="rbadge">RECEPCIÓN</span></div>
-          <div class="asub">Asistente Ejecutiva Virtual</div>
-          <div class="aareas">Agenda · Drive · Resúmenes · Enrutamiento</div>
-          <div class="astatus"><div class="sdot"></div>Disponible</div>
-        </div>
-      </div>
-    </div>
-    <div class="slabel" style="margin-top:4px">Especialistas</div>`;
-  h+=orig.map(cHTML).join('');
-  h+='<div class="slabel" style="margin-top:6px">Nuevas Áreas</div>';
-  h+=nvo.map(cHTML).join('');
-  list.innerHTML=h;
-}
+function pById(id){return STATE.people.find(p=>p.id===id);}
+const COP=n=>(n||n===0)?'$'+Number(n).toLocaleString('es-CO'):'—';
+function norm(s){return (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+function initials(n){const w=n.trim().split(/\s+/);return ((w[0]||'')[0]||'')+((w[1]||'')[0]||'');}
 
-function cHTML(a){
-  return `<div class="agent-card ${a.card}" data-id="${a.id}" onclick="selAgent('${a.id}')">
-    <div class="card-inner">
-      <div class="aicon">${a.icon}</div>
-      <div class="ainfo">
-        <div class="aname">${a.shortName}${a.isNew?'<span class="nbadge">NUEVO</span>':''}</div>
-        <div class="asub">${a.specialty}</div>
-        <div class="aareas">${a.areas}</div>
-        <div class="astatus"><div class="sdot"></div>Disponible</div>
-      </div>
-    </div>
-  </div>`;
-}
-
-// ── OPEN RECEPTION ──
-function openReception(){
-  active=null; msgs=[]; isReception=true;
-  setActive('sofia');
-  document.getElementById('chatArea').innerHTML=`
-    <div class="agent-header">
-      <div class="ahicon" style="background:rgba(196,91,122,.15);border:2px solid rgba(196,91,122,.35)">👩‍💼</div>
-      <div>
-        <div class="ahname">Isabel Prada</div>
-        <div class="ahdesc">Asistente Ejecutiva · Recibe consultas · Agenda · Drive · Resúmenes del despacho</div>
-      </div>
-    </div>
-    <div class="messages" id="msgBox">
-      <div class="msg assistant">
-        <div class="mbubble">Bienvenido a Lexia. Soy Isabel, su asistente ejecutiva. Puedo ayudarle con consultas jurídicas —dirigiéndole al especialista correcto—, agendar reuniones, guardar documentos en Drive, crear recordatorios o generarle el resumen diario del despacho. ¿En qué le ayudo hoy?</div>
-        <div class="mmeta">Ahora · Recepción & Asistencia</div>
-      </div>
-      <div class="quick-actions">
-        <button class="qbtn" onclick="quickAction('Necesito hacer una consulta jurídica')">⚖ Consulta jurídica</button>
-        <button class="qbtn" onclick="quickAction('Agenda una reunión')">📅 Agendar reunión</button>
-        <button class="qbtn" onclick="quickAction('Dame el resumen diario del despacho')">📋 Resumen del día</button>
-        <button class="qbtn" onclick="quickAction('Necesito crear un recordatorio')">⏰ Recordatorio</button>
-        <button class="qbtn" onclick="document.getElementById(\'fileInput\').click()">📄 Subir documento</button>
-      </div>
-    </div>
-    <div class="input-area">
-      <div class="input-row">
-        <div class="input-wrap">
-          <textarea id="inp" placeholder="Dígame cómo puedo ayudarle..." rows="1" onkeydown="hk(event)" oninput="ar(this)"></textarea>
-          <button class="upload-btn" onclick="document.getElementById('fileInput').click()" title="Subir documento">📎</button>
-          <button class="send-btn" id="sb" onclick="send()">➤</button>
-        </div>
-      </div>
-      <div class="input-hint"><span>↵ Enviar · 📎 Subir documento para Drive</span><span>Isabel le asistirá o conectará con el especialista</span></div>
-    </div>`;
-  document.getElementById('inp').focus();
-}
-
-function quickAction(text){
-  document.getElementById('inp').value=text;
-  send();
-}
-
-// ── SELECT AGENT DIRECTLY ──
-function selAgent(id){
-  const agent=AGENTS.find(a=>a.id===id);
-  if(!agent)return;
-  active=agent; msgs=[]; isReception=false;
-  setActive(id);
-  buildAgentChat(agent,false,'');
-}
-
-function setActive(id){
-  document.querySelectorAll('.agent-card').forEach(c=>c.classList.remove('active'));
-  const el=document.querySelector(`[data-id="${id}"]`);
-  if(el)el.classList.add('active');
-}
-
-function buildAgentChat(agent,fromReception,initialMsg){
-  document.getElementById('chatArea').innerHTML=`
-    ${fromReception?`<div class="tbanner">👩‍💼 Isabel le conectó con <strong>${agent.name}</strong> · ${agent.specialty}</div>`:''}
-    <div class="agent-header">
-      <div class="ahicon" style="background:${agent.hColor}18;border:2px solid ${agent.hColor}30">${agent.icon}</div>
-      <div>
-        <div class="ahname">${agent.name}</div>
-        <div class="ahdesc">${agent.specialty} · ${agent.areas}</div>
-      </div>
-      <div class="hactions">
-        <div class="save-ind"><div class="sdot-ui"></div><span id="saveLabel">Sin guardar</span></div>
-        <button class="abtn" id="archiveBtn" onclick="openModal()" disabled>📁 Archivar</button>
-      </div>
-    </div>
-    <div class="messages" id="msgBox">
-      <div class="msg assistant">
-        <div class="mbubble">${fromReception
-          ?`Buenos días. Soy ${agent.name}, especialista en ${agent.specialty}. Isabel me ha dado contexto de su situación — permítame ayudarle con más detalle. ¿Puede ampliarme los datos de su consulta?`
-          :`Buenos días. Soy ${agent.name}, especialista en ${agent.specialty}. ¿En qué puedo asesorarle hoy?`}</div>
-        <div class="mmeta">Ahora · ${agent.specialty}</div>
-      </div>
-      ${!fromReception?`<div class="suggs" id="suggs">
-        <div class="sluglabel">Consultas frecuentes</div>
-        ${agent.sugs.map(s=>`<button class="sugbtn" onclick="useSug('${s.replace(/'/g,"\\'")}')">→ ${s}</button>`).join('')}
-      </div>`:''}
-    </div>
-    <div class="input-area">
-      <div class="input-wrap">
-        <textarea id="inp" placeholder="Consulte al ${agent.name}..." rows="1" onkeydown="hk(event)" oninput="ar(this)"></textarea>
-        <button class="send-btn" id="sb" onclick="send()">➤</button>
-      </div>
-      <div class="input-hint"><span>↵ Enviar</span><span>📁 Archive la consulta cuando termine</span></div>
-    </div>`;
-  document.getElementById('inp').focus();
-  if(fromReception && initialMsg){
-    msgs.push({role:'user',content:initialMsg});
-  }
-}
-
-function useSug(t){document.getElementById('inp').value=t;send();}
-function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
-function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
-
-// ── FILE UPLOAD ──
-async function handleFileUpload(event){
-  const file=event.target.files[0];
-  if(!file)return;
-  const inp=document.getElementById('inp');
-  if(inp) inp.value=`He subido el documento: "${file.name}". Por favor clasifícalo en la carpeta correcta de Drive según su contenido jurídico.`;
-
-  // Read file content for text files
-  let content='[Archivo binario - clasificar por nombre]';
-  if(file.type==='text/plain'||file.name.endsWith('.txt')){
-    content=await file.text();
-    content=content.substring(0,2000)+'...';
-  }
-
-  // Store file info for processing
-  window._pendingFile={name:file.name,type:file.type,size:file.size,contentPreview:content};
-  send();
-  event.target.value='';
-}
-
-// ── MAIN SEND ──
-async function send(){
-  if(loading)return;
-  const inp=document.getElementById('inp');
-  const text=inp.value.trim();
-  if(!text)return;
-  inp.value='';inp.style.height='auto';
-  loading=true;
-  const sb=document.getElementById('sb');
-  if(sb)sb.disabled=true;
-  document.getElementById('suggs')?.remove();
-  document.querySelector('.quick-actions')?.remove();
-
-  msgs.push({role:'user',content:text});
-  addMsg('user',text);
-  const tid='t'+Date.now();
-  addThink(tid);scroll();
-
-  if(isReception){
-    await handleSofia(text,tid);
-  } else {
-    await handleAgent(tid);
-  }
-
-  loading=false;
-  const sb2=document.getElementById('sb');
-  if(sb2)sb2.disabled=false;
-  scroll();
-}
-
-// ── SOFÍA HANDLER ──
-async function handleSofia(userText,tid){
-  const fileCtx=window._pendingFile
-    ?`\n\nEL USUARIO ACABA DE SUBIR ESTE ARCHIVO: "${window._pendingFile.name}" (${window._pendingFile.type}, ${Math.round(window._pendingFile.size/1024)}KB). Clasifícalo en Drive.`
-    :'';
-  window._pendingFile=null;
-
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:(function(){var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';return{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};})(),
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',max_tokens:800,
-        system:SOFIA.persona+fileCtx,
-        messages:msgs.map(m=>({role:m.role,content:m.content}))
-      })});
-    const d=await r.json();
-    const rep=d.content?.find(b=>b.type==='text')?.text||'';
-    document.getElementById(tid)?.remove();
-
-    // Parse Isabel's intent
-    if(rep.includes('REFERIR:')){
-      const m=rep.match(/REFERIR:(\{[^}]+\})/);
-      if(m){try{const ref=JSON.parse(m[1]);const ag=AGENTS.find(a=>a.id===ref.agentId);if(ag){showReferralCard(ag,ref.razon,userText);return;}}catch(e){}}
-    }
-    if(rep.includes('AGENDAR:')){
-      const m=rep.match(/AGENDAR:(\{[^}]*\})/s);
-      if(m){try{const data=JSON.parse(m[1]);await createCalendarEvent(data,tid);return;}catch(e){}}
-    }
-    if(rep.includes('RESUMEN:')){
-      await generateSummary(tid);return;
-    }
-    if(rep.includes('DOCUMENTO:')){
-      const m=rep.match(/DOCUMENTO:(\{[^}]*\})/s);
-      if(m){try{const data=JSON.parse(m[1]);await saveDocToDrive(data,userText);} catch(e){}}
-    }
-
-    msgs.push({role:'assistant',content:rep});
-    // Check if any MCP tools were used (calendar, drive actions)
-    const toolsUsed=d.content?.filter(b=>b.type==='mcp_tool_use'||b.type==='tool_use')||[];
-    if(toolsUsed.length>0){
-      addActionMsg(rep,toolsUsed);
-    } else {
-      addMsg('assistant',rep);
-    }
-  }catch(e){
-    document.getElementById(tid)?.remove();
-    addMsg('assistant','⚠️ Error de conexión. Por favor intente nuevamente.');
-  }
-}
-
-// ── CREATE CALENDAR EVENT ──
-async function createCalendarEvent(data,tid){
-  try{
-    const confirmText=`Perfecto. Voy a crear el evento "${data.titulo}" en su Google Calendar${data.fecha?' para el '+data.fecha:''}${data.hora?' a las '+data.hora:''}. ¿Confirma?`;
-    msgs.push({role:'assistant',content:confirmText});
-
-    const box=document.getElementById('msgBox');
-    const d2=document.createElement('div');d2.className='msg assistant';
-    d2.innerHTML=`
-      <div class="action-card calendar">
-        <div class="ac-label calendar">📅 Nuevo Evento · Google Calendar</div>
-        <div class="ac-body"><strong>${data.titulo||'Reunión'}</strong><br>
-        ${data.fecha||''} ${data.hora?'· '+data.hora:''} ${data.duracion?'· '+data.duracion+' min':''}</div>
-        ${data.descripcion?`<div class="ac-detail">📝 ${data.descripcion}</div>`:''}
-        <div style="display:flex;gap:8px;margin-top:12px">
-          <button class="ref-btn" style="flex:1;background:var(--blue-mid)" onclick="confirmCalendar(${JSON.stringify(data).replace(/"/g,'&quot;')})">✓ Confirmar y Crear</button>
-          <button class="ref-btn" style="flex:1;background:var(--mist);color:var(--ink-mid)" onclick="this.parentElement.parentElement.parentElement.remove()">Cancelar</button>
-        </div>
-      </div>
-      <div class="mmeta">Isabel · Calendario</div>`;
-    box.appendChild(d2);scroll();
-  }catch(e){
-    addMsg('assistant','⚠️ No pude crear el evento. Por favor intente de nuevo.');
-  }
-}
-
-async function confirmCalendar(data){
-  const btn=event.target;btn.disabled=true;btn.textContent='Creando...';
-  try{
-    const res=await fetch('https://hook.us2.make.com/a1apeq0uvhc04m6xupu49emq1llhglcw',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        titulo:data.titulo||'Reunion',
-        fecha:data.fecha||'',
-        hora:data.hora||'',
-        duracion:data.duracion||60,
-        descripcion:data.descripcion||'Agendado por Isabel - Lexia',
-        asistentes:(data.asistentes||[]).join(', ')
-      })
-    });
-    btn.textContent='✓ Creado';btn.style.background='var(--green-text)';
-    const box=document.getElementById('msgBox');
-    const conf=document.createElement('div');conf.className='msg assistant';
-    conf.innerHTML='<div class="mbubble" style="background:var(--green-bg);border-color:rgba(77,196,160,.3)">'+
-      '✅ Evento <strong>"'+(data.titulo||'Reunion')+'"</strong> creado en su Google Calendar'+(data.fecha?' para el '+data.fecha:'')+'. Verifique su Calendar para confirmarlo.</div>'+
-      '<div class="mmeta"><span class="ctag">📅 Calendar</span>Isabel</div>';
-    box.appendChild(conf);scroll();
-    toast('📅 Evento "'+(data.titulo||'Reunion')+'" enviado a Google Calendar','calendar');
-    return;
-  }catch(e){
-    btn.disabled=false;btn.textContent='Reintentar';
-    toast('⚠️ Error al crear el evento.','error');
-    return;
-  }
-}
-async function confirmCalendar_unused(data){
-  const btn=event.target;btn.disabled=true;btn.textContent='Creando...';
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:(function(){var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';return{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};})(),
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',max_tokens:600,
-        system:`Eres un asistente que crea eventos en Google Calendar. Crea el evento exactamente como se indica usando la herramienta de Calendar disponible. Zona horaria: America/Bogota.`,
-        messages:[{role:'user',content:`Crea este evento en Google Calendar:
-Título: ${data.titulo||'Reunión'}
-Fecha y hora: ${data.fecha||'hoy'} a las ${data.hora||'10:00'}
-Duración: ${data.duracion||60} minutos
-Descripción: ${data.descripcion||'Agendado por Isabel - Lexia'}
-${data.asistentes&&data.asistentes.length?'Asistentes: '+data.asistentes.join(', '):''}
-Por favor créalo ahora.`}]
-      })});
-    const d=await r.json();
-    const hasTool=d.content?.some(b=>b.type==='mcp_tool_use'||b.type==='tool_use');
-    btn.textContent='✓ Creado';btn.style.background='var(--green-text)';
-
-    const box=document.getElementById('msgBox');
-    const conf=document.createElement('div');conf.className='msg assistant';
-    conf.innerHTML=`<div class="mbubble" style="background:var(--green-bg);border-color:rgba(77,196,160,.3)">
-      ✅ Evento <strong>"${data.titulo||'Reunión'}"</strong> creado en su Google Calendar${data.fecha?' para el '+data.fecha:''}.
-      Recibirá la confirmación en su correo.
-    </div><div class="mmeta"><span class="ctag">📅 Calendar</span>Isabel</div>`;
-    box.appendChild(conf);scroll();
-    toast(`📅 Evento "${data.titulo||'Reunión'}" creado en Calendar`,'calendar');
-  }catch(e){
-    btn.disabled=false;btn.textContent='Reintentar';
-    toast('⚠️ Error al crear el evento. Intente de nuevo.','error');
-  }
-}
-
-// ── SAVE DOC TO DRIVE ──
-async function saveDocToDrive(data,userText){
-  const agent=AGENTS.find(a=>a.id===data.area)||{folder:'LEXIA/GENERAL',specialty:'General'};
-  const box=document.getElementById('msgBox');
-  const d2=document.createElement('div');d2.className='msg assistant';
-  d2.innerHTML=`
-    <div class="action-card drive">
-      <div class="ac-label drive">📁 Documento → Google Drive</div>
-      <div class="ac-body"><strong>${data.nombreSugerido||'Documento'}</strong></div>
-      <div class="ac-detail">📂 Carpeta: /${agent.folder}/ · Área: ${agent.specialty||data.area}</div>
-      ${data.descripcion?`<div class="ac-detail">📝 ${data.descripcion}</div>`:''}
-    </div>
-    <div class="mmeta"><span class="stag">💾 Drive</span>Isabel</div>`;
-  box.appendChild(d2);scroll();
-  toast(`💾 Documento clasificado en /${agent.folder}/`,'drive');
-}
-
-// ── GENERATE SUMMARY ──
-async function generateSummary(tid){
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:(function(){var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';return{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};})(),
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',max_tokens:1000,
-        system:`Eres Isabel Prada, asistente de la firma Lexia. Genera un resumen ejecutivo del despacho para el día ${TODAY}. 
-Revisa el calendario del usuario para ver reuniones del día y consulta el correo para ver casos recientes con etiqueta LEXIA.
-Estructura el resumen así:
-- Agenda del día (reuniones en Calendar)
-- Casos activos recientes (correos [LEXIA] recientes)
-- Tareas pendientes identificadas
-- Recomendaciones del día
-
-Envía el resumen por correo a ${DEST_EMAIL} con asunto "[LEXIA] Resumen del Despacho · ${TODAY}" y también muéstralo en pantalla.`,
-        messages:[{role:'user',content:`Genera y envía el resumen diario del despacho para hoy ${TODAY}. Revisa el calendario y el correo con etiqueta LEXIA para construirlo.`}]
-      })});
-    const d=await r.json();
-    document.getElementById(tid)?.remove();
-    const rep=d.content?.find(b=>b.type==='text')?.text||'No pude generar el resumen.';
-    msgs.push({role:'assistant',content:rep});
-
-    const box=document.getElementById('msgBox');
-    const sm=document.createElement('div');sm.className='msg assistant';
-    sm.innerHTML=`
-      <div class="action-card summary">
-        <div class="ac-label summary">📋 Resumen del Despacho · ${TODAY}</div>
-        <div class="ac-body">${fmt(rep)}</div>
-        <div class="ac-detail">📧 Enviado a ${DEST_EMAIL}</div>
-      </div>
-      <div class="mmeta"><span class="ctag">📋 Resumen</span>Isabel</div>`;
-    box.appendChild(sm);scroll();
-    toast('📋 Resumen del despacho generado y enviado');
-  }catch(e){
-    document.getElementById(tid)?.remove();
-    addMsg('assistant','⚠️ Error al generar el resumen. Por favor intente de nuevo.');
-  }
-}
-
-// ── REFERRAL CARD ──
-function showReferralCard(agent,razon,clientMsg){
-  const box=document.getElementById('msgBox');
-  const d=document.createElement('div');d.className='msg assistant';
-  d.innerHTML=`
-    <div class="ref-card">
-      <div class="ref-title">⚖ Especialista recomendado para su consulta</div>
-      <div class="ref-agent">
-        <div class="ref-icon">${agent.icon}</div>
-        <div><div class="ref-name">${agent.name}</div><div class="ref-spec">${agent.specialty} · ${agent.areas}</div></div>
-      </div>
-      <div class="ref-reason">${razon}</div>
-      <button class="ref-btn" onclick="transferToAgent('${agent.id}','${encodeURIComponent(clientMsg)}')">
-        Conectar con ${agent.name} →
-      </button>
-    </div>
-    <div class="mmeta">Isabel · Recepción</div>`;
-  box.appendChild(d);scroll();
-}
-
-function transferToAgent(agentId,encodedMsg){
-  const agent=AGENTS.find(a=>a.id===agentId);if(!agent)return;
-  active=agent;msgs=[];isReception=false;
-  setActive(agentId);
-  buildAgentChat(agent,true,decodeURIComponent(encodedMsg));
-}
-
-// ── AGENT HANDLER ──
-async function handleAgent(tid){
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:(function(){var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';return{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};})(),
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
-        system:active.persona,
-        messages:msgs.map(m=>({role:m.role,content:m.content}))})});
-    const d=await r.json();
-    const rep=d.content?.find(b=>b.type==='text')?.text||'Error al generar respuesta.';
-    document.getElementById(tid)?.remove();
-    msgs.push({role:'assistant',content:rep});
-    addMsg('assistant',rep);
-    const ab=document.getElementById('archiveBtn');if(ab)ab.disabled=false;
-    const lbl=document.getElementById('saveLabel');if(lbl)lbl.textContent='Listo para archivar';
-  }catch(e){
-    document.getElementById(tid)?.remove();
-    addMsg('assistant','⚠️ Error de conexión. Por favor intente nuevamente.');
-  }
-}
-
-// ── ACTION MSG (with MCP tools used) ──
-function addActionMsg(text,tools){
-  const box=document.getElementById('msgBox');
-  const d=document.createElement('div');d.className='msg assistant';
-  d.innerHTML=`<div class="mbubble">${fmt(text)}</div><div class="mmeta">Isabel</div>`;
-  box.appendChild(d);
-}
-
-// ── ARCHIVE MODAL ──
-function openModal(){document.getElementById('modalOverlay').style.display='flex';document.getElementById('mCliente').focus();}
-function closeModal(){document.getElementById('modalOverlay').style.display='none';}
-document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
-
-async function saveCase(){
-  if(saving||!active)return;
-  const cliente=document.getElementById('mCliente').value.trim()||'Sin referencia';
-  const tipo=document.getElementById('mTipo').value;
-  const notas=document.getElementById('mNotas').value.trim();
-  const btn=document.getElementById('btnSave');
-  btn.disabled=true;btn.innerHTML='<span class="spin">⟳</span> Guardando...';saving=true;
-
-  const fecha=new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'});
-  const hora=new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
-  const subject=`[LEXIA] ${active.specialty} · ${cliente} · ${fecha}`;
-
-  let transcript='';
-  msgs.forEach(m=>{
-    const who=m.role==='user'?'👤 CLIENTE':`⚖ ${active.name.toUpperCase()}`;
-    transcript+=`${who}:\n${m.content}\n\n${'─'.repeat(55)}\n\n`;
+/* ---------- agregados dinámicos ---------- */
+function agg(){
+  const per={}; for(let c=1;c<=22;c++)per[c]={p:0,proy:0,cert:0,barrios:[],nombres:[]};
+  let con=0,proyT=0,certT=0,effs=[];
+  STATE.people.forEach(pn=>{
+    proyT+=pn.proyeccion||0; certT+=pn.votosCert||0;
+    if(pn.efectividad!=null)effs.push(pn.efectividad);
+    if(pn.comuna&&per[pn.comuna]){const d=per[pn.comuna];d.p++;d.proy+=pn.proyeccion||0;d.cert+=pn.votosCert||0;if(pn.barrio&&!d.barrios.includes(pn.barrio))d.barrios.push(pn.barrio);d.nombres.push(pn.nombre);con++;}
   });
-
-  const body=`FIRMA JURÍDICA LEXIA — REGISTRO
-${'═'.repeat(55)}
-ESPECIALISTA : ${active.name}
-ÁREA         : ${active.specialty}
-REFERENCIA   : ${cliente}
-TIPO         : ${tipo}
-FECHA        : ${fecha} · ${hora}
-DRIVE        : /${active.folder}/
-${notas?'\nNOTAS:\n'+notas+'\n':''}
-${'═'.repeat(55)}
-
-TRANSCRIPCIÓN:
-
-${transcript}${'═'.repeat(55)}`.trim();
-
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:(function(){var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';return{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};})(),
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,
-        system:'Eres un asistente que guarda registros. Cuando se te pida, envía el correo indicado via Gmail Y crea un documento en Google Drive en la carpeta especificada con el mismo contenido.',
-        messages:[{role:'user',content:`1) Envía un correo a ${DEST_EMAIL} con asunto: "${subject}" y cuerpo: ${body}
-2) Guarda este registro como documento en Google Drive en la carpeta "${active.folder}/" con nombre "${subject}.txt"
-Haz ambas acciones ahora.`}]})});
-    const d=await r.json();
-    closeModal();
-    const lbl=document.getElementById('saveLabel');if(lbl)lbl.innerHTML='<span style="color:var(--green)">✓ Archivado</span>';
-    const ab=document.getElementById('archiveBtn');if(ab){ab.style.background='var(--green-text)';ab.textContent='✓ Archivado';}
-    toast(`✅ Caso archivado en Gmail y Drive · ${cliente}`,'drive');
-  }catch(e){closeModal();toast('⚠️ Error al archivar. Intente de nuevo.','error');}
-  saving=false;btn.disabled=false;btn.innerHTML='📧 Guardar y Enviar';
+  const resumen={total:STATE.people.length,con,sin:STATE.people.length-con,proyT,certT,
+    effProm:effs.length?Math.round(effs.reduce((a,b)=>a+b,0)/effs.length*10)/10:0,effN:effs.length};
+  const cnt=(f)=>{const o={};STATE.people.forEach(p=>{let v=f(p);if(!v)v='Sin dato';o[v]=(o[v]||0)+1;});return o;};
+  const buckets={'0%':0,'1-25%':0,'26-50%':0,'51-75%':0,'76-100%':0};
+  STATE.people.forEach(p=>{const v=p.efectividad;if(v==null)return;if(v===0)buckets['0%']++;else if(v<=25)buckets['1-25%']++;else if(v<=50)buckets['26-50%']++;else if(v<=75)buckets['51-75%']++;else buckets['76-100%']++;});
+  const eventos={}; STATE.eventos.forEach(e=>eventos[e.nombre]=e.asistentes.length);
+  const carac={gestor:cnt(p=>p.gestor),contratado:cnt(p=>p.contratado),entidad:cnt(p=>p.entidad),entregoBase:cnt(p=>p.entregoBase),efectividad:buckets,eventos,effN:effs.length};
+  return {per,resumen,carac};
 }
 
-// ── HELPERS ──
-function addMsg(role,content){
-  const box=document.getElementById('msgBox');if(!box)return;
-  const now=new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
-  const d=document.createElement('div');d.className=`msg ${role}`;
-  d.innerHTML=`<div class="mbubble">${fmt(content)}</div><div class="mmeta">${now}</div>`;
-  box.appendChild(d);
+/* ---------- MAPA ---------- */
+let metric='personas',selComuna=null;
+const NS='http://www.w3.org/2000/svg';
+function lerp(a,b,t){return a+(b-a)*t}
+function hx(c){return c.map(x=>Math.round(x).toString(16).padStart(2,'0')).join('')}
+const STOPS=[[19,52,63],[27,152,168],[244,185,66],[232,93,61]];
+function heat(t){if(t<=0)return '#13343f';const s=t*(STOPS.length-1),i=Math.min(Math.floor(s),STOPS.length-2),f=s-i;return '#'+hx([0,1,2].map(k=>lerp(STOPS[i][k],STOPS[i+1][k],f)))}
+function renderMap(){
+  const A=agg(),per=A.per;const svg=document.getElementById('map');svg.innerHTML='';
+  const mx=Math.max(...Object.values(per).map(d=>metric==='personas'?d.p:d.proy),1);
+  document.getElementById('legmax').textContent='máx '+mx+(metric==='personas'?' pers.':' votos');
+  const out=document.createElementNS(NS,'path');out.setAttribute('d',GEO.outline);out.setAttribute('fill','none');out.setAttribute('stroke','#3a4658');out.setAttribute('stroke-width','2');svg.appendChild(out);
+  for(let c=1;c<=22;c++){const g=GEO.cells[c],d=per[c],v=metric==='personas'?d.p:d.proy,empty=d.p===0;
+    const grp=document.createElementNS(NS,'g');grp.setAttribute('class','tile'+(empty?' empty':''));
+    const pa=document.createElementNS(NS,'path');pa.setAttribute('d',g.d);pa.setAttribute('fill',empty?'#10151d':heat(v/mx));grp.appendChild(pa);
+    const n=document.createElementNS(NS,'text');n.setAttribute('class','cn');n.setAttribute('x',g.lx);n.setAttribute('y',g.ly-1);n.setAttribute('text-anchor','middle');n.textContent=c;grp.appendChild(n);
+    const vv=document.createElementNS(NS,'text');vv.setAttribute('class','cv');vv.setAttribute('x',g.lx);vv.setAttribute('y',g.ly+13);vv.setAttribute('text-anchor','middle');vv.textContent=empty?'—':v;grp.appendChild(vv);
+    grp.addEventListener('mouseenter',()=>mapDetail(c));grp.addEventListener('click',()=>{selComuna=c;renderMap();mapDetail(c)});
+    if(c===selComuna)grp.classList.add('sel');svg.appendChild(grp);}
+  [['N',330,8],['S',330,852],['Occidente · Ladera',95,470],['Oriente · Aguablanca',560,355]].forEach(([t,x,y])=>{const tx=document.createElementNS(NS,'text');tx.setAttribute('class','compass');tx.setAttribute('x',x);tx.setAttribute('y',y);tx.setAttribute('text-anchor','middle');tx.textContent=t;svg.appendChild(tx);});
+  renderRank(A);renderKpis(A);renderCaveat(A);
 }
-function addThink(id){
-  const box=document.getElementById('msgBox');if(!box)return;
-  const d=document.createElement('div');d.id=id;d.className='msg assistant';
-  d.innerHTML='<div class="think-bubble"><div class="think-dots"><span></span><span></span><span></span></div></div>';
-  box.appendChild(d);
+function mapDetail(c){const d=agg().per[c],el=document.getElementById('detail');
+  if(d.p===0){el.innerHTML='<h4>Comuna '+c+'</h4><div class="d-empty" style="margin-top:6px">Sin personas registradas.</div>';return}
+  el.innerHTML='<h4>Comuna '+c+'</h4><div class="d-stats"><span><b>'+d.p+'</b>personas</span><span><b>'+d.proy+'</b>proyectados</span><span><b>'+d.cert+'</b>certificados</span><span><b>'+d.barrios.length+'</b>barrios</span></div><div class="chips">'+(d.barrios.map(b=>'<span class="chip">'+b+'</span>').join('')||'<span class="d-empty">Sin barrio</span>')+'</div><div class="names">'+d.nombres.join(' · ')+'</div>';}
+function renderRank(A){const arr=[];for(let c=1;c<=22;c++){const d=A.per[c];if(d.p>0)arr.push(Object.assign({c},d))}
+  const key=metric==='personas'?'p':'proy';arr.sort((a,b)=>b[key]-a[key]);const mx=Math.max(...arr.map(x=>x[key]),1);
+  document.getElementById('ranktitle').textContent=metric==='personas'?'Comunas por personas':'Comunas por votos proyectados';
+  document.getElementById('rankhint').textContent=arr.length+' comunas con base';
+  document.getElementById('rank').innerHTML=arr.map(x=>{const v=x[key],w=Math.max(6,v/mx*100);return '<div class="rrow"><div class="rbadge">'+x.c+'</div><div class="rmain"><div class="rname">Comuna '+x.c+'</div><div class="rbar-t"><div class="rbar-f" style="width:'+w+'%"></div></div><div class="rbarrios">'+(x.barrios.join(' · ')||'—')+'</div></div><div class="rval">'+v+'<small>'+(metric==='personas'?'pers.':'votos')+'</small></div></div>'}).join('');}
+function renderKpis(A){const r=A.resumen;const k=[
+  {v:r.total,l:'Personas en la base',s:'registros'},
+  {v:r.con,l:'Mapeadas en Cali',s:Math.round(r.con/r.total*100)+'% del total',hl:1},
+  {v:r.proyT.toLocaleString('es'),l:'Votos proyectados',s:'suma de la base'},
+  {v:r.certT.toLocaleString('es'),l:'Votos certificados',s:'verificados'},
+  {v:r.effProm+'%',l:'Efectividad prom.',s:'sobre '+r.effN+' con dato'}];
+  const html=k.map(x=>'<div class="kpi '+(x.hl?'hl':'')+'"><div class="k-val num">'+x.v+'</div><div class="k-lab">'+x.l+'</div><div class="k-sub">'+x.s+'</div></div>').join('');
+  document.getElementById('kpis').innerHTML=html;document.getElementById('kpis2').innerHTML=html;}
+function renderCaveat(A){const r=A.resumen;document.getElementById('caveat').innerHTML='<b>Cobertura del mapa:</b> '+r.con+' de '+r.total+' personas tienen comuna de Cali identificable; '+r.sin+' aún sin ubicar o de otros municipios. El calor refleja solo a las ubicadas — completar la comuna del resto vuelve el mapa representativo.';}
+
+/* ---------- RESUMEN / caracterización ---------- */
+const PAL={"Sí":'#46b98a',"No":'#c8607a',"Sin dato":'#465061',"Alcaldía":'#5aa9d6',"SAE":'#f4b942',"Juan Pablo Rojas":'#e8825d',"Juan Pablo Urrea":'#5aa9d6',"Votan diferente":'#9a7bd0',"0%":'#c8607a',"1-25%":'#d98a5a',"26-50%":'#f4b942',"51-75%":'#7bc47f',"76-100%":'#46b98a'};
+function pal(k){return PAL[k]||'#6a7689'}
+function block(t,dot,obj,den){const total=den||Object.values(obj).reduce((a,b)=>a+b,0)||1;
+  const ent=Object.entries(obj).sort((a,b)=>b[1]-a[1]);
+  const rows=ent.map(([k,v])=>{const p=v/total*100;return '<div class="brow"><div class="brow-t"><span class="bl">'+k+'</span><span class="bv">'+v+' · '+p.toFixed(0)+'%</span></div><div class="btrack"><div class="bfill" style="width:'+p+'%;background:'+pal(k)+'"></div></div></div>'}).join('');
+  return '<div class="cblock"><h3><span class="dot" style="background:'+dot+'"></span>'+t+'</h3>'+rows+'</div>'}
+function renderCarac(){const c=agg().carac;document.getElementById('carac').innerHTML=
+  block('Gestor / líder asignado','#e8825d',c.gestor)+block('¿Contratado?','#46b98a',c.contratado)+
+  block('Entidad de vinculación','#5aa9d6',c.entidad)+block('¿Entregó base de datos?','#f4b942',c.entregoBase)+
+  block('Efectividad de votos <span style="color:#5a6678;font-weight:400;font-size:11px">('+c.effN+' con dato)</span>','#7bc47f',c.efectividad,c.effN)+
+  block('Asistencia por evento','#9a7bd0',c.eventos,STATE.people.length);}
+
+/* ---------- PERSONAS ---------- */
+let selPerson=null;
+function renderList(){
+  const q=norm(document.getElementById('q').value);
+  let arr=STATE.people;
+  if(q)arr=arr.filter(p=>norm(p.nombre).includes(q)||(p.cedula||'').includes(q.replace(/\D/g,'')));
+  arr=arr.slice().sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
+  document.getElementById('qcnt').textContent=arr.length+' / '+STATE.people.length;
+  document.getElementById('plist').innerHTML=arr.map(p=>{
+    const col=p.contratado==='Sí'?'var(--ok)':p.contratado==='No'?'var(--no)':'var(--faint)';
+    return '<div class="pcard'+(p.id===selPerson?' on':'')+'" data-id="'+p.id+'"><div class="av">'+initials(p.nombre).toUpperCase()+'</div><div style="min-width:0"><div class="pn">'+p.nombre+'</div><div class="pm">'+(p.cedula||'sin cédula')+'</div></div><div class="pst" style="background:'+col+'"></div></div>';
+  }).join('')||'<div class="empty-state">Sin resultados.</div>';
+  document.querySelectorAll('#plist .pcard').forEach(c=>c.addEventListener('click',()=>{selPerson=c.dataset.id;renderList();renderProfile(c.dataset.id);}));
 }
-function fmt(t){return t.replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/^(.+)$/,'<p>$1</p>');}
-function scroll(){const b=document.getElementById('msgBox');if(b)b.scrollTop=b.scrollHeight;}
-function toast(msg,type='success'){
-  document.querySelector('.toast')?.remove();
-  const t=document.createElement('div');t.className=`toast${type?(' '+type):''}`;
-  t.innerHTML=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),4500);
+function eventsOf(id){return STATE.eventos.filter(e=>e.asistentes.includes(id));}
+function renderProfile(id){
+  const p=pById(id);if(!p)return;
+  const emp=p.contratado==='Sí';
+  const evAll=STATE.eventos;
+  const lv=p.lineaVotantes||[];
+  document.getElementById('profile').innerHTML=`
+    <div class="prof-head"><div class="bigav">${initials(p.nombre).toUpperCase()}</div>
+      <div><h3>${p.nombre}</h3><div class="sub">CC ${p.cedula||'—'} · Tel ${p.telefono||'—'}</div></div></div>
+    <div class="statusrow">
+      <span class="badge ${emp?'empleado':'noemp'}">${emp?'● Empleado actualmente':'○ No contratado'}</span>
+      ${p.entidad?`<span class="badge neutral">${p.entidad}</span>`:''}
+      ${p.gestor?`<span class="badge neutral">Gestor: ${p.gestor}</span>`:''}
+      ${p.comuna?`<span class="badge neutral">Comuna ${p.comuna}${p.barrio?' · '+p.barrio:''}</span>`:''}
+    </div>
+    <div class="fgrid">
+      <div class="field"><label>¿Contratado?</label><select id="f_contratado"><option ${p.contratado==='Sí'?'selected':''}>Sí</option><option ${p.contratado==='No'?'selected':''}>No</option><option ${!p.contratado?'selected':''} value="">Sin dato</option></select></div>
+      <div class="field"><label>Entidad</label><input id="f_entidad" value="${p.entidad||''}" placeholder="Alcaldía, SAE, …"></div>
+      <div class="field"><label>Inicio de contrato</label><input id="f_fecha" type="date" value="${p.fechaContrato||''}">${!p.fechaContrato?'<div class="nofile">capturar — no venía en el archivo</div>':''}</div>
+      <div class="field"><label>Salario mensual (COP)</label><input id="f_salario" type="number" value="${p.salario??''}" placeholder="0">${p.salario==null?'<div class="nofile">capturar — no venía en el archivo</div>':''}</div>
+      <div class="field"><label>Votos certificados aportados</label><input id="f_cert" type="number" value="${p.votosCert??''}" placeholder="0"></div>
+      <div class="field"><label>Proyección / meta de su línea</label><input id="f_proy" type="number" value="${p.proyeccion??''}" placeholder="0"></div>
+      <div class="field"><label>Comuna (1–22)</label><input id="f_comuna" type="number" min="1" max="22" value="${p.comuna??''}"></div>
+      <div class="field"><label>Barrio</label><input id="f_barrio" value="${p.barrio||''}"></div>
+    </div>
+
+    <div class="subcard"><h4>Eventos a los que ha asistido <span class="c2">${eventsOf(id).length}/${evAll.length}</span></h4>
+      <div class="evtags">${evAll.map(e=>`<span class="evtag ${e.asistentes.includes(id)?'':'no'}">${e.asistentes.includes(id)?'✓':'·'} ${e.nombre}</span>`).join('')||'<span class="d-empty">Aún no hay eventos.</span>'}</div></div>
+
+    <div class="subcard"><h4>Línea de votantes <span class="c2" id="lvc">${lv.length} registrados</span></h4>
+      <div id="lvlist"></div>
+      <button class="btn ghost sm" id="addlv">+ Agregar votante</button></div>
+
+    <div class="saverow"><button class="btn" id="savep">Guardar cambios</button>
+      <button class="btn danger sm" id="delp">Eliminar</button>
+      <span class="saved" id="savedmsg">✓ Guardado</span></div>`;
+  renderLV(id);
+  document.getElementById('addlv').addEventListener('click',()=>{p.lineaVotantes=p.lineaVotantes||[];p.lineaVotantes.push({n:'',t:''});renderLV(id);});
+  document.getElementById('savep').addEventListener('click',()=>savePerson(id));
+  document.getElementById('delp').addEventListener('click',()=>{if(confirm('¿Eliminar a '+p.nombre+'?')){STATE.people=STATE.people.filter(x=>x.id!==id);STATE.eventos.forEach(e=>e.asistentes=e.asistentes.filter(a=>a!==id));save();selPerson=null;renderList();document.getElementById('profile').innerHTML='<div class="empty-state">Persona eliminada.</div>';}});
+}
+function renderLV(id){const p=pById(id),lv=p.lineaVotantes||[];
+  document.getElementById('lvlist').innerHTML=lv.map((v,i)=>`<div class="lv-row"><input data-i="${i}" data-k="n" value="${(v.n||'').replace(/"/g,'&quot;')}" placeholder="Nombre del votante"><input data-i="${i}" data-k="t" value="${(v.t||'').replace(/"/g,'&quot;')}" placeholder="Teléfono"><button class="x" data-del="${i}">×</button></div>`).join('');
+  document.getElementById('lvc').textContent=lv.length+' registrados';
+  document.querySelectorAll('#lvlist input').forEach(inp=>inp.addEventListener('input',e=>{p.lineaVotantes[+e.target.dataset.i][e.target.dataset.k]=e.target.value;}));
+  document.querySelectorAll('#lvlist [data-del]').forEach(b=>b.addEventListener('click',e=>{p.lineaVotantes.splice(+e.target.dataset.del,1);renderLV(id);}));
+}
+function savePerson(id){const p=pById(id);const g=x=>document.getElementById(x).value;
+  p.contratado=g('f_contratado');p.entidad=g('f_entidad').trim();p.fechaContrato=g('f_fecha');
+  p.salario=g('f_salario')===''?null:+g('f_salario');p.votosCert=g('f_cert')===''?null:+g('f_cert');
+  p.proyeccion=g('f_proy')===''?null:+g('f_proy');p.comuna=g('f_comuna')===''?null:+g('f_comuna');p.barrio=g('f_barrio').trim();
+  p.lineaVotantes=(p.lineaVotantes||[]).filter(v=>(v.n||'').trim());
+  save();renderList();renderProfile(id);
+  const m=document.getElementById('savedmsg');m.classList.add('show');setTimeout(()=>m.classList.remove('show'),1500);
+}
+function newPerson(){
+  const id='p'+Date.now();
+  STATE.people.push({id,nombre:'Nueva persona',cedula:'',telefono:'',gestor:'',contratado:'',entidad:'',fechaContrato:'',salario:null,votosCert:null,efectividad:null,entregoBase:'',comuna:null,barrio:'',proyeccion:null,lineaVotantes:[]});
+  save();selPerson=id;document.getElementById('q').value='';renderList();renderProfile(id);
+  openModal(`<h3>Nueva persona</h3>
+    <div class="field" style="margin-bottom:12px"><label>Nombre completo</label><input id="np_n" placeholder="Nombre y apellidos"></div>
+    <div class="field" style="margin-bottom:18px"><label>Cédula</label><input id="np_c" placeholder="Número de cédula"></div>
+    <div style="display:flex;gap:10px"><button class="btn" id="np_ok">Crear</button><button class="btn ghost" id="np_cancel">Cancelar</button></div>`);
+  document.getElementById('np_ok').addEventListener('click',()=>{const p=pById(id);p.nombre=document.getElementById('np_n').value.trim()||'Nueva persona';p.cedula=document.getElementById('np_c').value.replace(/\D/g,'');save();closeModal();renderList();renderProfile(id);});
+  document.getElementById('np_cancel').addEventListener('click',()=>{STATE.people=STATE.people.filter(x=>x.id!==id);save();selPerson=null;closeModal();renderList();});
 }
 
-init();
-</script>
-<div class="apikey-overlay" id="apikeyOverlay" style="display:none"><div class="apikey-box"><div class="apikey-logo">⚖ <span>Lexia</span></div><div class="apikey-sub">Para usar Lexia necesita su clave de API de Anthropic. Se guarda únicamente en su navegador y nunca se comparte.</div><div class="apikey-lbl">Anthropic API Key</div><input class="apikey-inp" id="apikeyInp" type="password" placeholder="sk-ant-api03-..."/><button class="apikey-btn" onclick="saveKey()">Entrar a Lexia →</button><div class="apikey-hint">Obtenga su key en <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div></div></div><script>function resetKey(){localStorage.removeItem('lexia_api_key');localStorage.removeItem('lexia_k');location.reload();}
-function getApiKey(){return localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||''}function saveKey(){const k=document.getElementById('apikeyInp').value.trim();if(!k.startsWith('sk-ant')){alert('La key debe empezar con sk-ant-...');return}localStorage.setItem('lexia_api_key',k);localStorage.setItem('lexia_k',k);document.getElementById('apikeyOverlay').style.display='none'}window.addEventListener('DOMContentLoaded',()=>{if(!getApiKey())document.getElementById('apikeyOverlay').style.display='flex'})</script>
+/* ---------- EVENTOS ---------- */
+function renderEventos(){
+  document.getElementById('ev-attend-wrap').style.display='none';
+  document.getElementById('ev-list-wrap').style.display='block';
+  document.getElementById('evcount').textContent=STATE.eventos.length+' eventos';
+  document.getElementById('evgrid').innerHTML=STATE.eventos.map(e=>`
+    <div class="evcard"><div class="en">${e.nombre}</div>
+      <div class="em">${e.fecha||'sin fecha'} ${e.lugar?'· '+e.lugar:''}</div>
+      <div class="ebig">${e.asistentes.length}</div><div class="ebl">asistentes</div>
+      <div class="erow"><button class="btn sm" data-att="${e.id}">Pasar lista</button>
+      <button class="btn ghost sm" data-del="${e.id}">Eliminar</button></div></div>`).join('')
+    ||'<div class="empty-state">Aún no hay eventos. Crea el primero.</div>';
+  document.querySelectorAll('[data-att]').forEach(b=>b.addEventListener('click',()=>attendance(b.dataset.att)));
+  document.querySelectorAll('#evgrid [data-del]').forEach(b=>b.addEventListener('click',()=>{const e=STATE.eventos.find(x=>x.id===b.dataset.del);if(confirm('¿Eliminar "'+e.nombre+'"?')){STATE.eventos=STATE.eventos.filter(x=>x.id!==b.dataset.del);save();renderEventos();}}));
+}
+function attendance(eid){
+  const e=STATE.eventos.find(x=>x.id===eid);
+  document.getElementById('ev-list-wrap').style.display='none';
+  const w=document.getElementById('ev-attend-wrap');w.style.display='block';
+  w.innerHTML=`<button class="btn ghost sm" id="backev">← Volver a eventos</button>
+    <div class="attend-head" style="margin-top:16px"><h3>${e.nombre}</h3><span class="meta">${e.fecha||'sin fecha'}${e.lugar?' · '+e.lugar:''}</span><span class="meta" id="attcount" style="margin-left:auto;color:var(--accent)"></span></div>
+    <div class="searchbar"><input id="attq" placeholder="Filtrar personas…" autocomplete="off"></div>
+    <div class="card" style="padding:10px"><div class="attlist" id="attlist"></div></div>`;
+  document.getElementById('backev').addEventListener('click',renderEventos);
+  document.getElementById('attq').addEventListener('input',()=>fillAtt(eid));
+  fillAtt(eid);
+}
+function fillAtt(eid){
+  const e=STATE.eventos.find(x=>x.id===eid);
+  const q=norm(document.getElementById('attq').value);
+  let arr=STATE.people.slice().sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
+  if(q)arr=arr.filter(p=>norm(p.nombre).includes(q)||(p.cedula||'').includes(q.replace(/\D/g,'')));
+  document.getElementById('attcount').textContent=e.asistentes.length+' asistentes';
+  document.getElementById('attlist').innerHTML=arr.map(p=>{const on=e.asistentes.includes(p.id);
+    return `<div class="attrow ${on?'on':''}" data-id="${p.id}"><div class="cbox">${on?'✓':''}</div><div class="an">${p.nombre}</div><div class="am">${p.cedula||''}</div></div>`}).join('');
+  document.querySelectorAll('#attlist .attrow').forEach(r=>r.addEventListener('click',()=>{
+    const id=r.dataset.id,i=e.asistentes.indexOf(id);
+    if(i>=0)e.asistentes.splice(i,1);else e.asistentes.push(id);
+    save();fillAtt(eid);}));
+}
+function newEvent(){
+  openModal(`<h3>Nuevo evento</h3>
+    <div class="field" style="margin-bottom:12px"><label>Nombre</label><input id="ne_n" placeholder="Ej: Caravana Comuna 15"></div>
+    <div class="field" style="margin-bottom:12px"><label>Fecha</label><input id="ne_f" type="date"></div>
+    <div class="field" style="margin-bottom:18px"><label>Lugar</label><input id="ne_l" placeholder="Lugar / comuna"></div>
+    <div style="display:flex;gap:10px"><button class="btn" id="ne_ok">Crear evento</button><button class="btn ghost" id="ne_c">Cancelar</button></div>`);
+  document.getElementById('ne_ok').addEventListener('click',()=>{const n=document.getElementById('ne_n').value.trim();if(!n){alert('Ponle un nombre al evento');return;}
+    STATE.eventos.push({id:'ev'+Date.now(),nombre:n,fecha:document.getElementById('ne_f').value,lugar:document.getElementById('ne_l').value.trim(),asistentes:[]});save();closeModal();renderEventos();});
+  document.getElementById('ne_c').addEventListener('click',closeModal);
+}
 
-<div class="km-overlay" id="kmOverlay">
-  <div class="km-box">
-    <div class="km-title">Lexia - API Key</div>
-    <div class="km-sub">Ingrese su clave de Anthropic. Se guarda en su navegador y nunca se comparte.</div>
-    <div class="km-lbl">Anthropic API Key</div>
-    <input class="km-inp" id="kmInp" type="password" placeholder="sk-ant-api03-...">
-    <button class="km-save" onclick="saveKM()">Guardar y continuar</button>
-    <button class="km-cancel" onclick="closeKM()">Cancelar</button>
-    <div class="km-hint">Obtenga su key en <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div>
-  </div>
-</div>
-<script>
-function openKM(){
-  var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';
-  if(k)document.getElementById('kmInp').value=k;
-  document.getElementById('kmOverlay').style.display='flex';
-  setTimeout(function(){document.getElementById('kmInp').focus();},100);
-}
-function closeKM(){document.getElementById('kmOverlay').style.display='none';}
-function saveKM(){
-  var k=document.getElementById('kmInp').value.trim();
-  if(!k){alert('Ingrese su API key.');return;}
-  if(!k.startsWith('sk-ant')){alert('La key debe comenzar con sk-ant-...');return;}
-  localStorage.setItem('lexia_api_key',k);
-  localStorage.setItem('lexia_k',k);
-  closeKM();
-}
-window.addEventListener('DOMContentLoaded',function(){
-  var k=localStorage.getItem('lexia_api_key')||localStorage.getItem('lexia_k')||'';
-  if(!k)openKM();
-});
+/* ---------- modal ---------- */
+function openModal(html){document.getElementById('modalbody').innerHTML=html;document.getElementById('modal').classList.add('on');}
+function closeModal(){document.getElementById('modal').classList.remove('on');}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal();});
+
+/* ---------- export / import ---------- */
+document.getElementById('export').addEventListener('click',()=>{
+  const blob=new Blob([JSON.stringify(STATE,null,1)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='firmes2026_datos_'+new Date().toISOString().slice(0,10)+'.json';a.click();});
+document.getElementById('importbtn').addEventListener('click',()=>document.getElementById('importfile').click());
+document.getElementById('importfile').addEventListener('change',ev=>{
+  const f=ev.target.files[0];if(!f)return;const rd=new FileReader();
+  rd.onload=()=>{try{const d=JSON.parse(rd.result);if(!d.people||!d.eventos)throw 0;STATE=d;save();renderAll();alert('Datos importados: '+d.people.length+' personas, '+d.eventos.length+' eventos.');}catch(e){alert('Archivo inválido.');}};
+  rd.readAsText(f);ev.target.value='';});
+
+/* ---------- navegación ---------- */
+document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#nav button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.getElementById('v-'+b.dataset.v).classList.add('on');
+  if(b.dataset.v==='resumen')renderCarac();
+  if(b.dataset.v==='eventos')renderEventos();
+  if(b.dataset.v==='personas')renderList();
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+document.querySelectorAll('#metric button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#metric button').forEach(x=>x.classList.remove('on'));b.classList.add('on');metric=b.dataset.m;renderMap();}));
+document.getElementById('q').addEventListener('input',renderList);
+document.getElementById('newpers').addEventListener('click',newPerson);
+document.getElementById('newev').addEventListener('click',newEvent);
+
+function renderAll(){renderMap();renderList();renderEventos();renderCarac();}
+renderMap();
 </script>
 </body>
 </html>
