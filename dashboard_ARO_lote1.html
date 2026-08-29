@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARO v2.0 · Riesgo Operacional · Financiera del Aburrá</title>
+<style>
+  :root{
+    --bg:#f5f5f7;
+    --surface:#ffffff;
+    --ink:#1d1d1f;
+    --ink2:#6e6e73;
+    --ink3:#86868b;
+    --line:#d2d2d7;
+    --line-soft:#e8e8ed;
+    --blue:#0071e3;
+    --blue-soft:#f0f6ff;
+    --red:#d70015;
+    --red-soft:#fff0ef;
+    --orange:#b25000;
+    --orange-soft:#fff6ed;
+    --green:#1d7a3f;
+    --green-soft:#f0faf3;
+    --radius:18px;
+    --radius-sm:12px;
+    --maxw:1040px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation:none!important;transition:none!important;}
+  }
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(245,245,247,.82);
+    backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid rgba(0,0,0,.07);
+  }
+  .navin{max-width:var(--maxw);margin:0 auto;padding:0 22px;height:48px;display:flex;align-items:center;gap:26px;overflow-x:auto;scrollbar-width:none;}
+  .navin::-webkit-scrollbar{display:none;}
+  .navbrand{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;}
+  .navin a{font-size:13px;color:var(--ink2);text-decoration:none;white-space:nowrap;transition:color .2s;}
+  .navin a:hover{color:var(--ink);}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px;}
+
+  /* ---------- hero ---------- */
+  header{padding:76px 0 46px;text-align:center;}
+  .eyebrow{font-size:13px;font-weight:600;color:var(--blue);letter-spacing:.02em;text-transform:uppercase;margin:0 0 14px;}
+  h1{font-size:clamp(38px,6vw,60px);line-height:1.04;font-weight:700;letter-spacing:-.026em;margin:0 0 16px;}
+  .sub{font-size:20px;color:var(--ink2);max-width:620px;margin:0 auto;letter-spacing:-.01em;}
+  .stamp{margin-top:26px;font-size:12px;color:var(--ink3);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+
+  /* ---------- stat strip ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:44px 0 0;}
+  .stat{background:var(--surface);border-radius:var(--radius);padding:24px 20px;text-align:center;}
+  .stat .n{font-size:38px;font-weight:600;letter-spacing:-.03em;line-height:1;}
+  .stat .l{font-size:12px;color:var(--ink2);margin-top:8px;letter-spacing:-.005em;}
+  .stat.alert .n{color:var(--red);}
+
+  /* ---------- sections ---------- */
+  section{padding:64px 0 8px;}
+  .sechead{margin-bottom:26px;}
+  .sechead h2{font-size:clamp(27px,3.6vw,38px);font-weight:600;letter-spacing:-.022em;margin:0 0 8px;}
+  .sechead p{font-size:16px;color:var(--ink2);margin:0;max-width:660px;}
+
+  .card{background:var(--surface);border-radius:var(--radius);padding:26px 28px;margin-bottom:12px;}
+  .card h3{font-size:20px;font-weight:600;letter-spacing:-.015em;margin:0 0 4px;}
+  .card .meta{font-size:13px;color:var(--ink3);margin:0 0 16px;}
+
+  /* ---------- why panel : signature ---------- */
+  .why{
+    background:var(--blue-soft);
+    border-left:3px solid var(--blue);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:15px 18px;margin-top:18px;
+  }
+  .why .tag{
+    display:inline-block;font-size:11px;font-weight:600;color:var(--blue);
+    letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;
+  }
+  .why p{margin:0;font-size:14.5px;line-height:1.55;color:#2b3a4a;}
+  .why p + p{margin-top:9px;}
+
+  /* ---------- data rows ---------- */
+  .rows{border-top:1px solid var(--line-soft);}
+  .row{display:flex;gap:16px;padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:15px;}
+  .row dt{flex:0 0 190px;color:var(--ink2);font-size:13.5px;padding-top:1px;}
+  .row dd{margin:0;flex:1;}
+  @media(max-width:640px){.row{flex-direction:column;gap:2px;}.row dt{flex:none;}}
+
+  /* ---------- pills ---------- */
+  .pill{display:inline-block;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:100px;letter-spacing:.01em;vertical-align:middle;}
+  .p-esc{background:var(--red-soft);color:var(--red);}
+  .p-med{background:var(--orange-soft);color:var(--orange);}
+  .p-alt{background:var(--green-soft);color:var(--green);}
+  .p-neu{background:#eeeef1;color:var(--ink2);}
+  .p-blue{background:var(--blue-soft);color:var(--blue);}
+
+  /* ---------- segmented control ---------- */
+  .seg{display:inline-flex;background:#e9e9ed;border-radius:10px;padding:2px;margin-bottom:22px;flex-wrap:wrap;}
+  .seg button{
+    border:0;background:transparent;font:inherit;font-size:13.5px;font-weight:500;
+    color:var(--ink);padding:6px 15px;border-radius:8px;cursor:pointer;transition:background .18s,box-shadow .18s;
+  }
+  .seg button[aria-pressed="true"]{background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.1);font-weight:600;}
+
+  /* ---------- event card ---------- */
+  .ev{background:var(--surface);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;}
+  .ev summary{
+    list-style:none;cursor:pointer;padding:20px 26px;display:flex;align-items:center;gap:14px;
+  }
+  .ev summary::-webkit-details-marker{display:none;}
+  .ev summary:hover{background:#fafafc;}
+  .ev .id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;font-weight:600;flex:0 0 62px;}
+  .ev .ttl{flex:1;font-size:15.5px;letter-spacing:-.01em;}
+  .ev .ttl small{display:block;color:var(--ink3);font-size:12.5px;margin-top:2px;letter-spacing:0;}
+  .ev .chev{color:var(--ink3);font-size:13px;transition:transform .25s;flex:0 0 auto;}
+  .ev[open] .chev{transform:rotate(90deg);}
+  .ev .body{padding:2px 26px 26px;}
+  .ev .quote{
+    font-size:14.5px;color:var(--ink2);font-style:italic;
+    border-left:2px solid var(--line);padding-left:14px;margin:0 0 18px;
+  }
+  .kpis{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 4px;}
+  .kpi{background:#f5f5f7;border-radius:var(--radius-sm);padding:11px 15px;min-width:96px;}
+  .kpi .k{font-size:11px;color:var(--ink3);letter-spacing:.02em;text-transform:uppercase;}
+  .kpi .v{font-size:19px;font-weight:600;letter-spacing:-.02em;margin-top:2px;}
+  ol.act{margin:8px 0 0;padding-left:20px;font-size:15px;}
+  ol.act li{margin-bottom:6px;}
+  .tiny{font-size:13px;color:var(--ink3);}
+
+  /* ---------- latency bars ---------- */
+  .bars{margin-top:6px;}
+  .bar{margin-bottom:16px;}
+  .bar .lab{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px;}
+  .bar .lab b{font-weight:600;font-variant-numeric:tabular-nums;}
+  .track{height:9px;background:#ececf0;border-radius:100px;overflow:hidden;}
+  .fill{height:100%;border-radius:100px;background:var(--blue);}
+  .fill.warn{background:#ff9f0a;}
+
+  /* ---------- queue ---------- */
+  .q{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line-soft);align-items:flex-start;}
+  .q:last-child{border-bottom:0;}
+  .q .rank{
+    flex:0 0 26px;height:26px;border-radius:100px;background:var(--ink);color:#fff;
+    font-size:12.5px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:2px;
+  }
+  .q.crit .rank{background:var(--red);}
+  .q .qb{flex:1;}
+  .q .qt{font-size:15.5px;font-weight:500;letter-spacing:-.01em;}
+  .q .qd{font-size:13.5px;color:var(--ink2);margin-top:3px;}
+  .q .qw{font-size:13px;color:var(--ink3);margin-top:5px;}
+
+  /* ---------- change list ---------- */
+  .chg summary{cursor:pointer;list-style:none;padding:16px 0;display:flex;gap:14px;align-items:baseline;border-bottom:1px solid var(--line-soft);}
+  .chg summary::-webkit-details-marker{display:none;}
+  .chg .num{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--ink3);flex:0 0 22px;}
+  .chg .ct{font-size:15.5px;letter-spacing:-.01em;flex:1;}
+  .chg[open] summary{border-bottom:0;padding-bottom:4px;}
+  .chg .cbody{padding:0 0 18px 36px;border-bottom:1px solid var(--line-soft);}
+  @media(max-width:640px){.chg .cbody{padding-left:0;}}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:4px;}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line-soft);}
+  th{font-size:12px;color:var(--ink3);font-weight:600;letter-spacing:.03em;text-transform:uppercase;}
+  td.num{font-variant-numeric:tabular-nums;}
+
+  /* ---------- gráficos ---------- */
+  .hbar{display:grid;grid-template-columns:170px 1fr 54px;gap:14px;align-items:center;padding:6px 0;font-size:14px;}
+  .hbar .hl{color:var(--ink);letter-spacing:-.005em;line-height:1.25;}
+  .hbar .hl small{display:block;color:var(--ink3);font-size:11.5px;}
+  .hbar .hv{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;font-size:14px;}
+  .hbar .track{height:20px;border-radius:6px;background:#f0f0f3;position:relative;}
+  .hbar .fill{border-radius:6px;height:100%;}
+  .hbar .fill.stack{position:absolute;top:0;left:0;}
+  .f-blue{background:var(--blue);} .f-red{background:#ff453a;} .f-grey{background:#c7c7cc;}
+  .f-orange{background:#ff9f0a;} .f-teal{background:#30b0c7;}
+  @media(max-width:640px){.hbar{grid-template-columns:120px 1fr 46px;gap:9px;font-size:13px;}}
+
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink2);margin-top:14px;}
+  .legend span{display:flex;align-items:center;gap:6px;}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
+
+  .hist{display:flex;align-items:flex-end;gap:10px;height:170px;margin:18px 0 0;}
+  .hist .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;}
+  .hist .cn{font-size:14px;font-weight:600;margin-bottom:6px;font-variant-numeric:tabular-nums;}
+  .hist .cb{width:100%;background:var(--blue);border-radius:7px 7px 0 0;min-height:4px;}
+  .hist .cb.warn{background:#ff9f0a;} .hist .cb.bad{background:#ff453a;}
+  .histlabs{display:flex;gap:10px;margin-top:9px;}
+  .histlabs div{flex:1;text-align:center;font-size:11px;color:var(--ink3);line-height:1.35;}
+
+  .heat{display:grid;grid-template-columns:66px repeat(5,1fr);gap:5px;margin-top:12px;}
+  .heat .hc{min-height:60px;border-radius:9px;padding:5px;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:3px;}
+  .heat .axl{font-size:11px;color:var(--ink3);display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.25;}
+  .heat .axl.row{justify-content:flex-end;padding-right:6px;}
+  .z1{background:#e9f7ee;} .z2{background:#fff5e1;} .z3{background:#ffe9e5;} .z4{background:#ffd9d4;}
+  .chip{background:rgba(255,255,255,.9);border-radius:5px;padding:2px 6px;font-size:10.5px;font-weight:600;font-family:ui-monospace,Menlo,monospace;letter-spacing:-.02em;}
+  .heatax{font-size:11px;color:var(--ink3);text-align:center;margin-top:8px;}
+  @media(max-width:640px){.heat{grid-template-columns:46px repeat(5,1fr);gap:3px;}.heat .hc{min-height:46px;}.chip{font-size:9px;padding:1px 4px;}}
+
+  .dupe{background:#fff8f7;border:1px solid #ffd9d4;border-radius:var(--radius-sm);padding:16px 18px;margin-top:14px;}
+  .dupe b{color:var(--red);}
+
+  td .pill{font-size:10.5px;padding:2px 8px;}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .scroll table{min-width:640px;}
+
+  footer{padding:56px 0 70px;color:var(--ink3);font-size:12.5px;text-align:center;line-height:1.7;}
+  footer code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;}
+
+  @media(max-width:760px){
+    .stats{grid-template-columns:repeat(2,1fr);}
+    header{padding:52px 0 34px;}
+    section{padding:48px 0 4px;}
+    .card,.ev .body{padding-left:20px;padding-right:20px;}
+    .ev summary{padding:18px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="navin">
+    <span class="navbrand">ARO v2.0</span>
+    <a href="#parametros">Parámetros</a>
+    <a href="#diseno">Diseño del agente</a>
+    <a href="#lote">Lote 1</a>
+    <a href="#transversal">Transversal</a>
+    <a href="#decisiones">Decisiones</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Financiera del Aburrá S.A.</p>
+  <h1>Agente asistente de<br>riesgo operacional</h1>
+  <p class="sub">Clasificación, calificación y análisis de causa de eventos SARO. El agente no decide: prepara el trabajo del analista y señala lo que no puede resolver.</p>
+  <p class="stamp">Corrida del 29 de agosto de 2026 · Lote 1 de 6 · Pendiente de aprobación</p>
+
+  <div class="stats">
+    <div class="stat"><div class="n">10</div><div class="l">Eventos procesados<br>de 60 en el archivo</div></div>
+    <div class="stat alert"><div class="n">4</div><div class="l">Escalamientos<br>sin clasificar</div></div>
+    <div class="stat"><div class="n">3</div><div class="l">Reclasificaciones<br>y confianzas Media</div></div>
+    <div class="stat"><div class="n">24,3</div><div class="l">Días promedio<br>de ocurrencia a registro</div></div>
+  </div>
+</header>
+
+<!-- ============ PARÁMETROS ============ -->
+<section id="parametros">
+  <div class="sechead">
+    <h2>Parámetros de calibración</h2>
+    <p>Todo el análisis depende de estos valores. Una discrepancia aquí desplaza el umbral de escalamiento y las cinco fronteras de la escala de impacto a la vez.</p>
+  </div>
+
+  <div class="card">
+    <h3>SMMLV 2026 · COP 1.750.905</h3>
+    <p class="meta">Resuelto. Fuente correcta: hoja <em>Escalas</em> del Manual SARO v4.2.</p>
+    <dl class="rows">
+      <div class="row"><dt>Umbral de escalamiento</dt><dd><b>COP 35.018.100</b> (20 SMMLV)</dd></div>
+      <div class="row"><dt>Cortes de impacto</dt><dd class="tiny">1 SMMLV = 1.750.905 · 5 = 8.754.525 · 20 = 35.018.100 · 100 = 175.090.500</dd></div>
+      <div class="row"><dt>Fuente errada</dt><dd>Hoja <em>Contexto</em> de <code>datos_eventos_riesgo_operacional.xlsx</code> registra 1.623.500 <span class="pill p-esc">Corregir</span></dd></div>
+      <div class="row"><dt>Soporte normativo</dt><dd class="tiny">Decreto 1469 del 29-dic-2025 · suspendido por el Consejo de Estado en feb-2026 · valor mantenido por el Decreto 159 del 19-feb-2026 · suspensión revocada en jul-2026</dd></div>
+      <div class="row"><dt>Efecto en el archivo</dt><dd>Un solo evento cambia de nivel: <b>EV-023</b> pasa de 20,94 a 19,42 SMMLV y deja de escalar por materialidad</dd></div>
+    </dl>
+    <div class="why">
+      <span class="tag">Por qué</span>
+      <p>El agente encontró dos valores distintos en dos archivos del proyecto y no eligió. Elegir en silencio la fuente que parezca más razonable produce clasificaciones correctas por casualidad y no deja rastro auditable: el error solo aparecería cuando alguien preguntara por qué un evento escaló o dejó de escalar.</p>
+      <p>El valor nominal nunca cambió durante 2026, pero la norma que lo soporta sí. Por eso la bitácora registra el valor usado y no solo el número de SMMLV del umbral: si alguien audita la calibración hacia atrás, necesita saber contra qué decreto se calculó.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Escalas del Manual v4.2</h3>
+    <p class="meta">Sustituyen a las del prompt base.</p>
+    <table>
+      <thead><tr><th>Nivel</th><th>Probabilidad</th><th>Impacto (pérdida en SMMLV)</th><th>Zona</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>Remota · &lt; 1 vez cada 5 años</td><td>Insignificante · &lt; 1</td><td>Bajo · 1 a 4</td></tr>
+        <tr><td class="num">2</td><td>Improbable · 1 vez cada 2 a 5 años</td><td>Menor · 1 a 5</td><td>Moderado · 5 a 9</td></tr>
+        <tr><td class="num">3</td><td>Posible · 1 vez al año</td><td>Moderado · 5 a 20</td><td>Alto · 10 a 14</td></tr>
+        <tr><td class="num">4</td><td>Probable · varias veces al año</td><td>Mayor · 20 a 100</td><td>Extremo · 15 a 25</td></tr>
+        <tr><td class="num">5</td><td>Casi cierta · mensual o más</td><td>Catastrófico · &gt; 100</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div class="why">
+      <span class="tag">Por qué</span>
+      <p>El prompt base traía una escala de impacto con cortes en 10, 50, 200 y 1.000 SMMLV. Con esa escala, nueve de los diez eventos de este lote calificarían impacto 1 y el agente perdería toda capacidad de discriminar. La escala que manda es la aprobada por la Junta, no la del prompt genérico.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DISEÑO DEL AGENTE ============ -->
+<section id="diseno">
+  <div class="sechead">
+    <h2>Qué se cambió del prompt base</h2>
+    <p>Nueve ajustes para pasar de un prompt genérico a uno operable en esta entidad. Cada uno abre con su justificación.</p>
+  </div>
+  <div class="card" id="chgbox"></div>
+</section>
+
+<!-- ============ LOTE 1 ============ -->
+<section id="lote">
+  <div class="sechead">
+    <h2>Lote 1 · EV-001 a EV-010</h2>
+    <p>Diez eventos por corrida. No es un límite técnico: es lo que una persona alcanza a revisar con atención antes de empezar a aprobar en bloque.</p>
+  </div>
+
+  <div class="seg" role="group" aria-label="Filtrar eventos">
+    <button data-f="all" aria-pressed="true">Todos · 10</button>
+    <button data-f="esc" aria-pressed="false">Escalados · 4</button>
+    <button data-f="med" aria-pressed="false">Confianza Media · 3</button>
+    <button data-f="rec" aria-pressed="false">Reclasificados · 1</button>
+  </div>
+
+  <div id="evbox"></div>
+</section>
+
+<!-- ============ TRANSVERSAL ============ -->
+<section id="transversal">
+  <div class="sechead">
+    <h2>Análisis transversal</h2>
+    <p>Lo que aparece al mirar el lote completo y no evento por evento.</p>
+  </div>
+
+  <div class="card">
+    <h3>Dónde se pierde el tiempo</h3>
+    <p class="meta">Descomposición de los 24,3 días promedio entre ocurrencia y registro.</p>
+    <div class="bars">
+      <div class="bar">
+        <div class="lab"><span>Ocurrencia → detección</span><b>22,1 días</b></div>
+        <div class="track"><div class="fill warn" style="width:91%"></div></div>
+      </div>
+      <div class="bar">
+        <div class="lab"><span>Detección → registro</span><b>2,3 días</b></div>
+        <div class="track"><div class="fill" style="width:9%"></div></div>
+      </div>
+    </div>
+    <div class="why">
+      <span class="tag">Por qué importa</span>
+      <p>La auditoría interna reportó 19 días entre ocurrencia y registro y el diagnóstico natural es que el registro va lento. La descomposición dice lo contrario: el registro toma 2,3 días y la detección 22,1. Un plan que ataque el tiempo de registro trabaja sobre el 10% del problema.</p>
+      <p>El caso extremo es EV-004, con 75 días: un cobro doble a 214 clientes que corrió dos meses antes de que alguien lo notara.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Patrones de causa raíz</h3>
+    <dl class="rows">
+      <div class="row"><dt>5 de 10 eventos</dt><dd>Detección dependiente del cliente o de la contraparte, no de un control interno <span class="tiny">· EV-001, EV-002, EV-004, EV-009, EV-010</span></dd></div>
+      <div class="row"><dt>2 eventos</dt><dd>Captura manual de un dato crítico sin validación bloqueante <span class="tiny">· EV-001, EV-006</span></dd></div>
+      <div class="row"><dt>2 eventos</dt><dd>Cambio de configuración o de versión puesto en producción sin prueba previa <span class="tiny">· EV-004, EV-009</span></dd></div>
+      <div class="row"><dt>2 eventos</dt><dd>Verificación de un tercero ausente o inoperante en originación <span class="tiny">· EV-002, EV-010</span></dd></div>
+    </dl>
+    <div class="why">
+      <span class="tag">Por qué</span>
+      <p>El primer patrón es el hallazgo del lote y no aparece en ningún evento individual. La mitad de los eventos se detectaron porque alguien de afuera reclamó. Eso significa que el sistema de control no está detectando: está esperando. Es también la explicación estructural de los 22,1 días de latencia.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Duplicados y concentración</h3>
+    <dl class="rows">
+      <div class="row"><dt>Duplicados en el lote</dt><dd>Ninguno. EV-001 y EV-006 comparten patrón de dato mal capturado, pero difieren en proceso, fecha y monto</dd></div>
+      <div class="row"><dt>Línea de negocio</dt><dd>Consumo 5 · Transversal 3 · Libranza 2</dd></div>
+      <div class="row"><dt>Oficina</dt><dd>Bello 1 · Itagüí 1 · sin concentración</dd></div>
+      <div class="row"><dt>Controles</dt><dd>R-15 y R-19 figuran <b>No efectivos</b> en la matriz y en ambos el evento se materializó</dd></div>
+      <div class="row"><dt>Tasa de escalamiento</dt><dd>40% <span class="pill p-med">Vigilar</span></dd></div>
+    </dl>
+    <div class="why">
+      <span class="tag">Por qué</span>
+      <p>La detección de duplicados solo alcanza el lote. Con lotes de diez sobre sesenta eventos, un duplicado repartido entre dos lotes es invisible para el agente, y en una revisión preliminar del archivo completo hay al menos un grupo de eventos con la misma fecha y el mismo monto que quedaría partido si se agrupa por ID consecutivo. Conviene tamizar duplicados sobre los 60 antes de armar los lotes.</p>
+      <p>El 40% de escalamiento es alto. Si se sostiene en los seis lotes hay que revisar los criterios E4 y E6 con el CRO: un escalamiento que se dispara en cuatro de cada diez eventos deja de ser señal y se vuelve ruido, y el efecto práctico es que el revisor empieza a despacharlos en bloque.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DECISIONES ============ -->
+<section id="decisiones">
+  <div class="sechead">
+    <h2>Cola de decisión humana</h2>
+    <p>El orden de revisión es fijo: escalamientos, luego alertas de integridad, luego confianza Media o Baja, y al final un muestreo del resto.</p>
+  </div>
+  <div class="card" id="qbox"></div>
+  <div class="card">
+    <div class="why" style="margin-top:0">
+      <span class="tag">Por qué este orden</span>
+      <p>Revisar en orden de aparición es cómodo y es el peor orden posible: la atención se agota antes de llegar a los casos difíciles. Los escalamientos van primero porque su costo crece con el tiempo — en EV-008 cada día de demora degrada la evidencia de cámaras y logs, y en EV-005 corre un plazo de respuesta al supervisor.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <code>Versión de prompt: ARO v2.0 · Lote 1 de 6 · Eventos EV-001 a EV-010 · SMMLV 1.750.905 · Corrida 2026-08-29</code><br>
+  Salida generada por un agente asistente. Requiere revisión, corrección y aprobación de un analista de riesgo operacional antes de cualquier uso.
+</footer>
+
+</div>
+
+<script>
+/* ---------------- datos ---------------- */
+const CHANGES = [
+  ["Escalas reemplazadas","El prompt base usa cortes de impacto en 10, 50, 200 y 1.000 SMMLV. El Manual v4.2 aprobado por la Junta usa 1, 5, 20 y 100.","Con la escala base casi todo el lote calificaría impacto 1. La escala que manda es la de la entidad, no la del prompt genérico."],
+  ["Regla de cálculo del residual","Se incorporó el factor de reducción de la matriz (Efectivo 0,6 · Parcial 0,3 · No efectivo 0,0) y una excepción nueva.","Si la descripción evidencia que el control no operó, estaba inactivo o fue omitido, el residual vuelve a ser igual al inherente aunque la matriz diga otra cosa. Sin esta excepción el agente reduce el riesgo apoyándose en un control que el propio evento demostró que no existía."],
+  ["Reglas R1 a R6 del manual incrustadas","Son las que resuelven las fronteras 4/7, 6/7, 2/5/6 y 3/7.","Sin ellas el agente decide fronteras por intuición, que es exactamente donde la auditoría encontró el 31% de errores de clasificación."],
+  ["El campo clasificacion_actual se degrada a dato","Deja de ser un ancla y pasa a ser un dato más, que además contiene errores deliberados.","Un modelo que ve una etiqueta previa tiende a confirmarla. Si el agente hereda la clasificación del reportante, reproduce el error en lugar de corregirlo, y la revisión pierde su sentido."],
+  ["El campo causa_raiz deja de ser propio","Es una causa reportada por un tercero. El agente debe decir si la adopta y si el texto la sustenta.","Presentar como análisis propio lo que otro escribió elimina el único punto donde el analista podría detectar que la causa no se sostiene."],
+  ["Vinculación obligatoria a la matriz","Por ID de riesgo, con dueño de proceso y con la calificación de la matriz junto a la del evento.","Permite ver la divergencia entre lo que la matriz espera y lo que el evento muestra. Un evento con impacto mayor al previsto en la matriz es insumo directo para la autoevaluación anual."],
+  ["Criterios de escalamiento operacionalizados","Se pasó de 'podría requerir reporte al supervisor' a siete criterios verificables (E1 a E7).","Un criterio que dice 'podría' aplica a todo. Sin umbrales concretos — queja radicada, indisponibilidad total superior a 2 horas, credenciales comprometidas — el agente escala todo o nada, y ambos extremos son inservibles."],
+  ["Prohibición de convertir unidades","Cinco eventos del archivo traen cifras en miles. El agente las marca, ofrece la conversión como supuesto y no la usa para evaluar materialidad.","Convertir automáticamente es inventar un dato. Un evento cuya conversión lo cruce por encima del umbral debe escalar por decisión del analista, no por una inferencia del modelo."],
+  ["Control de lote y bitácora","Paso 0 que rechaza lotes de más de diez, y línea de cierre con versión de prompt, IDs, SMMLV usado y quién aprueba.","Sin bitácora no hay forma de reconstruir con qué parámetros se clasificó un evento seis meses después. El límite de diez evita la corrida masiva que produce un archivo que nadie revisó y que queda registrado como si alguien lo hubiera hecho."]
+];
+
+const EVENTS = [
+  {
+    id:"EV-001", f:["med","rec"], proc:"Recaudo y aplicación de pagos", ln:"Libranza",
+    ttl:"Pago aplicado a la obligación de otro cliente",
+    quote:"Se aplicó el pago de un cliente de libranza a la obligación de otro cliente con número de cédula similar. Reclamó seis días después; se reversó, se reprocesó y se devolvieron los intereses de mora cobrados.",
+    pills:['<span class="pill p-med">Confianza Media</span>','<span class="pill p-blue">Reclasificado 7 → 4</span>'],
+    kpis:[["Impacto","1"],["Inherente","4"],["Residual","3"],["Pérdida","480 mil"]],
+    rows:[
+      ["Alertas de integridad","La detección dependió del reclamo del cliente, no de un control interno. No se especifica si los 480.000 son los intereses devueltos, el costo del reproceso o ambos."],
+      ["Clasificación","Factor Procesos · Categoría 4. Clientes, productos y prácticas · Tipo A"],
+      ["Sustento","<em>“se le devolvieron los intereses de mora cobrados”</em>"],
+      ["Confianza","Media — alternativa categoría 7 si el monto corresponde solo al costo interno. Lo resuelve la composición del monto."],
+      ["Riesgo de la matriz","R-06 · inherente 8 · residual 6 · Moderado · C-11, C-12 Parcialmente efectivo · Gerencia de Operaciones"],
+      ["Calificación","P 4 · I 1 (0,27 SMMLV) · Inherente 4 Bajo · Residual 3 Bajo"],
+      ["Causa raíz","La aplicación manual de pagos admite coincidencias parciales del número de documento y no exige confirmación contra un segundo dato antes de imputar."],
+      ["Control que falló","C-11 / C-12, calificados Parcialmente efectivos"],
+      ["Información faltante","Composición del monto; si el cliente afectado fue reportado a centrales durante los seis días."]
+    ],
+    acts:["Validación bloqueante de dos datos (documento y número de obligación) antes de aplicar el pago — <b>preventivo</b>","Alerta por coincidencia parcial de documento entre el pago y la obligación destino — <b>detectivo</b>","Reliquidación automática de intereses en toda reversión — <b>correctivo</b>"],
+    why:["El registro venía como categoría 7 y se reclasificó a 4. La regla R2 del manual dice que si el error interno recae directamente sobre el cliente — y aquí derivó en un cobro indebido de intereses de mora — la categoría es 4. El hecho manda sobre la etiqueta con la que llegó.","La confianza queda en Media, no en Alta, porque el monto puede ser el costo del reproceso interno en lugar del cobro trasladado. Ante dos lecturas razonables el agente no elige: presenta ambas y dice qué dato las resolvería."]
+  },
+  {
+    id:"EV-002", f:["med"], proc:"Originación de crédito", ln:"Consumo",
+    ttl:"Crédito aprobado con documentos laborales alterados",
+    quote:"Se aprobó un crédito de consumo con certificado laboral y desprendibles de nómina alterados por el solicitante. Se detectó al no pagarse la primera cuota, cuando la empresa informó que nunca fue empleado.",
+    pills:['<span class="pill p-med">Factor divergente</span>'],
+    kpis:[["Impacto","3"],["Inherente","12"],["Residual","8"],["Neta","12,4 M"]],
+    rows:[
+      ["Alertas de integridad","50 días entre ocurrencia (18-nov-2025) y detección. La ocurrencia es del ejercicio 2025 y el registro de 2026: verificar el período contable de la pérdida."],
+      ["Clasificación","Factor <b>Procesos</b> (la matriz asigna Acontecimientos externos a R-01) · Categoría 2. Fraude externo · Tipo A"],
+      ["Sustento","<em>“certificado laboral y desprendibles de nómina alterados por el solicitante”</em>"],
+      ["Confianza","Alta en la categoría · Media en el factor"],
+      ["Riesgo de la matriz","R-01 · inherente 12 · residual 8 · Moderado · C-01, C-02, C-03 Parcialmente efectivo · Gerencia Comercial"],
+      ["Calificación","P 4 · I 3 (8,28 SMMLV) · Inherente 12 Alto · Residual 8 Moderado · Bruta 14,5 M · Recuperado 2,1 M"],
+      ["Causa raíz","El desembolso no está condicionado a una verificación independiente de la relación laboral; la validación se agota en los documentos que aporta el propio solicitante."],
+      ["Control que falló","C-01 / C-02 / C-03"],
+      ["Información faltante","Si existen otras solicitudes con el mismo patrón de soportes en el período."]
+    ],
+    acts:["Verificación independiente del empleador como paso bloqueante previo al desembolso — <b>preventivo</b>","Alerta de primera cuota impagada con revisión documental del expediente — <b>detectivo</b>","Muestreo retrospectivo de desembolsos del período sin verificación registrada — <b>detectivo</b>"],
+    why:["La categoría es 2 porque el dolo fue de un tercero y nada en el texto evidencia participación interna. El agente no especula sobre el analista que aprobó: describe la conducta observada y nada más.","El factor sí se apartó de la matriz. La regla de desempate del manual dice que cuando concurren varios factores prevalece aquel sobre el cual la entidad podía actuar, y aquí la entidad podía verificar al empleador y no lo hizo. Se declaran los dos factores en lugar de corregir la matriz por cuenta propia: el criterio que adopte el analista aplicará a todos los eventos de fraude externo del histórico, así que es una decisión suya."]
+  },
+  {
+    id:"EV-003", f:["esc"], proc:"Tecnología", ln:"Transversal", esc:true,
+    ttl:"Caída del core por 3 h 40 min en horario pico",
+    quote:"Caída del core el 15 de marzo de 2026 en horario pico. No se pudo desembolsar ni recaudar en oficinas. Se pagaron horas extras a TI y Operaciones para el reproceso nocturno; pérdida registrada COP 3.200.000.",
+    pills:['<span class="pill p-esc">Escalamiento E6</span>'],
+    rows:[
+      ["Criterio","<b>E6 · Continuidad del negocio</b> — indisponibilidad total de canales críticos por más de 2 horas continuas, con afectación simultánea de la red de oficinas."],
+      ["Instancia","Gerencia de Tecnología y CRO, para determinar si se activó el plan de continuidad y si procede reporte al supervisor."]
+    ],
+    why:["El agente se detiene aquí: no clasifica, no califica y no propone acciones. Entregar un análisis completo de un evento que quizá deba reportarse al supervisor invita a tratarlo como un caso más de la cola.","El umbral de 2 horas es una calibración de esta entidad, no una regla del marco. El criterio del prompt base — “podría afectar la continuidad” — aplicaba a cualquier caída, incluida una de diez minutos. Sin un número, el criterio no discrimina."]
+  },
+  {
+    id:"EV-004", f:[], proc:"Servicio al cliente", ln:"Consumo",
+    ttl:"Cobro doble de seguro a 214 clientes durante dos meses",
+    quote:"Cobro doble del seguro de vida deudores a 214 clientes durante dos meses, por parametrización errada del producto tras el cambio de aseguradora. Se devolvió el valor con intereses.",
+    pills:['<span class="pill p-alt">Confianza Alta</span>','<span class="pill p-med">75 días de latencia</span>'],
+    kpis:[["Impacto","3"],["Inherente","9"],["Residual","9"],["Pérdida","18,7 M"]],
+    rows:[
+      ["Alertas de integridad","75 días entre ocurrencia y detección, la latencia más alta del lote. No se cuantifica el costo del reproceso."],
+      ["Clasificación","Factor Procesos · Categoría 4. Clientes, productos y prácticas · Tipo A"],
+      ["Sustento","<em>“Se cobró doble el seguro de vida deudores a 214 clientes”</em>"],
+      ["Riesgo de la matriz","R-19 · inherente 9 · residual 9 · Moderado · C-19, C-31 <b>No efectivo</b> · Gerencia de Producto"],
+      ["Calificación","P 3 · I 3 (10,68 SMMLV) · Inherente 9 Moderado · Residual 9 — sin reducción, controles No efectivos"],
+      ["Causa raíz","El procedimiento de cambio de aseguradora no exige una prueba de cobro en producción sobre una muestra antes de la facturación masiva."],
+      ["Control que falló","C-19 / C-31"],
+      ["Información faltante","Si se informó a los 214 clientes; si Cumplimiento evaluó obligación de reporte por conducta de mercado."]
+    ],
+    acts:["Prueba de cobro sobre muestra, con aprobación documentada, antes de activar cualquier cambio de parametrización — <b>preventivo</b>","Conciliación mensual entre cobros efectuados y condiciones pactadas por producto — <b>detectivo</b>","Barrido de los demás productos parametrizados en el mismo cambio — <b>correctivo</b>"],
+    why:["El residual es igual al inherente porque la matriz califica los controles C-19 y C-31 como No efectivos, con factor de reducción cero. No se trata de una penalización del agente: es la regla del manual de no reducir el riesgo inherente sin evidencia de un control que funcione.","No escala. Afecta a 214 consumidores, pero el monto está muy por debajo del umbral y no hay queja radicada ni requerimiento del supervisor. La pregunta de si procede un reporte por conducta de mercado se deja anotada como información faltante: es del Oficial de Cumplimiento, no del agente."]
+  },
+  {
+    id:"EV-005", f:["esc"], proc:"Cobranza", ln:"Consumo", esc:true,
+    ttl:"Llamada de cobranza fuera de horario, con queja ante la SFC",
+    quote:"Un gestor de cobranza llamó a un cliente a las 9:40 p. m., fuera del horario permitido, con lenguaje descrito en el reporte como intimidatorio. El cliente radicó queja ante la SFC. Sin pérdida registrada.",
+    pills:['<span class="pill p-esc">Escalamiento E5 + E7</span>'],
+    rows:[
+      ["Criterio","<b>E5(a)</b> queja radicada ante el supervisor. Concurre <b>E7</b>, riesgo reputacional."],
+      ["Instancia","Oficial de Cumplimiento y Gerencia de Cobranza, con conocimiento del CRO."]
+    ],
+    why:["Es el escalamiento más limpio del lote: hay una queja radicada ante el supervisor, un hecho verificable y no una apreciación. Corre además un plazo de respuesta, lo que lo pone entre los primeros de la cola.","El agente no califica la conducta del gestor ni propone ninguna medida sobre el empleado. La regla es explícita porque la tentación es fuerte: una salida que sugiera una sanción convierte el registro de eventos en un insumo disciplinario y desincentiva el reporte."]
+  },
+  {
+    id:"EV-006", f:["med"], proc:"Desembolso", ln:"Consumo",
+    ttl:"Desembolso a una cuenta bancaria equivocada",
+    quote:"Desembolso a una cuenta bancaria distinta a la aprobada, por digitación errada del número de cuenta en el formato de solicitud. El banco receptor devolvió parte del valor.",
+    pills:['<span class="pill p-med">Confianza Media</span>','<span class="pill p-med">Impacto marginal</span>'],
+    kpis:[["Impacto","3"],["Inherente","9"],["Residual","6"],["Neta","2,5 M"]],
+    rows:[
+      ["Alertas de integridad","Quedan 2.500.000 sin recuperar y el reporte no describe gestión sobre ese saldo. No se indica si el cliente recibió finalmente el desembolso ni en qué fecha."],
+      ["Clasificación","Factor Procesos · Categoría 7. Ejecución, entrega y gestión · Tipo A"],
+      ["Sustento","<em>“Se desembolsó a cuenta bancaria equivocada por digitación errada del número de cuenta”</em>"],
+      ["Confianza","Media — alternativa categoría 4 si el cliente no recibió el desembolso en la fecha pactada. Lo resuelve la fecha efectiva del desembolso."],
+      ["Riesgo de la matriz","R-04 · inherente 9 · residual 6 · Moderado · C-07, C-08 Parcialmente efectivo · Gerencia de Operaciones"],
+      ["Calificación","P 3 · I 3 (5,08 SMMLV) · Inherente 9 Moderado · Residual 6 Moderado · Bruta 8,9 M · Recuperado 6,4 M"],
+      ["Causa raíz","La cuenta destino se captura manualmente desde un formato físico y no se valida contra una fuente independiente antes de ejecutar el desembolso."],
+      ["Control que falló","C-07 / C-08"],
+      ["Información faltante","Fecha efectiva del desembolso al cliente; estado de gestión de los 2.500.000."]
+    ],
+    acts:["Validación de la cuenta destino contra certificación bancaria o prenotificación — <b>preventivo</b>","Confirmación en cuatro ojos para toda cuenta destino nueva o modificada — <b>preventivo</b>","Procedimiento formal de recuperación con plazos y responsable frente al banco receptor — <b>correctivo</b>"],
+    why:["La frontera 4 contra 7 depende de un dato que el reporte no trae. Si el cliente recibió su desembolso con retraso, el efecto recae sobre él y la categoría es 4; si el perjuicio se agotó entre la entidad y el banco receptor, es 7. Se deja en 7 con confianza Media y la pregunta explícita.","Es el evento más frágil del lote en calificación: 5,08 SMMLV queda apenas 145.475 pesos por encima del corte entre impacto 2 y 3. Cualquier corrección del monto bruto lo mueve de nivel, así que conviene verificarlo."]
+  },
+  {
+    id:"EV-007", f:[], proc:"Infraestructura", ln:"Transversal",
+    ttl:"Inundación en la oficina de Bello",
+    quote:"Inundación por rotura de una tubería del piso superior del edificio. Daño en 4 equipos de cómputo, 1 impresora y parte del archivo físico de pagarés en custodia temporal.",
+    pills:['<span class="pill p-alt">Confianza Alta</span>','<span class="pill p-med">Pérdida incompleta</span>'],
+    kpis:[["Impacto","3"],["Inherente","9"],["Residual","6"],["Pérdida","12,3 M"]],
+    rows:[
+      ["Alertas de integridad","La pérdida registrada parece cubrir solo activos físicos. El daño a los pagarés no está cuantificado, lo que sugiere subregistro y una exposición legal no medida. No se indica cobertura de póliza."],
+      ["Clasificación","Factor <b>Infraestructura</b> · Categoría 5. Daños a activos físicos · Tipo A"],
+      ["Sustento","<em>“Daño en 4 equipos de cómputo, 1 impresora y parte del archivo físico de pagarés en custodia temporal”</em>"],
+      ["Riesgo de la matriz","R-27 · inherente 9 · residual 6 · Moderado · C-42, C-43 Parcialmente efectivo · Gerencia Administrativa"],
+      ["Calificación","P 3 · I 3 (7,03 SMMLV) · Inherente 9 Moderado · Residual 6 Moderado. <b>No incluye el valor de los pagarés dañados.</b>"],
+      ["Causa raíz","El procedimiento de custodia temporal de títulos valores no fija requisitos del sitio ni plazo máximo de permanencia, de modo que el archivo puede quedar en un espacio sin protección definida."],
+      ["Control que falló","C-42 / C-43"],
+      ["Información faltante","Número y estado de los pagarés afectados; cobertura de póliza; concepto jurídico sobre exigibilidad."]
+    ],
+    acts:["Requisitos mínimos de sitio y plazo máximo para custodia temporal de títulos valores — <b>preventivo</b>","Inventario y verificación del estado de los pagarés, con concepto jurídico sobre su exigibilidad — <b>correctivo</b>","Digitalización obligatoria previa a todo traslado de pagarés — <b>preventivo</b>"],
+    why:["El factor es Infraestructura y no Acontecimientos externos. La rotura vino del piso superior del edificio, pero la entidad podía actuar sobre dónde ubicaba el archivo, y la regla de desempate del manual entrega el evento al factor sobre el que la entidad tenía control. Es el mismo criterio del ejemplo del manual con la planta eléctrica sin mantenimiento.","La calificación queda declarada como incompleta a propósito. Un pagaré dañado puede comprometer la exigibilidad de una obligación, y ese valor no está en el monto reportado. Calificar con la cifra disponible sin advertirlo produce un número correcto en apariencia y equivocado en el fondo."]
+  },
+  {
+    id:"EV-008", f:["esc"], proc:"Tesorería", ln:"Transversal", esc:true,
+    ttl:"Faltante de caja con retiros no registrados en oficina Itagüí",
+    quote:"Faltante de caja por COP 1.200.000 al cierre. La revisión de cámaras y del log del sistema indica retiros no registrados durante dos semanas, asociados al puesto de cajera titular.",
+    pills:['<span class="pill p-esc">Escalamiento E1</span>'],
+    rows:[
+      ["Criterio","<b>E1 · Conducta dolosa</b> — indicio atribuible a una persona identificable por cargo y oficina."],
+      ["Instancia","Auditoría Interna y Gerencia de Talento Humano, con conocimiento del CRO."]
+    ],
+    why:["Primero en la cola. No por el monto, que es el más bajo del lote, sino porque la evidencia se degrada: las grabaciones se sobrescriben y los logs rotan. Un evento de 1,2 millones puede ser la punta de algo mayor y el tiempo juega en contra.","El agente no clasifica, no califica y no nombra a nadie. El campo de causa raíz viene vacío en el registro y eso es correcto: diligenciarlo antes de la investigación equivale a escribir una conclusión sobre una persona identificable en un sistema al que accede mucha gente."]
+  },
+  {
+    id:"EV-009", f:["med"], proc:"Gestión de libranzas", ln:"Libranza",
+    ttl:"Pagaduría no descontó cuotas de 87 clientes",
+    quote:"La pagaduría de un municipio no descontó las cuotas de 87 clientes durante marzo porque el archivo plano se envió con el formato de la versión anterior del layout.",
+    pills:['<span class="pill p-med">Confianza Media</span>','<span class="pill p-med">¿Pérdida o recaudo diferido?</span>'],
+    kpis:[["Impacto","2"],["Inherente","8"],["Residual","8"],["Registrado","2,4 M"]],
+    rows:[
+      ["Alertas de integridad","24 días entre ocurrencia y detección. <b>El monto puede corresponder a recaudo no percibido, diferido y todavía exigible, y no a una pérdida definitiva</b>; de ser así el registro la sobreestima y el tipo debería ser C."],
+      ["Clasificación","Factor Procesos · Categoría 7. Ejecución, entrega y gestión · Tipo A con salvedad"],
+      ["Sustento","<em>“el archivo plano se envió con el formato de la versión anterior del layout”</em>"],
+      ["Confianza","Media — alternativa categoría 4 si los 87 clientes quedaron reportados en mora o con cobros indebidos."],
+      ["Riesgo de la matriz","R-15 · inherente 12 · residual 12 · <b>Alto</b> · C-25, C-26 <b>No efectivo</b> · Gerencia de Libranzas"],
+      ["Calificación","P 4 · I 2 (1,37 SMMLV) · Inherente 8 Moderado · Residual 8 — sin reducción, controles No efectivos"],
+      ["Causa raíz","El intercambio de archivos con pagadurías carece de control de versiones del layout y de validación de estructura antes del envío, de modo que un cambio de formato solo se detecta por su efecto."],
+      ["Control que falló","C-25 / C-26"],
+      ["Información faltante","Si el valor sigue siendo exigible; estado de mora de los 87 clientes."]
+    ],
+    acts:["Validación automática de estructura contra el layout vigente antes del envío, con bloqueo si no coincide — <b>preventivo</b>","Acuse de procesamiento de la pagaduría y conciliación de novedades enviadas contra aplicadas — <b>detectivo</b>","Repositorio único versionado de layouts por pagaduría, con responsable de actualización — <b>preventivo</b>"],
+    why:["La alerta de integridad es más valiosa que la clasificación. Una cuota que no se descontó sigue siendo exigible: puede no ser una pérdida sino un recaudo diferido, y en ese caso el evento es Tipo C y el monto no debería estar en la cuenta de pérdidas. El agente no corrige el registro; señala la duda y la manda a decisión.","La matriz califica este riesgo en zona Alta con controles No efectivos, y el evento lo confirma. No es un hallazgo nuevo, pero sí una confirmación útil para la autoevaluación anual del proceso de libranzas."]
+  },
+  {
+    id:"EV-010", f:["esc"], proc:"Originación de crédito", ln:"Consumo", esc:true,
+    ttl:"Suplantación de identidad con documentos de un titular real",
+    quote:"Un tercero solicitó un crédito presentando cédula falsificada y documentos de un titular real. Se desembolsaron COP 22.000.000. El titular legítimo se enteró por la central de riesgo. La validación biométrica no estaba operativa en la oficina en la fecha.",
+    pills:['<span class="pill p-esc">Escalamiento E4</span>'],
+    rows:[
+      ["Criterio","<b>E4 · Datos personales</b> — la obligación quedó reportada en una central de riesgo a nombre de un titular que no la adquirió. Debe verificarse además <b>E2</b>, por el uso de documentos de un titular real."],
+      ["Instancia","Oficial de Cumplimiento, para habeas data y verificación de indicios LA/FT, y Gerencia de Riesgo de Crédito, con conocimiento del CRO."],
+      ["No escala por materialidad","22.000.000 está por debajo del umbral de 35.018.100."]
+    ],
+    why:["El escalamiento no viene del monto sino de la persona afectada. Hay un tercero que no pidió nada y quedó reportado en una central de riesgo por una deuda ajena, con un efecto concreto sobre él. Ese es el supuesto que activa el criterio de datos personales.","Si el evento se hubiera clasificado normalmente, el análisis habría girado en torno a la pérdida de 22 millones y a la biometría inoperante. Nada en esa salida habría llevado a nadie a corregir el reporte del titular legítimo, que es lo urgente."]
+  }
+];
+
+const QUEUE = [
+  {r:1,crit:true,t:"EV-008 · Conducta dolosa",d:"Auditoría Interna. Inmediato.",w:"La evidencia de cámaras y logs se degrada con el tiempo."},
+  {r:2,crit:true,t:"EV-005 · Queja radicada ante la SFC",d:"Oficial de Cumplimiento. Inmediato.",w:"Corre un plazo de respuesta al supervisor."},
+  {r:3,crit:true,t:"EV-010 · Habeas data del titular suplantado",d:"Cumplimiento y Riesgo de Crédito.",w:"Hay un tercero reportado a centrales por una deuda que no adquirió."},
+  {r:4,crit:true,t:"EV-003 · Continuidad del negocio",d:"Tecnología y CRO.",w:"Definir si se activó el plan de continuidad y si procede reporte."},
+  {r:5,t:"EV-007 · Cuantificar el daño a los pagarés",d:"Gerencia Jurídica y Administrativa.",w:"La pérdida registrada está incompleta y hay exposición legal no medida."},
+  {r:6,t:"EV-009 · ¿Pérdida o recaudo diferido?",d:"Libranzas y Contabilidad.",w:"Cambia el tipo A/C y el registro contable del evento."},
+  {r:7,t:"EV-004 · ¿Procede reporte por conducta de mercado?",d:"Oficial de Cumplimiento.",w:"214 consumidores afectados; la decisión no es del agente."},
+  {r:8,t:"EV-006 · Fecha efectiva del desembolso al cliente",d:"Operaciones.",w:"Resuelve la frontera 4 contra 7 y la gestión de los 2,5 M no recuperados."},
+  {r:9,t:"EV-001 · Composición del monto",d:"Operaciones.",w:"Resuelve la frontera 4 contra 7."},
+  {r:10,t:"EV-002 · Criterio de factor en fraude externo",d:"CRO.",w:"La regla de desempate del manual y la matriz asignan factores distintos. Lo que se decida aquí aplica a todo el histórico."},
+  {r:11,t:"Corregir el SMMLV en la hoja Contexto",d:"Riesgo Operacional.",w:"El archivo de eventos trae 1.623.500; el valor correcto es 1.750.905."}
+];
+
+/* ---------------- render ---------------- */
+const esc = s => s;
+
+document.getElementById('chgbox').innerHTML = CHANGES.map((c,i)=>`
+  <details class="chg">
+    <summary><span class="num">${String(i+1).padStart(2,'0')}</span><span class="ct">${c[0]}</span><span class="chev">›</span></summary>
+    <div class="cbody">
+      <p style="margin:6px 0 0;font-size:15px;color:var(--ink2)">${c[1]}</p>
+      <div class="why"><span class="tag">Por qué</span><p>${c[2]}</p></div>
+    </div>
+  </details>`).join('');
+
+document.getElementById('evbox').innerHTML = EVENTS.map(e=>{
+  const kpis = e.kpis ? `<div class="kpis">${e.kpis.map(k=>`<div class="kpi"><div class="k">${k[0]}</div><div class="v">${k[1]}</div></div>`).join('')}</div>` : '';
+  const rows = `<dl class="rows">${e.rows.map(r=>`<div class="row"><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join('')}</dl>`;
+  const acts = e.acts ? `<p class="tiny" style="margin:18px 0 0;text-transform:uppercase;letter-spacing:.04em">Acciones propuestas</p><ol class="act">${e.acts.map(a=>`<li>${a}</li>`).join('')}</ol>` : '';
+  const why = `<div class="why"><span class="tag">Por qué esta respuesta</span>${e.why.map(w=>`<p>${w}</p>`).join('')}</div>`;
+  return `<details class="ev" data-f="${(e.f||[]).join(' ')}" ${e.esc?'data-esc="1"':''}>
+    <summary>
+      <span class="id">${e.id}</span>
+      <span class="ttl">${e.ttl}<small>${e.proc} · ${e.ln}</small></span>
+      <span>${(e.pills||[]).join(' ')}</span>
+      <span class="chev">›</span>
+    </summary>
+    <div class="body">
+      <p class="quote">${e.quote}</p>
+      ${kpis}${rows}${acts}${why}
+    </div>
+  </details>`;
+}).join('');
+
+document.getElementById('qbox').innerHTML = QUEUE.map(q=>`
+  <div class="q ${q.crit?'crit':''}">
+    <div class="rank">${q.r}</div>
+    <div class="qb">
+      <div class="qt">${q.t}</div>
+      <div class="qd">${q.d}</div>
+      <div class="qw">${q.w}</div>
+    </div>
+  </div>`).join('');
+
+/* ---------------- filtro ---------------- */
+const btns = document.querySelectorAll('.seg button');
+btns.forEach(b=>b.addEventListener('click',()=>{
+  btns.forEach(x=>x.setAttribute('aria-pressed', x===b));
+  const f = b.dataset.f;
+  document.querySelectorAll('.ev').forEach(ev=>{
+    const tags = (ev.dataset.f||'').split(' ');
+    ev.style.display = (f==='all' || tags.includes(f)) ? '' : 'none';
+  });
+}));
+</script>
+</body>
+</html>
