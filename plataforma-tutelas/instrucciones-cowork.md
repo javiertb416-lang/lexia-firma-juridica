@@ -1,0 +1,1170 @@
+# Instrucciones para Cowork: actualizar el diseño de la Plataforma de tutelas y quejas
+
+## Qué hay que hacer
+
+Reemplazar el diseño de la pantalla de una aplicación web que ya está publicada en Google Apps Script y publicar una versión nueva. **La lógica no cambia**, solo se cambia la apariencia y los textos de la pantalla.
+
+- **Cuenta de Google:** `inversioneshitco@gmail.com`
+- **Sitio:** https://script.google.com
+- **Proyecto:** "Plataforma de tutelas y quejas"
+- **Archivos del proyecto:** `Código.gs` (servidor) e `index.html` (pantalla)
+
+## Reglas (no romper)
+
+1. Trabajar solo dentro del proyecto "Plataforma de tutelas y quejas". No abrir, editar ni borrar otros proyectos, hojas de cálculo ni carpetas de Drive.
+2. En `Código.gs` cambiar **una sola línea** (paso 3). No tocar nada más de ese archivo.
+3. **No ejecutar** ninguna función desde el editor (ni `setup`, ni `seedFicticios`, ni ninguna otra).
+4. **No tocar** Configuración del proyecto ni las Propiedades de script (ahí está `ADMIN_PASSWORD`). No leerla ni copiarla.
+5. Al publicar, **no cambiar** "Ejecutar como" ni "Quién tiene acceso". Solo elegir "Nueva versión".
+6. No crear una implementación nueva: editar la que ya existe, para que la URL no cambie.
+7. Si algo no coincide con estas instrucciones (otra cuenta, otro nombre de proyecto, un error al guardar), detenerse y preguntarle a Javier antes de seguir.
+
+## Paso 1. Abrir el proyecto
+
+1. Abrir https://script.google.com y confirmar (arriba a la derecha) que la sesión es `inversioneshitco@gmail.com`. Si no lo es, detenerse y avisar.
+2. Abrir el proyecto "Plataforma de tutelas y quejas".
+
+## Paso 2. Reemplazar `index.html`
+
+1. En la lista de archivos de la izquierda, abrir `index.html`.
+2. Hacer clic dentro del editor, seleccionar todo (Ctrl+A o Cmd+A) y borrarlo.
+3. Pegar el código nuevo completo. Está en el archivo adjunto `index.html` y también al final de este documento, en la sección **"Código completo de index.html"** (copiar desde `<!doctype html>` hasta `</html>`, sin las líneas de las comillas invertidas que lo rodean).
+   - **Importante:** pegar con el portapapeles (Ctrl+V / Cmd+V). **No escribirlo tecla por tecla**, porque el editor agrega cierres e indentación automáticos y daña el código.
+4. Comprobar que el archivo empieza con `<!doctype html>`, termina con `</html>`, y que contiene la línea `const MODO_ADMIN = <?!= modoAdmin ?>;` (no debe faltar ni cambiar).
+5. Guardar (Ctrl+S / Cmd+S, o el ícono de disquete). Confirmar que no aparece ningún error.
+
+## Paso 3. Cambiar el título en `Código.gs`
+
+1. Abrir `Código.gs`.
+2. Buscar (Ctrl+F) esta línea:
+   ```
+       .setTitle('Seguimiento de acciones')
+   ```
+3. Cambiarla exactamente por:
+   ```
+       .setTitle('Ayuda en salud · Tutelas y quejas ante la Supersalud')
+   ```
+4. Guardar. No cambiar nada más en este archivo.
+
+## Paso 4. Publicar la versión nueva
+
+1. Arriba a la derecha: **Implementar** > **Administrar las implementaciones**.
+2. Seleccionar la implementación de tipo **aplicación web** que ya existe y hacer clic en el **lápiz** (editar).
+3. En **Versión**, elegir **Nueva versión**.
+4. En la descripción escribir: `Rediseño de la pantalla`.
+5. Sin cambiar nada más, hacer clic en **Implementar**.
+6. Copiar la URL de la aplicación web que aparece (debe ser la misma de antes).
+
+## Paso 5. Revisar que funciona
+
+1. Abrir la URL en una ventana de incógnito.
+2. Debe verse la portada nueva: un recuadro azul con el título **"¿Su EPS le niega, le demora o no le entrega la atención que necesita?"**, a la derecha (o debajo en celular) el recuadro **"Entre a su cuenta"**, y más abajo las tarjetas **"Acción de tutela"** y **"Queja ante la Supersalud"**.
+3. Al final del recuadro "Entre a su cuenta" debe aparecer el texto **"Versión de los textos: v3-2026-10"**. Si aparece, la pantalla se está comunicando bien con el servidor.
+4. Abrir la misma URL agregando `?admin=1` al final. Debe aparecer la pantalla **"Administración"** con el campo "Clave de administrador". **No escribir la clave.**
+5. No crear cuentas ni enviar casos de prueba con datos reales.
+
+## Qué reportarle a Javier al terminar
+
+- Si se guardaron los dos archivos sin errores.
+- El número de la versión nueva que mostró "Administrar las implementaciones".
+- La URL de la aplicación web y si es la misma de antes.
+- Si la portada nueva y la pantalla de administración se ven como se describe en el paso 5 (con una captura de pantalla de cada una, si es posible).
+- Cualquier error o mensaje que haya aparecido, copiado tal cual.
+
+## Si algo sale mal
+
+Para volver al diseño anterior: Implementar > Administrar las implementaciones > lápiz > en "Versión" elegir la versión anterior > Implementar. No borrar nada.
+
+---
+
+## Código completo de index.html
+
+````html
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ayuda en salud · Tutelas y quejas</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Merriweather:wght@700;900&display=swap">
+<style>
+  :root {
+    --bg: #f3f7fb; --surface: #ffffff; --ink: #14233a; --muted: #4f5f75; --line: #d8e1ec;
+    --accent: #1557a8; --accent-strong: #0e4485; --accent-ink: #ffffff; --soft: #e6effa;
+    --care: #0d7a6f; --care-soft: #e2f4f1;
+    --warn: #8f3d0c; --warn-bg: #fdeedd; --ok: #1b6b3c; --ok-bg: #e2f2e7;
+    --hero-a: #0f3f7d; --hero-b: #1667b8;
+    --shadow: 0 1px 2px rgba(20, 35, 58, .06), 0 6px 20px rgba(20, 35, 58, .06);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d1520; --surface: #152131; --ink: #e8eef6; --muted: #a3b2c5; --line: #26364b;
+      --accent: #7db4f2; --accent-strong: #a5ccf7; --accent-ink: #0b1a2c; --soft: #1b2e47;
+      --care: #6fd1c4; --care-soft: #143430;
+      --warn: #f5b781; --warn-bg: #3b2616; --ok: #8fd9a8; --ok-bg: #173322;
+      --hero-a: #10294a; --hero-b: #173d6b;
+      --shadow: none; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1520; --surface: #152131; --ink: #e8eef6; --muted: #a3b2c5; --line: #26364b;
+    --accent: #7db4f2; --accent-strong: #a5ccf7; --accent-ink: #0b1a2c; --soft: #1b2e47;
+    --care: #6fd1c4; --care-soft: #143430;
+    --warn: #f5b781; --warn-bg: #3b2616; --ok: #8fd9a8; --ok-bg: #173322;
+    --hero-a: #10294a; --hero-b: #173d6b;
+    --shadow: none; color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 17px; line-height: 1.55;
+  }
+  h1, h2, h3 { font-family: "Merriweather", Georgia, serif; font-weight: 700; line-height: 1.25; text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(26px, 4.4vw, 38px); }
+  h2 { font-size: 22px; }
+  h3 { font-size: 18px; }
+  p { margin: 0; }
+  a { color: var(--accent); }
+
+  /* ---------- barra superior ---------- */
+  .topbar { background: var(--surface); border-bottom: 1px solid var(--line); }
+  .topbar-in {
+    max-width: 1120px; margin-inline: auto; padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .brand-mark {
+    flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
+    background: var(--care-soft); color: var(--care);
+  }
+  .brand-name { font-weight: 700; font-size: 16px; line-height: 1.2; }
+  .brand-sub { font-size: 13px; color: var(--muted); line-height: 1.2; }
+
+  /* ---------- estructura ---------- */
+  .wrap { max-width: 760px; margin-inline: auto; padding: 24px 16px 56px; display: grid; gap: 20px; }
+  body.en-acceso .wrap { max-width: 1120px; }
+  .pagehead { display: grid; gap: 4px; }
+  body.en-acceso .pagehead { display: none; }
+  .kicker { font-size: 13px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--care); }
+  .lead { color: var(--muted); }
+  .hint { font-size: 15px; color: var(--muted); }
+  .sample { font-size: 13px; color: var(--muted); text-align: center; }
+  .stack { display: grid; gap: 14px; }
+  .section-title { display: grid; gap: 6px; margin-bottom: 4px; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    padding: 24px; display: grid; gap: 14px; align-content: start; box-shadow: var(--shadow);
+  }
+  .card.plain { padding: 0; border: 0; box-shadow: none; background: transparent; }
+
+  /* ---------- portada ---------- */
+  .acceso-grid { display: grid; gap: 20px; align-items: start; }
+  @media (min-width: 920px) {
+    .acceso-grid { grid-template-columns: 1.15fr .85fr; gap: 28px; }
+    .acceso-grid > #vAcceso { position: sticky; top: 16px; }
+  }
+  .hero {
+    color: #fff; border-radius: 20px; padding: clamp(24px, 4vw, 40px);
+    background: linear-gradient(140deg, var(--hero-a), var(--hero-b));
+    display: grid; gap: 18px;
+  }
+  .hero .kicker { color: #bfe3ff; }
+  .hero p.big { font-size: 19px; color: #e4efff; max-width: 56ch; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
+  .chips li {
+    font-size: 15px; padding: 6px 12px; border-radius: 999px;
+    background: rgba(255, 255, 255, .13); border: 1px solid rgba(255, 255, 255, .25);
+  }
+  .hero-note { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: #d6e6fb; }
+  .hero-note svg { flex: none; margin-top: 2px; }
+
+  .info { display: grid; gap: 20px; }
+  .two { display: grid; gap: 16px; }
+  @media (min-width: 720px) { .two { grid-template-columns: 1fr 1fr; } }
+  .route { border-top: 5px solid var(--accent); }
+  .route.care { border-top-color: var(--care); }
+  .route-head { display: flex; gap: 12px; align-items: center; }
+  .route-icon {
+    flex: none; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+    background: var(--soft); color: var(--accent);
+  }
+  .route.care .route-icon { background: var(--care-soft); color: var(--care); }
+  .ticks { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .ticks li { position: relative; padding-left: 30px; }
+  .ticks li::before {
+    content: ""; position: absolute; left: 0; top: 4px; width: 18px; height: 18px; border-radius: 50%;
+    background: var(--care-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d7a6f' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 12px no-repeat;
+  }
+
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: paso; }
+  @media (min-width: 720px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+  .steps li {
+    counter-increment: paso; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 16px; padding: 18px; display: grid; gap: 6px; align-content: start; box-shadow: var(--shadow);
+  }
+  .steps li::before {
+    content: counter(paso); width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--accent); color: var(--accent-ink); font-weight: 700; margin-bottom: 4px;
+  }
+  .steps strong { font-size: 17px; }
+  .steps span { font-size: 15px; color: var(--muted); }
+
+  .notice {
+    display: grid; grid-template-columns: 24px 1fr; gap: 12px; align-items: start;
+    background: var(--soft); border-radius: 14px; padding: 16px 18px; font-size: 15px;
+  }
+  .notice svg { color: var(--accent); margin-top: 2px; }
+
+  /* ---------- formularios ---------- */
+  .field { display: grid; gap: 6px; }
+  label { font-size: 15px; font-weight: 700; color: var(--ink); }
+  .req { color: var(--warn); }
+  input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="tel"], select, textarea {
+    width: 100%; font: inherit; color: var(--ink); background: var(--surface);
+    border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; min-height: 50px;
+  }
+  input:hover, select:hover, textarea:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+  textarea { min-height: 160px; resize: vertical; }
+  input[type="file"] {
+    width: 100%; font: inherit; font-size: 15px; color: var(--muted);
+    border: 1.5px dashed var(--line); border-radius: 12px; padding: 12px; background: var(--bg);
+  }
+  input[type="file"]::file-selector-button {
+    font: inherit; font-weight: 700; font-size: 15px; margin-right: 12px; cursor: pointer;
+    border: 0; border-radius: 10px; padding: 9px 14px; background: var(--soft); color: var(--accent);
+  }
+  input:focus-visible, textarea:focus-visible, select:focus-visible, button:focus-visible, input[type="checkbox"]:focus-visible, summary:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent); outline-offset: 2px;
+  }
+  /* etiquetas dentro de formularios generados (administración) */
+  #adDetalle label { margin-bottom: -8px; }
+
+  .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--bg); padding: 5px; border-radius: 14px; }
+  #adminPanel .tabs { grid-template-columns: repeat(3, 1fr); }
+  .tab {
+    font: inherit; font-weight: 700; background: transparent; color: var(--muted);
+    border: 0; border-radius: 10px; padding: 11px 6px; cursor: pointer; min-height: 46px;
+  }
+  .tab.on { background: var(--surface); color: var(--accent); box-shadow: var(--shadow); }
+
+  .btn {
+    font: inherit; font-weight: 700; font-size: 17px; border-radius: 12px; padding: 13px 18px; cursor: pointer;
+    background: var(--accent); color: var(--accent-ink); border: 1.5px solid var(--accent); min-height: 50px;
+    transition: background-color .15s ease;
+  }
+  .btn:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+  .btn.quiet { background: transparent; color: var(--accent); }
+  .btn.quiet:hover { background: var(--soft); }
+  .btn.danger { background: transparent; color: var(--warn); border-color: var(--warn); }
+  .btn.danger:hover { background: var(--warn-bg); }
+  .btn.small { font-size: 15px; padding: 8px 14px; min-height: 40px; }
+  .btn.big { font-size: 18px; padding: 16px 22px; }
+  .btn:disabled { opacity: .55; cursor: not-allowed; }
+  .actions { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; margin-top: 4px; }
+  .actions.one { grid-template-columns: 1fr; }
+  .row-form { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+
+  .progress { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .progress span { height: 6px; border-radius: 99px; background: var(--line); }
+  .progress span.on { background: var(--accent); }
+
+  /* ---------- víctima ---------- */
+  .welcome {
+    background: linear-gradient(140deg, var(--hero-a), var(--hero-b)); color: #fff; border: 0;
+  }
+  .welcome .lead { color: #dbe8fb; }
+  .welcome .btn { background: #fff; color: var(--hero-a); border-color: #fff; }
+  .welcome .btn:hover { background: #e6effa; }
+  .grid { display: grid; gap: 12px; }
+  .item {
+    font: inherit; color: var(--ink); text-align: left; background: var(--surface); border: 1px solid var(--line);
+    border-left: 5px solid var(--accent); border-radius: 14px; padding: 16px 18px; display: grid; gap: 6px;
+    cursor: pointer; width: 100%; box-shadow: var(--shadow);
+  }
+  .item:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); border-left-color: var(--accent); }
+  .item.static { cursor: default; border-left-color: var(--line); }
+  .item strong { font-size: 18px; }
+  .item .more { font-size: 14px; font-weight: 700; color: var(--accent); }
+  .badge {
+    font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+    background: var(--soft); color: var(--accent); justify-self: start;
+  }
+  .badge.warn { background: var(--warn-bg); color: var(--warn); }
+  .estado-ayuda { background: var(--care-soft); color: var(--ink); border-radius: 12px; padding: 12px 14px; font-size: 15px; }
+  .estado-ayuda strong { color: var(--care); }
+
+  .row { display: grid; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .row:last-child { border-bottom: 0; }
+  .row strong { overflow-wrap: anywhere; white-space: pre-line; }
+  .file {
+    display: flex; justify-content: space-between; gap: 10px; align-items: center;
+    font-size: 15px; padding: 10px 12px; background: var(--bg); border-radius: 10px; border: 1px solid var(--line);
+  }
+  .file span { overflow-wrap: anywhere; }
+  .timeline { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  .timeline li { position: relative; border-left: 2px solid var(--line); padding: 0 0 2px 18px; margin-left: 6px; }
+  .timeline li::before {
+    content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 0 3px var(--surface);
+  }
+  .timeline li.hint::before { background: var(--line); }
+
+  details.datos { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 4px 20px; }
+  details.datos summary { cursor: pointer; font-weight: 700; padding: 14px 0; color: var(--muted); }
+  details.datos[open] summary { color: var(--ink); }
+  details.datos > div { display: grid; gap: 12px; padding-bottom: 18px; }
+
+  /* ---------- autorizaciones ---------- */
+  .auth-item { border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 10px; background: var(--surface); }
+  .auth-item h3 { font-family: inherit; font-size: 17px; }
+  .auth-item .que { font-size: 15px; color: var(--muted); }
+  .text {
+    font-size: 15px; color: var(--ink); white-space: pre-line; background: var(--bg);
+    padding: 12px 14px; border-radius: 10px; max-height: 200px; overflow: auto; border: 1px solid var(--line);
+  }
+  .check {
+    display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; font-size: 16px; font-weight: 400;
+    background: var(--soft); padding: 12px; border-radius: 10px; cursor: pointer;
+  }
+  .check input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--accent); }
+
+  .msg { font-size: 16px; border-radius: 12px; padding: 12px 14px; }
+  .msg.err { background: var(--warn-bg); color: var(--warn); }
+  .msg.ok { background: var(--ok-bg); color: var(--ok); }
+  .hidden { display: none !important; }
+
+  footer.pie { max-width: 1120px; margin-inline: auto; padding: 0 16px 40px; font-size: 14px; color: var(--muted); text-align: center; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-9.2-9.4C1.6 8 3.8 4.5 7.3 4.5c2 0 3.5 1.1 4.7 2.7 1.2-1.6 2.7-2.7 4.7-2.7 3.5 0 5.7 3.5 4.5 7.1C19.5 16.4 12 21 12 21z"/><path d="M12 10v5M9.5 12.5h5"/></svg>
+      </span>
+      <div>
+        <div class="brand-name">Ayuda en salud</div>
+        <div class="brand-sub">Tutelas y quejas ante la Supersalud</div>
+      </div>
+    </div>
+    <button id="btnSalir" class="btn quiet small hidden" onclick="salir()">Salir</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="pagehead">
+    <p id="kickerPagina" class="kicker">Su espacio</p>
+    <h1 id="titulo">Ingreso</h1>
+  </div>
+
+  <!-- ============ PORTADA + INGRESO Y REGISTRO ============ -->
+  <div id="vPortada" class="acceso-grid hidden">
+    <section class="hero" aria-labelledby="heroTitulo">
+      <p class="kicker">Acompañamiento en salud</p>
+      <h1 id="heroTitulo">¿Su EPS le niega, le demora o no le entrega la atención que necesita?</h1>
+      <p class="big">Aquí puede enviar su caso. Lo revisamos y preparamos una <strong>acción de tutela</strong> o una <strong>queja ante la Superintendencia Nacional de Salud</strong>, y usted ve el avance desde su celular.</p>
+      <ul class="chips" aria-label="Casos frecuentes">
+        <li>Citas con especialista que no llegan</li>
+        <li>Medicamentos no entregados</li>
+        <li>Cirugías o procedimientos sin autorizar</li>
+        <li>Exámenes, terapias o insumos negados</li>
+      </ul>
+      <p class="hero-note">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        <span>Sus datos y su historia clínica se usan solo para su caso. No se comparten ni se usan para publicidad.</span>
+      </p>
+    </section>
+
+    <section id="vAcceso" class="card hidden" aria-label="Ingreso y registro">
+      <div class="section-title">
+        <h2>Entre a su cuenta</h2>
+        <p class="hint">Si es la primera vez, cree su cuenta. Solo necesita su cédula y una clave de 6 números.</p>
+      </div>
+      <div class="tabs" role="tablist">
+        <button id="tabIngresar" class="tab on" onclick="tab('ingresar')">Ya tengo cuenta</button>
+        <button id="tabRegistro" class="tab" onclick="tab('registro')">Crear cuenta</button>
+      </div>
+
+      <div id="fIngresar" class="stack">
+        <div class="field">
+          <label for="iCedula">Número de cédula</label>
+          <input id="iCedula" type="text" inputmode="numeric" autocomplete="username" placeholder="Sin puntos ni espacios">
+        </div>
+        <div class="field">
+          <label for="iClave">Clave de 6 números</label>
+          <input id="iClave" type="password" inputmode="numeric" maxlength="6" autocomplete="current-password">
+        </div>
+        <div class="actions one"><button class="btn" onclick="ingresar()">Entrar</button></div>
+        <p class="hint">¿Olvidó su clave? Escriba a <a href="mailto:tmm.asesoriaslegales@gmail.com">tmm.asesoriaslegales@gmail.com</a>.</p>
+        <div id="msgIngresar"></div>
+      </div>
+
+      <div id="fRegistro" class="hidden stack">
+        <div id="paso1" class="stack">
+          <div class="progress" aria-hidden="true"><span class="on"></span><span></span></div>
+          <p class="lead"><strong>Paso 1 de 2.</strong> Sus datos.</p>
+          <div class="field">
+            <label for="rNombre">Nombre completo</label>
+            <input id="rNombre" type="text" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="rCedula">Número de cédula</label>
+            <input id="rCedula" type="text" inputmode="numeric" placeholder="Sin puntos ni espacios">
+          </div>
+          <div class="field">
+            <label for="rCorreo">Correo electrónico</label>
+            <input id="rCorreo" type="email" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="rClave">Cree una clave de 6 números</label>
+            <input id="rClave" type="password" inputmode="numeric" maxlength="6" autocomplete="new-password">
+          </div>
+          <div class="field">
+            <label for="rClave2">Repita la clave</label>
+            <input id="rClave2" type="password" inputmode="numeric" maxlength="6" autocomplete="new-password">
+          </div>
+          <div class="actions one"><button class="btn" onclick="siguientePaso()">Siguiente</button></div>
+        </div>
+
+        <div id="paso2" class="stack hidden">
+          <div class="progress" aria-hidden="true"><span class="on"></span><span class="on"></span></div>
+          <p class="lead"><strong>Paso 2 de 2.</strong> Sus autorizaciones. Lea cada texto y marque solo lo que acepte.</p>
+          <div class="auth-item">
+            <h3>1. Uso de mis datos personales y de salud <span class="req">*</span></h3>
+            <p class="que">Nos permite leer su historia clínica y sus documentos para preparar su caso.</p>
+            <div class="text" id="tTrat"></div>
+            <label class="check"><input type="checkbox" id="aTrat"><span>Acepto el tratamiento de mis datos en los términos anteriores.</span></label>
+          </div>
+          <div class="auth-item">
+            <h3>2. Mandato para gestiones ante la EPS y la Supersalud <span class="req">*</span></h3>
+            <p class="que">Nos permite presentar peticiones y quejas en su nombre y pedir información de sus trámites.</p>
+            <div class="text" id="tMand"></div>
+            <label class="check"><input type="checkbox" id="aMand"><span>Acepto el mandato en los términos anteriores.</span></label>
+          </div>
+          <div class="auth-item">
+            <h3>3. Agencia oficiosa para tutela <span class="hint">(opcional)</span></h3>
+            <p class="que">Solo se usa si usted no puede presentar la tutela por sí mismo.</p>
+            <div class="text" id="tAgen"></div>
+            <label class="check"><input type="checkbox" id="aAgen"><span>Autorizo la agencia oficiosa en los términos anteriores.</span></label>
+          </div>
+          <div class="field">
+            <label for="rFirma">Firme escribiendo su nombre completo</label>
+            <input id="rFirma" type="text" autocomplete="off">
+          </div>
+          <p class="hint">Quedan registradas la fecha, la hora y la versión del texto que acepta. Sus autorizaciones firmadas se guardan en su carpeta.</p>
+          <div class="actions"><button class="btn quiet" onclick="irPaso(1)">Volver</button><button id="btnCrearCuenta" class="btn" onclick="registrar()">Crear cuenta</button></div>
+        </div>
+        <div id="msgRegistro"></div>
+      </div>
+      <p id="versionTexto" class="sample"></p>
+    </section>
+  </div>
+
+  <!-- ============ INFORMACIÓN DE LA PORTADA ============ -->
+  <div id="vInfo" class="info hidden">
+    <div class="section-title">
+      <p class="kicker">Dos caminos para exigir su derecho a la salud</p>
+      <h2>¿Tutela o queja ante la Supersalud?</h2>
+      <p class="lead">No tiene que decidirlo usted. Revisamos su caso y elegimos el camino que más le conviene.</p>
+    </div>
+    <div class="two">
+      <article class="card route">
+        <div class="route-head">
+          <span class="route-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0L7 7zM17 7l-3 7a3 3 0 0 0 6 0l-3-7zM8 21h8"/></svg>
+          </span>
+          <div><h3>Acción de tutela</h3><p class="hint">Ante un juez de la República</p></div>
+        </div>
+        <ul class="ticks">
+          <li>Para cuando la falta de atención pone en riesgo su salud, su vida o su dignidad.</li>
+          <li>El juez puede ordenar a la EPS que le preste el servicio.</li>
+          <li>El juez debe decidir en un plazo máximo de 10 días.</li>
+        </ul>
+      </article>
+      <article class="card route care">
+        <div class="route-head">
+          <span class="route-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          </span>
+          <div><h3>Queja ante la Supersalud</h3><p class="hint">Superintendencia Nacional de Salud</p></div>
+        </div>
+        <ul class="ticks">
+          <li>La Supersalud vigila a las EPS y a las clínicas.</li>
+          <li>Para demoras, negaciones, cobros indebidos o mala atención.</li>
+          <li>Busca que la EPS responda y corrija la falla.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="section-title" style="margin-top:8px">
+      <p class="kicker">Así funciona</p>
+      <h2>Cuatro pasos, sin salir de su casa</h2>
+    </div>
+    <ol class="steps">
+      <li><strong>Cree su cuenta</strong><span>Con su cédula y una clave de 6 números.</span></li>
+      <li><strong>Firme sus autorizaciones</strong><span>Para poder revisar su caso y actuar ante la EPS.</span></li>
+      <li><strong>Envíe su caso</strong><span>Cuéntenos qué pasa y adjunte su historia clínica y su cédula.</span></li>
+      <li><strong>Siga el avance</strong><span>Vea el estado, cada actuación y las copias radicadas.</span></li>
+    </ol>
+
+    <div class="two">
+      <article class="card">
+        <h3>Tenga a mano</h3>
+        <ul class="ticks">
+          <li><strong>Historia clínica</strong> (obligatoria).</li>
+          <li><strong>Cédula</strong> (obligatoria). Puede ser una foto.</li>
+          <li>Órdenes médicas, fórmulas o incapacidades.</li>
+          <li>La respuesta o negación de la EPS, si la tiene.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Antes de empezar</h3>
+        <p class="hint">Esta plataforma es un apoyo para preparar y hacer seguimiento a sus acciones. No reemplaza la asesoría de un abogado y no garantiza el resultado del proceso.</p>
+        <p class="hint">La plataforma no envía correos ni mensajes. Para saber cómo va su caso, entre con su cédula y su clave.</p>
+        <p class="hint">Contacto: <a href="mailto:tmm.asesoriaslegales@gmail.com">tmm.asesoriaslegales@gmail.com</a></p>
+      </article>
+    </div>
+  </div>
+
+  <!-- ============ VÍCTIMA ============ -->
+  <section id="vPersona" class="hidden" style="display:grid; gap:20px">
+    <div class="card welcome">
+      <p id="saludo" class="lead"></p>
+      <h2 style="color:#fff">¿Qué necesita hacer hoy?</h2>
+      <p class="lead">Si la EPS le está negando o demorando un servicio, envíenos su caso con sus documentos. Aquí verá cada avance.</p>
+      <div class="actions one"><button id="btnNuevaSolicitud" class="btn big" onclick="nuevaSolicitud()">Enviar mi caso</button></div>
+    </div>
+    <div id="msgPersona"></div>
+
+    <div class="section-title">
+      <h2>Mis casos</h2>
+      <p class="hint">Toque un caso para ver su estado, las actuaciones y los documentos.</p>
+    </div>
+    <div id="listaRegistros" class="grid"></div>
+
+    <div id="vDetalle" class="card hidden">
+      <p class="kicker">Detalle</p>
+      <h2 id="dTitulo"></h2>
+      <div id="dEstadoAyuda" class="estado-ayuda hidden"></div>
+      <div id="dDatos"></div>
+      <h3>Actuaciones</h3>
+      <ul id="dActuaciones" class="timeline"></ul>
+      <h3>Documentos</h3>
+      <div id="dDocs" class="grid"></div>
+      <div id="dSubir" class="stack">
+        <h3>Agregar un documento</h3>
+        <div class="field">
+          <label for="dCategoria">Tipo de documento</label>
+          <select id="dCategoria"></select>
+        </div>
+        <input id="dArchivo" type="file" accept="application/pdf,image/jpeg,image/png" aria-label="Archivo">
+        <p class="hint">PDF de máximo 8 MB, o fotos JPG o PNG (las fotos se reducen automáticamente).</p>
+        <div class="actions one"><button class="btn quiet" onclick="subirDesdeDetalle()">Subir documento</button></div>
+      </div>
+      <div id="dEnviar" class="actions one hidden"><button class="btn" onclick="enviarDesdeDetalle()">Enviar solicitud</button></div>
+      <div id="msgDetalle"></div>
+    </div>
+
+    <details class="datos">
+      <summary>Mis datos y autorizaciones</summary>
+      <div>
+        <h3>Revocar autorización</h3>
+        <p class="hint">Si revoca el tratamiento de sus datos, eliminamos sus datos de la plataforma. Si tiene un caso o una solicitud en curso, debe escribir a <a href="mailto:tmm.asesoriaslegales@gmail.com">tmm.asesoriaslegales@gmail.com</a>.</p>
+        <div class="actions one"><button class="btn danger" onclick="revocar()">Revocar y eliminar mis datos</button></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ NUEVA SOLICITUD ============ -->
+  <section id="vSolicitud" class="hidden" style="display:grid; gap:20px">
+    <div class="card">
+      <div class="section-title">
+        <p class="kicker">Parte 1 de 2</p>
+        <h2>Cuéntenos qué le está pasando</h2>
+      </div>
+      <p class="hint">Escriba con sus palabras. Le ayuda contarnos:</p>
+      <ul class="ticks hint">
+        <li>¿Qué servicio, medicamento o procedimiento necesita?</li>
+        <li>¿Desde cuándo lo está esperando?</li>
+        <li>¿Qué le ha dicho la EPS? ¿Le dieron un número de radicado?</li>
+        <li>¿Cómo está afectando su salud o su vida diaria?</li>
+      </ul>
+      <label for="sExplicacion">Su explicación <span class="req">*</span></label>
+      <textarea id="sExplicacion" placeholder="Por ejemplo: desde hace tres meses la EPS no me autoriza la cirugía de rodilla que ordenó el ortopedista. Ya fui dos veces y me dicen que no hay agenda..."></textarea>
+    </div>
+
+    <div class="card">
+      <div class="section-title">
+        <p class="kicker">Parte 2 de 2</p>
+        <h2>Adjunte sus documentos</h2>
+        <p class="hint">PDF de máximo 8 MB, o fotos JPG o PNG tomadas con el celular (se reducen automáticamente).</p>
+      </div>
+      <div class="field">
+        <label for="sHC">Historia clínica <span class="req">*</span></label>
+        <input id="sHC" type="file" accept="application/pdf,image/jpeg,image/png">
+      </div>
+      <div class="field">
+        <label for="sCed">Documento de identidad <span class="req">*</span></label>
+        <input id="sCed" type="file" accept="application/pdf,image/jpeg,image/png">
+      </div>
+      <div class="field">
+        <label for="sOtro">Otro documento <span class="hint">(opcional)</span></label>
+        <input id="sOtro" type="file" accept="application/pdf,image/jpeg,image/png">
+      </div>
+      <div class="field">
+        <label for="sCatOtro">¿Qué es el otro documento?</label>
+        <select id="sCatOtro"></select>
+      </div>
+      <p class="hint">Después de enviar podrá agregar más documentos desde el detalle de su caso mientras esté en borrador.</p>
+      <div class="actions">
+        <button class="btn quiet" onclick="volverDesdeSolicitud()">Volver</button>
+        <button id="sEnviar" class="btn" onclick="enviarSolicitud()">Enviar mi caso</button>
+      </div>
+      <div id="msgSolicitud"></div>
+    </div>
+  </section>
+
+  <!-- ============ ADMINISTRADOR ============ -->
+  <section id="vAdmin" class="hidden" style="display:grid; gap:20px">
+    <div id="adminLogin" class="card hidden">
+      <div class="field">
+        <label for="aClave">Clave de administrador</label>
+        <input id="aClave" type="password" autocomplete="current-password">
+      </div>
+      <div class="actions one"><button class="btn" onclick="entrarAdmin()">Entrar</button></div>
+      <div id="msgAdmin"></div>
+    </div>
+
+    <div id="adminPanel" class="hidden" style="display:grid; gap:20px">
+      <div class="tabs">
+        <button id="tabSol" class="tab on" onclick="adTab('sol')">Solicitudes</button>
+        <button id="tabCas" class="tab" onclick="adTab('cas')">Casos</button>
+        <button id="tabPer" class="tab" onclick="adTab('per')">Personas</button>
+      </div>
+      <div id="adSol" class="grid"></div>
+      <div id="adCas" class="grid hidden"></div>
+      <div id="adPer" class="grid hidden"></div>
+      <div id="adDetalle" class="card hidden"></div>
+      <div id="msgAdminPanel"></div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="pie">
+  Apoyo para tutelas y quejas en salud · Responsable del tratamiento de datos: Javier Ricardo Torres Betancourt ·
+  <a href="mailto:tmm.asesoriaslegales@gmail.com">tmm.asesoriaslegales@gmail.com</a>
+</footer>
+
+<script>
+  const MODO_ADMIN = <?!= modoAdmin ?>;
+  let TOKEN = null;
+  let REGISTRO_ACTUAL = null;
+  let CATALOGOS = null;
+  let CONSENT = null;
+
+  // Explicación sencilla de cada estado, para que la persona entienda en qué va su caso.
+  const ESTADO_AYUDA = {
+    'Borrador': 'Su solicitud todavía no se ha enviado. Adjunte los documentos obligatorios y envíela.',
+    'En revisión': 'Recibimos su caso. Lo estamos revisando para definir si procede una tutela o una queja ante la Supersalud.',
+    'Convertida': 'Su solicitud ya se convirtió en un caso. Ábralo en la lista "Mis casos" para ver su avance.',
+    'Radicado': 'La tutela o la queja ya fue presentada ante la autoridad.',
+    'En reparto': 'Se está asignando el juzgado que estudiará la tutela.',
+    'Admitido': 'La autoridad aceptó estudiar su caso.',
+    'Medida provisional decidida': 'Se decidió si se ordena una protección urgente mientras se resuelve el caso.',
+    'Fallo': 'El juez ya tomó una decisión sobre su tutela.',
+    'En cumplimiento': 'Se está verificando que la EPS cumpla lo que se ordenó.',
+    'Incidente de desacato': 'La EPS no cumplió y se pidió al juez que la obligue a cumplir y la sancione.'
+  };
+
+  // ---------- utilidades ----------
+  function $(id) { return document.getElementById(id); }
+  function h(v) {
+    return String(v == null ? '' : v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+  function msg(id, texto, ok) {
+    $(id).innerHTML = texto ? '<div class="msg ' + (ok ? 'ok' : 'err') + '" role="status"></div>' : '';
+    if (texto) $(id).firstChild.textContent = texto;
+  }
+  function llamar(nombre, ...args) {
+    return new Promise((resolve, reject) => {
+      google.script.run
+        .withSuccessHandler(resolve)
+        .withFailureHandler(e => reject(new Error(e.message)))
+        [nombre](...args);
+    });
+  }
+  function dl(pares) {
+    return pares.map(p => '<div class="row"><span class="hint">' + h(p[0]) + '</span><strong>' + h(p[1] || '—') + '</strong></div>').join('');
+  }
+  function mostrar(v) {
+    ['vPortada', 'vInfo', 'vAcceso', 'vPersona', 'vSolicitud', 'vAdmin'].forEach(x => $(x).classList.add('hidden'));
+    const acceso = v === 'vAcceso';
+    document.body.classList.toggle('en-acceso', acceso);
+    if (acceso) { $('vPortada').classList.remove('hidden'); $('vInfo').classList.remove('hidden'); }
+    $(v).classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+  function titulo(kicker, texto) {
+    $('kickerPagina').textContent = kicker;
+    $('titulo').textContent = texto;
+  }
+  function llenarSelect(id, lista) {
+    $(id).innerHTML = lista.map(x => '<option>' + h(x) + '</option>').join('');
+  }
+  function docsHtml(docs, descargable) {
+    if (!docs.length) return '<p class="hint">Sin documentos todavía.</p>';
+    return docs.map(d => '<div class="file"><span>' + h(d.nombre) + ' <em class="hint">(' + h(d.categoria) + ')</em></span>' +
+      (descargable ? '<button class="btn small quiet" onclick="descargar(\'' + h(d.id) + '\')">Descargar</button>' : '') + '</div>').join('');
+  }
+
+  // ---------- archivos: fotos se reducen, PDF hasta 8 MB ----------
+  function leerBase64(file) {
+    return new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(String(r.result).split(',')[1]);
+      r.onerror = () => rej(new Error('No se pudo leer el archivo.'));
+      r.readAsDataURL(file);
+    });
+  }
+  function comprimirImagen(file) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        const escala = Math.min(1, 1800 / Math.max(img.width, img.height));
+        const c = document.createElement('canvas');
+        c.width = Math.round(img.width * escala);
+        c.height = Math.round(img.height * escala);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        const url = c.toDataURL('image/jpeg', 0.75);
+        resolve({ base64: url.split(',')[1], mime: 'image/jpeg', nombre: file.name.replace(/\.[^.]+$/, '') + '.jpg' });
+      };
+      img.onerror = () => reject(new Error('No se pudo leer la imagen.'));
+      img.src = URL.createObjectURL(file);
+    });
+  }
+  async function prepararArchivo(file) {
+    if (file.type === 'application/pdf') {
+      if (file.size > 8 * 1024 * 1024) throw new Error('El PDF "' + file.name + '" pesa más de 8 MB.');
+      return { base64: await leerBase64(file), mime: 'application/pdf', nombre: file.name };
+    }
+    if (file.type === 'image/jpeg' || file.type === 'image/png') return comprimirImagen(file);
+    throw new Error('Solo se aceptan archivos PDF, JPG o PNG.');
+  }
+  async function subirArchivo(refId, categoria, file) {
+    const p = await prepararArchivo(file);
+    await llamar('subirDocumento', TOKEN, refId, categoria, p.nombre, p.base64, p.mime);
+  }
+
+  // ---------- arranque ----------
+  async function init() {
+    if (MODO_ADMIN) {
+      mostrar('vAdmin');
+      $('adminLogin').classList.remove('hidden');
+      titulo('Uso interno', 'Administración');
+      return;
+    }
+    mostrar('vAcceso');
+    try {
+      CONSENT = await llamar('getConsentimiento');
+      CATALOGOS = await llamar('getCatalogos');
+      $('tTrat').textContent = CONSENT.texto;
+      $('tMand').textContent = CONSENT.mandato;
+      $('tAgen').textContent = CONSENT.agencia;
+      $('versionTexto').textContent = 'Versión de los textos: ' + CONSENT.version;
+      llenarSelect('dCategoria', CATALOGOS.categorias);
+      llenarSelect('sCatOtro', CATALOGOS.categorias);
+    } catch (e) {
+      msg('msgIngresar', e.message, false);
+    }
+  }
+
+  function tab(t) {
+    $('fIngresar').classList.toggle('hidden', t !== 'ingresar');
+    $('fRegistro').classList.toggle('hidden', t !== 'registro');
+    $('tabIngresar').classList.toggle('on', t === 'ingresar');
+    $('tabRegistro').classList.toggle('on', t === 'registro');
+    $('msgIngresar').innerHTML = '';
+    $('msgRegistro').innerHTML = '';
+  }
+
+  // ---------- víctima: ingreso y registro ----------
+  async function ingresar() {
+    try {
+      const r = await llamar('ingresar', $('iCedula').value, $('iClave').value);
+      TOKEN = r.token;
+      await entrarPersona();
+    } catch (e) {
+      msg('msgIngresar', e.message, false);
+    }
+  }
+
+  function irPaso(n) {
+    $('paso1').classList.toggle('hidden', n !== 1);
+    $('paso2').classList.toggle('hidden', n !== 2);
+    $('vAcceso').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function siguientePaso() {
+    const cedula = $('rCedula').value.trim();
+    const clave = $('rClave').value;
+    if (!$('rNombre').value.trim()) return msg('msgRegistro', 'Escriba su nombre completo.', false);
+    if (!/^\d{5,11}$/.test(cedula)) return msg('msgRegistro', 'La cédula debe tener entre 5 y 11 números.', false);
+    if (!/@/.test($('rCorreo').value)) return msg('msgRegistro', 'Escriba un correo válido.', false);
+    if (!/^\d{6}$/.test(clave)) return msg('msgRegistro', 'La clave debe tener exactamente 6 números.', false);
+    if (clave !== $('rClave2').value) return msg('msgRegistro', 'Las claves no coinciden.', false);
+    msg('msgRegistro', '', true);
+    irPaso(2);
+  }
+
+  let REGISTRANDO = false;
+  async function registrar() {
+    if (REGISTRANDO) return;
+    REGISTRANDO = true;
+    $('btnCrearCuenta').disabled = true;
+    try {
+      if (!$('aTrat').checked) throw new Error('Debe aceptar el tratamiento de sus datos para continuar.');
+      if (!$('aMand').checked) throw new Error('Debe aceptar el mandato para gestiones ante EPS y Supersalud para continuar.');
+      const firma = $('rFirma').value.trim();
+      if (firma.length < 5) throw new Error('Escriba su nombre completo como firma.');
+      msg('msgRegistro', 'Creando su cuenta y guardando sus autorizaciones...', true);
+      const r = await llamar('registrarPersona', {
+        cedula: $('rCedula').value.trim(), nombre: $('rNombre').value.trim(), correo: $('rCorreo').value.trim(),
+        clave: $('rClave').value, aceptaTratamiento: $('aTrat').checked, aceptaMandato: $('aMand').checked,
+        aceptaAgencia: $('aAgen').checked, firma: firma
+      });
+      TOKEN = r.token;
+      await entrarPersona();
+      msg('msgPersona', 'Cuenta creada. Ahora envíe su caso.', true);
+      nuevaSolicitud();
+    } catch (e) {
+      msg('msgRegistro', e.message, false);
+    } finally {
+      REGISTRANDO = false;
+      $('btnCrearCuenta').disabled = false;
+    }
+  }
+
+  async function entrarPersona() {
+    const p = await llamar('miPerfil', TOKEN);
+    $('saludo').textContent = 'Hola, ' + p.nombre + ' · Cédula ' + p.cedula;
+    titulo('Su espacio', 'Mi seguimiento');
+    $('btnSalir').classList.remove('hidden');
+    $('vDetalle').classList.add('hidden');
+    mostrar('vPersona');
+    await cargarRegistros();
+  }
+
+  async function cargarRegistros() {
+    const r = await llamar('misRegistros', TOKEN);
+    const abierta = r.solicitudes.some(s => s.estado === 'Borrador' || s.estado === 'En revisión');
+    $('btnNuevaSolicitud').classList.toggle('hidden', abierta);
+    const items = [];
+    r.solicitudes.forEach(s => items.push(tarjeta(s.id, 'Solicitud ' + s.id, s.estado, s.fecha, s.explicacion)));
+    r.casos.forEach(c => items.push(tarjeta(c.id, c.tipo + (c.accionado ? ' contra ' + c.accionado : ''), c.estado, c.fechaInicio,
+      'Radicado: ' + (c.radicado || 'pendiente') + ' · Despacho: ' + (c.despacho || 'pendiente'))));
+    $('listaRegistros').innerHTML = items.length ? items.join('') :
+      '<div class="card"><p class="lead">Todavía no tiene casos. Cuando envíe su caso, lo verá aquí con su estado.</p></div>';
+  }
+
+  function tarjeta(id, titulo, estado, fecha, detalle) {
+    const warn = estado === 'En revisión' || estado === 'Borrador' ? ' warn' : '';
+    const resumen = String(detalle || '');
+    return '<button class="item" onclick="abrirRegistro(\'' + h(id) + '\')">' +
+      '<span class="badge' + warn + '">' + h(estado) + '</span>' +
+      '<strong>' + h(titulo) + '</strong>' +
+      '<span class="hint">' + h(resumen.length > 140 ? resumen.slice(0, 140) + '…' : resumen) + '</span>' +
+      '<span class="more">Ver detalle →</span></button>';
+  }
+
+  async function abrirRegistro(ref) {
+    try {
+      const d = await llamar('detalleCaso', TOKEN, ref);
+      REGISTRO_ACTUAL = ref;
+      const r = d.registro;
+      const esSolicitud = d.tipo === 'solicitud';
+      $('dTitulo').textContent = esSolicitud ? 'Solicitud ' + ref : 'Caso ' + ref + ' · ' + (r.tipo || '');
+      const ayuda = ESTADO_AYUDA[r.estado];
+      $('dEstadoAyuda').classList.toggle('hidden', !ayuda);
+      $('dEstadoAyuda').innerHTML = ayuda ? '<strong>' + h(r.estado) + ':</strong> ' + h(ayuda) : '';
+      $('dDatos').innerHTML = esSolicitud
+        ? dl([['Estado', r.estado], ['Fecha', r.fecha], ['Explicación', r.explicacion]])
+        : dl([['Estado', r.estado], ['Tipo', r.tipo], ['Accionado', r.accionado], ['Derechos', r.derechos],
+              ['Radicado', r.radicado], ['Despacho', r.despacho], ['Fecha de inicio', r.fechaInicio]]);
+      $('dActuaciones').innerHTML = d.actuaciones.length
+        ? d.actuaciones.map(a => '<li><strong>' + h(a.fecha) + '</strong> · ' + h(a.actuacion) +
+            (a.anotacion ? '<br><span class="hint">' + h(a.anotacion) + '</span>' : '') + '</li>').join('')
+        : '<li class="hint">Aún no hay actuaciones.</li>';
+      $('dDocs').innerHTML = docsHtml(d.documentos, true);
+      const borrador = esSolicitud && r.estado === 'Borrador';
+      $('dSubir').classList.toggle('hidden', esSolicitud && !borrador);
+      $('dEnviar').classList.toggle('hidden', !borrador);
+      $('vDetalle').classList.remove('hidden');
+      msg('msgDetalle', '', true);
+      $('vDetalle').scrollIntoView({ behavior: 'smooth' });
+    } catch (e) {
+      msg('msgPersona', e.message, false);
+    }
+  }
+
+  async function descargar(docId) {
+    try {
+      const d = await llamar('descargarDocumento', TOKEN, docId);
+      const a = document.createElement('a');
+      a.href = 'data:' + d.mime + ';base64,' + d.base64;
+      a.download = d.nombre;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (e) {
+      msg('msgDetalle', e.message, false);
+    }
+  }
+
+  async function subirDesdeDetalle() {
+    const file = $('dArchivo').files[0];
+    if (!file) return msg('msgDetalle', 'Elija un archivo.', false);
+    try {
+      msg('msgDetalle', 'Subiendo el documento...', true);
+      await subirArchivo(REGISTRO_ACTUAL, $('dCategoria').value, file);
+      $('dArchivo').value = '';
+      await abrirRegistro(REGISTRO_ACTUAL);
+      msg('msgDetalle', 'Documento subido.', true);
+    } catch (e) {
+      msg('msgDetalle', e.message, false);
+    }
+  }
+
+  async function enviarDesdeDetalle() {
+    try {
+      await llamar('enviarSolicitud', TOKEN, REGISTRO_ACTUAL);
+      await cargarRegistros();
+      await abrirRegistro(REGISTRO_ACTUAL);
+      msg('msgDetalle', 'Su solicitud quedó En revisión.', true);
+    } catch (e) {
+      msg('msgDetalle', e.message, false);
+    }
+  }
+
+  function nuevaSolicitud() {
+    $('sExplicacion').value = '';
+    $('sHC').value = ''; $('sCed').value = ''; $('sOtro').value = '';
+    titulo('Nueva solicitud', 'Enviar mi caso');
+    msg('msgSolicitud', '', true);
+    mostrar('vSolicitud');
+  }
+
+  function volverDesdeSolicitud() {
+    titulo('Su espacio', 'Mi seguimiento');
+    mostrar('vPersona');
+  }
+
+  async function enviarSolicitud() {
+    const texto = $('sExplicacion').value.trim();
+    const hc = $('sHC').files[0];
+    const ced = $('sCed').files[0];
+    const otro = $('sOtro').files[0];
+    try {
+      if (!texto) throw new Error('Escriba la explicación de su caso.');
+      if (!hc) throw new Error('Adjunte su historia clínica.');
+      if (!ced) throw new Error('Adjunte su documento de identidad.');
+      $('sEnviar').disabled = true;
+      msg('msgSolicitud', 'Creando su solicitud y subiendo sus documentos. No cierre esta página...', true);
+      const r = await llamar('crearSolicitud', TOKEN, texto);
+      await subirArchivo(r.id, 'Historia clínica', hc);
+      await subirArchivo(r.id, 'Cédula', ced);
+      if (otro) await subirArchivo(r.id, $('sCatOtro').value, otro);
+      await llamar('enviarSolicitud', TOKEN, r.id);
+      await entrarPersona();
+      msg('msgPersona', 'Recibimos su caso y quedó En revisión. Entre aquí cuando quiera para ver cómo avanza.', true);
+    } catch (e) {
+      msg('msgSolicitud', e.message, false);
+    } finally {
+      $('sEnviar').disabled = false;
+    }
+  }
+
+  async function revocar() {
+    if (!confirm('Esto elimina sus datos de la plataforma. ¿Confirma?')) return;
+    try {
+      await llamar('revocarTratamiento', TOKEN);
+      salir();
+      msg('msgIngresar', 'Sus datos fueron eliminados de la plataforma.', true);
+    } catch (e) {
+      msg('msgPersona', e.message, false);
+    }
+  }
+
+  function salir() {
+    TOKEN = null;
+    REGISTRO_ACTUAL = null;
+    titulo('Su espacio', 'Ingreso');
+    $('btnSalir').classList.add('hidden');
+    $('iClave').value = '';
+    tab('ingresar');
+    mostrar('vAcceso');
+  }
+
+  // ---------- administrador ----------
+  async function entrarAdmin() {
+    try {
+      const r = await llamar('loginAdmin', $('aClave').value);
+      TOKEN = r.token;
+      $('adminLogin').classList.add('hidden');
+      $('adminPanel').classList.remove('hidden');
+      titulo('Uso interno', 'Panel de administración');
+      await cargarAdmin();
+    } catch (e) {
+      msg('msgAdmin', e.message, false);
+    }
+  }
+
+  function adTab(t) {
+    ['sol', 'cas', 'per'].forEach(x => {
+      $('ad' + x.charAt(0).toUpperCase() + x.slice(1)).classList.toggle('hidden', x !== t);
+      $('tab' + x.charAt(0).toUpperCase() + x.slice(1)).classList.toggle('on', x === t);
+    });
+    $('adDetalle').classList.add('hidden');
+  }
+
+  async function cargarAdmin() {
+    const d = await llamar('panelAdmin', TOKEN);
+    $('adSol').innerHTML = d.solicitudes.length
+      ? d.solicitudes.map(s => '<button class="item" onclick="verSolicitud(\'' + h(s.id) + '\')"><span class="badge' +
+          (s.estado === 'En revisión' ? ' warn' : '') + '">' + h(s.estado) + '</span><strong>' + h(s.id) +
+          '</strong><span class="hint">Cédula ' + h(s.cedula) + ' · ' + h(s.fecha) + '</span></button>').join('')
+      : '<div class="card"><p class="lead">No hay solicitudes todavía.</p></div>';
+    $('adCas').innerHTML = d.casos.length
+      ? d.casos.map(c => '<button class="item" onclick="verCaso(\'' + h(c.id) + '\')"><span class="badge">' + h(c.estado) +
+          '</span><strong>Caso ' + h(c.id) + ' · ' + h(c.tipo) + '</strong><span class="hint">Cédula ' + h(c.cedula) +
+          ' · ' + h(c.accionado || '') + '</span></button>').join('')
+      : '<div class="card"><p class="lead">No hay casos todavía.</p></div>';
+    $('adPer').innerHTML = d.personas.length
+      ? d.personas.map(p => '<div class="item static"><strong>' + h(p.nombre) + '</strong><span class="hint">Cédula ' +
+          h(p.cedula) + ' · ' + h(p.correo) + (p.bloqueada ? ' · BLOQUEADA' : '') + '</span>' +
+          '<div class="row-form"><input id="nc-' + h(p.cedula) + '" type="password" inputmode="numeric" maxlength="6" placeholder="Nueva clave">' +
+          '<button class="btn small" onclick="restablecer(\'' + h(p.cedula) + '\')">Restablecer</button></div></div>').join('')
+      : '<div class="card"><p class="lead">No hay personas registradas.</p></div>';
+    $('adDetalle').classList.add('hidden');
+  }
+
+  async function verSolicitud(ref) {
+    try {
+      const d = await llamar('detalleCaso', TOKEN, ref);
+      const s = d.registro;
+      let html = '<p class="kicker">Solicitud ' + h(ref) + ' · ' + h(s.estado) + '</p>';
+      html += dl([['Cédula', s.cedula], ['Fecha', s.fecha], ['Explicación', s.explicacion]]);
+      html += '<h3>Documentos</h3>' + docsHtml(d.documentos, true);
+      if (s.estado === 'En revisión') {
+        html += '<h3>Convertir en caso</h3>' +
+          '<label>Tipo</label><select id="cvTipo">' + CATALOGOS.tipos.map(t => '<option>' + h(t) + '</option>').join('') + '</select>' +
+          '<label>Accionado (EPS o entidad)</label><input id="cvAccionado" type="text">' +
+          '<label>Derechos invocados</label><input id="cvDerechos" type="text">' +
+          '<label>Radicado (si ya lo tiene)</label><input id="cvRadicado" type="text">' +
+          '<label>Despacho o Superintendencia</label><input id="cvDespacho" type="text">' +
+          '<label>Estado</label><select id="cvEstado">' + CATALOGOS.estados.map(x => '<option>' + h(x) + '</option>').join('') + '</select>' +
+          '<label>Fecha de inicio</label><input id="cvFecha" type="date">' +
+          '<div class="actions one"><button class="btn" onclick="convertir(\'' + h(ref) + '\')">Convertir en caso</button></div>';
+      }
+      $('adDetalle').innerHTML = html + '<div id="msgDetalleAdmin"></div>';
+      $('adDetalle').classList.remove('hidden');
+      $('adDetalle').scrollIntoView({ behavior: 'smooth' });
+    } catch (e) {
+      msg('msgAdminPanel', e.message, false);
+    }
+  }
+
+  async function convertir(ref) {
+    try {
+      const datos = {
+        tipo: $('cvTipo').value, accionado: $('cvAccionado').value, derechos: $('cvDerechos').value,
+        radicado: $('cvRadicado').value, despacho: $('cvDespacho').value, estado: $('cvEstado').value,
+        fechaInicio: $('cvFecha').value
+      };
+      const r = await llamar('adminConvertirSolicitud', TOKEN, ref, datos);
+      await cargarAdmin();
+      await verCaso(r.id);
+    } catch (e) {
+      msg('msgDetalleAdmin', e.message, false);
+    }
+  }
+
+  async function verCaso(ref) {
+    try {
+      const d = await llamar('detalleCaso', TOKEN, ref);
+      const c = d.registro;
+      let html = '<p class="kicker">Caso ' + h(ref) + ' · ' + h(c.tipo) + '</p>';
+      html += dl([['Cédula', c.cedula], ['Accionado', c.accionado], ['Derechos', c.derechos], ['Radicado', c.radicado],
+                  ['Despacho', c.despacho], ['Estado', c.estado], ['Fecha de inicio', c.fechaInicio]]);
+      html += '<h3>Actuaciones</h3><ul class="timeline">' + (d.actuaciones.length
+        ? d.actuaciones.map(a => '<li><strong>' + h(a.fecha) + '</strong> · ' + h(a.actuacion) +
+            (a.anotacion ? '<br><span class="hint">' + h(a.anotacion) + '</span>' : '') + '</li>').join('')
+        : '<li class="hint">Aún no hay actuaciones.</li>') + '</ul>';
+      html += '<h3>Nueva actuación</h3>' +
+        '<label>Fecha</label><input id="aFecha" type="date">' +
+        '<label>Actuación</label><input id="aTexto" type="text">' +
+        '<label>Anotación</label><textarea id="aAnot"></textarea>' +
+        '<label>Cambiar estado (opcional)</label><select id="aEstado"><option value="">Sin cambio</option>' +
+        CATALOGOS.estados.map(x => '<option>' + h(x) + '</option>').join('') + '</select>' +
+        '<div class="actions one"><button class="btn" onclick="guardarActuacion(\'' + h(ref) + '\')">Guardar actuación</button></div>';
+      html += '<h3>Documentos</h3>' + docsHtml(d.documentos, true);
+      html += '<h3>Registrar copia radicada</h3>' +
+        '<p class="hint">Suba el documento a la carpeta del caso en Drive y pegue aquí su enlace. La víctima lo verá y lo podrá descargar.</p>' +
+        '<label>Tipo</label><select id="rTipo">' + CATALOGOS.tipos.map(t => '<option>' + h(t) + '</option>').join('') + '</select>' +
+        '<label>Enlace o ID del archivo en Drive</label><input id="rLink" type="text">' +
+        '<label>Fecha de radicación</label><input id="rFecha" type="date">' +
+        '<div class="actions one"><button class="btn" onclick="registrarRadicado(\'' + h(ref) + '\')">Registrar radicado</button></div>';
+      $('adDetalle').innerHTML = html + '<div id="msgDetalleAdmin"></div>';
+      $('adDetalle').classList.remove('hidden');
+      $('adDetalle').scrollIntoView({ behavior: 'smooth' });
+    } catch (e) {
+      msg('msgAdminPanel', e.message, false);
+    }
+  }
+
+  async function guardarActuacion(ref) {
+    try {
+      await llamar('adminAgregarActuacion', TOKEN, {
+        casoId: ref, fecha: $('aFecha').value, actuacion: $('aTexto').value,
+        anotacion: $('aAnot').value, estado: $('aEstado').value
+      });
+      await verCaso(ref);
+      msg('msgDetalleAdmin', 'Actuación guardada.', true);
+    } catch (e) {
+      msg('msgDetalleAdmin', e.message, false);
+    }
+  }
+
+  async function registrarRadicado(ref) {
+    try {
+      await llamar('adminRegistrarRadicado', TOKEN, ref, $('rTipo').value, $('rLink').value, $('rFecha').value);
+      await verCaso(ref);
+      msg('msgDetalleAdmin', 'Copia radicada registrada. La víctima ya puede verla.', true);
+    } catch (e) {
+      msg('msgDetalleAdmin', e.message, false);
+    }
+  }
+
+  async function restablecer(cedula) {
+    try {
+      await llamar('adminRestablecerClave', TOKEN, cedula, $('nc-' + cedula).value);
+      msg('msgAdminPanel', 'Clave restablecida para ' + cedula + '.', true);
+    } catch (e) {
+      msg('msgAdminPanel', e.message, false);
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
+````
