@@ -14,10 +14,10 @@ const CFG = {
   MIME_PERMITIDOS: ['application/pdf', 'image/jpeg', 'image/png'],
   CARPETA_RAIZ: 'Casos salud',
   CARPETA_CONSERVADAS: 'Autorizaciones conservadas',
-  CATEGORIAS: ['Cédula', 'Historia clínica', 'Epicrisis', 'Patología', 'Incapacidades', 'Órdenes médicas', 'Constancia de radicado', 'Correo de la EPS', 'Otro'],
+  CATEGORIAS: ['Cédula', 'Historia clínica', 'Epicrisis', 'Patología', 'Incapacidades', 'Órdenes médicas', 'Constancia de radicado', 'Correo de la EPS', 'Facturas y soportes de pago', 'Otro'],
   CATEGORIAS_OBLIGATORIAS: ['Historia clínica', 'Cédula'],
   ESTADOS: ['Radicado', 'En reparto', 'Admitido', 'Medida provisional decidida', 'Fallo', 'En cumplimiento', 'Incidente de desacato'],
-  TIPOS_ACCION: ['Tutela', 'Queja Supersalud'],
+  TIPOS_ACCION: ['Tutela', 'Queja Supersalud', 'Recobro de gastos médicos'],
   HOJAS: {
     personas: ['cedula', 'nombre', 'correo', 'salt', 'hashClave', 'intentos', 'bloqueoHasta', 'versionConsentimiento', 'fechaConsentimiento', 'carpetaId'],
     casos: ['id', 'cedula', 'tipo', 'accionado', 'derechos', 'radicado', 'despacho', 'estado', 'fechaInicio', 'carpetaId'],
@@ -71,7 +71,7 @@ function doGet(e) {
   const t = HtmlService.createTemplateFromFile('index');
   t.modoAdmin = !!(e && e.parameter && e.parameter.admin === '1');
   return t.evaluate()
-    .setTitle('Ayuda en salud · Tutelas y quejas ante la Supersalud')
+    .setTitle('TMM Asesorías Legales · Derecho a la salud')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
 

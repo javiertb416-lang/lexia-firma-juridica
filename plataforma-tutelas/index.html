@@ -3,261 +3,236 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ayuda en salud · Tutelas y quejas</title>
+<title>TMM Asesorías Legales · Derecho a la salud</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Merriweather:wght@700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
 <style>
   :root {
-    --bg: #f3f7fb; --surface: #ffffff; --ink: #14233a; --muted: #4f5f75; --line: #d8e1ec;
-    --accent: #1557a8; --accent-strong: #0e4485; --accent-ink: #ffffff; --soft: #e6effa;
-    --care: #0d7a6f; --care-soft: #e2f4f1;
-    --warn: #8f3d0c; --warn-bg: #fdeedd; --ok: #1b6b3c; --ok-bg: #e2f2e7;
-    --hero-a: #0f3f7d; --hero-b: #1667b8;
-    --shadow: 0 1px 2px rgba(20, 35, 58, .06), 0 6px 20px rgba(20, 35, 58, .06);
+    --bg: #ffffff; --band: #f4f3ef; --surface: #ffffff; --ink: #1c2430; --muted: #5a6472; --line: #dcdad3;
+    --navy: #13253f; --navy-2: #1d3557; --navy-ink: #ffffff; --bronze: #8c6a3f;
+    --soft: #eef0f3; --warn: #8a3a12; --warn-bg: #f8ece3; --ok: #275c3a; --ok-bg: #e7f0e9;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0d1520; --surface: #152131; --ink: #e8eef6; --muted: #a3b2c5; --line: #26364b;
-      --accent: #7db4f2; --accent-strong: #a5ccf7; --accent-ink: #0b1a2c; --soft: #1b2e47;
-      --care: #6fd1c4; --care-soft: #143430;
-      --warn: #f5b781; --warn-bg: #3b2616; --ok: #8fd9a8; --ok-bg: #173322;
-      --hero-a: #10294a; --hero-b: #173d6b;
-      --shadow: none; color-scheme: dark;
+      --bg: #0f141b; --band: #151c26; --surface: #151c26; --ink: #e6e9ee; --muted: #a1abb8; --line: #2b3542;
+      --navy: #c9d6ea; --navy-2: #dbe5f3; --navy-ink: #0f141b; --bronze: #cfae7f;
+      --soft: #1c2532; --warn: #f0b48c; --warn-bg: #3a2418; --ok: #9fd3ae; --ok-bg: #18301f;
+      color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0d1520; --surface: #152131; --ink: #e8eef6; --muted: #a3b2c5; --line: #26364b;
-    --accent: #7db4f2; --accent-strong: #a5ccf7; --accent-ink: #0b1a2c; --soft: #1b2e47;
-    --care: #6fd1c4; --care-soft: #143430;
-    --warn: #f5b781; --warn-bg: #3b2616; --ok: #8fd9a8; --ok-bg: #173322;
-    --hero-a: #10294a; --hero-b: #173d6b;
-    --shadow: none; color-scheme: dark;
+    --bg: #0f141b; --band: #151c26; --surface: #151c26; --ink: #e6e9ee; --muted: #a1abb8; --line: #2b3542;
+    --navy: #c9d6ea; --navy-2: #dbe5f3; --navy-ink: #0f141b; --bronze: #cfae7f;
+    --soft: #1c2532; --warn: #f0b48c; --warn-bg: #3a2418; --ok: #9fd3ae; --ok-bg: #18301f;
+    color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0; background: var(--bg); color: var(--ink);
-    font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
-    font-size: 17px; line-height: 1.55;
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 17px; line-height: 1.6;
   }
-  h1, h2, h3 { font-family: "Merriweather", Georgia, serif; font-weight: 700; line-height: 1.25; text-wrap: balance; margin: 0; }
-  h1 { font-size: clamp(26px, 4.4vw, 38px); }
-  h2 { font-size: 22px; }
-  h3 { font-size: 18px; }
+  h1, h2, h3 { font-family: "Source Serif 4", Georgia, serif; font-weight: 600; line-height: 1.2; text-wrap: balance; margin: 0; color: var(--navy); }
+  h1 { font-size: clamp(30px, 4.6vw, 46px); letter-spacing: -.01em; }
+  h2 { font-size: clamp(24px, 3vw, 30px); }
+  h3 { font-size: 20px; }
   p { margin: 0; }
-  a { color: var(--accent); }
+  a { color: var(--navy-2); text-underline-offset: 3px; }
 
-  /* ---------- barra superior ---------- */
-  .topbar { background: var(--surface); border-bottom: 1px solid var(--line); }
+  /* ---------- encabezado ---------- */
+  .topbar { border-bottom: 1px solid var(--line); background: var(--bg); }
   .topbar-in {
-    max-width: 1120px; margin-inline: auto; padding: 12px 16px;
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    max-width: 1160px; margin-inline: auto; padding: 18px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
   }
-  .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
-  .brand-mark {
-    flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
-    background: var(--care-soft); color: var(--care);
+  .brand { display: flex; align-items: center; gap: 14px; min-width: 0; color: var(--navy); }
+  .brand-mono {
+    font-family: "Source Serif 4", Georgia, serif; font-weight: 600; font-size: 26px; letter-spacing: .04em; line-height: 1;
   }
-  .brand-name { font-weight: 700; font-size: 16px; line-height: 1.2; }
-  .brand-sub { font-size: 13px; color: var(--muted); line-height: 1.2; }
+  .brand-rule { width: 1px; align-self: stretch; background: var(--line); }
+  .brand-name { font-size: 15px; font-weight: 600; letter-spacing: .02em; line-height: 1.25; }
+  .brand-sub { font-size: 13px; color: var(--muted); line-height: 1.25; }
+  .topnav { display: flex; gap: 24px; font-size: 15px; }
+  .topnav a { color: var(--muted); text-decoration: none; }
+  .topnav a:hover { color: var(--navy); }
+  @media (max-width: 760px) { .topnav { display: none; } }
 
   /* ---------- estructura ---------- */
-  .wrap { max-width: 760px; margin-inline: auto; padding: 24px 16px 56px; display: grid; gap: 20px; }
-  body.en-acceso .wrap { max-width: 1120px; }
-  .pagehead { display: grid; gap: 4px; }
+  .wrap { max-width: 780px; margin-inline: auto; padding: 32px 20px 64px; display: grid; gap: 24px; }
+  body.en-acceso .wrap { max-width: none; padding: 0; gap: 0; }
+  .pagehead { display: grid; gap: 4px; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
   body.en-acceso .pagehead { display: none; }
-  .kicker { font-size: 13px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--care); }
+  .kicker { font-size: 12.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--bronze); }
   .lead { color: var(--muted); }
   .hint { font-size: 15px; color: var(--muted); }
-  .sample { font-size: 13px; color: var(--muted); text-align: center; }
-  .stack { display: grid; gap: 14px; }
-  .section-title { display: grid; gap: 6px; margin-bottom: 4px; }
+  .sample { font-size: 13px; color: var(--muted); }
+  .stack { display: grid; gap: 16px; }
+  .section-title { display: grid; gap: 8px; }
+  .inner { max-width: 1160px; margin-inline: auto; padding-inline: 20px; }
 
-  .card {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
-    padding: 24px; display: grid; gap: 14px; align-content: start; box-shadow: var(--shadow);
-  }
-  .card.plain { padding: 0; border: 0; box-shadow: none; background: transparent; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 28px; display: grid; gap: 16px; align-content: start; }
 
   /* ---------- portada ---------- */
-  .acceso-grid { display: grid; gap: 20px; align-items: start; }
-  @media (min-width: 920px) {
-    .acceso-grid { grid-template-columns: 1.15fr .85fr; gap: 28px; }
-    .acceso-grid > #vAcceso { position: sticky; top: 16px; }
-  }
-  .hero {
-    color: #fff; border-radius: 20px; padding: clamp(24px, 4vw, 40px);
-    background: linear-gradient(140deg, var(--hero-a), var(--hero-b));
-    display: grid; gap: 18px;
-  }
-  .hero .kicker { color: #bfe3ff; }
-  .hero p.big { font-size: 19px; color: #e4efff; max-width: 56ch; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
-  .chips li {
-    font-size: 15px; padding: 6px 12px; border-radius: 999px;
-    background: rgba(255, 255, 255, .13); border: 1px solid rgba(255, 255, 255, .25);
-  }
-  .hero-note { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: #d6e6fb; }
-  .hero-note svg { flex: none; margin-top: 2px; }
+  .acceso-grid { max-width: 1160px; margin-inline: auto; padding: 56px 20px 64px; display: grid; gap: 40px; align-items: start; }
+  @media (min-width: 960px) { .acceso-grid { grid-template-columns: 1.2fr .8fr; gap: 64px; padding-top: 72px; } }
+  .hero { display: grid; gap: 22px; align-content: start; }
+  .hero .rule { width: 56px; height: 2px; background: var(--bronze); }
+  .hero p.big { font-size: 19px; color: var(--muted); max-width: 58ch; }
+  .casos { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); margin-top: 6px; }
+  @media (min-width: 600px) { .casos { grid-template-columns: 1fr 1fr; column-gap: 32px; } }
+  .casos div { border-bottom: 1px solid var(--line); padding: 12px 0; font-size: 16px; }
+  .hero-note { font-size: 14px; color: var(--muted); }
 
-  .info { display: grid; gap: 20px; }
-  .two { display: grid; gap: 16px; }
-  @media (min-width: 720px) { .two { grid-template-columns: 1fr 1fr; } }
-  .route { border-top: 5px solid var(--accent); }
-  .route.care { border-top-color: var(--care); }
-  .route-head { display: flex; gap: 12px; align-items: center; }
-  .route-icon {
-    flex: none; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
-    background: var(--soft); color: var(--accent);
-  }
-  .route.care .route-icon { background: var(--care-soft); color: var(--care); }
-  .ticks { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
-  .ticks li { position: relative; padding-left: 30px; }
-  .ticks li::before {
-    content: ""; position: absolute; left: 0; top: 4px; width: 18px; height: 18px; border-radius: 50%;
-    background: var(--care-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d7a6f' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 12px no-repeat;
-  }
+  #vAcceso { padding: 0; gap: 0; border-color: var(--line); box-shadow: 0 12px 32px rgba(19, 37, 63, .08); }
+  .portal-head { background: var(--navy); color: var(--navy-ink); padding: 22px 28px; display: grid; gap: 2px; border-radius: 3px 3px 0 0; }
+  .portal-head h2 { color: var(--navy-ink); font-size: 22px; }
+  .portal-head p { font-size: 14px; opacity: .8; }
+  .portal-body { padding: 24px 28px 28px; display: grid; gap: 18px; }
 
-  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: paso; }
-  @media (min-width: 720px) { .steps { grid-template-columns: repeat(4, 1fr); } }
-  .steps li {
-    counter-increment: paso; background: var(--surface); border: 1px solid var(--line);
-    border-radius: 16px; padding: 18px; display: grid; gap: 6px; align-content: start; box-shadow: var(--shadow);
+  .band { background: var(--band); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .section { padding-block: 64px; display: grid; gap: 36px; }
+  .servicios { display: grid; gap: 0; border-top: 1px solid var(--line); }
+  @media (min-width: 900px) { .servicios { grid-template-columns: repeat(3, 1fr); } }
+  .servicio { padding: 28px 0; border-bottom: 1px solid var(--line); display: grid; gap: 12px; align-content: start; }
+  @media (min-width: 900px) {
+    .servicio { padding: 28px 32px; border-bottom: 0; border-left: 1px solid var(--line); }
+    .servicio:first-child { padding-left: 0; border-left: 0; }
   }
-  .steps li::before {
-    content: counter(paso); width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
-    background: var(--accent); color: var(--accent-ink); font-weight: 700; margin-bottom: 4px;
-  }
-  .steps strong { font-size: 17px; }
-  .steps span { font-size: 15px; color: var(--muted); }
+  .num { font-family: "Source Serif 4", Georgia, serif; font-size: 15px; color: var(--bronze); letter-spacing: .08em; }
+  .servicio .ante { font-size: 14px; color: var(--muted); margin-top: -6px; }
+  .dash { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 16px; }
+  .dash li { position: relative; padding-left: 22px; }
+  .dash li::before { content: ""; position: absolute; left: 0; top: .8em; width: 12px; height: 1px; background: var(--bronze); }
 
-  .notice {
-    display: grid; grid-template-columns: 24px 1fr; gap: 12px; align-items: start;
-    background: var(--soft); border-radius: 14px; padding: 16px 18px; font-size: 15px;
-  }
-  .notice svg { color: var(--accent); margin-top: 2px; }
+  .proceso { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: paso; border-top: 2px solid var(--navy); }
+  @media (min-width: 800px) { .proceso { grid-template-columns: repeat(4, 1fr); } }
+  .proceso li { counter-increment: paso; padding: 20px 24px 20px 0; display: grid; gap: 6px; align-content: start; border-bottom: 1px solid var(--line); }
+  @media (min-width: 800px) { .proceso li { border-bottom: 0; } }
+  .proceso li::before { content: "0" counter(paso); font-family: "Source Serif 4", Georgia, serif; font-size: 28px; color: var(--bronze); line-height: 1; margin-bottom: 6px; }
+  .proceso strong { font-weight: 600; color: var(--navy); }
+  .proceso span { font-size: 15px; color: var(--muted); }
+
+  .dos { display: grid; gap: 40px; }
+  @media (min-width: 800px) { .dos { grid-template-columns: 1fr 1fr; gap: 64px; } }
+  .dos > div { display: grid; gap: 14px; align-content: start; }
 
   /* ---------- formularios ---------- */
   .field { display: grid; gap: 6px; }
-  label { font-size: 15px; font-weight: 700; color: var(--ink); }
+  label { font-size: 14.5px; font-weight: 600; color: var(--ink); }
   .req { color: var(--warn); }
   input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="tel"], select, textarea {
     width: 100%; font: inherit; color: var(--ink); background: var(--surface);
-    border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; min-height: 50px;
+    border: 1px solid #b9bcc2; border-radius: 3px; padding: 11px 13px; min-height: 48px;
   }
-  input:hover, select:hover, textarea:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) input, :root:not([data-theme="light"]) select, :root:not([data-theme="light"]) textarea { border-color: var(--line); } }
   textarea { min-height: 160px; resize: vertical; }
   input[type="file"] {
     width: 100%; font: inherit; font-size: 15px; color: var(--muted);
-    border: 1.5px dashed var(--line); border-radius: 12px; padding: 12px; background: var(--bg);
+    border: 1px dashed #b9bcc2; border-radius: 3px; padding: 12px; background: var(--band);
   }
   input[type="file"]::file-selector-button {
-    font: inherit; font-weight: 700; font-size: 15px; margin-right: 12px; cursor: pointer;
-    border: 0; border-radius: 10px; padding: 9px 14px; background: var(--soft); color: var(--accent);
+    font: inherit; font-weight: 600; font-size: 14px; margin-right: 12px; cursor: pointer;
+    border: 1px solid var(--navy); border-radius: 3px; padding: 7px 12px; background: var(--surface); color: var(--navy);
   }
-  input:focus-visible, textarea:focus-visible, select:focus-visible, button:focus-visible, input[type="checkbox"]:focus-visible, summary:focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent); outline-offset: 2px;
+  input:focus-visible, textarea:focus-visible, select:focus-visible, button:focus-visible, input[type="checkbox"]:focus-visible, summary:focus-visible, a:focus-visible {
+    outline: 2px solid var(--bronze); outline-offset: 2px;
   }
-  /* etiquetas dentro de formularios generados (administración) */
-  #adDetalle label { margin-bottom: -8px; }
+  #adDetalle label { margin-bottom: -10px; }
 
-  .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--bg); padding: 5px; border-radius: 14px; }
+  .tabs { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
   #adminPanel .tabs { grid-template-columns: repeat(3, 1fr); }
   .tab {
-    font: inherit; font-weight: 700; background: transparent; color: var(--muted);
-    border: 0; border-radius: 10px; padding: 11px 6px; cursor: pointer; min-height: 46px;
+    font: inherit; font-size: 15px; font-weight: 600; background: transparent; color: var(--muted);
+    border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 10px 4px; cursor: pointer; min-height: 44px;
   }
-  .tab.on { background: var(--surface); color: var(--accent); box-shadow: var(--shadow); }
+  .tab.on { color: var(--navy); border-bottom-color: var(--navy); }
 
   .btn {
-    font: inherit; font-weight: 700; font-size: 17px; border-radius: 12px; padding: 13px 18px; cursor: pointer;
-    background: var(--accent); color: var(--accent-ink); border: 1.5px solid var(--accent); min-height: 50px;
+    font: inherit; font-weight: 600; font-size: 16px; letter-spacing: .01em; border-radius: 3px; padding: 12px 20px; cursor: pointer;
+    background: var(--navy); color: var(--navy-ink); border: 1px solid var(--navy); min-height: 48px;
     transition: background-color .15s ease;
   }
-  .btn:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
-  .btn.quiet { background: transparent; color: var(--accent); }
+  .btn:hover { background: var(--navy-2); border-color: var(--navy-2); }
+  .btn.quiet { background: transparent; color: var(--navy); }
   .btn.quiet:hover { background: var(--soft); }
   .btn.danger { background: transparent; color: var(--warn); border-color: var(--warn); }
   .btn.danger:hover { background: var(--warn-bg); }
-  .btn.small { font-size: 15px; padding: 8px 14px; min-height: 40px; }
-  .btn.big { font-size: 18px; padding: 16px 22px; }
+  .btn.small { font-size: 14px; padding: 7px 14px; min-height: 38px; }
   .btn:disabled { opacity: .55; cursor: not-allowed; }
   .actions { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; margin-top: 4px; }
   .actions.one { grid-template-columns: 1fr; }
   .row-form { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
 
-  .progress { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .progress span { height: 6px; border-radius: 99px; background: var(--line); }
-  .progress span.on { background: var(--accent); }
+  .progress { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .progress span { height: 3px; background: var(--line); }
+  .progress span.on { background: var(--navy); }
 
-  /* ---------- víctima ---------- */
-  .welcome {
-    background: linear-gradient(140deg, var(--hero-a), var(--hero-b)); color: #fff; border: 0;
-  }
-  .welcome .lead { color: #dbe8fb; }
-  .welcome .btn { background: #fff; color: var(--hero-a); border-color: #fff; }
-  .welcome .btn:hover { background: #e6effa; }
+  /* ---------- cliente ---------- */
+  .welcome { border-left: 3px solid var(--navy); }
+  .welcome-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
   .grid { display: grid; gap: 12px; }
   .item {
     font: inherit; color: var(--ink); text-align: left; background: var(--surface); border: 1px solid var(--line);
-    border-left: 5px solid var(--accent); border-radius: 14px; padding: 16px 18px; display: grid; gap: 6px;
-    cursor: pointer; width: 100%; box-shadow: var(--shadow);
+    border-radius: 4px; padding: 18px 20px; display: grid; gap: 6px; cursor: pointer; width: 100%;
   }
-  .item:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); border-left-color: var(--accent); }
-  .item.static { cursor: default; border-left-color: var(--line); }
-  .item strong { font-size: 18px; }
-  .item .more { font-size: 14px; font-weight: 700; color: var(--accent); }
+  .item:hover { border-color: var(--navy); }
+  .item.static { cursor: default; }
+  .item.static:hover { border-color: var(--line); }
+  .item strong { font-family: "Source Serif 4", Georgia, serif; font-size: 19px; font-weight: 600; color: var(--navy); }
+  .item .more { font-size: 14px; font-weight: 600; color: var(--navy-2); }
   .badge {
-    font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
-    background: var(--soft); color: var(--accent); justify-self: start;
+    font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 2px 8px;
+    border: 1px solid var(--line); border-radius: 2px; color: var(--navy-2); justify-self: start; background: var(--soft);
   }
-  .badge.warn { background: var(--warn-bg); color: var(--warn); }
-  .estado-ayuda { background: var(--care-soft); color: var(--ink); border-radius: 12px; padding: 12px 14px; font-size: 15px; }
-  .estado-ayuda strong { color: var(--care); }
+  .badge.warn { color: var(--warn); background: var(--warn-bg); border-color: transparent; }
+  .estado-ayuda { background: var(--band); border-left: 3px solid var(--bronze); padding: 12px 16px; font-size: 15px; }
+  .estado-ayuda strong { color: var(--navy); }
 
-  .row { display: grid; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .row { display: grid; grid-template-columns: 1fr; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  @media (min-width: 600px) { .row { grid-template-columns: 180px 1fr; gap: 16px; } }
   .row:last-child { border-bottom: 0; }
-  .row strong { overflow-wrap: anywhere; white-space: pre-line; }
+  .row strong { font-weight: 500; overflow-wrap: anywhere; white-space: pre-line; }
   .file {
     display: flex; justify-content: space-between; gap: 10px; align-items: center;
-    font-size: 15px; padding: 10px 12px; background: var(--bg); border-radius: 10px; border: 1px solid var(--line);
+    font-size: 15px; padding: 10px 12px; border-radius: 3px; border: 1px solid var(--line);
   }
   .file span { overflow-wrap: anywhere; }
-  .timeline { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
-  .timeline li { position: relative; border-left: 2px solid var(--line); padding: 0 0 2px 18px; margin-left: 6px; }
+  .timeline { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+  .timeline li { position: relative; border-left: 1px solid var(--line); padding: 0 0 2px 20px; margin-left: 5px; }
   .timeline li::before {
-    content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%;
-    background: var(--accent); box-shadow: 0 0 0 3px var(--surface);
+    content: ""; position: absolute; left: -5px; top: 8px; width: 9px; height: 9px; background: var(--navy);
   }
   .timeline li.hint::before { background: var(--line); }
 
-  details.datos { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 4px 20px; }
-  details.datos summary { cursor: pointer; font-weight: 700; padding: 14px 0; color: var(--muted); }
+  details.datos { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  details.datos summary { cursor: pointer; font-weight: 600; padding: 14px 0; color: var(--muted); }
   details.datos[open] summary { color: var(--ink); }
-  details.datos > div { display: grid; gap: 12px; padding-bottom: 18px; }
+  details.datos > div { display: grid; gap: 12px; padding-bottom: 20px; }
 
   /* ---------- autorizaciones ---------- */
-  .auth-item { border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 10px; background: var(--surface); }
-  .auth-item h3 { font-family: inherit; font-size: 17px; }
-  .auth-item .que { font-size: 15px; color: var(--muted); }
+  .auth-item { border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 10px; }
+  .auth-item h3 { font-family: inherit; font-size: 16px; font-weight: 600; color: var(--ink); }
+  .auth-item .que { font-size: 14.5px; color: var(--muted); }
   .text {
-    font-size: 15px; color: var(--ink); white-space: pre-line; background: var(--bg);
-    padding: 12px 14px; border-radius: 10px; max-height: 200px; overflow: auto; border: 1px solid var(--line);
+    font-size: 14px; color: var(--ink); white-space: pre-line; background: var(--band);
+    padding: 12px 14px; max-height: 190px; overflow: auto; border: 1px solid var(--line); border-radius: 3px;
   }
-  .check {
-    display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; font-size: 16px; font-weight: 400;
-    background: var(--soft); padding: 12px; border-radius: 10px; cursor: pointer;
-  }
-  .check input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--accent); }
+  .check { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; font-size: 15px; font-weight: 400; cursor: pointer; }
+  .check input { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--navy); }
 
-  .msg { font-size: 16px; border-radius: 12px; padding: 12px 14px; }
+  .msg { font-size: 15px; border-radius: 3px; padding: 11px 14px; }
   .msg.err { background: var(--warn-bg); color: var(--warn); }
   .msg.ok { background: var(--ok-bg); color: var(--ok); }
   .hidden { display: none !important; }
 
-  footer.pie { max-width: 1120px; margin-inline: auto; padding: 0 16px 40px; font-size: 14px; color: var(--muted); text-align: center; }
+  footer.pie { background: #13253f; color: #c8d0dc; font-size: 14px; }
+  footer.pie .inner { padding-block: 32px; display: grid; gap: 10px; }
+  @media (min-width: 800px) { footer.pie .inner { grid-template-columns: 1fr auto; align-items: end; } }
+  footer.pie strong { color: #fff; font-family: "Source Serif 4", Georgia, serif; font-size: 18px; font-weight: 600; }
+  footer.pie a { color: #fff; }
 </style>
 </head>
 <body>
@@ -265,207 +240,230 @@
 <header class="topbar">
   <div class="topbar-in">
     <div class="brand">
-      <span class="brand-mark" aria-hidden="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-9.2-9.4C1.6 8 3.8 4.5 7.3 4.5c2 0 3.5 1.1 4.7 2.7 1.2-1.6 2.7-2.7 4.7-2.7 3.5 0 5.7 3.5 4.5 7.1C19.5 16.4 12 21 12 21z"/><path d="M12 10v5M9.5 12.5h5"/></svg>
-      </span>
+      <span class="brand-mono">TMM</span>
+      <span class="brand-rule" aria-hidden="true"></span>
       <div>
-        <div class="brand-name">Ayuda en salud</div>
-        <div class="brand-sub">Tutelas y quejas ante la Supersalud</div>
+        <div class="brand-name">Asesorías Legales</div>
+        <div class="brand-sub">Derecho a la salud</div>
       </div>
     </div>
-    <button id="btnSalir" class="btn quiet small hidden" onclick="salir()">Salir</button>
+    <nav id="navPortada" class="topnav" aria-label="Secciones">
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Procedimiento</a>
+      <a href="#documentos">Documentos</a>
+    </nav>
+    <button id="btnSalir" class="btn quiet small hidden" onclick="salir()">Cerrar sesión</button>
   </div>
 </header>
 
 <div class="wrap">
 
   <div class="pagehead">
-    <p id="kickerPagina" class="kicker">Su espacio</p>
+    <p id="kickerPagina" class="kicker">Portal de clientes</p>
     <h1 id="titulo">Ingreso</h1>
   </div>
 
   <!-- ============ PORTADA + INGRESO Y REGISTRO ============ -->
   <div id="vPortada" class="acceso-grid hidden">
     <section class="hero" aria-labelledby="heroTitulo">
-      <p class="kicker">Acompañamiento en salud</p>
-      <h1 id="heroTitulo">¿Su EPS le niega, le demora o no le entrega la atención que necesita?</h1>
-      <p class="big">Aquí puede enviar su caso. Lo revisamos y preparamos una <strong>acción de tutela</strong> o una <strong>queja ante la Superintendencia Nacional de Salud</strong>, y usted ve el avance desde su celular.</p>
-      <ul class="chips" aria-label="Casos frecuentes">
-        <li>Citas con especialista que no llegan</li>
-        <li>Medicamentos no entregados</li>
-        <li>Cirugías o procedimientos sin autorizar</li>
-        <li>Exámenes, terapias o insumos negados</li>
-      </ul>
-      <p class="hero-note">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-        <span>Sus datos y su historia clínica se usan solo para su caso. No se comparten ni se usan para publicidad.</span>
-      </p>
+      <p class="kicker">Derecho a la salud</p>
+      <h1 id="heroTitulo">Representación frente a las EPS cuando la atención en salud se niega, se demora o se cobra.</h1>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="big">Preparamos y hacemos seguimiento a acciones de tutela, quejas ante la Superintendencia Nacional de Salud y solicitudes de recobro de gastos médicos. Usted consulta el estado de su caso en línea, en cualquier momento.</p>
+      <div class="casos" aria-label="Casos que atendemos">
+        <div>Citas con especialista sin asignar</div>
+        <div>Medicamentos no entregados</div>
+        <div>Cirugías y procedimientos sin autorizar</div>
+        <div>Exámenes, terapias o insumos negados</div>
+        <div>Gastos médicos pagados de su bolsillo</div>
+        <div>Tratamientos interrumpidos</div>
+      </div>
+      <p class="hero-note">La información y los documentos que usted entregue se usan únicamente para su caso, de acuerdo con la autorización de tratamiento de datos.</p>
     </section>
 
-    <section id="vAcceso" class="card hidden" aria-label="Ingreso y registro">
-      <div class="section-title">
-        <h2>Entre a su cuenta</h2>
-        <p class="hint">Si es la primera vez, cree su cuenta. Solo necesita su cédula y una clave de 6 números.</p>
+    <section id="vAcceso" class="card hidden" aria-label="Portal de clientes">
+      <div class="portal-head">
+        <h2>Portal de clientes</h2>
+        <p>Envíe su caso y consulte su estado.</p>
       </div>
-      <div class="tabs" role="tablist">
-        <button id="tabIngresar" class="tab on" onclick="tab('ingresar')">Ya tengo cuenta</button>
-        <button id="tabRegistro" class="tab" onclick="tab('registro')">Crear cuenta</button>
-      </div>
-
-      <div id="fIngresar" class="stack">
-        <div class="field">
-          <label for="iCedula">Número de cédula</label>
-          <input id="iCedula" type="text" inputmode="numeric" autocomplete="username" placeholder="Sin puntos ni espacios">
-        </div>
-        <div class="field">
-          <label for="iClave">Clave de 6 números</label>
-          <input id="iClave" type="password" inputmode="numeric" maxlength="6" autocomplete="current-password">
-        </div>
-        <div class="actions one"><button class="btn" onclick="ingresar()">Entrar</button></div>
-        <p class="hint">¿Olvidó su clave? Escriba a <a href="mailto:tmm.asesoriaslegales@gmail.com">tmm.asesoriaslegales@gmail.com</a>.</p>
-        <div id="msgIngresar"></div>
-      </div>
-
-      <div id="fRegistro" class="hidden stack">
-        <div id="paso1" class="stack">
-          <div class="progress" aria-hidden="true"><span class="on"></span><span></span></div>
-          <p class="lead"><strong>Paso 1 de 2.</strong> Sus datos.</p>
-          <div class="field">
-            <label for="rNombre">Nombre completo</label>
-            <input id="rNombre" type="text" autocomplete="name">
-          </div>
-          <div class="field">
-            <label for="rCedula">Número de cédula</label>
-            <input id="rCedula" type="text" inputmode="numeric" placeholder="Sin puntos ni espacios">
-          </div>
-          <div class="field">
-            <label for="rCorreo">Correo electrónico</label>
-            <input id="rCorreo" type="email" autocomplete="email">
-          </div>
-          <div class="field">
-            <label for="rClave">Cree una clave de 6 números</label>
-            <input id="rClave" type="password" inputmode="numeric" maxlength="6" autocomplete="new-password">
-          </div>
-          <div class="field">
-            <label for="rClave2">Repita la clave</label>
-            <input id="rClave2" type="password" inputmode="numeric" maxlength="6" autocomplete="new-password">
-          </div>
-          <div class="actions one"><button class="btn" onclick="siguientePaso()">Siguiente</button></div>
+      <div class="portal-body">
+        <div class="tabs" role="tablist">
+          <button id="tabIngresar" class="tab on" onclick="tab('ingresar')">Ingresar</button>
+          <button id="tabRegistro" class="tab" onclick="tab('registro')">Crear cuenta</button>
         </div>
 
-        <div id="paso2" class="stack hidden">
-          <div class="progress" aria-hidden="true"><span class="on"></span><span class="on"></span></div>
-          <p class="lead"><strong>Paso 2 de 2.</strong> Sus autorizaciones. Lea cada texto y marque solo lo que acepte.</p>
-          <div class="auth-item">
-            <h3>1. Uso de mis datos personales y de salud <span class="req">*</span></h3>
-            <p class="que">Nos permite leer su historia clínica y sus documentos para preparar su caso.</p>
-            <div class="text" id="tTrat"></div>
-            <label class="check"><input type="checkbox" id="aTrat"><span>Acepto el tratamiento de mis datos en los términos anteriores.</span></label>
-          </div>
-          <div class="auth-item">
-            <h3>2. Mandato para gestiones ante la EPS y la Supersalud <span class="req">*</span></h3>
-            <p class="que">Nos permite presentar peticiones y quejas en su nombre y pedir información de sus trámites.</p>
-            <div class="text" id="tMand"></div>
-            <label class="check"><input type="checkbox" id="aMand"><span>Acepto el mandato en los términos anteriores.</span></label>
-          </div>
-          <div class="auth-item">
-            <h3>3. Agencia oficiosa para tutela <span class="hint">(opcional)</span></h3>
-            <p class="que">Solo se usa si usted no puede presentar la tutela por sí mismo.</p>
-            <div class="text" id="tAgen"></div>
-            <label class="check"><input type="checkbox" id="aAgen"><span>Autorizo la agencia oficiosa en los términos anteriores.</span></label>
+        <div id="fIngresar" class="stack">
+          <div class="field">
+            <label for="iCedula">Número de cédula</label>
+            <input id="iCedula" type="text" inputmode="numeric" autocomplete="username" placeholder="Sin puntos ni espacios">
           </div>
           <div class="field">
-            <label for="rFirma">Firme escribiendo su nombre completo</label>
-            <input id="rFirma" type="text" autocomplete="off">
+            <label for="iClave">Clave de 6 números</label>
+            <input id="iClave" type="password" inputmode="numeric" maxlength="6" autocomplete="current-password">
           </div>
-          <p class="hint">Quedan registradas la fecha, la hora y la versión del texto que acepta. Sus autorizaciones firmadas se guardan en su carpeta.</p>
-          <div class="actions"><button class="btn quiet" onclick="irPaso(1)">Volver</button><button id="btnCrearCuenta" class="btn" onclick="registrar()">Crear cuenta</button></div>
+          <div class="actions one"><button class="btn" onclick="ingresar()">Ingresar</button></div>
+          <p class="hint">¿Olvidó su clave? Escriba a <a href="mailto:tmm.asesoriaslegales@gmail.com">tmm.asesoriaslegales@gmail.com</a>.</p>
+          <div id="msgIngresar"></div>
         </div>
-        <div id="msgRegistro"></div>
+
+        <div id="fRegistro" class="hidden stack">
+          <div id="paso1" class="stack">
+            <div class="progress" aria-hidden="true"><span class="on"></span><span></span></div>
+            <p class="hint"><strong>Paso 1 de 2.</strong> Datos personales.</p>
+            <div class="field">
+              <label for="rNombre">Nombre completo</label>
+              <input id="rNombre" type="text" autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="rCedula">Número de cédula</label>
+              <input id="rCedula" type="text" inputmode="numeric" placeholder="Sin puntos ni espacios">
+            </div>
+            <div class="field">
+              <label for="rCorreo">Correo electrónico</label>
+              <input id="rCorreo" type="email" autocomplete="email">
+            </div>
+            <div class="field">
+              <label for="rClave">Clave de 6 números</label>
+              <input id="rClave" type="password" inputmode="numeric" maxlength="6" autocomplete="new-password">
+            </div>
+            <div class="field">
+              <label for="rClave2">Confirme la clave</label>
+              <input id="rClave2" type="password" inputmode="numeric" maxlength="6" autocomplete="new-password">
+            </div>
+            <div class="actions one"><button class="btn" onclick="siguientePaso()">Continuar</button></div>
+          </div>
+
+          <div id="paso2" class="stack hidden">
+            <div class="progress" aria-hidden="true"><span class="on"></span><span class="on"></span></div>
+            <p class="hint"><strong>Paso 2 de 2.</strong> Autorizaciones. Lea cada texto y marque únicamente lo que acepte.</p>
+            <div class="auth-item">
+              <h3>1. Tratamiento de datos personales y de salud <span class="req">*</span></h3>
+              <p class="que">Permite revisar su historia clínica y sus documentos para preparar el caso.</p>
+              <div class="text" id="tTrat"></div>
+              <label class="check"><input type="checkbox" id="aTrat"><span>Acepto el tratamiento de mis datos en los términos anteriores.</span></label>
+            </div>
+            <div class="auth-item">
+              <h3>2. Mandato para gestiones ante la EPS y la Supersalud <span class="req">*</span></h3>
+              <p class="que">Permite presentar peticiones y quejas en su nombre y solicitar información de sus trámites.</p>
+              <div class="text" id="tMand"></div>
+              <label class="check"><input type="checkbox" id="aMand"><span>Acepto el mandato en los términos anteriores.</span></label>
+            </div>
+            <div class="auth-item">
+              <h3>3. Agencia oficiosa para tutela <span class="hint">(opcional)</span></h3>
+              <p class="que">Solo se usa si usted no puede presentar la tutela directamente.</p>
+              <div class="text" id="tAgen"></div>
+              <label class="check"><input type="checkbox" id="aAgen"><span>Autorizo la agencia oficiosa en los términos anteriores.</span></label>
+            </div>
+            <div class="field">
+              <label for="rFirma">Firma: escriba su nombre completo</label>
+              <input id="rFirma" type="text" autocomplete="off">
+            </div>
+            <p class="hint">Se registran la fecha, la hora y la versión del texto aceptado. Las autorizaciones firmadas quedan en su expediente.</p>
+            <div class="actions"><button class="btn quiet" onclick="irPaso(1)">Volver</button><button id="btnCrearCuenta" class="btn" onclick="registrar()">Crear cuenta</button></div>
+          </div>
+          <div id="msgRegistro"></div>
+        </div>
+        <p id="versionTexto" class="sample"></p>
       </div>
-      <p id="versionTexto" class="sample"></p>
     </section>
   </div>
 
   <!-- ============ INFORMACIÓN DE LA PORTADA ============ -->
-  <div id="vInfo" class="info hidden">
-    <div class="section-title">
-      <p class="kicker">Dos caminos para exigir su derecho a la salud</p>
-      <h2>¿Tutela o queja ante la Supersalud?</h2>
-      <p class="lead">No tiene que decidirlo usted. Revisamos su caso y elegimos el camino que más le conviene.</p>
-    </div>
-    <div class="two">
-      <article class="card route">
-        <div class="route-head">
-          <span class="route-icon" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0L7 7zM17 7l-3 7a3 3 0 0 0 6 0l-3-7zM8 21h8"/></svg>
-          </span>
-          <div><h3>Acción de tutela</h3><p class="hint">Ante un juez de la República</p></div>
+  <div id="vInfo" class="hidden">
+    <div class="band" id="servicios">
+      <div class="inner section">
+        <div class="section-title">
+          <p class="kicker">Servicios</p>
+          <h2>Tres vías para exigir su derecho a la salud</h2>
+          <p class="lead" style="max-width:62ch">Usted no tiene que escoger la vía. Revisamos su caso y definimos la actuación que corresponde.</p>
         </div>
-        <ul class="ticks">
-          <li>Para cuando la falta de atención pone en riesgo su salud, su vida o su dignidad.</li>
-          <li>El juez puede ordenar a la EPS que le preste el servicio.</li>
-          <li>El juez debe decidir en un plazo máximo de 10 días.</li>
-        </ul>
-      </article>
-      <article class="card route care">
-        <div class="route-head">
-          <span class="route-icon" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
-          </span>
-          <div><h3>Queja ante la Supersalud</h3><p class="hint">Superintendencia Nacional de Salud</p></div>
+        <div class="servicios">
+          <article class="servicio">
+            <span class="num">I</span>
+            <h3>Acción de tutela</h3>
+            <p class="ante">Ante un juez de la República</p>
+            <ul class="dash">
+              <li>Cuando la falta de atención pone en riesgo su salud, su vida o su dignidad.</li>
+              <li>El juez puede ordenar a la EPS que preste el servicio.</li>
+              <li>El juez debe decidir en un plazo máximo de 10 días.</li>
+            </ul>
+          </article>
+          <article class="servicio">
+            <span class="num">II</span>
+            <h3>Queja ante la Supersalud</h3>
+            <p class="ante">Superintendencia Nacional de Salud</p>
+            <ul class="dash">
+              <li>La Supersalud vigila a las EPS y a las clínicas.</li>
+              <li>Procede por demoras, negaciones, cobros indebidos o mala atención.</li>
+              <li>Busca que la EPS responda y corrija la falla.</li>
+            </ul>
+          </article>
+          <article class="servicio">
+            <span class="num">III</span>
+            <h3>Recobro de gastos médicos</h3>
+            <p class="ante">Ante la EPS y la Supersalud</p>
+            <ul class="dash">
+              <li>Si usted pagó medicamentos, exámenes o procedimientos que la EPS debía cubrir.</li>
+              <li>Se solicita el reembolso a la EPS con las facturas y soportes de pago.</li>
+              <li>Si la EPS no paga, se acude a la Supersalud para que ordene la devolución.</li>
+            </ul>
+          </article>
         </div>
-        <ul class="ticks">
-          <li>La Supersalud vigila a las EPS y a las clínicas.</li>
-          <li>Para demoras, negaciones, cobros indebidos o mala atención.</li>
-          <li>Busca que la EPS responda y corrija la falla.</li>
-        </ul>
-      </article>
+      </div>
     </div>
 
-    <div class="section-title" style="margin-top:8px">
-      <p class="kicker">Así funciona</p>
-      <h2>Cuatro pasos, sin salir de su casa</h2>
+    <div class="inner section" id="proceso">
+      <div class="section-title">
+        <p class="kicker">Procedimiento</p>
+        <h2>Cómo se tramita su caso</h2>
+      </div>
+      <ol class="proceso">
+        <li><strong>Registro</strong><span>Cree su cuenta con su cédula y una clave de 6 números.</span></li>
+        <li><strong>Autorizaciones</strong><span>Firme en línea el tratamiento de datos y el mandato.</span></li>
+        <li><strong>Envío del caso</strong><span>Describa la situación y adjunte historia clínica, cédula y soportes.</span></li>
+        <li><strong>Seguimiento</strong><span>Consulte el estado, las actuaciones y las copias radicadas.</span></li>
+      </ol>
     </div>
-    <ol class="steps">
-      <li><strong>Cree su cuenta</strong><span>Con su cédula y una clave de 6 números.</span></li>
-      <li><strong>Firme sus autorizaciones</strong><span>Para poder revisar su caso y actuar ante la EPS.</span></li>
-      <li><strong>Envíe su caso</strong><span>Cuéntenos qué pasa y adjunte su historia clínica y su cédula.</span></li>
-      <li><strong>Siga el avance</strong><span>Vea el estado, cada actuación y las copias radicadas.</span></li>
-    </ol>
 
-    <div class="two">
-      <article class="card">
-        <h3>Tenga a mano</h3>
-        <ul class="ticks">
-          <li><strong>Historia clínica</strong> (obligatoria).</li>
-          <li><strong>Cédula</strong> (obligatoria). Puede ser una foto.</li>
-          <li>Órdenes médicas, fórmulas o incapacidades.</li>
-          <li>La respuesta o negación de la EPS, si la tiene.</li>
-        </ul>
-      </article>
-      <article class="card">
-        <h3>Antes de empezar</h3>
-        <p class="hint">Esta plataforma es un apoyo para preparar y hacer seguimiento a sus acciones. No reemplaza la asesoría de un abogado y no garantiza el resultado del proceso.</p>
-        <p class="hint">La plataforma no envía correos ni mensajes. Para saber cómo va su caso, entre con su cédula y su clave.</p>
-        <p class="hint">Contacto: <a href="mailto:tmm.asesoriaslegales@gmail.com">tmm.asesoriaslegales@gmail.com</a></p>
-      </article>
+    <div class="band" id="documentos">
+      <div class="inner section">
+        <div class="dos">
+          <div>
+            <p class="kicker">Documentos</p>
+            <h2>Qué debe tener a mano</h2>
+            <ul class="dash">
+              <li>Historia clínica (obligatoria).</li>
+              <li>Documento de identidad (obligatorio). Puede ser una fotografía.</li>
+              <li>Órdenes médicas, fórmulas o incapacidades.</li>
+              <li>Respuesta o negación de la EPS, si la tiene.</li>
+              <li>Facturas y soportes de pago, si pagó servicios de su bolsillo.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="kicker">Información importante</p>
+            <h2>Antes de empezar</h2>
+            <p class="hint">Esta plataforma apoya la preparación y el seguimiento de sus actuaciones. No garantiza el resultado del proceso.</p>
+            <p class="hint">La plataforma no envía correos ni mensajes. Para conocer el estado de su caso, ingrese con su cédula y su clave.</p>
+            <p class="hint">Contacto: <a href="mailto:tmm.asesoriaslegales@gmail.com">tmm.asesoriaslegales@gmail.com</a></p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- ============ VÍCTIMA ============ -->
-  <section id="vPersona" class="hidden" style="display:grid; gap:20px">
+  <!-- ============ CLIENTE ============ -->
+  <section id="vPersona" class="hidden" style="display:grid; gap:24px">
     <div class="card welcome">
-      <p id="saludo" class="lead"></p>
-      <h2 style="color:#fff">¿Qué necesita hacer hoy?</h2>
-      <p class="lead">Si la EPS le está negando o demorando un servicio, envíenos su caso con sus documentos. Aquí verá cada avance.</p>
-      <div class="actions one"><button id="btnNuevaSolicitud" class="btn big" onclick="nuevaSolicitud()">Enviar mi caso</button></div>
+      <p id="saludo" class="hint"></p>
+      <h2>Presentar un caso nuevo</h2>
+      <p class="lead">Si la EPS le negó o demoró un servicio, o si usted pagó gastos médicos que la EPS debía cubrir, envíe su caso con los documentos de soporte.</p>
+      <div class="welcome-actions"><button id="btnNuevaSolicitud" class="btn" onclick="nuevaSolicitud()">Enviar un caso</button></div>
     </div>
     <div id="msgPersona"></div>
 
     <div class="section-title">
       <h2>Mis casos</h2>
-      <p class="hint">Toque un caso para ver su estado, las actuaciones y los documentos.</p>
+      <p class="hint">Seleccione un caso para ver su estado, las actuaciones y los documentos.</p>
     </div>
     <div id="listaRegistros" class="grid"></div>
 
@@ -485,7 +483,7 @@
           <select id="dCategoria"></select>
         </div>
         <input id="dArchivo" type="file" accept="application/pdf,image/jpeg,image/png" aria-label="Archivo">
-        <p class="hint">PDF de máximo 8 MB, o fotos JPG o PNG (las fotos se reducen automáticamente).</p>
+        <p class="hint">PDF de máximo 8 MB, o fotografías JPG o PNG (se reducen automáticamente).</p>
         <div class="actions one"><button class="btn quiet" onclick="subirDesdeDetalle()">Subir documento</button></div>
       </div>
       <div id="dEnviar" class="actions one hidden"><button class="btn" onclick="enviarDesdeDetalle()">Enviar solicitud</button></div>
@@ -493,38 +491,38 @@
     </div>
 
     <details class="datos">
-      <summary>Mis datos y autorizaciones</summary>
+      <summary>Datos personales y autorizaciones</summary>
       <div>
         <h3>Revocar autorización</h3>
-        <p class="hint">Si revoca el tratamiento de sus datos, eliminamos sus datos de la plataforma. Si tiene un caso o una solicitud en curso, debe escribir a <a href="mailto:tmm.asesoriaslegales@gmail.com">tmm.asesoriaslegales@gmail.com</a>.</p>
+        <p class="hint">Si revoca el tratamiento de sus datos, se eliminan de la plataforma. Si tiene un caso o una solicitud en curso, escriba a <a href="mailto:tmm.asesoriaslegales@gmail.com">tmm.asesoriaslegales@gmail.com</a>.</p>
         <div class="actions one"><button class="btn danger" onclick="revocar()">Revocar y eliminar mis datos</button></div>
       </div>
     </details>
   </section>
 
   <!-- ============ NUEVA SOLICITUD ============ -->
-  <section id="vSolicitud" class="hidden" style="display:grid; gap:20px">
+  <section id="vSolicitud" class="hidden" style="display:grid; gap:24px">
     <div class="card">
       <div class="section-title">
         <p class="kicker">Parte 1 de 2</p>
-        <h2>Cuéntenos qué le está pasando</h2>
+        <h2>Descripción del caso</h2>
       </div>
-      <p class="hint">Escriba con sus palabras. Le ayuda contarnos:</p>
-      <ul class="ticks hint">
-        <li>¿Qué servicio, medicamento o procedimiento necesita?</li>
-        <li>¿Desde cuándo lo está esperando?</li>
-        <li>¿Qué le ha dicho la EPS? ¿Le dieron un número de radicado?</li>
-        <li>¿Cómo está afectando su salud o su vida diaria?</li>
+      <p class="hint">Escriba con sus palabras. Es útil que indique:</p>
+      <ul class="dash hint">
+        <li>Qué servicio, medicamento o procedimiento necesita.</li>
+        <li>Desde cuándo lo está esperando y qué le ha respondido la EPS.</li>
+        <li>Si pagó algo de su bolsillo: qué pagó, cuándo y cuánto.</li>
+        <li>Cómo está afectando su salud o su vida diaria.</li>
       </ul>
-      <label for="sExplicacion">Su explicación <span class="req">*</span></label>
-      <textarea id="sExplicacion" placeholder="Por ejemplo: desde hace tres meses la EPS no me autoriza la cirugía de rodilla que ordenó el ortopedista. Ya fui dos veces y me dicen que no hay agenda..."></textarea>
+      <label for="sExplicacion">Descripción <span class="req">*</span></label>
+      <textarea id="sExplicacion" placeholder="Ejemplo: desde hace tres meses la EPS no autoriza la cirugía de rodilla que ordenó el ortopedista. Tuve que pagar la resonancia magnética de forma particular..."></textarea>
     </div>
 
     <div class="card">
       <div class="section-title">
         <p class="kicker">Parte 2 de 2</p>
-        <h2>Adjunte sus documentos</h2>
-        <p class="hint">PDF de máximo 8 MB, o fotos JPG o PNG tomadas con el celular (se reducen automáticamente).</p>
+        <h2>Documentos de soporte</h2>
+        <p class="hint">PDF de máximo 8 MB, o fotografías JPG o PNG tomadas con el celular (se reducen automáticamente).</p>
       </div>
       <div class="field">
         <label for="sHC">Historia clínica <span class="req">*</span></label>
@@ -535,34 +533,34 @@
         <input id="sCed" type="file" accept="application/pdf,image/jpeg,image/png">
       </div>
       <div class="field">
-        <label for="sOtro">Otro documento <span class="hint">(opcional)</span></label>
+        <label for="sOtro">Otro documento <span class="hint">(opcional; por ejemplo, facturas de lo que pagó)</span></label>
         <input id="sOtro" type="file" accept="application/pdf,image/jpeg,image/png">
       </div>
       <div class="field">
-        <label for="sCatOtro">¿Qué es el otro documento?</label>
+        <label for="sCatOtro">Tipo del otro documento</label>
         <select id="sCatOtro"></select>
       </div>
-      <p class="hint">Después de enviar podrá agregar más documentos desde el detalle de su caso mientras esté en borrador.</p>
+      <p class="hint">Después del envío podrá agregar más documentos desde el detalle del caso.</p>
       <div class="actions">
         <button class="btn quiet" onclick="volverDesdeSolicitud()">Volver</button>
-        <button id="sEnviar" class="btn" onclick="enviarSolicitud()">Enviar mi caso</button>
+        <button id="sEnviar" class="btn" onclick="enviarSolicitud()">Enviar caso</button>
       </div>
       <div id="msgSolicitud"></div>
     </div>
   </section>
 
   <!-- ============ ADMINISTRADOR ============ -->
-  <section id="vAdmin" class="hidden" style="display:grid; gap:20px">
+  <section id="vAdmin" class="hidden" style="display:grid; gap:24px">
     <div id="adminLogin" class="card hidden">
       <div class="field">
         <label for="aClave">Clave de administrador</label>
         <input id="aClave" type="password" autocomplete="current-password">
       </div>
-      <div class="actions one"><button class="btn" onclick="entrarAdmin()">Entrar</button></div>
+      <div class="actions one"><button class="btn" onclick="entrarAdmin()">Ingresar</button></div>
       <div id="msgAdmin"></div>
     </div>
 
-    <div id="adminPanel" class="hidden" style="display:grid; gap:20px">
+    <div id="adminPanel" class="hidden" style="display:grid; gap:24px">
       <div class="tabs">
         <button id="tabSol" class="tab on" onclick="adTab('sol')">Solicitudes</button>
         <button id="tabCas" class="tab" onclick="adTab('cas')">Casos</button>
@@ -579,8 +577,13 @@
 </div>
 
 <footer class="pie">
-  Apoyo para tutelas y quejas en salud · Responsable del tratamiento de datos: Javier Ricardo Torres Betancourt ·
-  <a href="mailto:tmm.asesoriaslegales@gmail.com">tmm.asesoriaslegales@gmail.com</a>
+  <div class="inner">
+    <div>
+      <strong>TMM Asesorías Legales</strong>
+      <p>Tutelas, quejas ante la Supersalud y recobro de gastos médicos.</p>
+    </div>
+    <p>Responsable del tratamiento de datos: Javier Ricardo Torres Betancourt · <a href="mailto:tmm.asesoriaslegales@gmail.com">tmm.asesoriaslegales@gmail.com</a></p>
+  </div>
 </footer>
 
 <script>
@@ -593,9 +596,9 @@
   // Explicación sencilla de cada estado, para que la persona entienda en qué va su caso.
   const ESTADO_AYUDA = {
     'Borrador': 'Su solicitud todavía no se ha enviado. Adjunte los documentos obligatorios y envíela.',
-    'En revisión': 'Recibimos su caso. Lo estamos revisando para definir si procede una tutela o una queja ante la Supersalud.',
+    'En revisión': 'Recibimos su caso. Lo estamos revisando para definir si procede una tutela, una queja ante la Supersalud o un recobro de gastos médicos.',
     'Convertida': 'Su solicitud ya se convirtió en un caso. Ábralo en la lista "Mis casos" para ver su avance.',
-    'Radicado': 'La tutela o la queja ya fue presentada ante la autoridad.',
+    'Radicado': 'La actuación ya fue presentada ante la autoridad o ante la EPS.',
     'En reparto': 'Se está asignando el juzgado que estudiará la tutela.',
     'Admitido': 'La autoridad aceptó estudiar su caso.',
     'Medida provisional decidida': 'Se decidió si se ordena una protección urgente mientras se resuelve el caso.',
@@ -628,6 +631,7 @@
     ['vPortada', 'vInfo', 'vAcceso', 'vPersona', 'vSolicitud', 'vAdmin'].forEach(x => $(x).classList.add('hidden'));
     const acceso = v === 'vAcceso';
     document.body.classList.toggle('en-acceso', acceso);
+    $('navPortada').classList.toggle('hidden', !acceso);
     if (acceso) { $('vPortada').classList.remove('hidden'); $('vInfo').classList.remove('hidden'); }
     $(v).classList.remove('hidden');
     window.scrollTo(0, 0);
@@ -775,7 +779,7 @@
   async function entrarPersona() {
     const p = await llamar('miPerfil', TOKEN);
     $('saludo').textContent = 'Hola, ' + p.nombre + ' · Cédula ' + p.cedula;
-    titulo('Su espacio', 'Mi seguimiento');
+    titulo('Portal de clientes', 'Mi expediente');
     $('btnSalir').classList.remove('hidden');
     $('vDetalle').classList.add('hidden');
     mostrar('vPersona');
@@ -791,7 +795,7 @@
     r.casos.forEach(c => items.push(tarjeta(c.id, c.tipo + (c.accionado ? ' contra ' + c.accionado : ''), c.estado, c.fechaInicio,
       'Radicado: ' + (c.radicado || 'pendiente') + ' · Despacho: ' + (c.despacho || 'pendiente'))));
     $('listaRegistros').innerHTML = items.length ? items.join('') :
-      '<div class="card"><p class="lead">Todavía no tiene casos. Cuando envíe su caso, lo verá aquí con su estado.</p></div>';
+      '<div class="card"><p class="lead">Aún no tiene casos registrados. Cuando envíe su caso, aparecerá aquí con su estado.</p></div>';
   }
 
   function tarjeta(id, titulo, estado, fecha, detalle) {
@@ -876,13 +880,13 @@
   function nuevaSolicitud() {
     $('sExplicacion').value = '';
     $('sHC').value = ''; $('sCed').value = ''; $('sOtro').value = '';
-    titulo('Nueva solicitud', 'Enviar mi caso');
+    titulo('Nueva solicitud', 'Enviar un caso');
     msg('msgSolicitud', '', true);
     mostrar('vSolicitud');
   }
 
   function volverDesdeSolicitud() {
-    titulo('Su espacio', 'Mi seguimiento');
+    titulo('Portal de clientes', 'Mi expediente');
     mostrar('vPersona');
   }
 
@@ -903,7 +907,7 @@
       if (otro) await subirArchivo(r.id, $('sCatOtro').value, otro);
       await llamar('enviarSolicitud', TOKEN, r.id);
       await entrarPersona();
-      msg('msgPersona', 'Recibimos su caso y quedó En revisión. Entre aquí cuando quiera para ver cómo avanza.', true);
+      msg('msgPersona', 'Recibimos su caso. Quedó en estado En revisión; puede consultar su avance en este portal.', true);
     } catch (e) {
       msg('msgSolicitud', e.message, false);
     } finally {
@@ -925,7 +929,7 @@
   function salir() {
     TOKEN = null;
     REGISTRO_ACTUAL = null;
-    titulo('Su espacio', 'Ingreso');
+    titulo('Portal de clientes', 'Ingreso');
     $('btnSalir').classList.add('hidden');
     $('iClave').value = '';
     tab('ingresar');
